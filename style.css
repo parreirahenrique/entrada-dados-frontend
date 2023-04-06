@@ -1,0 +1,194 @@
+/* ESTILOS GERAIS DE TODAS AS PÁGINAS */
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    background-image: linear-gradient(rgba(0,0,0,.05),rgba(0,0,0,.40)100%), url('./img/background.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    scroll-behavior: smooth;
+    position:absolute; 
+    height:100%; 
+    width:100%;
+}
+
+.container-nav {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    height: 100px;
+    background-color: black;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+p {
+    color: white;
+    margin-right: auto;
+    margin-left: auto;
+    font-family: 'Zilla Slab', serif;
+    font-style: italic;
+    font-size: 60px;
+    font-weight: bolder;
+    text-align: center;
+}
+
+i {
+    color: white;
+    size: small;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+i:hover {
+    size: large;
+    background-color: rgba(0,0,0,.5);
+    border-radius: 3px;
+}
+
+button {
+    margin: 10px;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    font-size: medium;
+    border-radius: 7.5px;
+    width: 200px;
+    height: 50px;
+    background: rgba(0,0,0,.75);
+    border: 0;
+    list-style: none;    
+}
+
+button:hover {
+    color: white;
+    background: rgba(0,0,0,.6);
+}
+
+a {
+    text-decoration: none;
+}
+
+.container-form {
+    position: relative;
+    margin-bottom: 1.25em;
+}
+
+input {
+    color: transparent;
+    margin-top: 20px;
+    border: 0;
+    border-bottom: 3px solid rgba(0,0,0,.50);
+    border-radius: 3px;
+    outline: none;
+    background-color: rgb(255, 255, 255, .40);
+}
+
+label {
+    font-family: 'Roboto', sans-serif;
+    position: absolute;
+    top: 20px;
+    left: 0;
+    color: #424242;
+    display: flex;
+    align-items: center;
+    cursor: text;
+    transition: .3s ease-in-out;
+    pointer-events: none;
+}
+
+input, label {
+    font-family: 'Roboto', sans-serif;
+    font-size: medium;;
+    width: 100%;
+    height: 40px;
+}
+
+input:focus + label, 
+input:valid + label {
+    color: #424242;
+    top: -15px;
+    pointer-events: none;
+    color: white;
+}
+
+input:focus,
+input:valid {
+    color: black;
+    border-bottom: 3px solid rgb(0, 0, 0, .90);
+    background-color: rgb(255, 255, 255, .75);
+}
+
+input:hover {
+    background-color: rgb(255, 255, 255, .60);
+}
+
+input::placeholder{
+    color: transparent;
+    transition: .3s ease-in-out;
+}
+
+input:focus::placeholder{
+    color: gray;
+}
+
+ul {
+    -webkit-column-count: 2;
+    -moz-column-count: 2;
+    column-count: 2;
+    list-style: none;
+    box-sizing: border-box;
+}
+
+.container {
+    width: 750px;
+    display: grid;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+    border-radius: 10px;
+    justify-content: center;
+    text-align: center;
+    background-color: rgb(0, 0, 0, .30);
+    
+}
+
+/* ESTILOS DAS CLASSES DA PÁGINA PRINCIPAL */
+#container-buttons {
+    visibility: hidden;
+    display: none;
+}
+
+/* ESTILOS DAS CLASSES DA PÁGINA DE CLIENTES */
+#container-options {
+    display: flex;
+    flex-direction: row;
+    width: fit-content;
+}
+
+#container-search-clients {
+    visibility: hidden;
+    display: none;
+}
+
+#container-add-clients {
+    visibility: hidden;
+    display: none;
+}
+
+#container-update-clients {
+    visibility: hidden;
+    display: none;
+}
+
+#container-delete-clients {
+    visibility: hidden;
+    display: none;
+}

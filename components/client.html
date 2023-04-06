@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width-device-width, initial-scale=1.0">
+    <title>Clientes</title>
+
+    <!--STYLESHEET-->
+    <link rel="stylesheet" href="../style.css">
+    <!--ICONSCOUT CDN-->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v2.1.6/css/unicons.css">
+    
+    <!--GOOGLE FONTS-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Josefin+Sans:ital,wght@0,100;1,700&family=Roboto&family=Zilla+Slab:wght@300&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav class="flexbox">
+            <div class="container-nav">
+                <p>Clientes</p>
+                <a href="../index.html"><i class="uil uil-home"></i></a>
+                <a href="./components/auth.html"><i class="uil uil-user"></i></a>
+            </div>
+        </nav>
+    </header>
+    <div class="container" id="container-options">
+        <a href=""><button>Buscar por cliente</button></a>
+        <a href=""><button>Adicionar novo cliente</button></a>
+        <a href=""><button>Atualizar um cliente</button></a>
+        <a href=""><button>Deletar um cliente</button></a>
+    </div>
+    <div class="container" id="container-geral">
+        <div class="container-buttons-next-previous">
+            <a href=""><button>Próxima página</button></a> <a href=""><button>Página anterior</button></a>
+        </div>
+        <p>
+        <!--MOSTRAR AQUI TODOS OS CLIENTES, DE DEZ EM DEZ-->
+        </p>
+        <div class="container-buttons-next-previous">
+            <a href=""><button>Próxima página</button></a> <a href=""><button>Página anterior</button></a>
+        </div>
+    </div>
+    <div class="container" id="container-search-clients">
+        <div class="container-form">
+            <form>
+                <input type="text" class="número-cliente" placeholder="Ex.: 7000000000" required>
+                <label for="name">Número do cliente:</label>
+            </form>
+        </div>
+        <div class="container-buttons-clients">
+            <a href=""><button>Buscar</button></a> <a href=""><button>Cancelar</button></a>
+        </div>
+    </div>
+    <div class="container" id="container-add-clients">
+        <div class="container-form">
+            <form>
+                <input type="text" class="número-cliente" placeholder="Ex.: 7000000000" required>
+                <label for="name">Número do cliente:</label>
+            </form>
+        </div>
+        <div class="container-form">
+            <form>
+                <input type="text" class="nome-cliente" required>
+                <label for="name">Nome:</label>
+            </form>
+        </div>
+        <div class="container-form">
+            <form>
+                <input type="text" class="cpf" required>
+                <label for="name">CPF/CNPJ:</label>
+            </form>
+        </div>
+        <div class="container-form">
+            <form>
+                <input type="text" class="rg" required>
+                <label for="name">RG:</label>
+            </form>
+        </div>
+        <div class="container-form">
+            <form>
+                <input type="date" class="data-nascimento" required>
+                <label for="name">Data de nascimento:</label>
+            </form>
+        </div>
+        <div class="container-form">
+            <form>
+                <input type="name" class="nome-pais" required>
+                <label for="name">Nome do pai/mãe:</label>
+            </form>
+        </div>
+        <div class="container-buttons-clients">
+            <a href=""><button>Adicionar</button></a> <a href=""><button>Cancelar</button></a>
+        </div>
+    </div>
+    <div class="container" id="container-update-clients">
+        <div class="container-form">
+            <form>
+                <input type="text" class="número-cliente" placeholder="Ex.: 7000000000" required>
+                <label for="name">Número do cliente:</label>
+            </form>
+        </div>
+        <div class="container-form">
+            <form>
+                <input type="text" class="nome-cliente" required>
+                <label for="name">Nome:</label>
+            </form>
+        </div>
+        <div class="container-form">
+            <form>
+                <input type="text" class="cpf" required>
+                <label for="name">CPF/CNPJ:</label>
+            </form>
+        </div>
+        <div class="container-form">
+            <form>
+                <input type="text" class="rg" required>
+                <label for="name">RG:</label>
+            </form>
+        </div>
+        <div class="container-form">
+            <form>
+                <input type="date" class="data-nascimento" required>
+                <label for="name">Data de nascimento:</label>
+            </form>
+        </div>
+        <div class="container-form">
+            <form>
+                <input type="name" class="nome-pais" required>
+                <label for="name">Nome do pai/mãe:</label>
+            </form>
+        </div>
+        <div class="container-buttons-clients">
+            <a href=""><button>Atualizar</button></a> <a href=""><button>Cancelar</button></a>
+        </div>
+    </div>
+    <div class="container" id="container-delete-clients">
+        <div class="container-form">
+            <form>
+                <input type="text" class="número-cliente" placeholder="Ex.: 7000000000" required>
+                <label for="name">Número do cliente:</label>
+            </form>
+        </div>
+        <div class="container-buttons-clients">
+            <a href=""><button>Deletar</button></a> <a href=""><button>Cancelar</button></a>
+        </div>
+    </div>
+</body>
+</html>
