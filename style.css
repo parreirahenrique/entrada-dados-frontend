@@ -145,6 +145,11 @@ ul {
     box-sizing: border-box;
 }
 
+sub {
+    position: relative;
+    top: 2.5px;
+}
+
 .container {
     width: 750px;
     display: grid;
@@ -193,7 +198,7 @@ ul {
     display: none;
 }
 
-/* ESTILOS DAS CLASSES DA PÁGINA DE CLIENTES */
+/* ESTILOS DAS CLASSES DA PÁGINA DE INSTALAÇÕES */
 #container-search-instalations {
     visibility: hidden;
     display: none;
@@ -210,6 +215,27 @@ ul {
 }
 
 #container-delete-instalations {
+    visibility: hidden;
+    display: none;
+}
+
+/* ESTILOS DAS CLASSES DA PÁGINA DE MÓDULOS */
+#container-search-modules {
+    visibility: hidden;
+    display: none;
+}
+
+#container-add-modules {
+    visibility: hidden;
+    display: none;
+}
+
+#container-update-modules {
+    visibility: hidden;
+    display: none;
+}
+
+#container-delete-modules {
     visibility: hidden;
     display: none;
 }
