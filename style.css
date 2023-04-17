@@ -192,3 +192,24 @@ ul {
     visibility: hidden;
     display: none;
 }
+
+/* ESTILOS DAS CLASSES DA PÁGINA DE CLIENTES */
+#container-search-instalations {
+    visibility: hidden;
+    display: none;
+}
+
+#container-add-instalations {
+    visibility: hidden;
+    display: none;
+}
+
+#container-update-instalations {
+    visibility: hidden;
+    display: none;
+}
+
+#container-delete-instalations {
+    visibility: hidden;
+    display: none;
+}

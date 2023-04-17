@@ -10,11 +10,12 @@
     <link rel="stylesheet" href="../style.css">
     <!--ICONSCOUT CDN-->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v2.1.6/css/unicons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Josefin+Sans:ital,wght@0,100;1,700&family=Roboto&family=Zilla+Slab:wght@300&display=swap" rel="stylesheet">
     
     <!--GOOGLE FONTS-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Josefin+Sans:ital,wght@0,100;1,700&family=Roboto&family=Zilla+Slab:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@300&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
@@ -32,29 +33,24 @@
         <a href=""><button>Atualizar uma instalação</button></a>
         <a href=""><button>Deletar uma instalação</button></a>
     </div>
-    <div class="container" id="container-geral">
-        <div id="container-buttons-next-previous">
-            <a href=""><button>Próxima página</button></a> <a href=""><button>Página anterior</button></a>
-        </div>
-        <p>
-        <!--MOSTRAR AQUI TODOS AS INSTALAÇÕES, DE DEZ EM DEZ-->
-        </p>
-        <div class="container-buttons-clients">
-            <a href=""><button>Próxima página</button></a> <a href=""><button>Página anterior</button></a>
-        </div>
-    </div>
-    <div class="container-buttons-next-previous">
+    <div class="container" id="container-search-instalations">
         <div class="container-form">
             <form>
-                <input type="text" class="número-cliente" placeholder="Ex.: 7000000000" required>
-                <label for="name">Número do cliente:</label>
+                <input type="text" class="número-instalação" placeholder="Ex.: 3000000000" required>
+                <label for="name">Número da instalação:</label>
             </form>
         </div>
-        <div class="container-buttons-clients">
+        <div class="container-buttons-instalations">
             <a href=""><button>Buscar</button></a> <a href=""><button>Cancelar</button></a>
         </div>
     </div>
-    <div class="container" id="container-add-clients">
+    <div class="container" id="container-add-instalations">
+        <div class="container-form">
+            <form>
+                <input type="text" class="número-instalação" placeholder="Ex.: 3000000000" required>
+                <label for="name">Número da instalação:</label>
+            </form>
+        </div>
         <div class="container-form">
             <form>
                 <input type="text" class="número-cliente" placeholder="Ex.: 7000000000" required>
@@ -63,39 +59,75 @@
         </div>
         <div class="container-form">
             <form>
-                <input type="text" class="nome-cliente" required>
-                <label for="name">Nome:</label>
+                <input type="text" class="logradouro" required>
+                <label for="name">Logradouro:</label>
             </form>
         </div>
         <div class="container-form">
             <form>
-                <input type="text" class="cpf" required>
-                <label for="name">CPF/CNPJ:</label>
+                <input type="text" class="numero-predial" required>
+                <label for="name">Número predial:</label>
             </form>
         </div>
         <div class="container-form">
             <form>
-                <input type="text" class="rg" required>
-                <label for="name">RG:</label>
+                <input type="text" class="complemento" required>
+                <label for="name">Complemento:</label>
             </form>
         </div>
         <div class="container-form">
             <form>
-                <input type="date" class="data-nascimento" required>
-                <label for="name">Data de nascimento:</label>
+                <input type="text" class="bairro" required>
+                <label for="name">Bairro:</label>
             </form>
         </div>
         <div class="container-form">
             <form>
-                <input type="name" class="nome-pais" required>
-                <label for="name">Nome do pai/mãe:</label>
+                <input type="name" class="cidade" required>
+                <label for="name">Cidade:</label>
             </form>
         </div>
-        <div class="container-buttons-clients">
+        <div class="container-form">
+            <form>
+                <input type="name" class="cep" required>
+                <label for="name">CEP:</label>
+            </form>
+        </div>
+        <div class="container-form">
+            <form>
+                <input type="name" class="classificacao" required>
+                <label for="name">Classificação:</label>
+            </form>
+        </div>
+        <div class="container-form">
+            <form>
+                <input type="name" class="latitude" required>
+                <label for="name">Latitude:</label>
+            </form>
+        </div>
+        <div class="container-form">
+            <form>
+                <input type="name" class="longitude" required>
+                <label for="name">Longitude:</label>
+            </form>
+        </div>
+        <div class="container-form">
+            <form>
+                <input type="name" class="coordenadas-decimais" required>
+                <label for="name">Coordenadas decimais:</label>
+            </form>
+        </div>
+        <div class="container-buttons-instalations">
             <a href=""><button>Adicionar</button></a> <a href=""><button>Cancelar</button></a>
         </div>
     </div>
-    <div class="container" id="container-update-clients">
+    <div class="container" id="container-update-instalations">
+        <div class="container-form">
+            <form>
+                <input type="text" class="número-instalação" placeholder="Ex.: 3000000000" required>
+                <label for="name">Número da instalação:</label>
+            </form>
+        </div>
         <div class="container-form">
             <form>
                 <input type="text" class="número-cliente" placeholder="Ex.: 7000000000" required>
@@ -104,46 +136,76 @@
         </div>
         <div class="container-form">
             <form>
-                <input type="text" class="nome-cliente" required>
-                <label for="name">Nome:</label>
+                <input type="text" class="logradouro" required>
+                <label for="name">Logradouro:</label>
             </form>
         </div>
         <div class="container-form">
             <form>
-                <input type="text" class="cpf" required>
-                <label for="name">CPF/CNPJ:</label>
+                <input type="text" class="numero-predial" required>
+                <label for="name">Número predial:</label>
             </form>
         </div>
         <div class="container-form">
             <form>
-                <input type="text" class="rg" required>
-                <label for="name">RG:</label>
+                <input type="text" class="complemento" required>
+                <label for="name">Complemento:</label>
             </form>
         </div>
         <div class="container-form">
             <form>
-                <input type="date" class="data-nascimento" required>
-                <label for="name">Data de nascimento:</label>
+                <input type="text" class="bairro" required>
+                <label for="name">Bairro:</label>
             </form>
         </div>
         <div class="container-form">
             <form>
-                <input type="name" class="nome-pais" required>
-                <label for="name">Nome do pai/mãe:</label>
+                <input type="name" class="cidade" required>
+                <label for="name">Cidade:</label>
             </form>
         </div>
-        <div class="container-buttons-clients">
+        <div class="container-form">
+            <form>
+                <input type="name" class="cep" required>
+                <label for="name">CEP:</label>
+            </form>
+        </div>
+        <div class="container-form">
+            <form>
+                <input type="name" class="classificacao" required>
+                <label for="name">Classificação:</label>
+            </form>
+        </div>
+        <div class="container-form">
+            <form>
+                <input type="name" class="latitude" required>
+                <label for="name">Latitude:</label>
+            </form>
+        </div>
+        <div class="container-form">
+            <form>
+                <input type="name" class="longitude" required>
+                <label for="name">Longitude:</label>
+            </form>
+        </div>
+        <div class="container-form">
+            <form>
+                <input type="name" class="coordenadas-decimais" required>
+                <label for="name">Coordenadas decimais:</label>
+            </form>
+        </div>
+        <div class="container-buttons-instalations">
             <a href=""><button>Atualizar</button></a> <a href=""><button>Cancelar</button></a>
         </div>
     </div>
-    <div class="container" id="container-delete-clients">
+    <div class="container" id="container-delete-instalations">
         <div class="container-form">
             <form>
-                <input type="text" class="número-cliente" placeholder="Ex.: 7000000000" required>
-                <label for="name">Número do cliente:</label>
+                <input type="text" class="número-cliente" placeholder="Ex.: 3000000000" required>
+                <label for="name">Número da instalação:</label>
             </form>
         </div>
-        <div class="container-buttons-clients">
+        <div class="container-buttons-instalations">
             <a href=""><button>Deletar</button></a> <a href=""><button>Cancelar</button></a>
         </div>
     </div>
