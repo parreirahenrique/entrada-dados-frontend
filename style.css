@@ -39,16 +39,16 @@ p {
     text-align: center;
 }
 
-i {
+#uil-nav {
     color: white;
     size: small;
     margin-right: auto;
     margin-left: auto;
 }
 
-i:hover {
+#uil-nav:hover {
     size: large;
-    background-color: rgba(0,0,0,.5);
+    background-color: rgb(255, 255, 255, .30);
     border-radius: 3px;
 }
 
@@ -225,17 +225,70 @@ sub {
     display: none;
 }
 
+#container-add-modules-general {
+    visibility: hidden;
+    display: none;
+}
+
 #container-add-modules {
+    display: flexbox;
+    flex-direction: column;
+    -webkit-column-count: 2;
+    -moz-column-count: 2;
+    column-count: 2;
+}
+
+#container-update-modules-general {
     visibility: hidden;
     display: none;
 }
 
 #container-update-modules {
+    display: flexbox;
+    flex-direction: column;
+    -webkit-column-count: 2;
+    -moz-column-count: 2;
+    column-count: 2;
+}
+
+#container-delete-modules {
     visibility: hidden;
     display: none;
 }
 
-#container-delete-modules {
+/* ESTILOS DAS CLASSES DA PÁGINA DE INVERSORES */
+#container-search-inverters {
+    visibility: hidden;
+    display: none;
+}
+
+#container-add-inverters-general {
+    visibility: hidden;
+    display: none;
+}
+
+#container-add-inverters {
+    display: flexbox;
+    flex-direction: column;
+    -webkit-column-count: 2;
+    -moz-column-count: 2;
+    column-count: 2;
+}
+
+#container-update-inverters-general {
+    visibility: hidden;
+    display: none;
+}
+
+#container-update-inverters {
+    display: flexbox;
+    flex-direction: column;
+    -webkit-column-count: 2;
+    -moz-column-count: 2;
+    column-count: 2;
+}
+
+#container-delete-inverters {
     visibility: hidden;
     display: none;
 }

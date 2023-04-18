@@ -21,32 +21,32 @@
         <nav class="flexbox">
             <div class="container-nav">
                 <p>Inversores</p>
-                <a href="../index.html"><i class="uil uil-home"></i></a>
-                <a href="./components/auth.html"><i class="uil uil-user"></i></a>
+                <a href="../index.html"><i class="uil uil-home" id="uil-nav"></i></a>
+                <a href="./components/auth.html"><i class="uil uil-user" id="uil-nav"></i></a>
             </div>
         </nav>
     </header>
     <div class="container" id="container-options">
-        <a href=""><button>Buscar por módulo</button></a>
-        <a href=""><button>Adicionar novo módulo</button></a>
-        <a href=""><button>Atualizar um módulo</button></a>
-        <a href=""><button>Deletar um módulo</button></a>
+        <a href=""><button>Buscar por inversor</button></a>
+        <a href=""><button>Adicionar novo inversor</button></a>
+        <a href=""><button>Atualizar um inversor</button></a>
+        <a href=""><button>Deletar um inversor</button></a>
     </div>
     <div class="container" id="container-geral">
         <div class="container-buttons-next-previous">
             <a href=""><button><i class="uil uil-backward"></i>Página anterior</button></a> <a href=""><button>Próxima página <i class="uil uil-forward"></i></button></a>
         </div>
         <p>
-        <!--MOSTRAR AQUI TODOS OS MÓDULOS, DE DEZ EM DEZ-->
+        <!--MOSTRAR AQUI TODOS OS INVERSORES, DE DEZ EM DEZ-->
         </p>
         <div class="container-buttons-next-previous">
             <a href=""><button><i class="uil uil-backward"></i>Página anterior</button></a> <a href=""><button>Próxima página <i class="uil uil-forward"></i></button></a>
         </div>
     </div>
-    <div class="container" id="container-search-modules">
+    <div class="container" id="container-search-inverters">
         <div class="container-form">
             <form>
-                <input type="text" class="modelo-módulo" required>
+                <input type="text" class="modelo-inversor" required>
                 <label for="name">Modelo:</label>
             </form>
         </div>
@@ -54,188 +54,228 @@
             <a href=""><button>Buscar</button></a> <a href=""><button>Cancelar</button></a>
         </div>
     </div>
-    <div class="container" id="container-add-modules">
-        <div class="container-form">
-            <form>
-                <input type="text" class="modelo-módulo" required>
-                <label for="name">Modelo:</label>
-            </form>
-        </div>
-        <div class="container-form">
-            <form>
-                <input type="text" class="fabricante-módulo" required>
-                <label for="name">Fabricante:</label>
-            </form>
-        </div>
-        <div class="container-form">
-            <form>
-                <input type="text" class="potência-módulo" required>
-                <label for="name">Potência de pico:</label>
-            </form>
-        </div>
-        <div class="container-form">
-            <form>
-                <input type="text" class="imp-modulo" required>
-                <label for="name">I<sub>mp</sub>:</label>
-            </form>
-        </div>
-        <div class="container-form">
-            <form>
-                <input type="text" class="isc-modulo" required>
-                <label for="name">I<sub>sc</sub>:</label>
-            </form>
-        </div>
-        <div class="container-form">
-            <form>
-                <input type="text" class="vmp-modulo" required>
-                <label for="name">V<sub>mp</sub>:</label>
-            </form>
-        </div>
-        <div class="container-form">
-            <form>
-                <input type="text" class="voc-modulo" required>
-                <label for="name">V<sub>oc</sub>:</label>
-            </form>
-        </div>
-        <div class="container-form">
-            <form>
-                <input type="text" class="comprimento-módulo" required>
-                <label for="name">Comprimento:</label>
-            </form>
-        </div>
-        <div class="container-form">
-            <form>
-                <input type="text" class="largura-módulo" required>
-                <label for="name">Largura:</label>
-            </form>
-        </div>
-        <div class="container-form">
-            <form>
-                <input type="text" class="espessura-módulo" required>
-                <label for="name">Espessura:</label>
-            </form>
-        </div>
-        <div class="container-form">
-            <form>
-                <input type="text" class="eficiência-módulo" required>
-                <label for="name">Eficiência:</label>
-            </form>
-        </div>
-        <div class="container-form">
-            <form>
-                <input type="text" class="temperatura-módulo" required>
-                <label for="name">Temperatura nominal:</label>
-            </form>
-        </div>
-        <div class="container-form">
-            <form>
-                <input type="text" class="tipo-módulo" required>
-                <label for="name">Tipo de célula:</label>
-            </form>
-        </div>
-        <div class="container-form">
-            <form>
-                <input type="name" class="coeficiente-módulo" required>
-                <label for="name">Coeficiente de temperatura:</label>
-            </form>
+    <div class="container" id="container-add-inverters-general">
+        <div id="container-add-inverters">
+            <div class="container-form">
+                <form>
+                    <input type="text" class="modelo-inversor" required>
+                    <label for="name">Modelo:</label>
+                </form>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" class="fabricante-inversor" required>
+                    <label for="name">Fabricante:</label>
+                </form>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" class="potência-inversor" required>
+                    <label for="name">Potência nominal:</label>
+                </form>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" class="overload-inversor" required>
+                    <label for="name">Overload:</label>
+                </form>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" class="imp-inversor" required>
+                    <label for="name">I<sub>mp</sub>:</label>
+                </form>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" class="isc-inversor" required>
+                    <label for="name">I<sub>sc</sub>:</label>
+                </form>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" class="vmin-mppt-inversor" required>
+                    <label for="name">Tensão mínima da MPPT:</label>
+                </form>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" class="vmax-mppt-inversor" required>
+                    <label for="name">Tensão máxima da MPPT:</label>
+                </form>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" class="voc-inversor" required>
+                    <label for="name">Tensão máxima de entrada:</label>
+                </form>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" class="n-mppt-inversor" required>
+                    <label for="name">Número de MPPTs:</label>
+                </form>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" class="n-entrada-inversor" required>
+                    <label for="name">Número de entradas:</label>
+                </form>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" class="v-saída-inversor" required>
+                    <label for="name">Tensão de saída:</label>
+                </form>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" class="i-saída-inversor" required>
+                    <label for="name">Corrente de saída:</label>
+                </form>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" class="comprimento-inversor" required>
+                    <label for="name">Comprimento:</label>
+                </form>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" class="largura-inversor" required>
+                    <label for="name">Largura:</label>
+                </form>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" class="espessura-inversor" required>
+                    <label for="name">Espessura:</label>
+                </form>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" class="eficiência-inversor" required>
+                    <label for="name">Eficiência:</label>
+                </form>
+            </div>
         </div>
         <div class="container-buttons-modules">
             <a href=""><button>Adicionar</button></a> <a href=""><button>Cancelar</button></a>
         </div>
     </div>
-    <div class="container" id="container-update-modules">
-        <div class="container-form">
-            <form>
-                <input type="text" class="modelo-módulo" required>
-                <label for="name">Modelo:</label>
-            </form>
-        </div>
-        <div class="container-form">
-            <form>
-                <input type="text" class="fabricante-módulo" required>
-                <label for="name">Fabricante:</label>
-            </form>
-        </div>
-        <div class="container-form">
-            <form>
-                <input type="text" class="potência-módulo" required>
-                <label for="name">Potência de pico:</label>
-            </form>
-        </div>
-        <div class="container-form">
-            <form>
-                <input type="text" class="imp-modulo" required>
-                <label for="name">I<sub>mp</sub>:</label>
-            </form>
-        </div>
-        <div class="container-form">
-            <form>
-                <input type="text" class="isc-modulo" required>
-                <label for="name">I<sub>sc</sub>:</label>
-            </form>
-        </div>
-        <div class="container-form">
-            <form>
-                <input type="text" class="vmp-modulo" required>
-                <label for="name">V<sub>mp</sub>:</label>
-            </form>
-        </div>
-        <div class="container-form">
-            <form>
-                <input type="text" class="voc-modulo" required>
-                <label for="name">V<sub>oc</sub>:</label>
-            </form>
-        </div>
-        <div class="container-form">
-            <form>
-                <input type="text" class="comprimento-módulo" required>
-                <label for="name">Comprimento:</label>
-            </form>
-        </div>
-        <div class="container-form">
-            <form>
-                <input type="text" class="largura-módulo" required>
-                <label for="name">Largura:</label>
-            </form>
-        </div>
-        <div class="container-form">
-            <form>
-                <input type="text" class="espessura-módulo" required>
-                <label for="name">Espessura:</label>
-            </form>
-        </div>
-        <div class="container-form">
-            <form>
-                <input type="text" class="eficiência-módulo" required>
-                <label for="name">Eficiência:</label>
-            </form>
-        </div>
-        <div class="container-form">
-            <form>
-                <input type="text" class="temperatura-módulo" required>
-                <label for="name">Temperatura nominal:</label>
-            </form>
-        </div>
-        <div class="container-form">
-            <form>
-                <input type="text" class="tipo-módulo" required>
-                <label for="name">Tipo de célula:</label>
-            </form>
-        </div>
-        <div class="container-form">
-            <form>
-                <input type="name" class="coeficiente-módulo" required>
-                <label for="name">Coeficiente de temperatura:</label>
-            </form>
+    <div class="container" id="container-update-inverters-general">
+        <div id="container-update-inverters">
+            <div class="container-form">
+                <form>
+                    <input type="text" class="modelo-inversor" required>
+                    <label for="name">Modelo:</label>
+                </form>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" class="fabricante-inversor" required>
+                    <label for="name">Fabricante:</label>
+                </form>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" class="potência-inversor" required>
+                    <label for="name">Potência nominal:</label>
+                </form>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" class="overload-inversor" required>
+                    <label for="name">Overload:</label>
+                </form>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" class="imp-inversor" required>
+                    <label for="name">I<sub>mp</sub>:</label>
+                </form>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" class="isc-inversor" required>
+                    <label for="name">I<sub>sc</sub>:</label>
+                </form>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" class="vmin-mppt-inversor" required>
+                    <label for="name">Tensão mínima da MPPT:</label>
+                </form>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" class="vmax-mppt-inversor" required>
+                    <label for="name">Tensão máxima da MPPT:</label>
+                </form>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" class="voc-inversor" required>
+                    <label for="name">Tensão máxima de entrada:</label>
+                </form>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" class="n-mppt-inversor" required>
+                    <label for="name">Número de MPPTs:</label>
+                </form>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" class="n-entrada-inversor" required>
+                    <label for="name">Número de entradas:</label>
+                </form>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" class="v-saída-inversor" required>
+                    <label for="name">Tensão de saída:</label>
+                </form>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" class="i-saída-inversor" required>
+                    <label for="name">Corrente de saída:</label>
+                </form>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" class="comprimento-inversor" required>
+                    <label for="name">Comprimento:</label>
+                </form>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" class="largura-inversor" required>
+                    <label for="name">Largura:</label>
+                </form>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" class="espessura-inversor" required>
+                    <label for="name">Espessura:</label>
+                </form>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" class="eficiência-inversor" required>
+                    <label for="name">Eficiência:</label>
+                </form>
+            </div>
         </div>
         <div class="container-buttons-modules">
             <a href=""><button>Atualizar</button></a> <a href=""><button>Cancelar</button></a>
         </div>
     </div>
-    <div class="container" id="container-delete-modules">
+    <div class="container" id="container-delete-inverters">
         <div class="container-form">
             <form>
-                <input type="text" class="modelo-módulo" required>
+                <input type="text" class="modelo-inversor" required>
                 <label for="name">Modelo:</label>
             </form>
         </div>
