@@ -16,6 +16,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@300&display=swap" rel="stylesheet">
+
+    <!-- JAVA SCRIPT FILE -->
+    <script defer src="../script.js"></script>
 </head>
 <body>
     <header>
@@ -28,10 +31,10 @@
         </nav>
     </header>
     <div class="container" id="container-options">
-        <a href=""><button><i class="uil uil-search"></i> Buscar por instalação</button></a>
-        <a href=""><button><i class="uil uil-plus"></i> Adicionar nova instalação</button></a>
-        <a href=""><button><i class="uil uil-refresh"></i> Atualizar uma instalação</button></a>
-        <a href=""><button><i class="uil uil-trash"></i> Deletar uma instalação</button></a>
+        <button onclick="buscar_instalacao()"><i class="uil uil-search"></i> Buscar por instalação</button>
+        <button onclick="adicionar_instalacao()"><i class="uil uil-plus"></i> Adicionar nova instalação</button>
+        <button onclick="atualizar_instalacao()"><i class="uil uil-refresh"></i> Atualizar uma instalação</button>
+        <button onclick="deletar_instalacao()"><i class="uil uil-trash"></i> Deletar uma instalação</button>
     </div>
     <div class="container" id="container-search-instalations">
         <div class="container-form">

@@ -192,21 +192,25 @@ sub {
 #container-search-clients {
     visibility: hidden;
     display: none;
+    transition: .3s ease-in-out;
 }
 
 #container-add-clients {
     visibility: hidden;
     display: none;
+    transition: .3s ease-in-out;
 }
 
 #container-update-clients {
     visibility: hidden;
     display: none;
+    transition: .3s ease-in-out;
 }
 
 #container-delete-clients {
     visibility: hidden;
     display: none;
+    transition: .3s ease-in-out;
 }
 
 /* ESTILOS DAS CLASSES DA PÁGINA DE INSTALAÇÕES */
@@ -346,7 +350,7 @@ span {
     flex-direction: row;
 }
 
-/* #container-search-projects {
+#container-search-projects {
     visibility: hidden;
     display: none;
 }
@@ -364,4 +368,4 @@ span {
 #container-delete-projects {
     visibility: hidden;
     display: none;
-} */
+}
