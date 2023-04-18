@@ -4,12 +4,488 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width-device-width, initial-scale=1.0">
-    <title>Projetos Fotovoltaicos</title>
-    <link rel="stylesheet" href="./style.css">
+    <title>Projetos</title>
+
+    <!--STYLESHEET-->
+    <link rel="stylesheet" href="../style.css">
+    <!--ICONSCOUT CDN-->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v2.1.6/css/unicons.css">
+    
+    <!--GOOGLE FONTS-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Josefin+Sans:ital,wght@0,100;1,700&family=Roboto&family=Zilla+Slab:wght@300&display=swap" rel="stylesheet">
 </head>
 <body>
-    <nav>
-        <div class="container"></div>
-    </nav>
+    <header>
+        <nav class="flexbox">
+            <div class="container-nav">
+                <p>Projetos</p>
+                <a href="../index.html"><i class="uil uil-home" id="uil-nav"></i></a>
+                <a href="./components/auth.html"><i class="uil uil-user" id="uil-nav"></i></a>
+            </div>
+        </nav>
+    </header>
+    <div class="container" id="container-options">
+        <a href=""><button><i class="uil uil-search"></i> Buscar por projeto</button></a>
+        <a href=""><button><i class="uil uil-plus"></i> Adicionar novo projeto</button></a>
+        <a href=""><button><i class="uil uil-refresh"></i> Atualizar um projeto</button></a>
+        <a href=""><button><i class="uil uil-trash"></i> Deletar um projeto</button></a>
+    </div>
+    <div class="container" id="container-geral">
+        <div class="container-buttons-next-previous">
+            <a href=""><button><i class="uil uil-backward"></i>Página anterior</button></a> <a href=""><button>Próxima página <i class="uil uil-forward"></i></button></a>
+        </div>
+        <p>
+        <!--MOSTRAR AQUI TODOS OS PROJETOS, DE DEZ EM DEZ-->
+        </p>
+        <div class="container-buttons-next-previous">
+            <a href=""><button><i class="uil uil-backward"></i>Página anterior</button></a> <a href=""><button>Próxima página <i class="uil uil-forward"></i></button></a>
+        </div>
+    </div>
+    <div class="container" id="container-search-projects">
+        <div class="container-form">
+            <form>
+                <input type="text" class="id-projeto" required>
+                <label for="name">ID:</label>
+            </form>
+        </div>
+        <div class="container-buttons-clients">
+            <a href=""><button>Buscar</button></a> <a href=""><button>Cancelar</button></a>
+        </div>
+    </div>
+    <div class="container" id="container-add-projects-general">
+        <div id="container-add-projects">
+            <div class="container-checkbox">
+                <form class="form-checkbox">
+                    <input type="checkbox" class="checkbox" required>
+                    <span>Ligação nova</span>
+                </form>
+                <form class="form-checkbox">
+                    <input type="checkbox" class="checkbox" required>
+                    <span>Aumento de carga</span>
+                </form>
+                <form class="form-checkbox">
+                    <input type="checkbox" class="checkbox" required>
+                    <span>Aumento de usina</span>
+                </form>
+                <form class="form-checkbox">
+                    <input type="checkbox" class="checkbox" required>
+                    <span>Agrupamento</span>
+                </form>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" class="numero-instalação" required>
+                    <label for="name">Número de instalação:</label>
+                </form>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" class="número-cliente" required>
+                    <label for="name">Número do cliente:</label>
+                </form>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" class="n-fases" required>
+                    <label for="name">Número de fases atual:</label>
+                </form>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" class="disjuntor" required>
+                    <label for="name">Disjuntor atual:</label>
+                </form>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" class="novo-n-fases" required>
+                    <label for="name">Número de fases solicitado:</label>
+                </form>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" class="novo-disjuntor" required>
+                    <label for="name">Disjuntor solicitado:</label>
+                </form>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" class="n-fases-agrupamento" required>
+                    <label for="name">Número de fases do agrupamento:</label>
+                </form>
+            </div>
+            <div class="container-modulo-1">
+                <form class="form-checkbox">
+                    <input type="checkbox" class="checkbox" required>
+                    <span>Módulo da usina anterior?</span>
+                </form>
+                <div class="container-form">
+                    <form>
+                        <input type="text" class="quantidade-módulo-1" required>
+                        <label for="name">Quantidade do módulo 1:</label>
+                    </form>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" class="fabricante-módulo-1" required>
+                        <label for="name">Fabricante do módulo 1:</label>
+                    </form>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" class="modelo-módulo-1" required>
+                        <label for="name">Modelo do módulo 1:</label>
+                    </form>
+                </div>
+            </div>
+            <div class="container-modulo-2">
+                <form class="form-checkbox">
+                    <input type="checkbox" class="checkbox" required>
+                    <span>Módulo da usina anterior?</span>
+                </form>
+                <div class="container-form">
+                    <form>
+                        <input type="text" class="quantidade-módulo-2" required>
+                        <label for="name">Quantidade do módulo 2:</label>
+                    </form>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" class="fabricante-módulo-2" required>
+                        <label for="name">Fabricante do módulo 2:</label>
+                    </form>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" class="modelo-módulo-2" required>
+                        <label for="name">Modelo do módulo 2:</label>
+                    </form>
+                </div>
+            </div>
+            <div class="container-inversor-1">
+                <form class="form-checkbox">
+                    <input type="checkbox" class="checkbox" required>
+                    <span>Inversor da usina anterior?</span>
+                </form>
+                <div class="container-form">
+                    <form>
+                        <input type="text" class="quantidade-inversor-1" required>
+                        <label for="name">Quantidade do inversor 1:</label>
+                    </form>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" class="fabricante-inversor-1" required>
+                        <label for="name">Fabricante do inversor 1:</label>
+                    </form>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" class="modelo-inversor-1" required>
+                        <label for="name">Modelo do inversor 1:</label>
+                    </form>
+                </div>
+            </div>
+            <div class="container-inversor-2">
+                <form class="form-checkbox">
+                    <input type="checkbox" class="checkbox" required>
+                    <span>Inversor da usina anterior?</span>
+                </form>
+                <div class="container-form">
+                    <form>
+                        <input type="text" class="quantidade-inversor-2" required>
+                        <label for="name">Quantidade do inversor 2:</label>
+                    </form>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" class="fabricante-inversor-2" required>
+                        <label for="name">Fabricante do inversor 2:</label>
+                    </form>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" class="modelo-inversor-2" required>
+                        <label for="name">Modelo do inversor 2:</label>
+                    </form>
+                </div>
+                <div class="container-inversor-3">
+                    <form class="form-checkbox">
+                        <input type="checkbox" class="checkbox" required>
+                        <span>Inversor da usina anterior?</span>
+                    </form>
+                    <div class="container-form">
+                        <form>
+                            <input type="text" class="quantidade-inversor-3" required>
+                            <label for="name">Quantidade do inversor 3:</label>
+                        </form>
+                    </div>
+                    <div class="container-form">
+                        <form>
+                            <input type="text" class="fabricante-inversor-3" required>
+                            <label for="name">Fabricante do inversor 3:</label>
+                        </form>
+                    </div>
+                    <div class="container-form">
+                        <form>
+                            <input type="text" class="modelo-inversor-3" required>
+                            <label for="name">Modelo do inversor 3:</label>
+                        </form>
+                    </div>
+                </div>
+                <div class="container-inversor-4">
+                    <form class="form-checkbox">
+                        <input type="checkbox" class="checkbox" required>
+                        <span>Inversor da usina anterior?</span>
+                    </form>
+                    <div class="container-form">
+                        <form>
+                            <input type="text" class="quantidade-inversor-4" required>
+                            <label for="name">Quantidade do inversor 4:</label>
+                        </form>
+                    </div>
+                    <div class="container-form">
+                        <form>
+                            <input type="text" class="fabricante-inversor-4" required>
+                            <label for="name">Fabricante do inversor 4:</label>
+                        </form>
+                    </div>
+                    <div class="container-form">
+                        <form>
+                            <input type="text" class="modelo-inversor-4" required>
+                            <label for="name">Modelo do inversor 4:</label>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-buttons-modules">
+            <a href=""><button>Adicionar</button></a> <a href=""><button>Cancelar</button></a>
+        </div>
+    </div>
+    <div class="container" id="container-update-projects-general">
+        <div id="container-update-projects">
+            <div class="container-checkbox">
+                <form class="form-checkbox">
+                    <input type="checkbox" class="checkbox" required>
+                    <span>Ligação nova</span>
+                </form>
+                <form class="form-checkbox">
+                    <input type="checkbox" class="checkbox" required>
+                    <span>Aumento de carga</span>
+                </form>
+                <form class="form-checkbox">
+                    <input type="checkbox" class="checkbox" required>
+                    <span>Aumento de usina</span>
+                </form>
+                <form class="form-checkbox">
+                    <input type="checkbox" class="checkbox" required>
+                    <span>Agrupamento</span>
+                </form>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" class="numero-instalação" required>
+                    <label for="name">Número de instalação:</label>
+                </form>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" class="número-cliente" required>
+                    <label for="name">Número do cliente:</label>
+                </form>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" class="n-fases" required>
+                    <label for="name">Número de fases atual:</label>
+                </form>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" class="disjuntor" required>
+                    <label for="name">Disjuntor atual:</label>
+                </form>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" class="novo-n-fases" required>
+                    <label for="name">Número de fases solicitado:</label>
+                </form>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" class="novo-disjuntor" required>
+                    <label for="name">Disjuntor solicitado:</label>
+                </form>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" class="n-fases-agrupamento" required>
+                    <label for="name">Número de fases do agrupamento:</label>
+                </form>
+            </div>
+            <div class="container-modulo-1">
+                <form class="form-checkbox">
+                    <input type="checkbox" class="checkbox" required>
+                    <span>Módulo da usina anterior?</span>
+                </form>
+                <div class="container-form">
+                    <form>
+                        <input type="text" class="quantidade-módulo-1" required>
+                        <label for="name">Quantidade do módulo 1:</label>
+                    </form>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" class="fabricante-módulo-1" required>
+                        <label for="name">Fabricante do módulo 1:</label>
+                    </form>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" class="modelo-módulo-1" required>
+                        <label for="name">Modelo do módulo 1:</label>
+                    </form>
+                </div>
+            </div>
+            <div class="container-modulo-2">
+                <form class="form-checkbox">
+                    <input type="checkbox" class="checkbox" required>
+                    <span>Módulo da usina anterior?</span>
+                </form>
+                <div class="container-form">
+                    <form>
+                        <input type="text" class="quantidade-módulo-2" required>
+                        <label for="name">Quantidade do módulo 2:</label>
+                    </form>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" class="fabricante-módulo-2" required>
+                        <label for="name">Fabricante do módulo 2:</label>
+                    </form>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" class="modelo-módulo-2" required>
+                        <label for="name">Modelo do módulo 2:</label>
+                    </form>
+                </div>
+            </div>
+            <div class="container-inversor-1">
+                <form class="form-checkbox">
+                    <input type="checkbox" class="checkbox" required>
+                    <span>Inversor da usina anterior?</span>
+                </form>
+                <div class="container-form">
+                    <form>
+                        <input type="text" class="quantidade-inversor-1" required>
+                        <label for="name">Quantidade do inversor 1:</label>
+                    </form>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" class="fabricante-inversor-1" required>
+                        <label for="name">Fabricante do inversor 1:</label>
+                    </form>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" class="modelo-inversor-1" required>
+                        <label for="name">Modelo do inversor 1:</label>
+                    </form>
+                </div>
+            </div>
+            <div class="container-inversor-2">
+                <form class="form-checkbox">
+                    <input type="checkbox" class="checkbox" required>
+                    <span>Inversor da usina anterior?</span>
+                </form>
+                <div class="container-form">
+                    <form>
+                        <input type="text" class="quantidade-inversor-2" required>
+                        <label for="name">Quantidade do inversor 2:</label>
+                    </form>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" class="fabricante-inversor-2" required>
+                        <label for="name">Fabricante do inversor 2:</label>
+                    </form>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" class="modelo-inversor-2" required>
+                        <label for="name">Modelo do inversor 2:</label>
+                    </form>
+                </div>
+                <div class="container-inversor-3">
+                    <form class="form-checkbox">
+                        <input type="checkbox" class="checkbox" required>
+                        <span>Inversor da usina anterior?</span>
+                    </form>
+                    <div class="container-form">
+                        <form>
+                            <input type="text" class="quantidade-inversor-3" required>
+                            <label for="name">Quantidade do inversor 3:</label>
+                        </form>
+                    </div>
+                    <div class="container-form">
+                        <form>
+                            <input type="text" class="fabricante-inversor-3" required>
+                            <label for="name">Fabricante do inversor 3:</label>
+                        </form>
+                    </div>
+                    <div class="container-form">
+                        <form>
+                            <input type="text" class="modelo-inversor-3" required>
+                            <label for="name">Modelo do inversor 3:</label>
+                        </form>
+                    </div>
+                </div>
+                <div class="container-inversor-4">
+                    <form class="form-checkbox">
+                        <input type="checkbox" class="checkbox" required>
+                        <span>Inversor da usina anterior?</span>
+                    </form>
+                    <div class="container-form">
+                        <form>
+                            <input type="text" class="quantidade-inversor-4" required>
+                            <label for="name">Quantidade do inversor 4:</label>
+                        </form>
+                    </div>
+                    <div class="container-form">
+                        <form>
+                            <input type="text" class="fabricante-inversor-4" required>
+                            <label for="name">Fabricante do inversor 4:</label>
+                        </form>
+                    </div>
+                    <div class="container-form">
+                        <form>
+                            <input type="text" class="modelo-inversor-4" required>
+                            <label for="name">Modelo do inversor 4:</label>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-buttons-modules">
+            <a href=""><button>Atualizar</button></a> <a href=""><button>Cancelar</button></a>
+        </div>
+    </div>
+    <div class="container" id="container-delete-projects">
+        <div class="container-form">
+            <form>
+                <input type="text" class="id-projeto" required>
+                <label for="name">ID:</label>
+            </form>
+        </div>
+        <div class="container-buttons-modules">
+            <a href=""><button>Deletar</button></a> <a href=""><button>Cancelar</button></a>
+        </div>
+    </div>
 </body>
 </html>

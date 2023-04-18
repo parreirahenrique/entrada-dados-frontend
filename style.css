@@ -4,11 +4,17 @@
     padding: 0;
 }
 
+body {
+    padding-top: 100px;
+    padding-bottom: 10px;
+}
+
 html {
     background-image: linear-gradient(rgba(0,0,0,.05),rgba(0,0,0,.40)100%), url('./img/background.jpg');
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
+    background-attachment: fixed;
     scroll-behavior: smooth;
     position:absolute; 
     height:100%; 
@@ -16,6 +22,9 @@ html {
 }
 
 .container-nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
     margin: 0;
     padding: 0;
     border: 0;
@@ -25,6 +34,7 @@ html {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    z-index: 1;
 }
 
 
@@ -42,6 +52,7 @@ p {
 #uil-nav {
     color: white;
     size: small;
+    margin: 10px;
     margin-right: auto;
     margin-left: auto;
 }
@@ -292,3 +303,65 @@ sub {
     visibility: hidden;
     display: none;
 }
+
+/* ESTILOS DAS CLASSES DA PÁGINA DE PROJETOS */
+.checkbox {
+    appearance: none;
+    height: 15px;
+    width: 15px;
+    border: 0;
+    border-radius: 3px;
+    outline: none;
+    background-color: rgb(255, 255, 255, .75);
+    transition: .15s ease-in-out;
+}
+
+.checkbox:valid,
+.checkbox:not(:checked) {
+    border: 0;
+    border-color: rgb(255, 255, 255, .75);
+    background-color: rgb(255, 255, 255, .75);
+}
+
+.checkbox:checked {
+    transform-origin: bottom left;
+    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+    background-color: rgb(255, 255, 255, 1);
+}
+
+span {
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+    pointer-events: none;
+    color: white;
+}
+
+.form-checkbox {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.container-checkbox {
+    display: flex;
+    flex-direction: row;
+}
+
+/* #container-search-projects {
+    visibility: hidden;
+    display: none;
+}
+
+#container-add-projects-general {
+    visibility: hidden;
+    display: none;
+}
+
+#container-update-projects-general {
+    visibility: hidden;
+    display: none;
+}
+
+#container-delete-projects {
+    visibility: hidden;
+    display: none;
+} */
