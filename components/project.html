@@ -15,6 +15,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Josefin+Sans:ital,wght@0,100;1,700&family=Roboto&family=Zilla+Slab:wght@300&display=swap" rel="stylesheet">
+
+    <!-- JAVA SCRIPT FILE -->
+    <script defer src="../script.js"></script>
 </head>
 <body>
     <header>
@@ -27,10 +30,10 @@
         </nav>
     </header>
     <div class="container" id="container-options">
-        <a href=""><button><i class="uil uil-search"></i> Buscar por projeto</button></a>
-        <a href=""><button><i class="uil uil-plus"></i> Adicionar novo projeto</button></a>
-        <a href=""><button><i class="uil uil-refresh"></i> Atualizar um projeto</button></a>
-        <a href=""><button><i class="uil uil-trash"></i> Deletar um projeto</button></a>
+        <button onclick="buscar_projeto()"><i class="uil uil-search"></i> Buscar por projeto</button>
+        <button onclick="adicionar_projeto()"><i class="uil uil-plus"></i> Adicionar novo projeto</button>
+        <button onclick="atualizar_projeto()"><i class="uil uil-refresh"></i> Atualizar um projeto</button>
+        <button onclick="deletar_projeto()"><i class="uil uil-trash"></i> Deletar um projeto</button>
     </div>
     <div class="container" id="container-geral">
         <div class="container-buttons-next-previous">

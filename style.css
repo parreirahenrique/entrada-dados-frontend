@@ -347,6 +347,7 @@ span {
 
 .container-checkbox {
     display: flex;
+    margin-bottom: 20px;
     flex-direction: row;
 }
 
