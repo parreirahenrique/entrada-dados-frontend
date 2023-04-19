@@ -515,3 +515,103 @@ function agrupamento2() {
         document.getElementById('container-agrupamento-2').style.display = "none";
     }
 }
+
+function adicionar_inversor1() {
+    let estadoInversor2 = document.getElementById('container-inversor-21').checkVisibility()
+    let estadoInversor3 = document.getElementById('container-inversor-31').checkVisibility()
+    let estadoInversor4 = document.getElementById('container-inversor-41').checkVisibility()
+
+    if (estadoInversor2 === false) {
+        document.getElementById('container-inversor-21').style.visibility = "visible"
+        document.getElementById('container-inversor-21').style.display = "grid"
+    }
+
+    else if (estadoInversor2 === true) {
+        if (estadoInversor3 === false) {
+            document.getElementById('container-inversor-31').style.visibility = "visible"
+            document.getElementById('container-inversor-31').style.display = "grid"
+        }
+
+        else if (estadoInversor3 === true) {
+            if (estadoInversor4 === false) {
+                document.getElementById('container-inversor-41').style.visibility = "visible"
+                document.getElementById('container-inversor-41').style.display = "grid"
+            }
+        }
+    }
+}
+
+function remover_inversor1() {
+    let estadoInversor2 = document.getElementById('container-inversor-21').checkVisibility()
+    let estadoInversor3 = document.getElementById('container-inversor-31').checkVisibility()
+    let estadoInversor4 = document.getElementById('container-inversor-41').checkVisibility()
+
+    if (estadoInversor4 === true) {
+        document.getElementById('container-inversor-41').style.visibility = "hidden"
+        document.getElementById('container-inversor-41').style.display = "none"
+    }
+
+    else if (estadoInversor4 === false) {
+        if (estadoInversor3 === true) {
+            document.getElementById('container-inversor-31').style.visibility = "hidden"
+            document.getElementById('container-inversor-31').style.display = "none"
+        }
+
+        else if (estadoInversor3 === false) {
+            if (estadoInversor2 === true) {
+                document.getElementById('container-inversor-21').style.visibility = "hidden"
+                document.getElementById('container-inversor-21').style.display = "none"
+            }
+        }
+    }
+}
+
+function adicionar_inversor2() {
+    let estadoInversor2 = document.getElementById('container-inversor-22').checkVisibility()
+    let estadoInversor3 = document.getElementById('container-inversor-32').checkVisibility()
+    let estadoInversor4 = document.getElementById('container-inversor-42').checkVisibility()
+
+    if (estadoInversor2 === false) {
+        document.getElementById('container-inversor-22').style.visibility = "visible"
+        document.getElementById('container-inversor-22').style.display = "grid"
+    }
+
+    else if (estadoInversor2 === true) {
+        if (estadoInversor3 === false) {
+            document.getElementById('container-inversor-32').style.visibility = "visible"
+            document.getElementById('container-inversor-32').style.display = "grid"
+        }
+
+        else if (estadoInversor3 === true) {
+            if (estadoInversor4 === false) {
+                document.getElementById('container-inversor-42').style.visibility = "visible"
+                document.getElementById('container-inversor-42').style.display = "grid"
+            }
+        }
+    }
+}
+
+function remover_inversor2() {
+    let estadoInversor2 = document.getElementById('container-inversor-22').checkVisibility()
+    let estadoInversor3 = document.getElementById('container-inversor-32').checkVisibility()
+    let estadoInversor4 = document.getElementById('container-inversor-42').checkVisibility()
+
+    if (estadoInversor4 === true) {
+        document.getElementById('container-inversor-42').style.visibility = "hidden"
+        document.getElementById('container-inversor-42').style.display = "none"
+    }
+
+    else if (estadoInversor4 === false) {
+        if (estadoInversor3 === true) {
+            document.getElementById('container-inversor-32').style.visibility = "hidden"
+            document.getElementById('container-inversor-32').style.display = "none"
+        }
+
+        else if (estadoInversor3 === false) {
+            if (estadoInversor2 === true) {
+                document.getElementById('container-inversor-22').style.visibility = "hidden"
+                document.getElementById('container-inversor-22').style.display = "none"
+            }
+        }
+    }
+}

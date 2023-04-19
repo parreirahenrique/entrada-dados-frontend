@@ -64,6 +64,7 @@ p {
 }
 
 button {
+    cursor: auto;
     margin: 10px;
     color: white;
     font-family: 'Roboto', sans-serif;
@@ -403,4 +404,8 @@ span {
 .container-inversor-4 {
     visibility: hidden;
     display: none;
+}
+
+.container-add-inverter {
+    margin-top: 50px;
 }
