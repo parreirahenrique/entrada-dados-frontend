@@ -64,7 +64,7 @@ p {
 }
 
 button {
-    cursor: auto;
+    cursor: pointer;
     margin: 10px;
     color: white;
     font-family: 'Roboto', sans-serif;
@@ -317,6 +317,7 @@ sub {
 
 /* ESTILOS DAS CLASSES DA PÁGINA DE PROJETOS */
 .checkbox {
+    cursor: pointer;
     appearance: none;
     height: 15px;
     width: 15px;
