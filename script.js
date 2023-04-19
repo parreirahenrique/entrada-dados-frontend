@@ -322,3 +322,196 @@ function deletar_projeto() {
     divDeleteProject.style.visibility = "visible";
     divDeleteProject.style.display = "grid";
 }
+
+// FUNÇÕES PARA A PÁGINA DE PROJETOS
+function ligacao_nova1() {
+    let estadoLigacao1 = document.getElementById('checkbox-ligacao-1').checked;
+    let arrayCheckbox = document.getElementsByClassName('form-checkbox-aumento-usina');
+    let arrayContainer = document.getElementsByClassName('container-modulo-2')
+    
+    if (estadoLigacao1 == true) {
+        document.getElementById('checkbox-aumento-carga-1').checked = false;
+        document.getElementById('checkbox-aumento-usina-1').checked = false;
+
+        document.getElementById('container-numero-instalacao-1').style.visibility = "hidden";
+        document.getElementById('container-numero-instalacao-1').style.display = "none";
+        document.getElementById('container-aumento-carga-1').style.visibility = "hidden";
+        document.getElementById('container-aumento-carga-1').style.display = "none";
+
+        for (let i = 0; i < arrayCheckbox.length; i++) {
+            arrayCheckbox[i].style.visibility = "hidden"
+        }
+
+        for (let i = 0; i < arrayContainer.length; i++) {
+            arrayContainer[i].style.visibility = "hidden"
+            arrayContainer[i].style.display = "none"
+        }
+    }
+
+    else if(estadoLigacao1 == false) {
+        document.getElementById('container-numero-instalacao-1').style.visibility = "visible";
+        document.getElementById('container-numero-instalacao-1').style.display = "grid";
+    }
+}
+
+function ligacao_nova2() {
+    let estadoLigacao2 = document.getElementById('checkbox-ligacao-2').checked;
+    let arrayCheckbox = document.getElementsByClassName('form-checkbox-aumento-usina');
+    let arrayContainer = document.getElementsByClassName('container-modulo-2')
+
+    if (estadoLigacao2 == true) {
+        document.getElementById('checkbox-aumento-carga-2').checked = false;
+        document.getElementById('checkbox-aumento-usina-2').checked = false;
+
+        document.getElementById('container-numero-instalacao-2').style.visibility = "hidden";
+        document.getElementById('container-numero-instalacao-2').style.display = "none";
+        document.getElementById('container-aumento-carga-2').style.visibility = "hidden";
+        document.getElementById('container-aumento-carga-2').style.display = "none";
+
+        for (let i = 0; i < arrayCheckbox.length; i++) {
+            arrayCheckbox[i].style.visibility = "hidden"
+        }
+
+        for (let i = 0; i < arrayContainer.length; i++) {
+            arrayContainer[i].style.visibility = "hidden"
+            arrayContainer[i].style.display = "none"
+        }
+    }
+
+    else if(estadoLigacao2 == false) {
+        document.getElementById('container-numero-instalacao-2').style.visibility = "visible";
+        document.getElementById('container-numero-instalacao-2').style.display = "grid";
+    }
+}
+
+function aumento_carga1() {
+    let estadoAumento1 = document.getElementById('checkbox-aumento-carga-1').checked;
+    
+    if (estadoAumento1 == true) {
+        document.getElementById('checkbox-ligacao-1').checked = false;
+
+        document.getElementById('container-numero-instalacao-1').style.visibility = "visible";
+        document.getElementById('container-numero-instalacao-1').style.display = "grid";
+
+        document.getElementById('container-aumento-carga-1').style.visibility = "visible";
+        document.getElementById('container-aumento-carga-1').style.display = "grid";
+    }
+
+    else if (estadoAumento1 == false) {
+        document.getElementById('container-aumento-carga-1').style.visibility = "hidden";
+        document.getElementById('container-aumento-carga-1').style.display = "none";
+    }
+}
+
+function aumento_carga2() {
+    let estadoAumento2 = document.getElementById('checkbox-aumento-carga-2').checked;
+
+    if (estadoAumento2 == true) {
+        document.getElementById('checkbox-ligacao-2').checked = false;
+
+        document.getElementById('container-numero-instalacao-2').style.visibility = "visible";
+        document.getElementById('container-numero-instalacao-2').style.display = "grid";
+
+        document.getElementById('container-aumento-carga-2').style.visibility = "visible";
+        document.getElementById('container-aumento-carga-2').style.display = "grid";
+    }
+
+    if (estadoAumento2 == false) {
+        document.getElementById('container-aumento-carga-2').style.visibility = "hidden";
+        document.getElementById('container-aumento-carga-2').style.display = "none";
+    }
+}
+
+function aumento_usina1() {
+    let estadoAumentoUsina1 = document.getElementById('checkbox-aumento-usina-1').checked;
+    let arrayCheckbox = document.getElementsByClassName('form-checkbox-aumento-usina');
+    let arrayContainer = document.getElementsByClassName('container-modulo-2');
+
+    if (estadoAumentoUsina1 == true) {
+        document.getElementById('checkbox-ligacao-1').checked = false;
+
+        document.getElementById('container-numero-instalacao-1').style.visibility = "visible";
+        document.getElementById('container-numero-instalacao-1').style.display = "grid";
+        
+        for (let i = 0; i < arrayCheckbox.length; i++) {
+            arrayCheckbox[i].style.visibility = "visible";
+        }
+
+        for (let i = 0; i < arrayContainer.length; i++) {
+            arrayContainer[i].style.visibility = "visible";
+            arrayContainer[i].style.display = "grid";
+        }
+    }
+
+    else if(estadoAumentoUsina1 == false) {
+        for (let i = 0; i < arrayCheckbox.length; i++) {
+            arrayCheckbox[i].style.visibility = "hidden";
+        }
+
+        for (let i = 0; i < arrayContainer.length; i++) {
+            arrayContainer[i].style.visibility = "hidden";
+            arrayContainer[i].style.display = "none";
+        }
+    }
+}
+
+function aumento_usina2() {
+    let estadoAumentoUsina2 = document.getElementById('checkbox-aumento-usina-2').checked;
+    let arrayCheckbox = document.getElementsByClassName('form-checkbox-aumento-usina');
+    let arrayContainer = document.getElementsByClassName('container-modulo-2');
+
+    if (estadoAumentoUsina2 == true) {
+        document.getElementById('checkbox-ligacao-2').checked = false;
+
+        document.getElementById('container-numero-instalacao-2').style.visibility = "visible";
+        document.getElementById('container-numero-instalacao-2').style.display = "grid";
+        
+        for (let i = 0; i < arrayCheckbox.length; i++) {
+            arrayCheckbox[i].style.visibility = "visible";
+        }
+
+        for (let i = 0; i < arrayContainer.length; i++) {
+            arrayContainer[i].style.visibility = "visible";
+            arrayContainer[i].style.display = "grid";
+        }
+    }
+
+    else if(estadoAumentoUsina2 == false) {
+        for (let i = 0; i < arrayCheckbox.length; i++) {
+            arrayCheckbox[i].style.visibility = "hidden";
+        }
+
+        for (let i = 0; i < arrayContainer.length; i++) {
+            arrayContainer[i].style.visibility = "hidden";
+            arrayContainer[i].style.display = "none";
+        }
+    }
+}
+
+function agrupamento1() {
+    let estadoAgrupamento1 = document.getElementById('checkbox-agrupamento-1').checked;
+    
+    if (estadoAgrupamento1 == true) {
+        document.getElementById('container-agrupamento-1').style.visibility = "visible";
+        document.getElementById('container-agrupamento-1').style.display = "grid";
+    }
+
+    else if (estadoAgrupamento1 == false) {
+        document.getElementById('container-agrupamento-1').style.visibility = "hidden";
+        document.getElementById('container-agrupamento-1').style.display = "none";
+    }
+}
+
+function agrupamento2() {
+    let estadoAgrupamento2 = document.getElementById('checkbox-agrupamento-2').checked;
+
+    if (estadoAgrupamento2 == true) {
+        document.getElementById('container-agrupamento-2').style.visibility = "visible";
+        document.getElementById('container-agrupamento-2').style.display = "grid";
+    }
+
+    else if (estadoAgrupamento2 == false) {
+        document.getElementById('container-agrupamento-2').style.visibility = "hidden";
+        document.getElementById('container-agrupamento-2').style.display = "none";
+    }
+}

@@ -61,27 +61,29 @@
         <div id="container-add-projects">
             <div class="container-checkbox">
                 <form class="form-checkbox">
-                    <input type="checkbox" class="checkbox" required>
+                    <input type="checkbox" class="checkbox" id="checkbox-ligacao-1" required onchange="ligacao_nova1()">
                     <span>Ligação nova</span>
                 </form>
                 <form class="form-checkbox">
-                    <input type="checkbox" class="checkbox" required>
+                    <input type="checkbox" class="checkbox" id="checkbox-aumento-carga-1" required onchange="aumento_carga1()">
                     <span>Aumento de carga</span>
                 </form>
                 <form class="form-checkbox">
-                    <input type="checkbox" class="checkbox" required>
+                    <input type="checkbox" class="checkbox" id="checkbox-aumento-usina-1" required onchange="aumento_usina1()">
                     <span>Aumento de usina</span>
                 </form>
                 <form class="form-checkbox">
-                    <input type="checkbox" class="checkbox" required>
+                    <input type="checkbox" class="checkbox" id="checkbox-agrupamento-1" required onchange="agrupamento1()">
                     <span>Agrupamento</span>
                 </form>
             </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="numero-instalação" required>
-                    <label for="name">Número de instalação:</label>
-                </form>
+            <div id="container-numero-instalacao-1">
+                <div class="container-form">
+                    <form>
+                        <input type="text" class="numero-instalação" required>
+                        <label for="name">Número de instalação:</label>
+                    </form>
+                </div>
             </div>
             <div class="container-form">
                 <form>
@@ -101,26 +103,36 @@
                     <label for="name">Disjuntor atual:</label>
                 </form>
             </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="novo-n-fases" required>
-                    <label for="name">Número de fases solicitado:</label>
-                </form>
+            <div class="container-aumento-carga" id="container-aumento-carg-1">
+                <div class="container-form">
+                    <form>
+                        <input type="text" class="novo-n-fases" required>
+                        <label for="name">Número de fases solicitado:</label>
+                    </form>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" class="novo-disjuntor" required>
+                        <label for="name">Disjuntor solicitado:</label>
+                    </form>
+                </div>
             </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="novo-disjuntor" required>
-                    <label for="name">Disjuntor solicitado:</label>
-                </form>
-            </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="n-fases-agrupamento" required>
-                    <label for="name">Número de fases do agrupamento:</label>
-                </form>
+            <div class="container-agrupamento" id="container-agrupamento-1">
+                <div class="container-form">
+                    <form>
+                        <input type="text" class="n-fases-agrupamento" required>
+                        <label for="name">Número de fases do agrupamento:</label>
+                    </form>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" class="disjuntor-agrupamento" required>
+                        <label for="name">Disjuntor geral do agrupamento:</label>
+                    </form>
+                </div>
             </div>
             <div class="container-modulo-1">
-                <form class="form-checkbox">
+                <form class="form-checkbox-aumento-usina">
                     <input type="checkbox" class="checkbox" required>
                     <span>Módulo da usina anterior?</span>
                 </form>
@@ -144,7 +156,7 @@
                 </div>
             </div>
             <div class="container-modulo-2">
-                <form class="form-checkbox">
+                <form class="form-checkbox-aumento-usina">
                     <input type="checkbox" class="checkbox" required>
                     <span>Módulo da usina anterior?</span>
                 </form>
@@ -168,7 +180,7 @@
                 </div>
             </div>
             <div class="container-inversor-1">
-                <form class="form-checkbox">
+                <form class="form-checkbox-aumento-usina">
                     <input type="checkbox" class="checkbox" required>
                     <span>Inversor da usina anterior?</span>
                 </form>
@@ -192,7 +204,7 @@
                 </div>
             </div>
             <div class="container-inversor-2">
-                <form class="form-checkbox">
+                <form class="form-checkbox-aumento-usina">
                     <input type="checkbox" class="checkbox" required>
                     <span>Inversor da usina anterior?</span>
                 </form>
@@ -214,53 +226,53 @@
                         <label for="name">Modelo do inversor 2:</label>
                     </form>
                 </div>
-                <div class="container-inversor-3">
-                    <form class="form-checkbox">
-                        <input type="checkbox" class="checkbox" required>
-                        <span>Inversor da usina anterior?</span>
+            </div>
+            <div class="container-inversor-3">
+                <form class="form-checkbox-aumento-usina">
+                    <input type="checkbox" class="checkbox" required>
+                    <span>Inversor da usina anterior?</span>
+                </form>
+                <div class="container-form">
+                    <form>
+                        <input type="text" class="quantidade-inversor-3" required>
+                        <label for="name">Quantidade do inversor 3:</label>
                     </form>
-                    <div class="container-form">
-                        <form>
-                            <input type="text" class="quantidade-inversor-3" required>
-                            <label for="name">Quantidade do inversor 3:</label>
-                        </form>
-                    </div>
-                    <div class="container-form">
-                        <form>
-                            <input type="text" class="fabricante-inversor-3" required>
-                            <label for="name">Fabricante do inversor 3:</label>
-                        </form>
-                    </div>
-                    <div class="container-form">
-                        <form>
-                            <input type="text" class="modelo-inversor-3" required>
-                            <label for="name">Modelo do inversor 3:</label>
-                        </form>
-                    </div>
                 </div>
-                <div class="container-inversor-4">
-                    <form class="form-checkbox">
-                        <input type="checkbox" class="checkbox" required>
-                        <span>Inversor da usina anterior?</span>
+                <div class="container-form">
+                    <form>
+                        <input type="text" class="fabricante-inversor-3" required>
+                        <label for="name">Fabricante do inversor 3:</label>
                     </form>
-                    <div class="container-form">
-                        <form>
-                            <input type="text" class="quantidade-inversor-4" required>
-                            <label for="name">Quantidade do inversor 4:</label>
-                        </form>
-                    </div>
-                    <div class="container-form">
-                        <form>
-                            <input type="text" class="fabricante-inversor-4" required>
-                            <label for="name">Fabricante do inversor 4:</label>
-                        </form>
-                    </div>
-                    <div class="container-form">
-                        <form>
-                            <input type="text" class="modelo-inversor-4" required>
-                            <label for="name">Modelo do inversor 4:</label>
-                        </form>
-                    </div>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" class="modelo-inversor-3" required>
+                        <label for="name">Modelo do inversor 3:</label>
+                    </form>
+                </div>
+            </div>
+            <div class="container-inversor-4">
+                <form class="form-checkbox-aumento-usina">
+                    <input type="checkbox" class="checkbox" required>
+                    <span>Inversor da usina anterior?</span>
+                </form>
+                <div class="container-form">
+                    <form>
+                        <input type="text" class="quantidade-inversor-4" required>
+                        <label for="name">Quantidade do inversor 4:</label>
+                    </form>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" class="fabricante-inversor-4" required>
+                        <label for="name">Fabricante do inversor 4:</label>
+                    </form>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" class="modelo-inversor-4" required>
+                        <label for="name">Modelo do inversor 4:</label>
+                    </form>
                 </div>
             </div>
         </div>
@@ -272,27 +284,29 @@
         <div id="container-update-projects">
             <div class="container-checkbox">
                 <form class="form-checkbox">
-                    <input type="checkbox" class="checkbox" required>
+                    <input type="checkbox" class="checkbox" id="checkbox-ligacao-2" required onchange="ligacao_nova2()">
                     <span>Ligação nova</span>
                 </form>
                 <form class="form-checkbox">
-                    <input type="checkbox" class="checkbox" required>
+                    <input type="checkbox" class="checkbox" id="checkbox-aumento-carga-2" required onchange="aumento_carga2()">
                     <span>Aumento de carga</span>
                 </form>
                 <form class="form-checkbox">
-                    <input type="checkbox" class="checkbox" required>
+                    <input type="checkbox" class="checkbox" id="checkbox-aumento-usina-2" required onchange="aumento_usina2()">
                     <span>Aumento de usina</span>
                 </form>
                 <form class="form-checkbox">
-                    <input type="checkbox" class="checkbox" required>
+                    <input type="checkbox" class="checkbox" id="checkbox-agrupamento-2" required onchange="agrupamento2()">
                     <span>Agrupamento</span>
                 </form>
             </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="numero-instalação" required>
-                    <label for="name">Número de instalação:</label>
-                </form>
+            <div id="container-numero-instalacao-2">
+                <div class="container-form">
+                    <form>
+                        <input type="text" class="numero-instalação" required>
+                        <label for="name">Número de instalação:</label>
+                    </form>
+                </div>
             </div>
             <div class="container-form">
                 <form>
@@ -312,26 +326,36 @@
                     <label for="name">Disjuntor atual:</label>
                 </form>
             </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="novo-n-fases" required>
-                    <label for="name">Número de fases solicitado:</label>
-                </form>
+            <div class="container-aumento-carga" id="container-aumento-carga-2">
+                <div class="container-form">
+                    <form>
+                        <input type="text" class="novo-n-fases" required>
+                        <label for="name">Número de fases solicitado:</label>
+                    </form>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" class="novo-disjuntor" required>
+                        <label for="name">Disjuntor solicitado:</label>
+                    </form>
+                </div>
             </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="novo-disjuntor" required>
-                    <label for="name">Disjuntor solicitado:</label>
-                </form>
-            </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="n-fases-agrupamento" required>
-                    <label for="name">Número de fases do agrupamento:</label>
-                </form>
+            <div class="container-agrupamento" id="container-agrupamento-2">
+                <div class="container-form">
+                    <form>
+                        <input type="text" class="n-fases-agrupamento" required>
+                        <label for="name">Número de fases do agrupamento:</label>
+                    </form>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" class="disjuntor-agrupamento" required>
+                        <label for="name">Disjuntor geral do agrupamento:</label>
+                    </form>
+                </div>
             </div>
             <div class="container-modulo-1">
-                <form class="form-checkbox">
+                <form class="form-checkbox-aumento-usina">
                     <input type="checkbox" class="checkbox" required>
                     <span>Módulo da usina anterior?</span>
                 </form>
@@ -355,7 +379,7 @@
                 </div>
             </div>
             <div class="container-modulo-2">
-                <form class="form-checkbox">
+                <form class="form-checkbox-aumento-usina">
                     <input type="checkbox" class="checkbox" required>
                     <span>Módulo da usina anterior?</span>
                 </form>
@@ -379,7 +403,7 @@
                 </div>
             </div>
             <div class="container-inversor-1">
-                <form class="form-checkbox">
+                <form class="form-checkbox-aumento-usina">
                     <input type="checkbox" class="checkbox" required>
                     <span>Inversor da usina anterior?</span>
                 </form>
@@ -403,7 +427,7 @@
                 </div>
             </div>
             <div class="container-inversor-2">
-                <form class="form-checkbox">
+                <form class="form-checkbox-aumento-usina">
                     <input type="checkbox" class="checkbox" required>
                     <span>Inversor da usina anterior?</span>
                 </form>
@@ -425,53 +449,53 @@
                         <label for="name">Modelo do inversor 2:</label>
                     </form>
                 </div>
-                <div class="container-inversor-3">
-                    <form class="form-checkbox">
-                        <input type="checkbox" class="checkbox" required>
-                        <span>Inversor da usina anterior?</span>
+            </div>
+            <div class="container-inversor-3">
+                <form class="form-checkbox-aumento-usina">
+                    <input type="checkbox" class="checkbox" required>
+                    <span>Inversor da usina anterior?</span>
+                </form>
+                <div class="container-form">
+                    <form>
+                        <input type="text" class="quantidade-inversor-3" required>
+                        <label for="name">Quantidade do inversor 3:</label>
                     </form>
-                    <div class="container-form">
-                        <form>
-                            <input type="text" class="quantidade-inversor-3" required>
-                            <label for="name">Quantidade do inversor 3:</label>
-                        </form>
-                    </div>
-                    <div class="container-form">
-                        <form>
-                            <input type="text" class="fabricante-inversor-3" required>
-                            <label for="name">Fabricante do inversor 3:</label>
-                        </form>
-                    </div>
-                    <div class="container-form">
-                        <form>
-                            <input type="text" class="modelo-inversor-3" required>
-                            <label for="name">Modelo do inversor 3:</label>
-                        </form>
-                    </div>
                 </div>
-                <div class="container-inversor-4">
-                    <form class="form-checkbox">
-                        <input type="checkbox" class="checkbox" required>
-                        <span>Inversor da usina anterior?</span>
+                <div class="container-form">
+                    <form>
+                        <input type="text" class="fabricante-inversor-3" required>
+                        <label for="name">Fabricante do inversor 3:</label>
                     </form>
-                    <div class="container-form">
-                        <form>
-                            <input type="text" class="quantidade-inversor-4" required>
-                            <label for="name">Quantidade do inversor 4:</label>
-                        </form>
-                    </div>
-                    <div class="container-form">
-                        <form>
-                            <input type="text" class="fabricante-inversor-4" required>
-                            <label for="name">Fabricante do inversor 4:</label>
-                        </form>
-                    </div>
-                    <div class="container-form">
-                        <form>
-                            <input type="text" class="modelo-inversor-4" required>
-                            <label for="name">Modelo do inversor 4:</label>
-                        </form>
-                    </div>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" class="modelo-inversor-3" required>
+                        <label for="name">Modelo do inversor 3:</label>
+                    </form>
+                </div>
+            </div>
+            <div class="container-inversor-4">
+                <form class="form-checkbox-aumento-usina">
+                    <input type="checkbox" class="checkbox" required>
+                    <span>Inversor da usina anterior?</span>
+                </form>
+                <div class="container-form">
+                    <form>
+                        <input type="text" class="quantidade-inversor-4" required>
+                        <label for="name">Quantidade do inversor 4:</label>
+                    </form>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" class="fabricante-inversor-4" required>
+                        <label for="name">Fabricante do inversor 4:</label>
+                    </form>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" class="modelo-inversor-4" required>
+                        <label for="name">Modelo do inversor 4:</label>
+                    </form>
                 </div>
             </div>
         </div>

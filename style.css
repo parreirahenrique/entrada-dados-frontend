@@ -370,3 +370,37 @@ span {
     visibility: hidden;
     display: none;
 }
+
+.container-aumento-carga {
+    visibility: hidden;
+    display: none;
+}
+
+.container-agrupamento {
+    visibility: hidden;
+    display: none;
+}
+
+.form-checkbox-aumento-usina {
+    visibility: hidden;
+}
+
+.container-modulo-2 {
+    visibility: hidden;
+    display: none;
+}
+
+.container-inversor-2 {
+    visibility: hidden;
+    display: none;
+}
+
+.container-inversor-3 {
+    visibility: hidden;
+    display: none;
+}
+
+.container-inversor-4 {
+    visibility: hidden;
+    display: none;
+}
