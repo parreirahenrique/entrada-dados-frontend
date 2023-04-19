@@ -183,6 +183,12 @@ sub {
     display: none;
 }
 
+/* ESTILOS DAS CLASSES DA PÁGINA DE LOGIN */
+#container-usuario {
+    visibility: hidden;
+    display: none;
+}
+
 /* ESTILOS DAS CLASSES DA PÁGINA DE CLIENTES */
 #container-options {
     display: flex;
