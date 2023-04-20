@@ -1,3 +1,28 @@
+// FUNÇÃO PARA MOSTRAR CONTEÚDO PARA USUÁRIOS AUTORIZADOS
+function checar_autorizacao() {
+    access_token = localStorage.getItem('access_token');
+
+    if (access_token != '') {
+        autorizado = document.getElementsByClassName('container-usuario-autorizado')
+        autorizado[0].style.visibility = 'visible'
+        autorizado[0].style.display = 'grid'
+        
+        naoAutorizado = document.getElementsByClassName('container-usuario-nao-autorizado')
+        naoAutorizado[0].style.visibility = 'hidden'
+        naoAutorizado[0].style.display = 'none'
+    }
+
+    else {
+        autorizado = document.getElementsByClassName('container-usuario-autorizado')
+        autorizado[0].style.visibility = 'hidden'
+        autorizado[0].style.display = 'none'
+
+        naoAutorizado = document.getElementsByClassName('container-usuario-nao-autorizado')
+        naoAutorizado[0].style.visibility = 'visible'
+        naoAutorizado[0].style.display = 'grid'
+        }
+}
+
 // FUNÇÕES PARA MOSTRAR CONTEÚDO DA PÁGINA DE CLIENTES
 function buscar_cliente() {
     let divSearchClient = document.getElementById('container-search-clients');

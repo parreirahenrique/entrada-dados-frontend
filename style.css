@@ -193,6 +193,14 @@ sub {
     margin-right: auto;
 }
 
+
+.usuario-nao-autorizado-secundario {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    font-size: xx-large;
+    font-style: normal;
+}
+
 /* ESTILOS DAS CLASSES DA PÁGINA PRINCIPAL */
 #container-buttons {
     visibility: hidden;

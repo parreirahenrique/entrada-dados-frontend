@@ -21,145 +21,154 @@
     <script defer src="../script.js"></script>
     <script defer src="../App.js"></script>
 </head>
-<body>
-    <header>
-        <nav class="flexbox">
-            <div class="container-nav">
-                <p>Clientes</p>
-                <a href="../index.html"><i class="uil uil-home" id="uil-nav"></i></a>
-                <a href="./auth.html"><i class="uil uil-user" id="uil-nav"></i></a>
+<body onload="checar_autorizacao()">
+        <div class="container-usuario-autorizado">
+        <header>
+            <nav class="flexbox">
+                <div class="container-nav">
+                    <p>Clientes</p>
+                    <a href="../index.html"><i class="uil uil-home" id="uil-nav"></i></a>
+                    <a href="./auth.html"><i class="uil uil-user" id="uil-nav"></i></a>
+                </div>
+            </nav>
+        </header>
+        <div class="container" id="container-options">
+            <button onclick="buscar_cliente()" class="buscar-cliente"><i class="uil uil-search"></i> Buscar por cliente</button>
+            <button onclick="adicionar_cliente()"><i class="uil uil-plus"></i> Adicionar novo cliente</button>
+            <button onclick="atualizar_cliente()"><i class="uil uil-refresh"></i> Atualizar um cliente</button>
+            <button onclick="deletar_cliente()"><i class="uil uil-trash"></i> Deletar um cliente</button>
+        </div>
+        <div class="container" id="container-geral">
+            <div class="container-buttons-next-previous">
+                <a href=""><button><i class="uil uil-backward"></i>Página anterior</button></a> <a href=""><button>Próxima página <i class="uil uil-forward"></i></button></a>
             </div>
-        </nav>
-    </header>
-    <div class="container" id="container-options">
-        <button onclick="buscar_cliente()" class="buscar-cliente"><i class="uil uil-search"></i> Buscar por cliente</button>
-        <button onclick="adicionar_cliente()"><i class="uil uil-plus"></i> Adicionar novo cliente</button>
-        <button onclick="atualizar_cliente()"><i class="uil uil-refresh"></i> Atualizar um cliente</button>
-        <button onclick="deletar_cliente()"><i class="uil uil-trash"></i> Deletar um cliente</button>
+            <p>
+            <!--MOSTRAR AQUI TODOS OS CLIENTES, DE DEZ EM DEZ-->
+            </p>
+            <div class="container-buttons-next-previous">
+                <a href=""><button><i class="uil uil-backward"></i>Página anterior</button></a> <a href=""><button>Próxima página <i class="uil uil-forward"></i></button></a>
+            </div>
+        </div>
+        <div class="container" id="container-search-clients">
+            <div class="container-form">
+                <form>
+                    <input type="text" id="número-cliente-buscar" placeholder="Ex.: 7000000000" required>
+                    <label for="name">Número do cliente:</label>
+                </form>
+            </div>
+            <div class="container-buttons-clients">
+                <a href=""><button>Buscar</button></a> <a href=""><button>Cancelar</button></a>
+            </div>
+        </div>
+        <div class="container" id="container-add-clients">
+            <div class="container-form">
+                <form>
+                    <input type="text" id="número-cliente-adicionar" placeholder="Ex.: 7000000000" required>
+                    <label for="name">Número do cliente*:</label>
+                </form>
+                <span class="campo-obrigatorio-clientes">Esse é um campo obrigatório.</span>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" id="nome-cliente-adicionar" required>
+                    <label for="name">Nome*:</label>
+                </form>
+                <span class="campo-obrigatorio-clientes">Esse é um campo obrigatório.</span>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" id="cpf-adicionar" required>
+                    <label for="name">CPF/CNPJ*:</label>
+                </form>
+                <span class="campo-obrigatorio-clientes">Esse é um campo obrigatório.</span>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" id="rg-adicionar" required>
+                    <label for="name">RG:</label>
+                </form>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="date" id="data-nascimento-adicionar" required>
+                    <label for="name">Data de nascimento:</label>
+                </form>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="name" id="nome-pais-adicionar" required>
+                    <label for="name">Nome do pai/mãe:</label>
+                </form>
+            </div>
+            <div class="container-buttons-clients">
+                <button onclick="post_client()">Adicionar</button> <button>Cancelar</button>
+            </div>
+        </div>
+        <div class="container" id="container-cliente-adicionado">
+            <img src="../img/sucesso.png" class="sucesso">
+            <h1>Cliente adicionado com sucesso!</h1>
+            <div class="container-buttons-clients">
+                <button onclick="adicionar_cliente()">Adicionar novo cliente</button>  <a href="./instalation.html"><button>Ir para instalações</button></a>
+            </div>
+        </div>
+        <div class="container" id="container-update-clients">
+            <div class="container-form">
+                <form>
+                    <input type="text" id="número-cliente-atualizar" placeholder="Ex.: 7000000000" required>
+                    <label for="name">Número do cliente:</label>
+                </form>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" id="nome-cliente-atualizar" required>
+                    <label for="name">Nome:</label>
+                </form>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" id="cpf-atualizar" required>
+                    <label for="name">CPF/CNPJ:</label>
+                </form>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" id="rg-atualizar" required>
+                    <label for="name">RG:</label>
+                </form>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="date" id="data-nascimento-atualizar" required>
+                    <label for="name">Data de nascimento:</label>
+                </form>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="name" id="nome-pais-atualizar" required>
+                    <label for="name">Nome do pai/mãe:</label>
+                </form>
+            </div>
+            <div class="container-buttons-clients">
+                <a href=""><button>Atualizar</button></a> <a href=""><button>Cancelar</button></a>
+            </div>
+        </div>
+        <div class="container" id="container-delete-clients">
+            <div class="container-form">
+                <form>
+                    <input type="text" id="número-cliente-deletar" placeholder="Ex.: 7000000000" required>
+                    <label for="name">Número do cliente:</label>
+                </form>
+            </div>
+            <div class="container-buttons-clients">
+                <a href=""><button>Deletar</button></a> <a href=""><button>Cancelar</button></a>
+            </div>
+        </div>
     </div>
-    <div class="container" id="container-geral">
-        <div class="container-buttons-next-previous">
-            <a href=""><button><i class="uil uil-backward"></i>Página anterior</button></a> <a href=""><button>Próxima página <i class="uil uil-forward"></i></button></a>
-        </div>
-        <p>
-        <!--MOSTRAR AQUI TODOS OS CLIENTES, DE DEZ EM DEZ-->
-        </p>
-        <div class="container-buttons-next-previous">
-            <a href=""><button><i class="uil uil-backward"></i>Página anterior</button></a> <a href=""><button>Próxima página <i class="uil uil-forward"></i></button></a>
-        </div>
-    </div>
-    <div class="container" id="container-search-clients">
-        <div class="container-form">
-            <form>
-                <input type="text" id="número-cliente-buscar" placeholder="Ex.: 7000000000" required>
-                <label for="name">Número do cliente:</label>
-            </form>
-        </div>
-        <div class="container-buttons-clients">
-            <a href=""><button>Buscar</button></a> <a href=""><button>Cancelar</button></a>
-        </div>
-    </div>
-    <div class="container" id="container-add-clients">
-        <div class="container-form">
-            <form>
-                <input type="text" id="número-cliente-adicionar" placeholder="Ex.: 7000000000" required>
-                <label for="name">Número do cliente*:</label>
-            </form>
-            <span class="campo-obrigatorio-clientes">Esse é um campo obrigatório.</span>
-        </div>
-        <div class="container-form">
-            <form>
-                <input type="text" id="nome-cliente-adicionar" required>
-                <label for="name">Nome*:</label>
-            </form>
-            <span class="campo-obrigatorio-clientes">Esse é um campo obrigatório.</span>
-        </div>
-        <div class="container-form">
-            <form>
-                <input type="text" id="cpf-adicionar" required>
-                <label for="name">CPF/CNPJ*:</label>
-            </form>
-            <span class="campo-obrigatorio-clientes">Esse é um campo obrigatório.</span>
-        </div>
-        <div class="container-form">
-            <form>
-                <input type="text" id="rg-adicionar" required>
-                <label for="name">RG:</label>
-            </form>
-        </div>
-        <div class="container-form">
-            <form>
-                <input type="date" id="data-nascimento-adicionar" required>
-                <label for="name">Data de nascimento:</label>
-            </form>
-        </div>
-        <div class="container-form">
-            <form>
-                <input type="name" id="nome-pais-adicionar" required>
-                <label for="name">Nome do pai/mãe:</label>
-            </form>
-        </div>
-        <div class="container-buttons-clients">
-            <button onclick="post_client()">Adicionar</button> <button>Cancelar</button>
-        </div>
-    </div>
-    <div class="container" id="container-cliente-adicionado">
-        <img src="../img/sucesso.png" class="sucesso">
-        <h1>Cliente adicionado com sucesso!</h1>
-        <div class="container-buttons-clients">
-            <button onclick="adicionar_cliente()">Adicionar novo cliente</button>  <a href="./instalation.html"><button>Ir para instalações</button></a>
-        </div>
-    </div>
-    <div class="container" id="container-update-clients">
-        <div class="container-form">
-            <form>
-                <input type="text" id="número-cliente-atualizar" placeholder="Ex.: 7000000000" required>
-                <label for="name">Número do cliente:</label>
-            </form>
-        </div>
-        <div class="container-form">
-            <form>
-                <input type="text" id="nome-cliente-atualizar" required>
-                <label for="name">Nome:</label>
-            </form>
-        </div>
-        <div class="container-form">
-            <form>
-                <input type="text" id="cpf-atualizar" required>
-                <label for="name">CPF/CNPJ:</label>
-            </form>
-        </div>
-        <div class="container-form">
-            <form>
-                <input type="text" id="rg-atualizar" required>
-                <label for="name">RG:</label>
-            </form>
-        </div>
-        <div class="container-form">
-            <form>
-                <input type="date" id="data-nascimento-atualizar" required>
-                <label for="name">Data de nascimento:</label>
-            </form>
-        </div>
-        <div class="container-form">
-            <form>
-                <input type="name" id="nome-pais-atualizar" required>
-                <label for="name">Nome do pai/mãe:</label>
-            </form>
-        </div>
-        <div class="container-buttons-clients">
-            <a href=""><button>Atualizar</button></a> <a href=""><button>Cancelar</button></a>
-        </div>
-    </div>
-    <div class="container" id="container-delete-clients">
-        <div class="container-form">
-            <form>
-                <input type="text" id="número-cliente-deletar" placeholder="Ex.: 7000000000" required>
-                <label for="name">Número do cliente:</label>
-            </form>
-        </div>
-        <div class="container-buttons-clients">
-            <a href=""><button>Deletar</button></a> <a href=""><button>Cancelar</button></a>
+    <div class="container-usuario-nao-autorizado">
+        <div class="container">
+            <p class="usuario-nao-autorizado-principal">Você não está autorizado a acessar essa página.</p>
+            <p class="usuario-nao-autorizado-secundario">Faça login primeiro.</p>
+            <a href="./auth.html"><button>Ir para a página de login</button></a>
         </div>
     </div>
 </body>
