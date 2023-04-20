@@ -37,6 +37,15 @@ html {
     z-index: 1;
 }
 
+h1 {
+    color: white;
+    margin-right: auto;
+    margin-left: auto;
+    font-family: 'Roboto', sans-serif;
+    /* font-size: 60px; */
+    font-weight: lighter;
+    text-align: center;
+}
 
 p {
     color: white;
@@ -177,6 +186,13 @@ sub {
     
 }
 
+.sucesso {
+    height: 200px;
+    margin: 50px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 /* ESTILOS DAS CLASSES DA PÁGINA PRINCIPAL */
 #container-buttons {
     visibility: hidden;
@@ -190,6 +206,13 @@ sub {
 }
 
 /* ESTILOS DAS CLASSES DA PÁGINA DE CLIENTES */
+.campo-obrigatorio-clientes {
+    margin-right: 275px;
+    font-size: small;
+    visibility: hidden;
+    display: none;
+}
+
 #container-options {
     display: flex;
     flex-direction: row;
@@ -218,6 +241,11 @@ sub {
     visibility: hidden;
     display: none;
     transition: .3s ease-in-out;
+}
+
+#container-cliente-adicionado {
+    visibility: hidden;
+    display: none;
 }
 
 /* ESTILOS DAS CLASSES DA PÁGINA DE INSTALAÇÕES */

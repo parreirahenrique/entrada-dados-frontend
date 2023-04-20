@@ -20,7 +20,17 @@ function adicionar_cliente() {
     let divAddClient = document.getElementById('container-add-clients')
     let divUpdateClient = document.getElementById('container-update-clients')
     let divDeleteClient = document.getElementById('container-delete-clients')
+    let divClientAdded = document.getElementById('container-cliente-adicionado')
+    
+    document.getElementById('número-cliente-adicionar').value = ''
+    document.getElementById('nome-cliente-adicionar').value = ''
+    document.getElementById('cpf-adicionar').value = ''
+    document.getElementById('rg-adicionar').value = ''
+    document.getElementById('data-nascimento-adicionar').value = ''
+    document.getElementById('nome-pais-adicionar').value = ''
 
+    divClientAdded.style.visibility = "hidden"
+    divClientAdded.style.display = "none"
     divSearchClient.style.visibility = "hidden"
     divSearchClient.style.display = "none"
     divAddClient.style.visibility = "visible"

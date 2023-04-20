@@ -47,9 +47,26 @@ function post_client() {
         headers: {
           'Authorization': 'Bearer ' + access_token
         }
-      }
+    }
 
-    axios.post(
-        'http://localhost:8000/clients', dicionario, config
-    )
+    if (numero_cliente != '' & nome != '' & cpf != ''){
+        axios.post(
+            'http://localhost:8000/clients', dicionario, config
+        )
+
+        document.getElementById('container-cliente-adicionado').style.visibility = 'visible';
+        document.getElementById('container-cliente-adicionado').style.display = 'grid';
+        
+        document.getElementById('container-add-clients').style.visibility = 'hidden';
+        document.getElementById('container-add-clients').style.display = 'none';
+    }
+
+    else {
+        arrayCampos = document.getElementsByClassName('campo-obrigatorio-clientes')
+
+        for (i = 0; i < arrayCampos.length; i ++) {
+            arrayCampos[i].style.visibility = "visible";
+            arrayCampos[i].style.display = "grid";
+        }
+    }
 }

@@ -63,20 +63,23 @@
         <div class="container-form">
             <form>
                 <input type="text" id="número-cliente-adicionar" placeholder="Ex.: 7000000000" required>
-                <label for="name">Número do cliente:</label>
+                <label for="name">Número do cliente*:</label>
             </form>
+            <span class="campo-obrigatorio-clientes">Esse é um campo obrigatório.</span>
         </div>
         <div class="container-form">
             <form>
                 <input type="text" id="nome-cliente-adicionar" required>
-                <label for="name">Nome:</label>
+                <label for="name">Nome*:</label>
             </form>
+            <span class="campo-obrigatorio-clientes">Esse é um campo obrigatório.</span>
         </div>
         <div class="container-form">
             <form>
                 <input type="text" id="cpf-adicionar" required>
-                <label for="name">CPF/CNPJ:</label>
+                <label for="name">CPF/CNPJ*:</label>
             </form>
+            <span class="campo-obrigatorio-clientes">Esse é um campo obrigatório.</span>
         </div>
         <div class="container-form">
             <form>
@@ -98,6 +101,13 @@
         </div>
         <div class="container-buttons-clients">
             <button onclick="post_client()">Adicionar</button> <button>Cancelar</button>
+        </div>
+    </div>
+    <div class="container" id="container-cliente-adicionado">
+        <img src="../img/sucesso.png" class="sucesso">
+        <h1>Cliente adicionado com sucesso!</h1>
+        <div class="container-buttons-clients">
+            <button onclick="adicionar_cliente()">Adicionar novo cliente</button>  <a href="./instalation.html"><button>Ir para instalações</button></a>
         </div>
     </div>
     <div class="container" id="container-update-clients">
