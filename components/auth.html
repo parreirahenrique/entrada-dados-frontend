@@ -17,6 +17,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@300&display=swap" rel="stylesheet">
     
+    <!-- JAVA SCRIPT FILE -->
+    <script src="../node_modules/axios/dist/axios.min.js"></script>
+    <script defer src="../script.js"></script>
+    <script defer src="../App.js"></script>
 </head>
 <body>
     <header>
@@ -31,18 +35,18 @@
     <div class="container" id="container-login">
         <div class="container-form">
             <form>
-                <input type="text" class="usuário" required>
+                <input type="text" id="usuário" required>
                 <label for="name">Usuário:</label>
             </form>
         </div>
         <div class="container-form">
             <form>
-                <input type="password" class="senha" required>
+                <input type="password" id="senha" required>
                 <label for="password">Senha:</label>
             </form>
         </div>
         
-        <a href="../index.html"><button>Entrar</button></a>
+        <button onclick="login()">Entrar</button></a>
     </div>
     <div class="container" id="container-usuario">
         <!-- MOSTRAR AQUI DADOS DO USUÁRIO-->
