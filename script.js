@@ -1,5 +1,6 @@
 // FUNÇÃO PARA MOSTRAR CONTEÚDO PARA USUÁRIOS AUTORIZADOS
 function checar_autorizacao() {
+    access_token = localStorage.setItem('access_token', '');
     access_token = localStorage.getItem('access_token');
 
     if (access_token != '') {
