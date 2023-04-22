@@ -3,10 +3,56 @@ async function login() {
     let senha = document.getElementById('senha').value;
     let dicionario = new FormData();
     
+    if (usuario != '' & senha != '') {
+        dicionario.append('username', usuario);
+        dicionario.append('password', senha);
+
+        token_acesso = await axios.post(
+            'http://localhost:8000/login', dicionario
+        ).then(
+            function (response) {
+                const token_acesso = response.data.access_token;
+                return token_acesso;
+            }
+        ).catch(
+            function (error) {
+                console.log(error);
+                return error;
+            }
+        )
+        
+        let nomePagina = String(location.pathname.split("/").slice(-1))
+            
+        if (nomePagina != 'index.html') {
+            setTimeout(window.location.replace('../index.html'), 5000);
+        }
+    
+        else {
+            setTimeout(window.location.reload(), 5000);
+        }
+    }
+
+    else {
+        arrayCampos = document.getElementsByClassName('campo-obrigatorio-usuarios')
+
+        for (i = 0; i < arrayCampos.length; i ++) {
+            arrayCampos[i].style.visibility = "visible";
+            arrayCampos[i].style.display = "grid";
+        }
+    }
+    
+    localStorage.setItem('username', usuario);
+    localStorage.setItem('access_token', token_acesso);
+}
+
+async function logout() {
+    let usuario = '';
+    let senha = '';
+    let dicionario = new FormData();
+    
     dicionario.append('username', usuario);
     dicionario.append('password', senha);
 
-    // window.prompt(dicionario.get('username'))
     token_acesso = await axios.post(
         'http://localhost:8000/login', dicionario
     ).then(
@@ -20,7 +66,18 @@ async function login() {
             return error;
         }
     )
+    
+    let nomePagina = String(location.pathname.split("/").slice(-1))
+        
+    if (nomePagina != 'index.html') {
+        setTimeout(window.location.replace('../index.html'), 5000);
+    }
 
+    else {
+        setTimeout(window.location.reload(), 5000);
+    }
+    
+    localStorage.setItem('username', '');
     localStorage.setItem('access_token', token_acesso);
 }
 

@@ -21,8 +21,12 @@ html {
     width:100%;
 }
 
-.container-nav {
+nav {
     position: fixed;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    vertical-align: center;
     top: 0;
     width: 100%;
     margin: 0;
@@ -30,12 +34,11 @@ html {
     border: 0;
     height: 100px;
     background-color: black;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
     z-index: 1;
+    
 }
+
+
 
 h1 {
     color: white;
@@ -49,6 +52,7 @@ h1 {
 
 p {
     color: white;
+    text-align: center;
     margin-right: auto;
     margin-left: auto;
     font-family: 'Zilla Slab', serif;
@@ -60,16 +64,57 @@ p {
 
 #uil-nav {
     color: white;
-    size: small;
-    margin: 10px;
-    margin-right: auto;
-    margin-left: auto;
+    font-size: 30px;
+    margin-left: 20px;
 }
 
 #uil-nav:hover {
     size: large;
     background-color: rgb(255, 255, 255, .30);
     border-radius: 3px;
+}
+
+.container-nav {
+    display: flex;
+    flex-direction: row;
+    display: flex;
+}
+
+.container-user {
+    display: flex;
+    align-content: center;
+    flex-direction: column;
+    align-items: center;
+    vertical-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.nome-usuario {
+    font-size: 12.5px;
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: lighter;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+.sair-usuario {
+    font-size: 12.5px;
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: lighter;
+    color: white;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+.sair-usuario:hover {
+    cursor: pointer;
+    background-color: rgb(255, 255, 255, .30);
+    border-radius: 3px;
+    padding: 2px;
 }
 
 button {
@@ -193,6 +238,12 @@ sub {
     margin-right: auto;
 }
 
+.falha {
+    height: 200px;
+    margin: 50px;
+    margin-left: auto;
+    margin-right: auto;
+}
 
 .usuario-nao-autorizado-secundario {
     margin-top: 50px;
@@ -201,14 +252,10 @@ sub {
     font-style: normal;
 }
 
-/* ESTILOS DAS CLASSES DA PÁGINA PRINCIPAL */
-#container-buttons {
-    visibility: hidden;
-    display: none;
-}
-
 /* ESTILOS DAS CLASSES DA PÁGINA DE LOGIN */
-#container-usuario {
+.campo-obrigatorio-usuarios {
+    margin-right: 50px;
+    font-size: small;
     visibility: hidden;
     display: none;
 }

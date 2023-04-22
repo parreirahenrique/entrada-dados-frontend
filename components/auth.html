@@ -22,34 +22,43 @@
     <script defer src="../script.js"></script>
     <script defer src="../App.js"></script>
 </head>
-<body>
-    <header>
-        <nav class="flexbox">
-            <div class="container-nav">
-                <p>Entrada de Projetos</p>
-                <a href="../index.html"><i class="uil uil-home" id="uil-nav"></i></a>
-                <a href="./auth.html"><i class="uil uil-user" id="uil-nav"></i></a>
-            </div>
-        </nav>
-    </header>
-    <div class="container" id="container-login">
-        <div class="container-form">
-            <form>
-                <input type="text" id="usuário" required>
-                <label for="name">Usuário:</label>
-            </form>
+<body onload="checar_autorizacao()">
+    <div class="container-usuario-autorizado">
+        <div class="container" id="container-usuario">
+            <!-- MOSTRAR AQUI DADOS DO USUÁRIO-->
         </div>
-        <div class="container-form">
-            <form>
-                <input type="password" id="senha" required>
-                <label for="password">Senha:</label>
-            </form>
-        </div>
-        
-        <button onclick="login()">Entrar</button></a>
     </div>
-    <div class="container" id="container-usuario">
-        <!-- MOSTRAR AQUI DADOS DO USUÁRIO-->
+    <div class="container-usuario-nao-autorizado"></div>    
+        <header>
+            <nav class="flexbox">
+                <p>Entrada de Projetos</p>
+                <div class="container-nav">
+                    <a href="../index.html"><i class="uil uil-home" id="uil-nav"></i></a>
+                    <a href="./auth.html"><i class="uil uil-user" id="uil-nav"></i></a>
+                    <div class="container-user">
+                        <p class="nome-usuario">Usuário</p>
+                        <a class="sair-usuario" onclick="logout()">Sair</a>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <div class="container" id="container-login">
+            <div class="container-form">
+                <form>
+                    <input type="text" id="usuário" required>
+                    <label for="name">Usuário:</label>
+                    <span class="campo-obrigatorio-usuarios">Esse é um campo obrigatório.</span>
+                </form>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="password" id="senha" required>
+                    <label for="password">Senha:</label>
+                    <span class="campo-obrigatorio-usuarios">Esse é um campo obrigatório.</span>
+                </form>
+            </div>
+            <button onclick="login()">Entrar</button></a>
+        </div>
     </div>
 </body>
 </html>

@@ -22,13 +22,17 @@
     <script defer src="../App.js"></script>
 </head>
 <body onload="checar_autorizacao()">
-        <div class="container-usuario-autorizado">
+    <div class="container-usuario-autorizado">
         <header>
             <nav class="flexbox">
+                <p>Entrada de Projetos</p>
                 <div class="container-nav">
-                    <p>Clientes</p>
                     <a href="../index.html"><i class="uil uil-home" id="uil-nav"></i></a>
                     <a href="./auth.html"><i class="uil uil-user" id="uil-nav"></i></a>
+                    <div class="container-user">
+                        <p class="nome-usuario">Usuário</p>
+                        <a class="sair-usuario" onclick="logout()">Sair</a>
+                    </div>
                 </div>
             </nav>
         </header>
@@ -166,7 +170,8 @@
     </div>
     <div class="container-usuario-nao-autorizado">
         <div class="container">
-            <p class="usuario-nao-autorizado-principal">Você não está autorizado a acessar essa página.</p>
+            <img src="../img/falha.png" class="falha">
+            <p class="usuario-nao-autorizado-principal">Acesso negado.</p>
             <p class="usuario-nao-autorizado-secundario">Faça login primeiro.</p>
             <a href="./auth.html"><button>Ir para a página de logins</button></a>
         </div>

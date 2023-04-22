@@ -1,9 +1,8 @@
 // FUNÇÃO PARA MOSTRAR CONTEÚDO PARA USUÁRIOS AUTORIZADOS
 function checar_autorizacao() {
-    access_token = localStorage.setItem('access_token', '');
     access_token = localStorage.getItem('access_token');
-
-    if (access_token != '') {
+    
+    if (access_token != 'Error: Request failed with status code 403' & access_token != null & access_token != 'Error: Request failed with status code 422') {
         autorizado = document.getElementsByClassName('container-usuario-autorizado')
         autorizado[0].style.visibility = 'visible'
         autorizado[0].style.display = 'grid'
@@ -14,6 +13,17 @@ function checar_autorizacao() {
     }
 
     else {
+        let nomePagina = String(location.pathname.split("/").slice(-1))
+        
+        if (nomePagina != 'index.html') {
+            iconeHome = document.getElementsByClassName('uil uil-home')
+            iconeHome[0].style.visibility = 'hidden'
+            iconeHome[0].style.display = 'none'
+        }
+        containerUsuario = document.getElementsByClassName('container-user')
+        containerUsuario[0].style.visibility = 'hidden'
+        containerUsuario[0].style.display = 'none'
+
         autorizado = document.getElementsByClassName('container-usuario-autorizado')
         autorizado[0].style.visibility = 'hidden'
         autorizado[0].style.display = 'none'
