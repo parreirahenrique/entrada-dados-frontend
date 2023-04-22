@@ -23,26 +23,26 @@
     <script defer src="../App.js"></script>
 </head>
 <body onload="checar_autorizacao()">
+    <header>
+        <nav class="flexbox">
+            <p>Entrada de Projetos</p>
+            <div class="container-nav">
+                <a href="../index.html"><i class="uil uil-home" id="uil-nav"></i></a>
+                <a href="./auth.html"><i class="uil uil-user" id="uil-nav"></i></a>
+                <div class="container-user">
+                    <p class="nome-usuario">Usuário</p>
+                    <a class="sair-usuario" onclick="logout()">Sair</a>
+                </div>
+            </div>
+        </nav>
+    </header>
     <div class="container-usuario-autorizado">
-        <div class="container" id="container-usuario">
-            <!-- MOSTRAR AQUI DADOS DO USUÁRIO-->
+        <div class="container">
+            
         </div>
     </div>
-    <div class="container-usuario-nao-autorizado"></div>    
-        <header>
-            <nav class="flexbox">
-                <p>Entrada de Projetos</p>
-                <div class="container-nav">
-                    <a href="../index.html"><i class="uil uil-home" id="uil-nav"></i></a>
-                    <a href="./auth.html"><i class="uil uil-user" id="uil-nav"></i></a>
-                    <div class="container-user">
-                        <p class="nome-usuario">Usuário</p>
-                        <a class="sair-usuario" onclick="logout()">Sair</a>
-                    </div>
-                </div>
-            </nav>
-        </header>
-        <div class="container" id="container-login">
+    <div class="container-usuario-nao-autorizado">    
+        <div class="container">
             <div class="container-form">
                 <form>
                     <input type="text" id="usuário" required>
@@ -57,7 +57,7 @@
                     <span class="campo-obrigatorio-usuarios">Esse é um campo obrigatório.</span>
                 </form>
             </div>
-            <button onclick="login()">Entrar</button></a>
+            <button onclick="login()">Entrar</button>
         </div>
     </div>
 </body>
