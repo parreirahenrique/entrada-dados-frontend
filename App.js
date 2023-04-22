@@ -81,6 +81,94 @@ async function logout() {
     localStorage.setItem('access_token', token_acesso);
 }
 
+// FUNÇÕES GERAIS PARA AS PÁGINAS
+async function get_username() {
+    access_token = localStorage.getItem('access_token');
+    username = localStorage.getItem('username');
+    
+    if (access_token != 'Error: Request failed with status code 403' & access_token != null & access_token != 'Error: Request failed with status code 422') {
+        nomeUsuario = document.getElementsByClassName('nome-usuario')
+        nomeUsuario[0].innerHTML = username
+    }
+}
+
+//FUNÇÕES PARA A PÁGINA DE USUÁRIO
+async function get_user() {
+    access_token = localStorage.getItem('access_token');
+    username = localStorage.getItem('username');
+
+    if (username != '' & username != null) {
+
+        let config = {
+            headers: {
+              'Authorization': 'Bearer ' + access_token
+            }
+        }
+
+        let dadosUsuario = await axios.get(
+            'http://localhost:8000/users/' + username, config
+        ).then(
+            function (response) {
+                const dadosUsuario = response.data;
+                return dadosUsuario;
+            }
+        ).catch(
+            function (error) {
+                console.log(error);
+                return error;
+            }
+        )
+        
+        hora = dadosUsuario.criado_em.split('T')[1].split('.')[0]
+        console.log(hora)
+        data = dadosUsuario.criado_em.split('-')[2].split('T')[0] + '/' + dadosUsuario.criado_em.split('-')[1] + '/' + dadosUsuario.criado_em.split('-')[0]
+        document.getElementById('username').innerHTML = dadosUsuario.nome
+        document.getElementById('user-role').innerHTML = dadosUsuario.cargo
+        document.getElementById('user-created-at').innerHTML = data  + ' às ' + hora
+        document.getElementById('titulo-pagina').innerHTML = "Usuário"
+    }
+}
+
+// FUNÇÕES PARA A PÁGINA DE CLIENTES
+async function get_client() {
+    access_token = localStorage.getItem('access_token');
+
+    let numero_cliente = document.getElementById('número-cliente-buscar').value;
+
+    if (numero_cliente != '') {
+        let config = {
+            headers: {
+              'Authorization': 'Bearer ' + access_token
+            }
+        }
+
+        let dadosCliente = await axios.get(
+            'http://localhost:8000/clients/' + numero_cliente, config
+        ).then(
+            function (response) {
+                const dadosCliente = response.data;
+                return dadosCliente;
+            }
+        ).catch(
+            function (error) {
+                console.log(error);
+                return error;
+            }
+        )
+
+        console.log(dadosCliente)
+    }
+
+    else {
+        arrayCampos = document.getElementsByClassName('campo-obrigatorio-clientes')
+
+        for (i = 0; i < arrayCampos.length; i ++) {
+            arrayCampos[i].style.visibility = "visible";
+            arrayCampos[i].style.display = "grid";
+        }
+    }
+}
+
 function post_client() {
     access_token = localStorage.getItem('access_token');
 

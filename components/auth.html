@@ -22,10 +22,10 @@
     <script defer src="../script.js"></script>
     <script defer src="../App.js"></script>
 </head>
-<body onload="checar_autorizacao()">
+<body onload="checar_autorizacao(); get_username(); get_user()">
     <header>
         <nav class="flexbox">
-            <p>Entrada de Projetos</p>
+            <p id="titulo-pagina">Entrada de Projetos</p>
             <div class="container-nav">
                 <a href="../index.html"><i class="uil uil-home" id="uil-nav"></i></a>
                 <a href="./auth.html"><i class="uil uil-user" id="uil-nav"></i></a>
@@ -38,7 +38,18 @@
     </header>
     <div class="container-usuario-autorizado">
         <div class="container">
-            
+            <div class="container-dados-usuario">
+                <div class="container-titulos">
+                    <span class="titulo">Nome do usuário:</span>
+                    <span class="titulo">Cargo:</span>
+                    <span class="titulo">Criado em:</span>
+                </div>
+                <div class="container-dados">
+                    <span id="username"></span>
+                    <span id="user-role"></span>
+                    <span id="user-created-at"></span>
+                </div>
+            </div>
         </div>
     </div>
     <div class="container-usuario-nao-autorizado">    

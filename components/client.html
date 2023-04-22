@@ -21,11 +21,11 @@
     <script defer src="../script.js"></script>
     <script defer src="../App.js"></script>
 </head>
-<body onload="checar_autorizacao()">
+<body onload="checar_autorizacao(); get_username(); get_user()">
     <div class="container-usuario-autorizado">
         <header>
             <nav class="flexbox">
-                <p>Entrada de Projetos</p>
+                <p>Clientes</p>
                 <div class="container-nav">
                     <a href="../index.html"><i class="uil uil-home" id="uil-nav"></i></a>
                     <a href="./auth.html"><i class="uil uil-user" id="uil-nav"></i></a>
@@ -57,11 +57,12 @@
             <div class="container-form">
                 <form>
                     <input type="text" id="número-cliente-buscar" placeholder="Ex.: 7000000000" required>
-                    <label for="name">Número do cliente:</label>
+                    <label for="name">Número do cliente*:</label>
                 </form>
+                <span class="campo-obrigatorio-clientes">Esse é um campo obrigatório.</span>
             </div>
             <div class="container-buttons-clients">
-                <a href=""><button>Buscar</button></a> <a href=""><button>Cancelar</button></a>
+                <button onclick="get_client()">Buscar</button> <a href=""><button>Cancelar</button></a>
             </div>
         </div>
         <div class="container" id="container-add-clients">
@@ -105,7 +106,7 @@
                 </form>
             </div>
             <div class="container-buttons-clients">
-                <button onclick="post_client()">Adicionar</button> <button>Cancelar</button>
+                <button onclick="post_client()">Adicionar</button> <a href=""><button>Cancelar</button></a>
             </div>
         </div>
         <div class="container" id="container-cliente-adicionado">

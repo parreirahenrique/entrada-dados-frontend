@@ -43,6 +43,11 @@ nav {
     display: none;
 }
 
+.container-usuario-nao-autorizado {
+    visibility: hidden;
+    display: none;
+}
+
 .container-user {
     visibility: hidden;
     display: none;
@@ -68,6 +73,11 @@ p {
     font-size: 60px;
     font-weight: bolder;
     text-align: center;
+}
+
+.uil uil-nav {
+    visibility: hidden;
+    display: none;
 }
 
 #uil-nav {
@@ -109,11 +119,11 @@ p {
 }
 
 .sair-usuario {
-    font-size: 12.5px;
+    font-size: 10px;
     font-family: 'Roboto', sans-serif;
     font-style: normal;
     font-weight: lighter;
-    color: white;
+    color: rgb(255, 255, 255, .50);
     padding-top: 2px;
     padding-bottom: 2px;
 }
@@ -261,6 +271,24 @@ sub {
 }
 
 /* ESTILOS DAS CLASSES DA PÁGINA DE LOGIN */
+.container-dados-usuario {
+    display: flex;
+    flex-direction: row;
+}
+
+.container-titulos {
+    display: grid;
+    text-align: right;
+    margin-right: 5px;
+    font-weight: bolder;
+}
+
+.container-dados {
+    display: grid;
+    text-align: left;
+    margin-left: 5px;
+}
+
 .campo-obrigatorio-usuarios {
     margin-right: 50px;
     font-size: small;

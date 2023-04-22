@@ -49,11 +49,14 @@ function checar_autorizacao() {
 
 // FUNÇÕES PARA MOSTRAR CONTEÚDO DA PÁGINA DE CLIENTES
 function buscar_cliente() {
+    let divGeral = document.getElementById('container-geral')
     let divSearchClient = document.getElementById('container-search-clients');
     let divAddClient = document.getElementById('container-add-clients');
     let divUpdateClient = document.getElementById('container-update-clients');
     let divDeleteClient = document.getElementById('container-delete-clients');
     
+    divGeral.style.visibility = "hidden"
+    divGeral.style.display = "none";
     divSearchClient.style.visibility = "visible";
     divSearchClient.style.display = "grid";
     divAddClient.style.visibility = "hidden";
@@ -65,6 +68,7 @@ function buscar_cliente() {
 }
 
 function adicionar_cliente() {
+    let divGeral = document.getElementById('container-geral')
     let divSearchClient = document.getElementById('container-search-clients')
     let divAddClient = document.getElementById('container-add-clients')
     let divUpdateClient = document.getElementById('container-update-clients')
@@ -78,6 +82,8 @@ function adicionar_cliente() {
     document.getElementById('data-nascimento-adicionar').value = ''
     document.getElementById('nome-pais-adicionar').value = ''
 
+    divGeral.style.visibility = "hidden"
+    divGeral.style.display = "none";
     divClientAdded.style.visibility = "hidden"
     divClientAdded.style.display = "none"
     divSearchClient.style.visibility = "hidden"
@@ -91,11 +97,14 @@ function adicionar_cliente() {
 }
 
 function atualizar_cliente() {
+    let divGeral = document.getElementById('container-geral')
     let divSearchClient = document.getElementById('container-search-clients')
     let divAddClient = document.getElementById('container-add-clients')
     let divUpdateClient = document.getElementById('container-update-clients')
     let divDeleteClient = document.getElementById('container-delete-clients')
 
+    divGeral.style.visibility = "hidden"
+    divGeral.style.display = "none";
     divSearchClient.style.visibility = "hidden"
     divSearchClient.style.display = "none"
     divAddClient.style.visibility = "hidden"
@@ -107,11 +116,14 @@ function atualizar_cliente() {
 }
 
 function deletar_cliente() {
+    let divGeral = document.getElementById('container-geral')
     let divSearchClient = document.getElementById('container-search-clients')
     let divAddClient = document.getElementById('container-add-clients')
     let divUpdateClient = document.getElementById('container-update-clients')
     let divDeleteClient = document.getElementById('container-delete-clients')
 
+    divGeral.style.visibility = "hidden"
+    divGeral.style.display = "none";
     divSearchClient.style.visibility = "hidden"
     divSearchClient.style.display = "none"
     divAddClient.style.visibility = "hidden"
