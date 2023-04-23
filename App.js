@@ -21,14 +21,22 @@ async function login() {
             }
         )
         
-        let nomePagina = String(location.pathname.split("/").slice(-1))
-            
-        if (nomePagina != 'index.html') {
-            setTimeout(window.location.replace('../index.html'), 5000);
+        if (token_acesso != 'Error: Request failed with status code 403'){
+            let nomePagina = String(location.pathname.split("/").slice(-1))
+                
+            if (nomePagina != 'index.html') {
+                setTimeout(window.location.replace('../index.html'), 5000);
+            }
+        
+            else {
+                setTimeout(window.location.reload(), 5000);
+            }
         }
-    
+
         else {
-            setTimeout(window.location.reload(), 5000);
+            divCredenciasInvalidas = document.getElementsByClassName('container-usuario-inexistente')
+            divCredenciasInvalidas[0].style.visibility = "visible"
+            divCredenciasInvalidas[0].style.display = "flex"
         }
     }
 
@@ -120,7 +128,6 @@ async function get_user() {
         )
         
         hora = dadosUsuario.criado_em.split('T')[1].split('.')[0]
-        console.log(hora)
         data = dadosUsuario.criado_em.split('-')[2].split('T')[0] + '/' + dadosUsuario.criado_em.split('-')[1] + '/' + dadosUsuario.criado_em.split('-')[0]
         document.getElementById('username').innerHTML = dadosUsuario.nome
         document.getElementById('user-role').innerHTML = dadosUsuario.cargo
@@ -134,8 +141,12 @@ async function get_client() {
     access_token = localStorage.getItem('access_token');
 
     let numero_cliente = document.getElementById('número-cliente-buscar').value;
+    let divSearchClient = document.getElementById('container-search-clients');
 
     if (numero_cliente != '') {
+        divSearchClient.style.visibility = 'hidden'
+        divSearchClient.style.display = 'none'
+
         let config = {
             headers: {
               'Authorization': 'Bearer ' + access_token
@@ -156,7 +167,25 @@ async function get_client() {
             }
         )
 
-        console.log(dadosCliente)
+        if (dadosCliente != 'Error: Request failed with status code 404') {
+            document.getElementById('container-cliente-encontrado').style.visibility = 'visible'
+            document.getElementById('container-cliente-encontrado').style.display = 'grid'
+            console.log(dadosCliente)
+            hora = dadosCliente.criado_em.split('T')[1].split('.')[0]
+            data = dadosCliente.criado_em.split('-')[2].split('T')[0] + '/' + dadosCliente.criado_em.split('-')[1] + '/' + dadosCliente.criado_em.split('-')[0]
+            document.getElementById('client-name').innerHTML = dadosCliente.nome
+            document.getElementById('client-cpf').innerHTML = dadosCliente.cpf
+            document.getElementById('client-number').innerHTML = dadosCliente.numero_cliente
+            document.getElementById('client-rg').innerHTML = dadosCliente.rg
+            document.getElementById('client-date').innerHTML = dadosCliente.nascimento.split('-')[2] + '/' + dadosCliente.nascimento.split('-')[1] + '/' + dadosCliente.nascimento.split('-')[0] 
+            document.getElementById('client-parent-name').innerHTML = dadosCliente.nome_pais
+            document.getElementById('client-added-in').innerHTML = data  + ' às ' + hora
+        }
+
+        else {
+            document.getElementById('container-cliente-nao-encontrado').style.visibility = 'visible'
+            document.getElementById('container-cliente-nao-encontrado').style.display = 'grid'
+        }
     }
 
     else {
@@ -169,7 +198,7 @@ async function get_client() {
     }
 }
 
-function post_client() {
+async function post_client() {
     access_token = localStorage.getItem('access_token');
 
     let numero_cliente = document.getElementById('número-cliente-adicionar').value;
@@ -195,15 +224,33 @@ function post_client() {
     }
 
     if (numero_cliente != '' & nome != '' & cpf != ''){
-        axios.post(
+        resposta = await axios.post(
             'http://localhost:8000/clients', dicionario, config
+        ).then(
+            function (response) {
+                const dadosCliente = response.data;
+                return dadosCliente;
+            }
+        ).catch(
+            function (error) {
+                console.log(error);
+                return error;
+            }
         )
-
-        document.getElementById('container-cliente-adicionado').style.visibility = 'visible';
-        document.getElementById('container-cliente-adicionado').style.display = 'grid';
         
-        document.getElementById('container-add-clients').style.visibility = 'hidden';
-        document.getElementById('container-add-clients').style.display = 'none';
+        if (resposta != 'Error: Network Error') {
+            document.getElementById('container-cliente-adicionado').style.visibility = 'visible';
+            document.getElementById('container-cliente-adicionado').style.display = 'grid';
+            
+            document.getElementById('container-add-clients').style.visibility = 'hidden';
+            document.getElementById('container-add-clients').style.display = 'none';
+        }
+
+        else {
+            divExistentClient = document.getElementsByClassName('container-cliente-existente')
+            divExistentClient[0].style.visibility = 'visible';
+            divExistentClient[0].style.display = 'flex';
+        }
     }
 
     else {
@@ -214,4 +261,50 @@ function post_client() {
             arrayCampos[i].style.display = "grid";
         }
     }
+}
+
+async function patch_client() {
+    access_token = localStorage.getItem('access_token');
+
+    let numero_cliente = document.getElementById('número-cliente-atualizar').value;
+    let nome = document.getElementById('nome-cliente-atualizar').value;
+    let cpf = document.getElementById('cpf-atualizar').value;
+    let rg = document.getElementById('rg-atualizar').value;
+    let nascimento = document.getElementById('data-nascimento-atualizar').value;
+    let nome_pais = document.getElementById('nome-pais-atualizar').value;
+
+    dicionario = {
+        'nome': nome,
+        'cpf': cpf,
+        'numero_cliente': numero_cliente,
+        'nome_pais': nome_pais,
+        'rg': rg,
+        'nascimento': nascimento
+    }
+
+    let config = {
+        headers: {
+          'Authorization': 'Bearer ' + access_token
+        }
+    }
+
+    resposta = await axios.patch(
+        'http://localhost:8000/clients', dicionario, config
+    ).then(
+        function (response) {
+            const dadosCliente = response.data;
+            return dadosCliente;
+        }
+    ).catch(
+        function (error) {
+            console.log(error);
+            return error;
+        }
+    )
+    
+    document.getElementById('container-cliente-atualizado').style.visibility = 'visible';
+    document.getElementById('container-cliente-atualizado').style.display = 'grid';
+        
+    document.getElementById('container-update-clients').style.visibility = 'hidden';
+    document.getElementById('container-update-clients').style.display = 'none';
 }

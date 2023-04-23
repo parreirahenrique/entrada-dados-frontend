@@ -21,7 +21,7 @@
     <script defer src="../script.js"></script>
     <script defer src="../App.js"></script>
 </head>
-<body onload="checar_autorizacao(); get_username(); get_user()">
+<body onload="checar_autorizacao(); get_username()">
     <div class="container-usuario-autorizado">
         <header>
             <nav class="flexbox">
@@ -65,7 +65,43 @@
                 <button onclick="get_client()">Buscar</button> <a href=""><button>Cancelar</button></a>
             </div>
         </div>
+        <div class="container" id="container-cliente-encontrado">
+            <div class="container-dados-cliente-geral">
+                <div class="container-titulos-cliente">
+                    <span class="titulo">Nome do cliente:</span>
+                    <span class="titulo">CPF:</span>
+                    <span class="titulo">Número do cliente:</span>
+                    <span class="titulo">RG:</span>
+                    <span class="titulo">Data de nascimento:</span>
+                    <span class="titulo">Nome do pai/mãe:</span>
+                    <span class="titulo">Adicionado em:</span>
+                </div>
+                <div class="container-dados-cliente">
+                    <span id="client-name"></span>
+                    <span id="client-cpf"></span>
+                    <span id="client-number"></span>
+                    <span id="client-rg"></span>
+                    <span id="client-date"></span>
+                    <span id="client-parent-name"></span>
+                    <span id="client-added-in"></span>
+                </div>
+            </div>
+            <div class="container-buttons-clients">
+                <button onclick="buscar_cliente()">Buscar novo cliente</button>  <a href=""><button>Cancelar</button></a>
+            </div>
+        </div>
+        <div class="container" id="container-cliente-nao-encontrado">
+            <img src="../img/falha.png" class="falha">
+            <h1>Cliente não foi encontrado.</h1>
+            <div class="container-buttons-clients">
+                <button onclick="buscar_cliente()">Buscar novo cliente</button>  <a href=""><button>Cancelar</button></a>
+            </div>
+        </div>
         <div class="container" id="container-add-clients">
+            <div class="container-cliente-existente">
+                <img src="../img/falha.png" class="falha-cliente">
+                <span class="campo-cliente-existente">Cliente já cadastrado.</span>
+            </div>
             <div class="container-form">
                 <form>
                     <input type="text" id="número-cliente-adicionar" placeholder="Ex.: 7000000000" required>
@@ -155,6 +191,13 @@
             </div>
             <div class="container-buttons-clients">
                 <a href=""><button>Atualizar</button></a> <a href=""><button>Cancelar</button></a>
+            </div>
+        </div>
+        <div class="container" id="container-cliente-atualizado">
+            <img src="../img/sucesso.png" class="sucesso">
+            <h1>Cliente atualizado com sucesso!</h1>
+            <div class="container-buttons-clients">
+                <a href="./instalation.html"><button>Ir para instalações</button></a>
             </div>
         </div>
         <div class="container" id="container-delete-clients">

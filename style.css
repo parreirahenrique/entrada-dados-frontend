@@ -270,20 +270,46 @@ sub {
     font-style: normal;
 }
 
+.container-usuario-inexistente {
+    align-items: center;
+    visibility: hidden;
+    display: none;
+    flex-direction: row;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 20px;
+    font-size: large;
+    font-weight: bolder;
+    color: red;
+}
+
+.falha-usuario {
+    margin-right: 5px;
+    height: 20px;
+    width: 20px;
+}
+
+.campo-usuario-inexistente {
+    margin-left: 5px;
+    font-size: large;
+    font-weight: bolder;
+    color: red;
+}
+
 /* ESTILOS DAS CLASSES DA PÁGINA DE LOGIN */
-.container-dados-usuario {
+.container-dados-usuario-geral {
     display: flex;
     flex-direction: row;
 }
 
-.container-titulos {
+.container-titulos-usuario {
     display: grid;
     text-align: right;
     margin-right: 5px;
     font-weight: bolder;
 }
 
-.container-dados {
+.container-dados-usuario {
     display: grid;
     text-align: left;
     margin-left: 5px;
@@ -297,11 +323,68 @@ sub {
 }
 
 /* ESTILOS DAS CLASSES DA PÁGINA DE CLIENTES */
+.container-cliente-existente {
+    align-items: center;
+    visibility: hidden;
+    display: none;
+    flex-direction: row;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 20px;
+    font-size: large;
+    font-weight: bolder;
+    color: red;
+}
+
+.falha-cliente {
+    margin-right: 5px;
+    height: 20px;
+    width: 20px;
+}
+
+.campo-cliente-existente {
+    margin-left: 5px;
+    font-size: large;
+    font-weight: bolder;
+    color: red;
+}
+
 .campo-obrigatorio-clientes {
     margin-right: 275px;
     font-size: small;
     visibility: hidden;
     display: none;
+}
+
+#container-cliente-encontrado {
+    visibility: hidden;
+    display: none;
+}
+
+#container-cliente-nao-encontrado {
+    visibility: hidden;
+    display: none;
+}
+
+.container-dados-cliente-geral {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+}
+
+.container-titulos-cliente {
+    display: grid;
+    text-align: right;
+    margin-right: 5px;
+    margin-left: auto;
+    font-weight: bolder;
+}
+
+.container-dados-cliente {
+    display: grid;
+    text-align: left;
+    margin-right: auto;
+    margin-left: 5px;
 }
 
 #container-options {
@@ -335,6 +418,11 @@ sub {
 }
 
 #container-cliente-adicionado {
+    visibility: hidden;
+    display: none;
+}
+
+#container-cliente-atualizado {
     visibility: hidden;
     display: none;
 }

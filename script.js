@@ -54,6 +54,8 @@ function buscar_cliente() {
     let divAddClient = document.getElementById('container-add-clients');
     let divUpdateClient = document.getElementById('container-update-clients');
     let divDeleteClient = document.getElementById('container-delete-clients');
+    let divClientFound = document.getElementById('container-cliente-encontrado')
+    let divClientNotFound = document.getElementById('container-cliente-nao-encontrado')
     
     divGeral.style.visibility = "hidden"
     divGeral.style.display = "none";
@@ -65,6 +67,10 @@ function buscar_cliente() {
     divUpdateClient.style.display = "none";
     divDeleteClient.style.visibility = "hidden";
     divDeleteClient.style.display = "none";
+    divClientFound.style.visibility = "hidden";
+    divClientFound.style.display = "none";
+    divClientNotFound.style.visibility = "hidden";
+    divClientNotFound.style.display = "none";
 }
 
 function adicionar_cliente() {
@@ -74,7 +80,8 @@ function adicionar_cliente() {
     let divUpdateClient = document.getElementById('container-update-clients')
     let divDeleteClient = document.getElementById('container-delete-clients')
     let divClientAdded = document.getElementById('container-cliente-adicionado')
-    
+    let divExistentClient = document.getElementsByClassName('container-cliente-existente')
+            
     document.getElementById('número-cliente-adicionar').value = ''
     document.getElementById('nome-cliente-adicionar').value = ''
     document.getElementById('cpf-adicionar').value = ''
@@ -94,6 +101,8 @@ function adicionar_cliente() {
     divUpdateClient.style.display = "none"
     divDeleteClient.style.visibility = "hidden"
     divDeleteClient.style.display = "none"
+    divExistentClient[0].style.visibility = 'hidden';
+    divExistentClient[0].style.display = 'none';
 }
 
 function atualizar_cliente() {

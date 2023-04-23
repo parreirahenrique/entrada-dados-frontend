@@ -38,13 +38,13 @@
     </header>
     <div class="container-usuario-autorizado">
         <div class="container">
-            <div class="container-dados-usuario">
-                <div class="container-titulos">
+            <div class="container-dados-usuario-geral">
+                <div class="container-titulos-usuario">
                     <span class="titulo">Nome do usuário:</span>
                     <span class="titulo">Cargo:</span>
                     <span class="titulo">Criado em:</span>
                 </div>
-                <div class="container-dados">
+                <div class="container-dados-usuario">
                     <span id="username"></span>
                     <span id="user-role"></span>
                     <span id="user-created-at"></span>
@@ -54,6 +54,10 @@
     </div>
     <div class="container-usuario-nao-autorizado">    
         <div class="container">
+            <div class="container-usuario-inexistente">
+                <img src="../img/falha.png" class="falha-usuario">
+                <span class="campo-usuario-inexistente">Usuário inexistente.</span>
+            </div>
             <div class="container-form">
                 <form>
                     <input type="text" id="usuário" required>

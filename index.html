@@ -22,7 +22,7 @@
     <script defer src="./script.js"></script>
     <script defer src="./App.js"></script>
 </head>
-<body onload="checar_autorizacao(); get_username(); get_user()">
+<body onload="checar_autorizacao(); get_username()">
     <header>
         <nav class="flexbox">
             <p>Entrada de Projetos</p>
@@ -49,6 +49,10 @@
     </div>
     <div class="container-usuario-nao-autorizado">
         <div class="container">
+            <div class="container-usuario-inexistente">
+                <img src="./img/falha.png" class="falha-usuario">
+                <span class="campo-usuario-inexistente">Usuário inexistente.</span>
+            </div>
             <div class="container-form">
                 <form>
                     <input type="text" id="usuário" required>
