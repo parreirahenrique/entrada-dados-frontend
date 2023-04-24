@@ -2,7 +2,7 @@
 function checar_autorizacao() {
     access_token = localStorage.getItem('access_token');
     
-    if (access_token != 'Error: Request failed with status code 403' & access_token != null & access_token != 'Error: Request failed with status code 422') {
+    if (access_token != 'Error: Request failed with status code 403' & access_token != null & access_token != 'Error: Request failed with status code 422' & access_token != 'Error: Network Error') {
         let nomePagina = String(location.pathname.split("/").slice(-1))
         
         if (nomePagina != 'index.html') {
