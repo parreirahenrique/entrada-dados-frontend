@@ -91,8 +91,8 @@ async function logout() {
 
 // FUNÇÕES GERAIS PARA AS PÁGINAS
 async function get_username() {
-    access_token = localStorage.getItem('access_token');
-    username = localStorage.getItem('username');
+    let access_token = localStorage.getItem('access_token');
+    let username = localStorage.getItem('username');
     
     if (access_token != 'Error: Request failed with status code 403' & access_token != null & access_token != 'Error: Request failed with status code 422') {
         nomeUsuario = document.getElementsByClassName('nome-usuario')
@@ -102,8 +102,8 @@ async function get_username() {
 
 //FUNÇÕES PARA A PÁGINA DE USUÁRIO
 async function get_user() {
-    access_token = localStorage.getItem('access_token');
-    username = localStorage.getItem('username');
+    let access_token = localStorage.getItem('access_token');
+    let username = localStorage.getItem('username');
 
     if (username != '' & username != null) {
 
@@ -138,15 +138,13 @@ async function get_user() {
 
 // FUNÇÕES PARA A PÁGINA DE CLIENTES
 async function get_client() {
-    access_token = localStorage.getItem('access_token');
+    let access_token = localStorage.getItem('access_token');
 
     let numero_cliente = document.getElementById('número-cliente-buscar').value;
     let divSearchClient = document.getElementById('container-search-clients');
 
     if (numero_cliente != '') {
-        divSearchClient.style.visibility = 'hidden'
-        divSearchClient.style.display = 'none'
-
+        
         let config = {
             headers: {
               'Authorization': 'Bearer ' + access_token
@@ -168,11 +166,15 @@ async function get_client() {
         )
 
         if (dadosCliente != 'Error: Request failed with status code 404') {
+            divSearchClient.style.visibility = 'hidden'
+            divSearchClient.style.display = 'none'
+
             document.getElementById('container-cliente-encontrado').style.visibility = 'visible'
             document.getElementById('container-cliente-encontrado').style.display = 'grid'
-            console.log(dadosCliente)
-            hora = dadosCliente.criado_em.split('T')[1].split('.')[0]
-            data = dadosCliente.criado_em.split('-')[2].split('T')[0] + '/' + dadosCliente.criado_em.split('-')[1] + '/' + dadosCliente.criado_em.split('-')[0]
+            
+            let hora = dadosCliente.criado_em.split('T')[1].split('.')[0]
+            let data = dadosCliente.criado_em.split('-')[2].split('T')[0] + '/' + dadosCliente.criado_em.split('-')[1] + '/' + dadosCliente.criado_em.split('-')[0]
+            
             document.getElementById('client-name').innerHTML = dadosCliente.nome
             document.getElementById('client-cpf').innerHTML = dadosCliente.cpf
             document.getElementById('client-number').innerHTML = dadosCliente.numero_cliente
@@ -183,8 +185,12 @@ async function get_client() {
         }
 
         else {
-            document.getElementById('container-cliente-nao-encontrado').style.visibility = 'visible'
-            document.getElementById('container-cliente-nao-encontrado').style.display = 'grid'
+            let arrayClienteInexistente = document.getElementsByClassName('container-cliente-inexistente')
+
+            for (i = 0; i < arrayClienteInexistente.length; i ++) {
+                arrayClienteInexistente[i].style.visibility = 'visible'
+                arrayClienteInexistente[i].style.display = 'flex'
+            }
         }
     }
 
@@ -199,7 +205,7 @@ async function get_client() {
 }
 
 async function post_client() {
-    access_token = localStorage.getItem('access_token');
+    let access_token = localStorage.getItem('access_token');
 
     let numero_cliente = document.getElementById('número-cliente-adicionar').value;
     let nome = document.getElementById('nome-cliente-adicionar').value;
@@ -264,47 +270,141 @@ async function post_client() {
 }
 
 async function patch_client() {
-    access_token = localStorage.getItem('access_token');
+    let access_token = localStorage.getItem('access_token');
 
+    let numero_cliente_buscar = document.getElementById('número-cliente-buscar-atualizar').value;
     let numero_cliente = document.getElementById('número-cliente-atualizar').value;
     let nome = document.getElementById('nome-cliente-atualizar').value;
     let cpf = document.getElementById('cpf-atualizar').value;
     let rg = document.getElementById('rg-atualizar').value;
     let nascimento = document.getElementById('data-nascimento-atualizar').value;
     let nome_pais = document.getElementById('nome-pais-atualizar').value;
+    let dicionario = {}; // Create an empty array
 
-    dicionario = {
-        'nome': nome,
-        'cpf': cpf,
-        'numero_cliente': numero_cliente,
-        'nome_pais': nome_pais,
-        'rg': rg,
-        'nascimento': nascimento
+    if (numero_cliente == '' & nome == '' & cpf == '' & rg == '' & nascimento == '' & nome_pais == '') {
+        containerCamposNaoPreenchidos = document.getElementsByClassName('container-campos-nao-preenchidos')
+        containerCamposNaoPreenchidos[0].style.visibility = "visible"
+        containerCamposNaoPreenchidos[0].style.display = "flex"
     }
 
-    let config = {
-        headers: {
-          'Authorization': 'Bearer ' + access_token
+    else {
+        if (numero_cliente != ''){
+            dicionario['numero_cliente'] = numero_cliente
         }
-    }
 
-    resposta = await axios.patch(
-        'http://localhost:8000/clients', dicionario, config
-    ).then(
-        function (response) {
-            const dadosCliente = response.data;
-            return dadosCliente;
+        if (nome != ''){
+            dicionario['nome'] = nome
         }
-    ).catch(
-        function (error) {
-            console.log(error);
-            return error;
+
+        if (cpf != ''){
+            dicionario['cpf'] = cpf
         }
-    )
-    
-    document.getElementById('container-cliente-atualizado').style.visibility = 'visible';
-    document.getElementById('container-cliente-atualizado').style.display = 'grid';
+
+        if (rg != ''){
+            dicionario['rg'] = rg
+        }
+
+        if (nascimento != ''){
+            dicionario['nascimento'] = nascimento
+        }
+
+        if (nome_pais != ''){
+            dicionario['nome_pais'] = nome_pais
+        }
+
+        let config = {
+            headers: {
+            'Authorization': 'Bearer ' + access_token
+            }
+        }
         
-    document.getElementById('container-update-clients').style.visibility = 'hidden';
-    document.getElementById('container-update-clients').style.display = 'none';
+        
+        url = 'http://localhost:8000/clients/' + numero_cliente_buscar
+        
+        resposta = await axios.patch(
+            url, dicionario, config
+        ).then(
+            function (response) {
+                const dadosCliente = response.data;
+                return dadosCliente;
+            }
+        ).catch(
+            function (error) {
+                console.log(error);
+                return error;
+            }
+        )
+        
+        if (resposta != 'Error: Request failed with status code 404') {
+            document.getElementById('container-cliente-atualizado').style.visibility = 'visible';
+            document.getElementById('container-cliente-atualizado').style.display = 'grid';
+                
+            document.getElementById('container-update-clients').style.visibility = 'hidden';
+            document.getElementById('container-update-clients').style.display = 'none';
+        }
+
+        else {
+            let arrayClienteInexistente = document.getElementsByClassName('container-cliente-inexistente')
+
+            for (i = 0; i < arrayClienteInexistente.length; i ++) {
+                arrayClienteInexistente[i].style.visibility = 'visible'
+                arrayClienteInexistente[i].style.display = 'flex'
+            }
+        }
+    }
+}
+
+async function delete_client() {
+    let access_token = localStorage.getItem('access_token');
+    let numero_cliente = document.getElementById('número-cliente-deletar').value;
+
+    if (numero_cliente != '') {
+
+        let config = {
+            headers: {
+              'Authorization': 'Bearer ' + access_token
+            }
+        }
+
+        let resposta = await axios.delete(
+            'http://localhost:8000/clients/' + numero_cliente, config
+        ).then(
+            function (response) {
+                const dadosUsuario = response.data;
+                return dadosUsuario;
+            }
+        ).catch(
+            function (error) {
+                console.log(error);
+                return error;
+            }
+        )
+        
+        if (resposta == '') {
+            document.getElementById('container-cliente-deletado').style.visibility = 'visible';
+            document.getElementById('container-cliente-deletado').style.display = 'grid';
+
+            document.getElementById('container-delete-clients').style.visibility = 'hidden';
+            document.getElementById('container-delete-clients').style.display = 'none';
+        }
+
+        else if (resposta == 'Error: Request failed with status code 404') {
+            let arrayClienteInexistente = document.getElementsByClassName('container-cliente-inexistente');
+
+            for (i = 0; i < arrayClienteInexistente.length; i ++) {
+                arrayClienteInexistente[i].style.visibility = 'visible';
+                arrayClienteInexistente[i].style.display = 'flex';
+            }
+        }
+
+    }
+    
+    else {
+        let arrayCampos = document.getElementsByClassName('campo-obrigatorio-clientes');
+
+        for (i = 0; i < arrayCampos.length; i ++) {
+            arrayCampos[i].style.visibility = "visible";
+            arrayCampos[i].style.display = "grid";
+        }
+    }
 }

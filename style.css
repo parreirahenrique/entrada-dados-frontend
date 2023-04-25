@@ -323,6 +323,12 @@ sub {
 }
 
 /* ESTILOS DAS CLASSES DA PÁGINA DE CLIENTES */
+#container-options {
+    display: flex;
+    flex-direction: row;
+    width: fit-content;
+}
+
 .container-cliente-existente {
     align-items: center;
     visibility: hidden;
@@ -336,17 +342,37 @@ sub {
     color: red;
 }
 
-.falha-cliente {
-    margin-right: 5px;
-    height: 20px;
-    width: 20px;
-}
-
 .campo-cliente-existente {
     margin-left: 5px;
     font-size: large;
     font-weight: bolder;
     color: red;
+}
+
+.container-cliente-inexistente {
+    align-items: center;
+    visibility: hidden;
+    display: none;
+    flex-direction: row;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 20px;
+    font-size: large;
+    font-weight: bolder;
+    color: red;
+}
+
+.campo-cliente-inexistente {
+    margin-left: 5px;
+    font-size: large;
+    font-weight: bolder;
+    color: red;
+}
+
+.falha-cliente {
+    margin-right: 5px;
+    height: 20px;
+    width: 20px;
 }
 
 .campo-obrigatorio-clientes {
@@ -356,12 +382,13 @@ sub {
     display: none;
 }
 
-#container-cliente-encontrado {
+#container-search-clients {
     visibility: hidden;
     display: none;
+    transition: .3s ease-in-out;
 }
 
-#container-cliente-nao-encontrado {
+#container-cliente-encontrado {
     visibility: hidden;
     display: none;
 }
@@ -387,19 +414,13 @@ sub {
     margin-left: 5px;
 }
 
-#container-options {
-    display: flex;
-    flex-direction: row;
-    width: fit-content;
-}
-
-#container-search-clients {
+#container-add-clients {
     visibility: hidden;
     display: none;
     transition: .3s ease-in-out;
 }
 
-#container-add-clients {
+#container-search-to-update-clients {
     visibility: hidden;
     display: none;
     transition: .3s ease-in-out;
@@ -409,6 +430,26 @@ sub {
     visibility: hidden;
     display: none;
     transition: .3s ease-in-out;
+}
+
+.container-campos-nao-preenchidos {
+    align-items: center;
+    visibility: hidden;
+    display: none;
+    flex-direction: row;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 20px;
+    font-size: large;
+    font-weight: bolder;
+    color: red;
+}
+
+.campo-nao-preenchido {
+    margin-left: 5px;
+    font-size: large;
+    font-weight: bolder;
+    color: red;
 }
 
 #container-delete-clients {
@@ -427,6 +468,10 @@ sub {
     display: none;
 }
 
+#container-cliente-deletado {
+    visibility: hidden;
+    display: none;
+}
 /* ESTILOS DAS CLASSES DA PÁGINA DE INSTALAÇÕES */
 #container-search-instalations {
     visibility: hidden;

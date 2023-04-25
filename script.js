@@ -3,84 +3,112 @@ function checar_autorizacao() {
     access_token = localStorage.getItem('access_token');
     
     if (access_token != 'Error: Request failed with status code 403' & access_token != null & access_token != 'Error: Request failed with status code 422' & access_token != 'Error: Network Error') {
-        let nomePagina = String(location.pathname.split("/").slice(-1))
+        let nomePagina = String(location.pathname.split("/").slice(-1));
         
         if (nomePagina != 'index.html') {
-            iconeHome = document.getElementsByClassName('uil uil-home')
-            iconeHome[0].style.visibility = 'visible'
-            iconeHome[0].style.display = 'grid'
+            iconeHome = document.getElementsByClassName('uil uil-home');
+            iconeHome[0].style.visibility = 'visible';
+            iconeHome[0].style.display = 'grid';
         }
 
-        containerUsuario = document.getElementsByClassName('container-user')
-        containerUsuario[0].style.visibility = 'visible'
-        containerUsuario[0].style.display = 'grid'
+        containerUsuario = document.getElementsByClassName('container-user');
+        containerUsuario[0].style.visibility = 'visible';
+        containerUsuario[0].style.display = 'grid';
 
-        autorizado = document.getElementsByClassName('container-usuario-autorizado')
-        autorizado[0].style.visibility = 'visible'
-        autorizado[0].style.display = 'grid'
+        autorizado = document.getElementsByClassName('container-usuario-autorizado');
+        autorizado[0].style.visibility = 'visible';
+        autorizado[0].style.display = 'grid';
         
-        naoAutorizado = document.getElementsByClassName('container-usuario-nao-autorizado')
-        naoAutorizado[0].style.visibility = 'hidden'
-        naoAutorizado[0].style.display = 'none'
+        naoAutorizado = document.getElementsByClassName('container-usuario-nao-autorizado');
+        naoAutorizado[0].style.visibility = 'hidden';
+        naoAutorizado[0].style.display = 'none';
     }
 
     else {
-        let nomePagina = String(location.pathname.split("/").slice(-1))
+        let nomePagina = String(location.pathname.split("/").slice(-1));
         
         if (nomePagina != 'index.html') {
-            iconeHome = document.getElementsByClassName('uil uil-home')
-            iconeHome[0].style.visibility = 'hidden'
-            iconeHome[0].style.display = 'none'
+            iconeHome = document.getElementsByClassName('uil uil-home');
+            iconeHome[0].style.visibility = 'hidden';
+            iconeHome[0].style.display = 'none';
         }
 
-        containerUsuario = document.getElementsByClassName('container-user')
-        containerUsuario[0].style.visibility = 'hidden'
-        containerUsuario[0].style.display = 'none'
+        containerUsuario = document.getElementsByClassName('container-user');
+        containerUsuario[0].style.visibility = 'hidden';
+        containerUsuario[0].style.display = 'none';
 
-        autorizado = document.getElementsByClassName('container-usuario-autorizado')
-        autorizado[0].style.visibility = 'hidden'
-        autorizado[0].style.display = 'none'
+        autorizado = document.getElementsByClassName('container-usuario-autorizado');
+        autorizado[0].style.visibility = 'hidden';
+        autorizado[0].style.display = 'none';
 
-        naoAutorizado = document.getElementsByClassName('container-usuario-nao-autorizado')
-        naoAutorizado[0].style.visibility = 'visible'
-        naoAutorizado[0].style.display = 'grid'
+        naoAutorizado = document.getElementsByClassName('container-usuario-nao-autorizado');
+        naoAutorizado[0].style.visibility = 'visible';
+        naoAutorizado[0].style.display = 'grid';
         }
 }
 
 // FUNÇÕES PARA MOSTRAR CONTEÚDO DA PÁGINA DE CLIENTES
 function buscar_cliente() {
-    let divGeral = document.getElementById('container-geral')
+    let divGeral = document.getElementById('container-geral');
     let divSearchClient = document.getElementById('container-search-clients');
     let divAddClient = document.getElementById('container-add-clients');
+    let divSearchUpdateClient = document.getElementById('container-search-to-update-clients');
     let divUpdateClient = document.getElementById('container-update-clients');
     let divDeleteClient = document.getElementById('container-delete-clients');
-    let divClientFound = document.getElementById('container-cliente-encontrado')
-    let divClientNotFound = document.getElementById('container-cliente-nao-encontrado')
+    let divClientFound = document.getElementById('container-cliente-encontrado');
+    let divClientAdded = document.getElementById('container-cliente-adicionado');
+    let divClientUpdated = document.getElementById('container-cliente-atualizado');
+    let divClientDeleted = document.getElementById('container-cliente-deletado');
+    let arrayCamposObrigatorios = document.getElementsByClassName('campo-obrigatorio-clientes');
+    let arrayClienteInexistente = document.getElementsByClassName('container-cliente-inexistente');
     
+    document.getElementById('número-cliente-buscar').value = ''
+
     divGeral.style.visibility = "hidden"
     divGeral.style.display = "none";
     divSearchClient.style.visibility = "visible";
     divSearchClient.style.display = "grid";
     divAddClient.style.visibility = "hidden";
     divAddClient.style.display = "none";
+    divSearchUpdateClient.style.visibility = "hidden"
+    divSearchUpdateClient.style.display = "none"
     divUpdateClient.style.visibility = "hidden";
     divUpdateClient.style.display = "none";
     divDeleteClient.style.visibility = "hidden";
     divDeleteClient.style.display = "none";
     divClientFound.style.visibility = "hidden";
     divClientFound.style.display = "none";
-    divClientNotFound.style.visibility = "hidden";
-    divClientNotFound.style.display = "none";
+    divClientAdded.style.visibility = "hidden";
+    divClientAdded.style.display = "none";
+    divClientUpdated.style.visibility = "hidden";
+    divClientUpdated.style.display = "none";
+    divClientDeleted.style.visibility = "hidden";
+    divClientDeleted.style.display = "none";
+
+    for(i = 0; i < arrayCamposObrigatorios.length; i++) {
+        arrayCamposObrigatorios[i].style.visibility = "hidden"
+        arrayCamposObrigatorios[i].style.display = "none"
+    }
+
+    for(i = 0; i < arrayClienteInexistente.length; i++) {
+        arrayClienteInexistente[i].style.visibility = "hidden"
+        arrayClienteInexistente[i].style.display = "none"
+    }
 }
 
 function adicionar_cliente() {
-    let divGeral = document.getElementById('container-geral')
-    let divSearchClient = document.getElementById('container-search-clients')
-    let divAddClient = document.getElementById('container-add-clients')
-    let divUpdateClient = document.getElementById('container-update-clients')
-    let divDeleteClient = document.getElementById('container-delete-clients')
-    let divClientAdded = document.getElementById('container-cliente-adicionado')
-    let divExistentClient = document.getElementsByClassName('container-cliente-existente')
+    let divGeral = document.getElementById('container-geral');
+    let divSearchClient = document.getElementById('container-search-clients');
+    let divAddClient = document.getElementById('container-add-clients');
+    let divSearchUpdateClient = document.getElementById('container-search-to-update-clients');
+    let divUpdateClient = document.getElementById('container-update-clients');
+    let divDeleteClient = document.getElementById('container-delete-clients');
+    let divClientFound = document.getElementById('container-cliente-encontrado');
+    let divClientAdded = document.getElementById('container-cliente-adicionado');
+    let divClientUpdated = document.getElementById('container-cliente-atualizado');
+    let divClientDeleted = document.getElementById('container-cliente-deletado');
+    let arrayCamposObrigatorios = document.getElementsByClassName('campo-obrigatorio-clientes');
+    let arrayClienteInexistente = document.getElementsByClassName('container-cliente-inexistente');
             
     document.getElementById('número-cliente-adicionar').value = ''
     document.getElementById('nome-cliente-adicionar').value = ''
@@ -91,56 +119,185 @@ function adicionar_cliente() {
 
     divGeral.style.visibility = "hidden"
     divGeral.style.display = "none";
-    divClientAdded.style.visibility = "hidden"
-    divClientAdded.style.display = "none"
-    divSearchClient.style.visibility = "hidden"
-    divSearchClient.style.display = "none"
-    divAddClient.style.visibility = "visible"
-    divAddClient.style.display = "grid"
-    divUpdateClient.style.visibility = "hidden"
-    divUpdateClient.style.display = "none"
-    divDeleteClient.style.visibility = "hidden"
-    divDeleteClient.style.display = "none"
-    divExistentClient[0].style.visibility = 'hidden';
-    divExistentClient[0].style.display = 'none';
+    divSearchClient.style.visibility = "hidden";
+    divSearchClient.style.display = "none";
+    divAddClient.style.visibility = "visible";
+    divAddClient.style.display = "grid";
+    divSearchUpdateClient.style.visibility = "hidden"
+    divSearchUpdateClient.style.display = "none"
+    divUpdateClient.style.visibility = "hidden";
+    divUpdateClient.style.display = "none";
+    divDeleteClient.style.visibility = "hidden";
+    divDeleteClient.style.display = "none";
+    divClientFound.style.visibility = "hidden";
+    divClientFound.style.display = "none";
+    divClientAdded.style.visibility = "hidden";
+    divClientAdded.style.display = "none";
+    divClientUpdated.style.visibility = "hidden";
+    divClientUpdated.style.display = "none";
+    divClientDeleted.style.visibility = "hidden";
+    divClientDeleted.style.display = "none";
+
+    for(i = 0; i < arrayCamposObrigatorios.length; i++) {
+        arrayCamposObrigatorios[i].style.visibility = "hidden"
+        arrayCamposObrigatorios[i].style.display = "none"
+    }
+
+    for(i = 0; i < arrayClienteInexistente.length; i++) {
+        arrayClienteInexistente[i].style.visibility = "hidden"
+        arrayClienteInexistente[i].style.display = "none"
+    }
 }
 
 function atualizar_cliente() {
-    let divGeral = document.getElementById('container-geral')
-    let divSearchClient = document.getElementById('container-search-clients')
-    let divAddClient = document.getElementById('container-add-clients')
-    let divUpdateClient = document.getElementById('container-update-clients')
-    let divDeleteClient = document.getElementById('container-delete-clients')
+    let divGeral = document.getElementById('container-geral');
+    let divSearchClient = document.getElementById('container-search-clients');
+    let divAddClient = document.getElementById('container-add-clients');
+    let divSearchUpdateClient = document.getElementById('container-search-to-update-clients');
+    let divUpdateClient = document.getElementById('container-update-clients');
+    let divDeleteClient = document.getElementById('container-delete-clients');
+    let divClientFound = document.getElementById('container-cliente-encontrado');
+    let divClientAdded = document.getElementById('container-cliente-adicionado');
+    let divClientUpdated = document.getElementById('container-cliente-atualizado');
+    let divClientDeleted = document.getElementById('container-cliente-deletado');
+    let arrayCamposObrigatorios = document.getElementsByClassName('campo-obrigatorio-clientes');
+    let arrayClienteInexistente = document.getElementsByClassName('container-cliente-inexistente');
+
+    document.getElementById('número-cliente-buscar-atualizar').value = ''
 
     divGeral.style.visibility = "hidden"
     divGeral.style.display = "none";
-    divSearchClient.style.visibility = "hidden"
-    divSearchClient.style.display = "none"
-    divAddClient.style.visibility = "hidden"
-    divAddClient.style.display = "none"
-    divUpdateClient.style.visibility = "visible"
-    divUpdateClient.style.display = "grid"
-    divDeleteClient.style.visibility = "hidden"
-    divDeleteClient.style.display = "none"
+    divSearchClient.style.visibility = "hidden";
+    divSearchClient.style.display = "none";
+    divAddClient.style.visibility = "hidden";
+    divAddClient.style.display = "none";
+    divSearchUpdateClient.style.visibility = "visible"
+    divSearchUpdateClient.style.display = "grid"
+    divUpdateClient.style.visibility = "hidden";
+    divUpdateClient.style.display = "none";
+    divDeleteClient.style.visibility = "hidden";
+    divDeleteClient.style.display = "none";
+    divClientFound.style.visibility = "hidden";
+    divClientFound.style.display = "none";
+    divClientAdded.style.visibility = "hidden";
+    divClientAdded.style.display = "none";
+    divClientUpdated.style.visibility = "hidden";
+    divClientUpdated.style.display = "none";
+    divClientDeleted.style.visibility = "hidden";
+    divClientDeleted.style.display = "none";
+
+    for(i = 0; i < arrayCamposObrigatorios.length; i++) {
+        arrayCamposObrigatorios[i].style.visibility = "hidden"
+        arrayCamposObrigatorios[i].style.display = "none"
+    }
+
+    for(i = 0; i < arrayClienteInexistente.length; i++) {
+        arrayClienteInexistente[i].style.visibility = "hidden"
+        arrayClienteInexistente[i].style.display = "none"
+    }
+}
+
+function mostrar_campos_atualizar_clientes() {
+    let divSearchUpdateClient = document.getElementById('container-search-to-update-clients');
+    let divUpdateClient = document.getElementById('container-update-clients');
+
+    let checkboxNumeroCliente = document.getElementById('checkbox-numero-cliente')
+
+    let divNumeroCliente = document.getElementById('container-form-numero-cliente');
+
+    let arrayCamposObrigatorios = document.getElementsByClassName('campo-obrigatorio-clientes');
+    let arrayClienteInexistente = document.getElementsByClassName('container-cliente-inexistente');
+
+    let numeroCliente = document.getElementById('número-cliente-buscar-atualizar').value;
+    
+    document.getElementById('número-cliente-atualizar').value = ''
+    document.getElementById('nome-cliente-atualizar').value = ''
+    document.getElementById('cpf-atualizar').value = ''
+    document.getElementById('rg-atualizar').value = ''
+    document.getElementById('data-nascimento-atualizar').value = ''
+    document.getElementById('nome-pais-atualizar').value = ''
+
+    if (numeroCliente != '') {
+        divSearchUpdateClient.style.visibility = "hidden"
+        divSearchUpdateClient.style.display = "none"
+        divUpdateClient.style.visibility = "visible"
+        divUpdateClient.style.display = "grid"
+
+        if (checkboxNumeroCliente.checked == true) {
+            divNumeroCliente.style.visibility = "visible"
+            divNumeroCliente.style.display = "grid"
+        }
+
+        else {
+            divNumeroCliente.style.visibility = "hidden"
+            divNumeroCliente.style.display = "none"
+        }
+
+        for(i = 0; i < arrayCamposObrigatorios.length; i++) {
+            arrayCamposObrigatorios[i].style.visibility = "hidden"
+            arrayCamposObrigatorios[i].style.display = "none"
+        }
+
+        for(i = 0; i < arrayClienteInexistente.length; i++) {
+            arrayClienteInexistente[i].style.visibility = "hidden"
+            arrayClienteInexistente[i].style.display = "none"
+        }
+    }
+
+    else {
+        for(i = 0; i < arrayCamposObrigatorios.length; i++) {
+            arrayCamposObrigatorios[i].style.visibility = "visible"
+            arrayCamposObrigatorios[i].style.display = "grid"
+        }
+    }
 }
 
 function deletar_cliente() {
-    let divGeral = document.getElementById('container-geral')
-    let divSearchClient = document.getElementById('container-search-clients')
-    let divAddClient = document.getElementById('container-add-clients')
-    let divUpdateClient = document.getElementById('container-update-clients')
-    let divDeleteClient = document.getElementById('container-delete-clients')
+    let divGeral = document.getElementById('container-geral');
+    let divSearchClient = document.getElementById('container-search-clients');
+    let divAddClient = document.getElementById('container-add-clients');
+    let divSearchUpdateClient = document.getElementById('container-search-to-update-clients');
+    let divUpdateClient = document.getElementById('container-update-clients');
+    let divDeleteClient = document.getElementById('container-delete-clients');
+    let divClientFound = document.getElementById('container-cliente-encontrado');
+    let divClientAdded = document.getElementById('container-cliente-adicionado');
+    let divClientUpdated = document.getElementById('container-cliente-atualizado');
+    let divClientDeleted = document.getElementById('container-cliente-deletado');
+    let arrayCamposObrigatorios = document.getElementsByClassName('campo-obrigatorio-clientes');
+    let arrayClienteInexistente = document.getElementsByClassName('container-cliente-inexistente');
+
+    document.getElementById('número-cliente-deletar').value = ''
 
     divGeral.style.visibility = "hidden"
     divGeral.style.display = "none";
-    divSearchClient.style.visibility = "hidden"
-    divSearchClient.style.display = "none"
-    divAddClient.style.visibility = "hidden"
-    divAddClient.style.display = "none"
-    divUpdateClient.style.visibility = "hidden"
-    divUpdateClient.style.display = "none"
-    divDeleteClient.style.visibility = "visible"
-    divDeleteClient.style.display = "grid"
+    divSearchClient.style.visibility = "hidden";
+    divSearchClient.style.display = "none";
+    divAddClient.style.visibility = "hidden";
+    divAddClient.style.display = "none";
+    divSearchUpdateClient.style.visibility = "hidden"
+    divSearchUpdateClient.style.display = "none"
+    divUpdateClient.style.visibility = "hidden";
+    divUpdateClient.style.display = "none";
+    divDeleteClient.style.visibility = "visible";
+    divDeleteClient.style.display = "grid";
+    divClientFound.style.visibility = "hidden";
+    divClientFound.style.display = "none";
+    divClientAdded.style.visibility = "hidden";
+    divClientAdded.style.display = "none";
+    divClientUpdated.style.visibility = "hidden";
+    divClientUpdated.style.display = "none";
+    divClientDeleted.style.visibility = "hidden";
+    divClientDeleted.style.display = "none";
+
+    for(i = 0; i < arrayCamposObrigatorios.length; i++) {
+        arrayCamposObrigatorios[i].style.visibility = "hidden"
+        arrayCamposObrigatorios[i].style.display = "none"
+    }
+
+    for(i = 0; i < arrayClienteInexistente.length; i++) {
+        arrayClienteInexistente[i].style.visibility = "hidden"
+        arrayClienteInexistente[i].style.display = "none"
+    }
 }
 
 // FUNÇÕES PARA MOSTRAR CONTEÚDO DA PÁGINA DE INSTALAÇÕES

@@ -54,6 +54,10 @@
             </div>
         </div>
         <div class="container" id="container-search-clients">
+            <div class="container-cliente-inexistente">
+                <img src="../img/falha.png" class="falha-cliente">
+                <span class="campo-cliente-inexistente">Cliente inexistente.</span>
+            </div>
             <div class="container-form">
                 <form>
                     <input type="text" id="número-cliente-buscar" placeholder="Ex.: 7000000000" required>
@@ -87,14 +91,7 @@
                 </div>
             </div>
             <div class="container-buttons-clients">
-                <button onclick="buscar_cliente()">Buscar novo cliente</button>  <a href=""><button>Cancelar</button></a>
-            </div>
-        </div>
-        <div class="container" id="container-cliente-nao-encontrado">
-            <img src="../img/falha.png" class="falha">
-            <h1>Cliente não foi encontrado.</h1>
-            <div class="container-buttons-clients">
-                <button onclick="buscar_cliente()">Buscar novo cliente</button>  <a href=""><button>Cancelar</button></a>
+                <button onclick="buscar_cliente()">Buscar novo cliente</button>  <a href=""><button>Voltar</button></a>
             </div>
         </div>
         <div class="container" id="container-add-clients">
@@ -152,8 +149,32 @@
                 <button onclick="adicionar_cliente()">Adicionar novo cliente</button>  <a href="./instalation.html"><button>Ir para instalações</button></a>
             </div>
         </div>
-        <div class="container" id="container-update-clients">
+        <div class="container" id="container-search-to-update-clients">
             <div class="container-form">
+                <form>
+                    <input type="text" id="número-cliente-buscar-atualizar" placeholder="Ex.: 7000000000" required>
+                    <label for="name">Número do cliente*:</label>
+                </form>
+                <span class="campo-obrigatorio-clientes">Esse é um campo obrigatório.</span>
+                <form class="form-checkbox">
+                    <input type="checkbox" class="checkbox" id="checkbox-numero-cliente" required">
+                    <span>Deseja atualizar o número do cliente?</span>
+                </form>
+            </div>
+            <div class="container-buttons-clients">
+                <button onclick="mostrar_campos_atualizar_clientes()">Buscar</button> <a href=""><button>Cancelar</button></a>
+            </div>
+        </div>
+        <div class="container" id="container-update-clients">
+            <div class="container-campos-nao-preenchidos">
+                <img src="../img/falha.png" class="falha-cliente">
+                <span class="campo-nao-preenchido">Preencha pelo menos um dos campos.</span>
+            </div>
+            <div class="container-cliente-inexistente">
+                <img src="../img/falha.png" class="falha-cliente">
+                <span class="campo-cliente-inexistente">Cliente inexistente.</span>
+            </div>
+            <div class="container-form" id="container-form-numero-cliente">
                 <form>
                     <input type="text" id="número-cliente-atualizar" placeholder="Ex.: 7000000000" required>
                     <label for="name">Número do cliente:</label>
@@ -190,7 +211,7 @@
                 </form>
             </div>
             <div class="container-buttons-clients">
-                <a href=""><button>Atualizar</button></a> <a href=""><button>Cancelar</button></a>
+                <button onclick="patch_client()">Atualizar</button> <button onclick="atualizar_cliente()">Voltar</button>
             </div>
         </div>
         <div class="container" id="container-cliente-atualizado">
@@ -201,15 +222,27 @@
             </div>
         </div>
         <div class="container" id="container-delete-clients">
+            <div class="container-cliente-inexistente">
+                <img src="../img/falha.png" class="falha-cliente">
+                <span class="campo-cliente-inexistente">Cliente inexistente.</span>
+            </div>
             <div class="container-form">
                 <form>
                     <input type="text" id="número-cliente-deletar" placeholder="Ex.: 7000000000" required>
-                    <label for="name">Número do cliente:</label>
+                    <label for="name">Número do cliente*:</label>
                 </form>
+                <span class="campo-obrigatorio-clientes">Esse é um campo obrigatório.</span>
             </div>
             <div class="container-buttons-clients">
-                <a href=""><button>Deletar</button></a> <a href=""><button>Cancelar</button></a>
+                <button onclick="delete_client()">Deletar</button> <a href=""><button>Cancelar</button></a>
             </div>
+        </div>
+    </div>
+    <div class="container" id="container-cliente-deletado">
+        <img src="../img/sucesso.png" class="sucesso">
+        <h1>Cliente deletado com sucesso!</h1>
+        <div class="container-buttons-clients">
+            <a href=""><button>Voltar</button></a>
         </div>
     </div>
     <div class="container-usuario-nao-autorizado">
