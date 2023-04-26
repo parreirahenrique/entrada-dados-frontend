@@ -161,8 +161,45 @@ async function get_all_clients() {
                 return error;
             }
         )
+        
+        if (dadosTodosClientes != 'Error: Request failed with status code 401') {
+            let arrayTD = document.getElementsByTagName('td')
 
-        console.log(dadosTodosClientes)
+            for (i = 0; i < dadosTodosClientes.length; i++) {
+                arrayTD[6 * i].innerHTML = dadosTodosClientes[i].numero_cliente
+                arrayTD[6 * i].style.visibility = 'visible'
+                arrayTD[6 * i].style.display = 'table-cell'
+                arrayTD[6 * i + 1].innerHTML = dadosTodosClientes[i].nome
+                arrayTD[6 * i + 1].style.visibility = 'visible'
+                arrayTD[6 * i + 1].style.display = 'table-cell'
+                arrayTD[6 * i + 2].innerHTML = dadosTodosClientes[i].cpf
+                arrayTD[6 * i + 2].style.visibility = 'visible'
+                arrayTD[6 * i + 2].style.display = 'table-cell'
+                arrayTD[6 * i + 3].innerHTML = dadosTodosClientes[i].rg
+                arrayTD[6 * i + 3].style.visibility = 'visible'
+                arrayTD[6 * i + 3].style.display = 'table-cell'
+                arrayTD[6 * i + 4].innerHTML = dadosTodosClientes[i].nascimento
+                arrayTD[6 * i + 4].style.visibility = 'visible'
+                arrayTD[6 * i + 4].style.display = 'table-cell'
+                arrayTD[6 * i + 5].innerHTML = dadosTodosClientes[i].nome_pais
+                arrayTD[6 * i + 5].style.visibility = 'visible'
+                arrayTD[6 * i + 5].style.display = 'table-cell'
+
+                if (i == (dadosTodosClientes.length - 1)) {
+                    arrayTD[6 * i].style.borderBottom = 0;
+                    arrayTD[6 * i + 1].style.borderBottom = 0;
+                    arrayTD[6 * i + 2].style.borderBottom = 0;
+                    arrayTD[6 * i + 3].style.borderBottom = 0;
+                    arrayTD[6 * i + 4].style.borderBottom = 0;
+                    arrayTD[6 * i + 5].style.borderBottom = 0;
+                }
+            }
+        }
+
+        else {
+            localStorage.setItem('access_token', dadosTodosClientes);
+            checar_autorizacao();
+        }
     }
 }
 
