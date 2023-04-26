@@ -164,32 +164,37 @@ async function get_client() {
                 return error;
             }
         )
+        
+        if (dadosCliente != 'Error: Request failed with status code 404' & dadosCliente != 'Error: Request failed with status code 401') {
+            divSearchClient.style.visibility = 'hidden';
+            divSearchClient.style.display = 'none';
 
-        if (dadosCliente != 'Error: Request failed with status code 404') {
-            divSearchClient.style.visibility = 'hidden'
-            divSearchClient.style.display = 'none'
+            document.getElementById('container-cliente-encontrado').style.visibility = 'visible';
+            document.getElementById('container-cliente-encontrado').style.display = 'grid';
+            
+            let hora = dadosCliente.criado_em.split('T')[1].split('.')[0];
+            let data = dadosCliente.criado_em.split('-')[2].split('T')[0] + '/' + dadosCliente.criado_em.split('-')[1] + '/' + dadosCliente.criado_em.split('-')[0];
+            
+            document.getElementById('client-name').innerHTML = dadosCliente.nome;
+            document.getElementById('client-cpf').innerHTML = dadosCliente.cpf;
+            document.getElementById('client-number').innerHTML = dadosCliente.numero_cliente;
+            document.getElementById('client-rg').innerHTML = dadosCliente.rg;
+            document.getElementById('client-date').innerHTML = dadosCliente.nascimento.split('-')[2] + '/' + dadosCliente.nascimento.split('-')[1] + '/' + dadosCliente.nascimento.split('-')[0];
+            document.getElementById('client-parent-name').innerHTML = dadosCliente.nome_pais;
+            document.getElementById('client-added-in').innerHTML = data  + ' às ' + hora;
+        }
 
-            document.getElementById('container-cliente-encontrado').style.visibility = 'visible'
-            document.getElementById('container-cliente-encontrado').style.display = 'grid'
-            
-            let hora = dadosCliente.criado_em.split('T')[1].split('.')[0]
-            let data = dadosCliente.criado_em.split('-')[2].split('T')[0] + '/' + dadosCliente.criado_em.split('-')[1] + '/' + dadosCliente.criado_em.split('-')[0]
-            
-            document.getElementById('client-name').innerHTML = dadosCliente.nome
-            document.getElementById('client-cpf').innerHTML = dadosCliente.cpf
-            document.getElementById('client-number').innerHTML = dadosCliente.numero_cliente
-            document.getElementById('client-rg').innerHTML = dadosCliente.rg
-            document.getElementById('client-date').innerHTML = dadosCliente.nascimento.split('-')[2] + '/' + dadosCliente.nascimento.split('-')[1] + '/' + dadosCliente.nascimento.split('-')[0] 
-            document.getElementById('client-parent-name').innerHTML = dadosCliente.nome_pais
-            document.getElementById('client-added-in').innerHTML = data  + ' às ' + hora
+        else if (dadosCliente == 'Error: Request failed with status code 401') {
+            localStorage.setItem('access_token', dadosCliente);
+            checar_autorizacao();
         }
 
         else {
             let arrayClienteInexistente = document.getElementsByClassName('container-cliente-inexistente')
 
             for (i = 0; i < arrayClienteInexistente.length; i ++) {
-                arrayClienteInexistente[i].style.visibility = 'visible'
-                arrayClienteInexistente[i].style.display = 'flex'
+                arrayClienteInexistente[i].style.visibility = 'visible';
+                arrayClienteInexistente[i].style.display = 'flex';
             }
         }
     }
@@ -244,12 +249,17 @@ async function post_client() {
             }
         )
         
-        if (resposta != 'Error: Network Error') {
+        if (resposta != 'Error: Network Error' & resposta != 'Error: Request failed with status code 401') {
             document.getElementById('container-cliente-adicionado').style.visibility = 'visible';
             document.getElementById('container-cliente-adicionado').style.display = 'grid';
             
             document.getElementById('container-add-clients').style.visibility = 'hidden';
             document.getElementById('container-add-clients').style.display = 'none';
+        }
+
+        else if (resposta == 'Error: Request failed with status code 401') {
+            localStorage.setItem('access_token', resposta);
+            checar_autorizacao();
         }
 
         else {
@@ -335,12 +345,17 @@ async function patch_client() {
             }
         )
         
-        if (resposta != 'Error: Request failed with status code 404') {
+        if (resposta != 'Error: Request failed with status code 404' & resposta != 'Error: Request failed with status code 401') {
             document.getElementById('container-cliente-atualizado').style.visibility = 'visible';
             document.getElementById('container-cliente-atualizado').style.display = 'grid';
                 
             document.getElementById('container-update-clients').style.visibility = 'hidden';
             document.getElementById('container-update-clients').style.display = 'none';
+        }
+
+        else if (resposta == 'Error: Request failed with status code 401') {
+            localStorage.setItem('access_token', resposta);
+            checar_autorizacao();
         }
 
         else {
@@ -386,6 +401,11 @@ async function delete_client() {
 
             document.getElementById('container-delete-clients').style.visibility = 'hidden';
             document.getElementById('container-delete-clients').style.display = 'none';
+        }
+
+        else if (resposta == 'Error: Request failed with status code 401') {
+            localStorage.setItem('access_token', resposta);
+            checar_autorizacao();
         }
 
         else if (resposta == 'Error: Request failed with status code 404') {
