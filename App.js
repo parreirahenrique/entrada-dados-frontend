@@ -22,6 +22,9 @@ async function login() {
             }
         )
         
+        localStorage.setItem('username', usuario);
+        localStorage.setItem('access_token', token_acesso);
+        
         if (token_acesso != 'Error: Request failed with status code 403'){
             let nomePagina = String(location.pathname.split("/").slice(-1))
                 
@@ -50,8 +53,7 @@ async function login() {
         }
     }
     
-    localStorage.setItem('username', usuario);
-    localStorage.setItem('access_token', token_acesso);
+    
 }
 
 async function logout() {
@@ -128,12 +130,12 @@ async function get_user() {
             }
         )
         
-        hora = dadosUsuario.criado_em.split('T')[1].split('.')[0]
-        data = dadosUsuario.criado_em.split('-')[2].split('T')[0] + '/' + dadosUsuario.criado_em.split('-')[1] + '/' + dadosUsuario.criado_em.split('-')[0]
-        document.getElementById('username').innerHTML = dadosUsuario.nome
-        document.getElementById('user-role').innerHTML = dadosUsuario.cargo
-        document.getElementById('user-created-at').innerHTML = data  + ' às ' + hora
-        document.getElementById('titulo-pagina').innerHTML = "Usuário"
+        hora = dadosUsuario.criado_em.split('T')[1].split('.')[0];
+        data = dadosUsuario.criado_em.split('-')[2].split('T')[0] + '/' + dadosUsuario.criado_em.split('-')[1] + '/' + dadosUsuario.criado_em.split('-')[0];
+        document.getElementById('username').innerHTML = dadosUsuario.nome;
+        document.getElementById('user-role').innerHTML = dadosUsuario.cargo;
+        document.getElementById('user-created-at').innerHTML = data  + ' às ' + hora;
+        document.getElementById('titulo-pagina').innerHTML = "Usuário";
     }
 }
 
@@ -142,6 +144,8 @@ async function get_all_clients() {
     let access_token = localStorage.getItem('access_token');
 
     if (access_token != 'Error: Request failed with status code 401' & access_token != 'Error: Request failed with status code 403' & access_token != 'Error: Request failed with status code 422' & access_token != 'Error: Network Error' & access_token != null) {
+        localStorage.setItem('paginaAtualClientes', 0);
+
         let config = {
             headers: {
               'Authorization': 'Bearer ' + access_token
@@ -162,41 +166,161 @@ async function get_all_clients() {
             }
         )
         
-        if (dadosTodosClientes != 'Error: Request failed with status code 401') {
+        if (dadosTodosClientes != 'Error: Request failed with status code 401' & dadosTodosClientes != 'Error: Request failed with status code 404') {
             let arrayTD = document.getElementsByTagName('td')
 
-            for (i = 0; i < dadosTodosClientes.length; i++) {
-                arrayTD[6 * i].innerHTML = dadosTodosClientes[i].numero_cliente
-                arrayTD[6 * i].style.visibility = 'visible'
-                arrayTD[6 * i].style.display = 'table-cell'
-                arrayTD[6 * i + 1].innerHTML = dadosTodosClientes[i].nome
-                arrayTD[6 * i + 1].style.visibility = 'visible'
-                arrayTD[6 * i + 1].style.display = 'table-cell'
-                arrayTD[6 * i + 2].innerHTML = dadosTodosClientes[i].cpf
-                arrayTD[6 * i + 2].style.visibility = 'visible'
-                arrayTD[6 * i + 2].style.display = 'table-cell'
-                arrayTD[6 * i + 3].innerHTML = dadosTodosClientes[i].rg
-                arrayTD[6 * i + 3].style.visibility = 'visible'
-                arrayTD[6 * i + 3].style.display = 'table-cell'
-                arrayTD[6 * i + 4].innerHTML = dadosTodosClientes[i].nascimento
-                arrayTD[6 * i + 4].style.visibility = 'visible'
-                arrayTD[6 * i + 4].style.display = 'table-cell'
-                arrayTD[6 * i + 5].innerHTML = dadosTodosClientes[i].nome_pais
-                arrayTD[6 * i + 5].style.visibility = 'visible'
-                arrayTD[6 * i + 5].style.display = 'table-cell'
+            for (i = 0; i < 10; i++) {
 
-                if (i == (dadosTodosClientes.length - 1)) {
-                    arrayTD[6 * i].style.borderBottom = 0;
-                    arrayTD[6 * i + 1].style.borderBottom = 0;
-                    arrayTD[6 * i + 2].style.borderBottom = 0;
-                    arrayTD[6 * i + 3].style.borderBottom = 0;
-                    arrayTD[6 * i + 4].style.borderBottom = 0;
-                    arrayTD[6 * i + 5].style.borderBottom = 0;
+                if (i < dadosTodosClientes.length) {
+                    arrayTD[6 * i].innerHTML = dadosTodosClientes[i].numero_cliente
+                    arrayTD[6 * i].style.visibility = 'visible'
+                    arrayTD[6 * i].style.display = 'table-cell'
+                    arrayTD[6 * i + 1].innerHTML = dadosTodosClientes[i].nome
+                    arrayTD[6 * i + 1].style.visibility = 'visible'
+                    arrayTD[6 * i + 1].style.display = 'table-cell'
+                    arrayTD[6 * i + 2].innerHTML = dadosTodosClientes[i].cpf
+                    arrayTD[6 * i + 2].style.visibility = 'visible'
+                    arrayTD[6 * i + 2].style.display = 'table-cell'
+                    arrayTD[6 * i + 3].innerHTML = dadosTodosClientes[i].rg
+                    arrayTD[6 * i + 3].style.visibility = 'visible'
+                    arrayTD[6 * i + 3].style.display = 'table-cell'
+                    arrayTD[6 * i + 4].innerHTML = dadosTodosClientes[i].nascimento
+                    arrayTD[6 * i + 4].style.visibility = 'visible'
+                    arrayTD[6 * i + 4].style.display = 'table-cell'
+                    arrayTD[6 * i + 5].innerHTML = dadosTodosClientes[i].nome_pais
+                    arrayTD[6 * i + 5].style.visibility = 'visible'
+                    arrayTD[6 * i + 5].style.display = 'table-cell'
+
+                    if (i == (dadosTodosClientes.length - 1)) {
+                        arrayTD[6 * i].style.borderBottom = 0;
+                        arrayTD[6 * i + 1].style.borderBottom = 0;
+                        arrayTD[6 * i + 2].style.borderBottom = 0;
+                        arrayTD[6 * i + 3].style.borderBottom = 0;
+                        arrayTD[6 * i + 4].style.borderBottom = 0;
+                        arrayTD[6 * i + 5].style.borderBottom = 0;
+                    }
+                }
+
+                else {
+                    arrayTD[6 * i].style.visibility = 'hidden'
+                    arrayTD[6 * i].style.display = 'none'
+                    arrayTD[6 * i + 1].style.visibility = 'hidden'
+                    arrayTD[6 * i + 1].style.display = 'none'
+                    arrayTD[6 * i + 2].style.visibility = 'hidden'
+                    arrayTD[6 * i + 2].style.display = 'none'
+                    arrayTD[6 * i + 3].style.visibility = 'hidden'
+                    arrayTD[6 * i + 3].style.display = 'none'
+                    arrayTD[6 * i + 4].style.visibility = 'hidden'
+                    arrayTD[6 * i + 4].style.display = 'none'
+                    arrayTD[6 * i + 5].style.visibility = 'hidden'
+                    arrayTD[6 * i + 5].style.display = 'none'
                 }
             }
         }
 
-        else {
+        else if (dadosTodosClientes == 'Error: Request failed with status code 401') {
+            localStorage.setItem('access_token', dadosTodosClientes);
+            checar_autorizacao();
+        }
+    }
+}
+
+// FUNÇÕES PARA A PÁGINA DE CLIENTES
+async function get_all_clients_skip(alterar) {
+    let access_token = localStorage.getItem('access_token');
+
+    if (access_token != 'Error: Request failed with status code 401' & access_token != 'Error: Request failed with status code 403' & access_token != 'Error: Request failed with status code 422' & access_token != 'Error: Network Error' & access_token != null) {
+        
+        let pagina = parseInt(localStorage.getItem('paginaAtualClientes')) + parseInt(alterar);
+
+        if (pagina < 0) {
+            pagina = 0
+        }
+
+        let config = {
+            headers: {
+              'Authorization': 'Bearer ' + access_token
+            }
+        }
+
+        let dadosTodosClientes = await axios.get(
+            'http://localhost:8000/clients/?pular=' + pagina, config
+        ).then(
+            function (response) {
+                const dadosTodosClientes = response.data;
+                return dadosTodosClientes;
+            }
+        ).catch(
+            function (error) {
+                console.log(error);
+                return error;
+            }
+        )
+        
+        if (dadosTodosClientes != 'Error: Request failed with status code 401' & dadosTodosClientes != 'Error: Request failed with status code 404') {
+            let arrayTD = document.getElementsByTagName('td')
+            
+            if (pagina > dadosTodosClientes.length) {
+                pagina = parseInt(dadosTodosClientes.length - dadosTodosClientes.length % 10)
+            }
+            
+            localStorage.setItem('paginaAtualClientes', pagina);
+            
+            for (i = 0; i < 10; i++) {
+                if (i < dadosTodosClientes.length) {
+                    arrayTD[6 * i].innerHTML = dadosTodosClientes[i].numero_cliente
+                    arrayTD[6 * i].style.visibility = 'visible'
+                    arrayTD[6 * i].style.display = 'table-cell'
+                    arrayTD[6 * i + 1].innerHTML = dadosTodosClientes[i].nome
+                    arrayTD[6 * i + 1].style.visibility = 'visible'
+                    arrayTD[6 * i + 1].style.display = 'table-cell'
+                    arrayTD[6 * i + 2].innerHTML = dadosTodosClientes[i].cpf
+                    arrayTD[6 * i + 2].style.visibility = 'visible'
+                    arrayTD[6 * i + 2].style.display = 'table-cell'
+                    arrayTD[6 * i + 3].innerHTML = dadosTodosClientes[i].rg
+                    arrayTD[6 * i + 3].style.visibility = 'visible'
+                    arrayTD[6 * i + 3].style.display = 'table-cell'
+                    arrayTD[6 * i + 4].innerHTML = dadosTodosClientes[i].nascimento
+                    arrayTD[6 * i + 4].style.visibility = 'visible'
+                    arrayTD[6 * i + 4].style.display = 'table-cell'
+                    arrayTD[6 * i + 5].innerHTML = dadosTodosClientes[i].nome_pais
+                    arrayTD[6 * i + 5].style.visibility = 'visible'
+                    arrayTD[6 * i + 5].style.display = 'table-cell'
+
+                    if (i == (dadosTodosClientes.length - 1)) {
+                        arrayTD[6 * i].style.borderBottom = 0;
+                        arrayTD[6 * i + 1].style.borderBottom = 0;
+                        arrayTD[6 * i + 2].style.borderBottom = 0;
+                        arrayTD[6 * i + 3].style.borderBottom = 0;
+                        arrayTD[6 * i + 4].style.borderBottom = 0;
+                        arrayTD[6 * i + 5].style.borderBottom = 0;
+                    }
+                }
+                
+                else {
+                    arrayTD[6 * i].innerHTML = ''
+                    arrayTD[6 * i].style.visibility = 'hidden'
+                    arrayTD[6 * i].style.display = 'none'
+                    arrayTD[6 * i + 1].innerHTML = ''
+                    arrayTD[6 * i + 1].style.visibility = 'hidden'
+                    arrayTD[6 * i + 1].style.display = 'none'
+                    arrayTD[6 * i + 2].innerHTML = ''
+                    arrayTD[6 * i + 2].style.visibility = 'hidden'
+                    arrayTD[6 * i + 2].style.display = 'none'
+                    arrayTD[6 * i + 3].innerHTML = ''
+                    arrayTD[6 * i + 3].style.visibility = 'hidden'
+                    arrayTD[6 * i + 3].style.display = 'none'
+                    arrayTD[6 * i + 4].innerHTML = ''
+                    arrayTD[6 * i + 4].style.visibility = 'hidden'
+                    arrayTD[6 * i + 4].style.display = 'none'
+                    arrayTD[6 * i + 5].innerHTML = ''
+                    arrayTD[6 * i + 5].style.visibility = 'hidden'
+                    arrayTD[6 * i + 5].style.display = 'none'
+                }
+            }
+        }
+
+        else if (dadosTodosClientes == 'Error: Request failed with status code 401') {
             localStorage.setItem('access_token', dadosTodosClientes);
             checar_autorizacao();
         }
@@ -231,7 +355,7 @@ async function get_client() {
             }
         )
         
-        if (dadosCliente != 'Error: Request failed with status code 404' & dadosCliente != 'Error: Request failed with status code 401') {
+        if (dadosCliente != 'Error: Request failed with status code 401') {
             divSearchClient.style.visibility = 'hidden';
             divSearchClient.style.display = 'none';
 
@@ -282,7 +406,7 @@ async function post_client() {
     let nome = document.getElementById('nome-cliente-adicionar').value;
     let cpf = document.getElementById('cpf-adicionar').value;
     let rg = document.getElementById('rg-adicionar').value;
-    let nascimento = document.getElementById('data-nascimento-adicionar').value;
+    let nascimento = document.getElementById('data-nascimento-adicionar').value.split('-').reverse().join('/');
     let nome_pais = document.getElementById('nome-pais-adicionar').value;
 
     dicionario = {
@@ -314,7 +438,7 @@ async function post_client() {
                 return error;
             }
         )
-        
+
         if (resposta != 'Error: Network Error' & resposta != 'Error: Request failed with status code 401') {
             document.getElementById('container-cliente-adicionado').style.visibility = 'visible';
             document.getElementById('container-cliente-adicionado').style.display = 'grid';

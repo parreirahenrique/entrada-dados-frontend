@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width-device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clientes</title>
 
     <!--STYLESHEET-->
@@ -21,7 +21,7 @@
     <script defer src="../script.js"></script>
     <script defer src="../App.js"></script>
 </head>
-<body onload="checar_autorizacao(); get_username(); get_all_clients()">
+<body onload="checar_autorizacao(); get_username(); get_all_clients(0)">
     <div class="container-usuario-autorizado">
         <header>
             <nav class="flexbox">
@@ -44,7 +44,7 @@
         </div>
         <div class="container" id="container-geral">
             <div class="container-buttons-next-previous">
-                <a href=""><button><i class="uil uil-backward"></i>Página anterior</button></a> <a href=""><button>Próxima página <i class="uil uil-forward"></i></button></a>
+                <button onclick="get_all_clients_skip(-10)"><i class="uil uil-backward"></i>Página anterior</button> <button onclick="get_all_clients_skip(10)">Próxima página <i class="uil uil-forward"></i></button>
             </div>
             <p>
                 <table id="tabela-clientes" style="width: 950px;">
