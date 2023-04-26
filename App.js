@@ -355,7 +355,7 @@ async function get_client() {
             }
         )
         
-        if (dadosCliente != 'Error: Request failed with status code 401') {
+        if (dadosCliente != 'Error: Request failed with status code 401' & dadosCliente != 'Error: Request failed with status code 404') {
             divSearchClient.style.visibility = 'hidden';
             divSearchClient.style.display = 'none';
 
@@ -366,12 +366,26 @@ async function get_client() {
             let data = dadosCliente.criado_em.split('-')[2].split('T')[0] + '/' + dadosCliente.criado_em.split('-')[1] + '/' + dadosCliente.criado_em.split('-')[0];
             
             document.getElementById('client-name').innerHTML = dadosCliente.nome;
+            document.getElementById('client-name').style.visibility = 'visible';
+            document.getElementById('client-name').style.display = 'grid';
             document.getElementById('client-cpf').innerHTML = dadosCliente.cpf;
+            document.getElementById('client-cpf').style.visibility = 'visible';
+            document.getElementById('client-cpf').style.display = 'grid';
             document.getElementById('client-number').innerHTML = dadosCliente.numero_cliente;
+            document.getElementById('client-number').style.visibility = 'visible';
+            document.getElementById('client-number').style.display = 'grid';
             document.getElementById('client-rg').innerHTML = dadosCliente.rg;
-            document.getElementById('client-date').innerHTML = dadosCliente.nascimento.split('-')[2] + '/' + dadosCliente.nascimento.split('-')[1] + '/' + dadosCliente.nascimento.split('-')[0];
+            document.getElementById('client-rg').style.visibility = 'visible';
+            document.getElementById('client-rg').style.display = 'grid';
+            document.getElementById('client-date').innerHTML = dadosCliente.nascimento;
+            document.getElementById('client-date').style.visibility = 'visible';
+            document.getElementById('client-date').style.display = 'grid';
             document.getElementById('client-parent-name').innerHTML = dadosCliente.nome_pais;
+            document.getElementById('client-parent-name').style.visibility = 'visible';
+            document.getElementById('client-parent-name').style.display = 'grid';
             document.getElementById('client-added-in').innerHTML = data  + ' às ' + hora;
+            document.getElementById('client-added-in').style.visibility = 'visible';
+            document.getElementById('client-added-in').style.display = 'grid';
         }
 
         else if (dadosCliente == 'Error: Request failed with status code 401') {

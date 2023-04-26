@@ -502,6 +502,42 @@ td {
     visibility: hidden;
     display: none;
 }
+
+#client-name {
+    visibility: hidden;
+    display: none;
+}
+
+#client-cpf {
+    visibility: hidden;
+    display: none;
+}
+
+#client-number {
+    visibility: hidden;
+    display: none;
+}
+
+#client-rg {
+    visibility: hidden;
+    display: none;
+}
+
+#client-date {
+    visibility: hidden;
+    display: none;
+}
+
+#client-parent-name {
+    visibility: hidden;
+    display: none;
+}
+
+#client-added-in {
+    visibility: hidden;
+    display: none;
+}
+
 /* ESTILOS DAS CLASSES DA PÁGINA DE INSTALAÇÕES */
 #container-search-instalations {
     visibility: hidden;
