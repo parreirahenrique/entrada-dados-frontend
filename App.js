@@ -1,3 +1,4 @@
+// FUNÇÕES DE LOGIN E LOGOUT DE USUÁRIOS
 async function login() {
     let usuario = document.getElementById('usuário').value;
     let senha = document.getElementById('senha').value;
@@ -137,6 +138,34 @@ async function get_user() {
 }
 
 // FUNÇÕES PARA A PÁGINA DE CLIENTES
+async function get_all_clients() {
+    let access_token = localStorage.getItem('access_token');
+
+    if (access_token != 'Error: Request failed with status code 401' & access_token != 'Error: Request failed with status code 403' & access_token != 'Error: Request failed with status code 422' & access_token != 'Error: Network Error' & access_token != null) {
+        let config = {
+            headers: {
+              'Authorization': 'Bearer ' + access_token
+            }
+        }
+
+        let dadosTodosClientes = await axios.get(
+            'http://localhost:8000/clients/', config
+        ).then(
+            function (response) {
+                const dadosTodosClientes = response.data;
+                return dadosTodosClientes;
+            }
+        ).catch(
+            function (error) {
+                console.log(error);
+                return error;
+            }
+        )
+
+        console.log(dadosTodosClientes)
+    }
+}
+
 async function get_client() {
     let access_token = localStorage.getItem('access_token');
 
