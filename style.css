@@ -595,8 +595,16 @@ td {
 }
 
 .container-instalacao-inexistente {
+    align-items: center;
     visibility: hidden;
     display: none;
+    flex-direction: row;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 20px;
+    font-size: large;
+    font-weight: bolder;
+    color: red;
 }
 
 .campo-instalacao-inexistente {

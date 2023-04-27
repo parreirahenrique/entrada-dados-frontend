@@ -225,7 +225,6 @@ async function get_all_clients() {
     }
 }
 
-// FUNÇÕES PARA A PÁGINA DE CLIENTES
 async function get_all_clients_skip(alterar) {
     let access_token = localStorage.getItem('access_token');
 
@@ -477,8 +476,8 @@ async function post_client() {
             'http://localhost:8000/clients', dicionario, config
         ).then(
             function (response) {
-                const dadosCliente = response.data;
-                return dadosCliente;
+                const resposta = response.data;
+                return resposta;
             }
         ).catch(
             function (error) {
@@ -573,8 +572,8 @@ async function patch_client() {
             url, dicionario, config
         ).then(
             function (response) {
-                const dadosCliente = response.data;
-                return dadosCliente;
+                const resposta = response.data;
+                return resposta;
             }
         ).catch(
             function (error) {
@@ -623,8 +622,8 @@ async function delete_client() {
             'http://localhost:8000/clients/' + numero_cliente, config
         ).then(
             function (response) {
-                const dadosUsuario = response.data;
-                return dadosUsuario;
+                const resposta = response.data;
+                return resposta;
             }
         ).catch(
             function (error) {
@@ -659,6 +658,421 @@ async function delete_client() {
     
     else {
         let arrayCampos = document.getElementsByClassName('campo-obrigatorio-clientes');
+
+        for (i = 0; i < arrayCampos.length; i ++) {
+            arrayCampos[i].style.visibility = "visible";
+            arrayCampos[i].style.display = "grid";
+        }
+    }
+}
+
+// FUNÇÕES PARA A PÁGINA DE INSTALAÇÕES
+async function get_instalation() {
+    let access_token = localStorage.getItem('access_token');
+
+    let numero_instalacao = document.getElementById('número-instalação-buscar').value;
+    let divSearchInstalation = document.getElementById('container-search-instalations');
+
+    if (numero_instalacao != '') {
+        
+        let config = {
+            headers: {
+              'Authorization': 'Bearer ' + access_token
+            }
+        }
+
+        let dadosInstalacao = await axios.get(
+            'http://localhost:8000/instalations/' + numero_instalacao, config
+        ).then(
+            function (response) {
+                const dadosInstalacao = response.data;
+                return dadosInstalacao;
+            }
+        ).catch(
+            function (error) {
+                console.log(error);
+                return error;
+            }
+        )
+        
+        if (dadosInstalacao != 'Error: Request failed with status code 401' & dadosInstalacao != 'Error: Request failed with status code 404') {
+            divSearchInstalation.style.visibility = 'hidden';
+            divSearchInstalation.style.display = 'none';
+
+            document.getElementById('container-instalacao-encontrada').style.visibility = 'visible';
+            document.getElementById('container-instalacao-encontrada').style.display = 'grid';
+            
+            let hora = dadosInstalacao.criado_em.split('T')[1].split('.')[0];
+            let data = dadosInstalacao.criado_em.split('-')[2].split('T')[0] + '/' + dadosInstalacao.criado_em.split('-')[1] + '/' + dadosInstalacao.criado_em.split('-')[0];
+            
+            if (dadosInstalacao.numero_instalacao != '') {
+                document.getElementById('instalation-number').innerHTML = dadosInstalacao.numero_instalacao;
+                document.getElementById('title-instalation-number').style.visibility = 'visible';
+                document.getElementById('title-instalation-number').style.display = 'grid';
+                document.getElementById('instalation-number').style.visibility = 'visible';
+                document.getElementById('instalation-number').style.display = 'grid';
+            }
+            
+            if (dadosInstalacao.numero_cliente != '') {
+                document.getElementById('instalation-client-number').innerHTML = dadosInstalacao.numero_cliente;
+                document.getElementById('title-instalation-client-number').style.visibility = 'visible';
+                document.getElementById('title-instalation-client-number').style.display = 'grid';
+                document.getElementById('instalation-client-number').style.visibility = 'visible';
+                document.getElementById('instalation-client-number').style.display = 'grid';
+            }
+
+            if (dadosInstalacao.logradouro != '') {
+                document.getElementById('instalation-street').innerHTML = dadosInstalacao.logradouro;
+                document.getElementById('title-instalation-street').style.visibility = 'visible';
+                document.getElementById('title-instalation-street').style.display = 'grid';
+                document.getElementById('instalation-street').style.visibility = 'visible';
+                document.getElementById('instalation-street').style.display = 'grid';
+            }
+            
+            if (dadosInstalacao.numero_predial != '') {
+                document.getElementById('instalation-street-number').innerHTML = dadosInstalacao.numero_predial;
+                document.getElementById('title-instalation-street-number').style.visibility = 'visible';
+                document.getElementById('title-instalation-street-number').style.display = 'grid';
+                document.getElementById('instalation-street-number').style.visibility = 'visible';
+                document.getElementById('instalation-street-number').style.display = 'grid';
+            }
+            
+            if (dadosInstalacao.complemento != '') {
+                document.getElementById('instalation-complement').innerHTML = dadosInstalacao.complemento;
+                document.getElementById('title-instalation-complement').style.visibility = 'visible';
+                document.getElementById('title-instalation-complement').style.display = 'grid';
+                document.getElementById('instalation-complement').style.visibility = 'visible';
+                document.getElementById('instalation-complement').style.display = 'grid';
+            }
+            
+            if (dadosInstalacao.bairro != '') {
+                document.getElementById('instalation-district').innerHTML = dadosInstalacao.bairro;
+                document.getElementById('title-instalation-district').style.visibility = 'visible';
+                document.getElementById('title-instalation-district').style.display = 'grid';
+                document.getElementById('instalation-district').style.visibility = 'visible';
+                document.getElementById('instalation-district').style.display = 'grid';
+            }
+
+            if (dadosInstalacao.cidade != '') {
+                document.getElementById('instalation-city').innerHTML = dadosInstalacao.cidade;
+                document.getElementById('title-instalation-city').style.visibility = 'visible';
+                document.getElementById('title-instalation-city').style.display = 'grid';
+                document.getElementById('instalation-city').style.visibility = 'visible';
+                document.getElementById('instalation-city').style.display = 'grid';
+            }
+            
+            if (dadosInstalacao.cep != '') {
+                document.getElementById('instalation-cep').innerHTML = dadosInstalacao.cep;
+                document.getElementById('title-instalation-cep').style.visibility = 'visible';
+                document.getElementById('title-instalation-cep').style.display = 'grid';
+                document.getElementById('instalation-cep').style.visibility = 'visible';
+                document.getElementById('instalation-cep').style.display = 'grid';
+            }
+            
+            if (dadosInstalacao.latitude != '') {
+                document.getElementById('instalation-latitude').innerHTML = dadosInstalacao.latitude;
+                document.getElementById('title-instalation-latitude').style.visibility = 'visible';
+                document.getElementById('title-instalation-latitude').style.display = 'grid';
+                document.getElementById('instalation-latitude').style.visibility = 'visible';
+                document.getElementById('instalation-latitude').style.display = 'grid';
+            }
+            
+            if (dadosInstalacao.longitude != '') {
+                document.getElementById('instalation-longitude').innerHTML = dadosInstalacao.longitude;
+                document.getElementById('title-instalation-longitude').style.visibility = 'visible';
+                document.getElementById('title-instalation-longitude').style.display = 'grid';
+                document.getElementById('instalation-longitude').style.visibility = 'visible';
+                document.getElementById('instalation-longitude').style.display = 'grid';
+            }
+
+            if (dadosInstalacao.coordenadas != '') {
+                document.getElementById('instalation-coordinates').innerHTML = dadosInstalacao.coordenadas_decimais;
+                document.getElementById('title-instalation-coordinates').style.visibility = 'visible';
+                document.getElementById('title-instalation-coordinates').style.display = 'grid';
+                document.getElementById('instalation-coordinates').style.visibility = 'visible';
+                document.getElementById('instalation-coordinates').style.display = 'grid';
+            }
+
+            if (dadosInstalacao.criado_em != '') {
+                document.getElementById('instalation-added-in').innerHTML = data + ' às ' + hora;
+                document.getElementById('title-instalation-added-in').style.visibility = 'visible';
+                document.getElementById('title-instalation-added-in').style.display = 'grid';
+                document.getElementById('instalation-added-in').style.visibility = 'visible';
+                document.getElementById('instalation-added-in').style.display = 'grid';
+            }
+        }
+
+        else if (dadosInstalacao == 'Error: Request failed with status code 401') {
+            localStorage.setItem('access_token', dadosInstalacao);
+            checar_autorizacao();
+        }
+
+        else {
+            let arrayInstalacaoInexistente = document.getElementsByClassName('container-instalacao-inexistente')
+
+            for (i = 0; i < arrayInstalacaoInexistente.length; i ++) {
+                arrayInstalacaoInexistente[i].style.visibility = 'visible';
+                arrayInstalacaoInexistente[i].style.display = 'flex';
+            }
+        }
+    }
+
+    else {
+        arrayCampos = document.getElementsByClassName('campo-obrigatorio-instalacoes')
+
+        for (i = 0; i < arrayCampos.length; i ++) {
+            arrayCampos[i].style.visibility = "visible";
+            arrayCampos[i].style.display = "grid";
+        }
+    }
+}
+
+async function post_instalation() {
+    let access_token = localStorage.getItem('access_token');
+
+    let numero_instalacao = document.getElementById('número-instalação-adicionar').value
+    let numero_cliente = document.getElementById('número-cliente-adicionar').value
+    let logradouro = document.getElementById('logradouro-adicionar').value
+    let numero_predial = document.getElementById('numero-predial-adicionar').value
+    let complemento = document.getElementById('complemento-adicionar').value
+    let bairro = document.getElementById('bairro-adicionar').value
+    let cidade = document.getElementById('cidade-adicionar').value
+    let cep = document.getElementById('cep-adicionar').value
+    let classificacao = document.getElementById('classificacao-adicionar').value
+    let latitude = document.getElementById('latitude-adicionar').value
+    let longitude = document.getElementById('longitude-adicionar').value
+    let coordenadas_decimais = document.getElementById('coordenadas-decimais-adicionar').value
+    
+    dicionario = {
+        'numero_instalacao': numero_instalacao,
+        'numero_cliente': numero_cliente,
+        'logradouro': logradouro,
+        'numero_predial': numero_predial,
+        'complemento': complemento,
+        'bairro': bairro,
+        'cidade': cidade,
+        'cep': cep,
+        'classificacao': classificacao,
+        'latitude': latitude,
+        'longitude': longitude,
+        'coordenadas_decimais': coordenadas_decimais
+    }
+
+    let config = {
+        headers: {
+          'Authorization': 'Bearer ' + access_token
+        }
+    }
+
+    if (numero_instalacao != '' & numero_cliente != '' & logradouro != '' & numero_predial != '' & complemento != '' & bairro != '' & cidade != '' & cep != '' & classificacao != '' & latitude != '' & cep != '' & coordenadas_decimais != ''){
+        resposta = await axios.post(
+            'http://localhost:8000/instalations', dicionario, config
+        ).then(
+            function (response) {
+                const resposta = response.data;
+                return resposta;
+            }
+        ).catch(
+            function (error) {
+                console.log(error);
+                return error;
+            }
+        )
+
+        if (resposta != 'Error: Network Error' & resposta != 'Error: Request failed with status code 401') {
+            document.getElementById('container-instalacao-adicionada').style.visibility = 'visible';
+            document.getElementById('container-instalacao-adicionada').style.display = 'grid';
+            
+            document.getElementById('container-add-instalations').style.visibility = 'hidden';
+            document.getElementById('container-add-instalations').style.display = 'none';
+        }
+
+        else if (resposta == 'Error: Request failed with status code 401') {
+            localStorage.setItem('access_token', resposta);
+            checar_autorizacao();
+        }
+
+        else {
+            divExistentInstalation = document.getElementsByClassName('container-instalacao-existente')
+            divExistentInstalation[0].style.visibility = 'visible';
+            divExistentInstalation[0].style.display = 'flex';
+        }
+    }
+
+    else {
+        arrayCampos = document.getElementsByClassName('campo-obrigatorio-instalacoes')
+
+        for (i = 0; i < arrayCampos.length; i ++) {
+            arrayCampos[i].style.visibility = "visible";
+            arrayCampos[i].style.display = "grid";
+        }
+    }
+}
+
+async function patch_instalation() {
+    let access_token = localStorage.getItem('access_token');
+
+    let numero_instalacao_buscar = document.getElementById('número-instalação-buscar-atualizar').value;
+    let numero_instalacao = document.getElementById('número-instalação-atualizar').value
+    let numero_cliente = document.getElementById('número-cliente-atualizar').value
+    let logradouro = document.getElementById('logradouro-atualizar').value
+    let numero_predial = document.getElementById('numero-predial-atualizar').value
+    let complemento = document.getElementById('complemento-atualizar').value
+    let bairro = document.getElementById('bairro-atualizar').value
+    let cidade = document.getElementById('cidade-atualizar').value
+    let cep = document.getElementById('cep-atualizar').value
+    let classificacao = document.getElementById('classificacao-atualizar').value
+    let latitude = document.getElementById('latitude-atualizar').value
+    let longitude = document.getElementById('longitude-atualizar').value
+    let coordenadas_decimais = document.getElementById('coordenadas-decimais-atualizar').value
+    let dicionario = {}; // Create an empty array
+
+    if (numero_instalacao == '' & numero_cliente == '' & logradouro == '' & numero_predial == '' & complemento == '' & bairro == '' & cidade == '' & cep == '' & classificacao == '' & latitude == '' & cep == '' & coordenadas_decimais == ''){
+        containerCamposNaoPreenchidos = document.getElementsByClassName('container-campos-nao-preenchidos')
+        containerCamposNaoPreenchidos[0].style.visibility = "visible"
+        containerCamposNaoPreenchidos[0].style.display = "flex"
+    }
+
+    else {
+        if (numero_instalacao != ''){
+            dicionario['numero_instalacao'] = numero_instalacao
+        }
+
+        if (numero_cliente != ''){
+            dicionario['numero_cliente'] = numero_cliente
+        }
+
+        if (logradouro != ''){
+            dicionario['logradouro'] = logradouro
+        }
+
+        if (numero_predial != ''){
+            dicionario['numero_predial'] = numero_predial
+        }
+
+        if (complemento != ''){
+            dicionario['complemento'] = complemento
+        }
+
+        if (cep != ''){
+            dicionario['cep'] = cep
+        }
+
+        if (classificacao != ''){
+            dicionario['classificacao'] = classificacao
+        }
+        
+        if (latitude != ''){
+            dicionario['latitude'] = latitude
+        }
+        
+        if (longitude != ''){
+            dicionario['longitude'] = longitude
+        }
+
+        if (coordenadas_decimais != ''){
+            dicionario['coordenadas_decimais'] = coordenadas_decimais
+        }
+
+        let config = {
+            headers: {
+            'Authorization': 'Bearer ' + access_token
+            }
+        }
+        
+        
+        url = 'http://localhost:8000/instalations/' + numero_instalacao_buscar
+        
+        resposta = await axios.patch(
+            url, dicionario, config
+        ).then(
+            function (response) {
+                const resposta = response.data;
+                return resposta;
+            }
+        ).catch(
+            function (error) {
+                console.log(error);
+                return error;
+            }
+        )
+        
+        if (resposta != 'Error: Request failed with status code 404' & resposta != 'Error: Request failed with status code 401') {
+            document.getElementById('container-instalacao-atualizada').style.visibility = 'visible';
+            document.getElementById('container-instalacao-atualizada').style.display = 'grid';
+                
+            document.getElementById('container-update-instalations').style.visibility = 'hidden';
+            document.getElementById('container-update-instalations').style.display = 'none';
+        }
+
+        else if (resposta == 'Error: Request failed with status code 401') {
+            localStorage.setItem('access_token', resposta);
+            checar_autorizacao();
+        }
+
+        else {
+            let arrayInstalacaoInexistente = document.getElementsByClassName('container-instalacao-inexistente')
+
+            for (i = 0; i < arrayInstalacaoInexistente.length; i ++) {
+                arrayInstalacaoInexistente[i].style.visibility = 'visible'
+                arrayInstalacaoInexistente[i].style.display = 'flex'
+            }
+        }
+    }
+}
+
+async function delete_instalation() {
+    let access_token = localStorage.getItem('access_token');
+    let numero_instalacao = document.getElementById('número-instalação-deletar').value;
+
+    if (numero_instalacao != '') {
+
+        let config = {
+            headers: {
+              'Authorization': 'Bearer ' + access_token
+            }
+        }
+
+        let resposta = await axios.delete(
+            'http://localhost:8000/instalations/' + numero_instalacao, config
+        ).then(
+            function (response) {
+                const resposta = response.data;
+                return resposta;
+            }
+        ).catch(
+            function (error) {
+                console.log(error);
+                return error;
+            }
+        )
+        
+        if (resposta == '') {
+            document.getElementById('container-instalacao-deletada').style.visibility = 'visible';
+            document.getElementById('container-instalacao-deletada').style.display = 'grid';
+
+            document.getElementById('container-delete-instalations').style.visibility = 'hidden';
+            document.getElementById('container-delete-instalations').style.display = 'none';
+        }
+
+        else if (resposta == 'Error: Request failed with status code 401') {
+            localStorage.setItem('access_token', resposta);
+            checar_autorizacao();
+        }
+
+        else if (resposta == 'Error: Request failed with status code 404') {
+            let arrayInstalacaoInexistente = document.getElementsByClassName('container-instalacao-inexistente');
+
+            for (i = 0; i < arrayInstalacaoInexistente.length; i ++) {
+                arrayInstalacaoInexistente[i].style.visibility = 'visible';
+                arrayInstalacaoInexistente[i].style.display = 'flex';
+            }
+        }
+
+    }
+    
+    else {
+        let arrayCampos = document.getElementsByClassName('campo-obrigatorio-instalacoes');
 
         for (i = 0; i < arrayCampos.length; i ++) {
             arrayCampos[i].style.visibility = "visible";
