@@ -503,7 +503,17 @@ td {
     display: none;
 }
 
+#title-client-name {
+    visibility: hidden;
+    display: none;
+}
+
 #client-name {
+    visibility: hidden;
+    display: none;
+}
+
+#title-client-cpf {
     visibility: hidden;
     display: none;
 }
@@ -513,7 +523,17 @@ td {
     display: none;
 }
 
+#title-client-number {
+    visibility: hidden;
+    display: none;
+}
+
 #client-number {
+    visibility: hidden;
+    display: none;
+}
+
+#title-client-rg {
     visibility: hidden;
     display: none;
 }
@@ -523,12 +543,27 @@ td {
     display: none;
 }
 
+#title-client-date {
+    visibility: hidden;
+    display: none;
+}
+
 #client-date {
     visibility: hidden;
     display: none;
 }
 
+#title-client-parent-name {
+    visibility: hidden;
+    display: none;
+}
+
 #client-parent-name {
+    visibility: hidden;
+    display: none;
+}
+
+#title-client-added-in {
     visibility: hidden;
     display: none;
 }

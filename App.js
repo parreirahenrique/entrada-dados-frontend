@@ -365,27 +365,61 @@ async function get_client() {
             let hora = dadosCliente.criado_em.split('T')[1].split('.')[0];
             let data = dadosCliente.criado_em.split('-')[2].split('T')[0] + '/' + dadosCliente.criado_em.split('-')[1] + '/' + dadosCliente.criado_em.split('-')[0];
             
-            document.getElementById('client-name').innerHTML = dadosCliente.nome;
-            document.getElementById('client-name').style.visibility = 'visible';
-            document.getElementById('client-name').style.display = 'grid';
-            document.getElementById('client-cpf').innerHTML = dadosCliente.cpf;
-            document.getElementById('client-cpf').style.visibility = 'visible';
-            document.getElementById('client-cpf').style.display = 'grid';
-            document.getElementById('client-number').innerHTML = dadosCliente.numero_cliente;
-            document.getElementById('client-number').style.visibility = 'visible';
-            document.getElementById('client-number').style.display = 'grid';
-            document.getElementById('client-rg').innerHTML = dadosCliente.rg;
-            document.getElementById('client-rg').style.visibility = 'visible';
-            document.getElementById('client-rg').style.display = 'grid';
-            document.getElementById('client-date').innerHTML = dadosCliente.nascimento;
-            document.getElementById('client-date').style.visibility = 'visible';
-            document.getElementById('client-date').style.display = 'grid';
-            document.getElementById('client-parent-name').innerHTML = dadosCliente.nome_pais;
-            document.getElementById('client-parent-name').style.visibility = 'visible';
-            document.getElementById('client-parent-name').style.display = 'grid';
-            document.getElementById('client-added-in').innerHTML = data  + ' às ' + hora;
-            document.getElementById('client-added-in').style.visibility = 'visible';
-            document.getElementById('client-added-in').style.display = 'grid';
+            if (dadosCliente.nome != '') {
+                document.getElementById('client-name').innerHTML = dadosCliente.nome;
+                document.getElementById('title-client-name').style.visibility = 'visible';
+                document.getElementById('title-client-name').style.display = 'grid';
+                document.getElementById('client-name').style.visibility = 'visible';
+                document.getElementById('client-name').style.display = 'grid';
+            }
+
+            if (dadosCliente.cpf != '') {
+                document.getElementById('client-cpf').innerHTML = dadosCliente.cpf;
+                document.getElementById('title-client-cpf').style.visibility = 'visible';
+                document.getElementById('title-client-cpf').style.display = 'grid';
+                document.getElementById('client-cpf').style.visibility = 'visible';
+                document.getElementById('client-cpf').style.display = 'grid';
+            }
+
+            if (dadosCliente.numero_cliente != '') {
+                document.getElementById('client-number').innerHTML = dadosCliente.numero_cliente;
+                document.getElementById('title-client-number').style.visibility = 'visible';
+                document.getElementById('title-client-number').style.display = 'grid';
+                document.getElementById('client-number').style.visibility = 'visible';
+                document.getElementById('client-number').style.display = 'grid';
+            }
+
+            if (dadosCliente.rg != '') {
+                document.getElementById('client-rg').innerHTML = dadosCliente.rg;
+                document.getElementById('title-client-rg').style.visibility = 'visible';
+                document.getElementById('title-client-rg').style.display = 'grid';
+                document.getElementById('client-rg').style.visibility = 'visible';
+                document.getElementById('client-rg').style.display = 'grid';
+            }
+
+            if (dadosCliente.nascimento != '') {
+                document.getElementById('client-date').innerHTML = dadosCliente.nascimento;
+                document.getElementById('title-client-date').style.visibility = 'visible';
+                document.getElementById('title-client-date').style.display = 'grid';
+                document.getElementById('client-date').style.visibility = 'visible';
+                document.getElementById('client-date').style.display = 'grid';
+            }
+
+            if (dadosCliente.nome_pais != '') {
+                document.getElementById('client-parent-name').innerHTML = dadosCliente.nome_pais;
+                document.getElementById('title-client-parent-name').style.visibility = 'visible';
+                document.getElementById('title-client-parent-name').style.display = 'grid';
+                document.getElementById('client-parent-name').style.visibility = 'visible';
+                document.getElementById('client-parent-name').style.display = 'grid';
+            }
+
+            if (dadosCliente.criado_em != '') {
+                document.getElementById('client-added-in').innerHTML = data  + ' às ' + hora;
+                document.getElementById('title-client-added-in').style.visibility = 'visible';
+                document.getElementById('title-client-added-in').style.display = 'grid';
+                document.getElementById('client-added-in').style.visibility = 'visible';
+                document.getElementById('client-added-in').style.display = 'grid';
+            }
         }
 
         else if (dadosCliente == 'Error: Request failed with status code 401') {
