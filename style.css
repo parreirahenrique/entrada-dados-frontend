@@ -574,6 +574,92 @@ td {
 }
 
 /* ESTILOS DAS CLASSES DA PÁGINA DE INSTALAÇÕES */
+.container-instalacao-existente {
+    align-items: center;
+    visibility: hidden;
+    display: none;
+    flex-direction: row;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 20px;
+    font-size: large;
+    font-weight: bolder;
+    color: red;
+}
+
+.campo-instalacao-existente {
+    margin-left: 5px;
+    font-size: large;
+    font-weight: bolder;
+    color: red;
+}
+
+.container-instalacao-inexistente {
+    visibility: hidden;
+    display: none;
+}
+
+.campo-instalacao-inexistente {
+    margin-left: 5px;
+    font-size: large;
+    font-weight: bolder;
+    color: red;
+}
+
+.falha-instalacao {
+    margin-right: 5px;
+    height: 20px;
+    width: 20px;
+}
+
+.campo-obrigatorio-instalacoes {
+    margin-right: 275px;
+    font-size: small;
+    visibility: hidden;
+    display: none;
+}
+
+#container-instalacao-encontrada {
+    visibility: hidden;
+    display: none;
+}
+
+.container-dados-instalacao-geral {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+}
+
+.container-titulos-instalacao {
+    display: grid;
+    text-align: right;
+    margin-right: 5px;
+    margin-left: auto;
+    font-weight: bolder;
+}
+
+.container-dados-instalacao {
+    display: grid;
+    text-align: left;
+    margin-right: auto;
+    margin-left: 5px;
+}
+
+#container-instalacao-adicionada {
+    visibility: hidden;
+    display: none;
+}
+
+#container-instalacao-atualizada {
+    visibility: hidden;
+    display: none;
+}
+
+#container-instalacao-deletada {
+    visibility: hidden;
+    display: none;
+}
+
 #container-search-instalations {
     visibility: hidden;
     display: none;
@@ -582,6 +668,12 @@ td {
 #container-add-instalations {
     visibility: hidden;
     display: none;
+}
+
+#container-search-to-update-instalations {
+    visibility: hidden;
+    display: none;
+    transition: .3s ease-in-out;
 }
 
 #container-update-instalations {

@@ -21,7 +21,7 @@
     <script defer src="../script.js"></script>
     <script defer src="../App.js"></script>
 </head>
-<body onload="checar_autorizacao(); get_username(); get_all_clients(0)">
+<body onload="checar_autorizacao(); get_username(); get_all_clients()">
     <div class="container-usuario-autorizado">
         <header>
             <nav class="flexbox">
@@ -327,12 +327,12 @@
                 <button onclick="delete_client()">Deletar</button> <a href=""><button>Cancelar</button></a>
             </div>
         </div>
-    </div>
-    <div class="container" id="container-cliente-deletado">
-        <img src="../img/sucesso.png" class="sucesso">
-        <h1>Cliente deletado com sucesso!</h1>
-        <div class="container-buttons-clients">
-            <a href=""><button>Voltar</button></a>
+        <div class="container" id="container-cliente-deletado">
+            <img src="../img/sucesso.png" class="sucesso">
+            <h1>Cliente deletado com sucesso!</h1>
+            <div class="container-buttons-clients">
+                <a href=""><button>Voltar</button></a>
+            </div>
         </div>
     </div>
     <div class="container-usuario-nao-autorizado">

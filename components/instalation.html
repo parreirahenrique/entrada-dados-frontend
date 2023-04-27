@@ -18,198 +18,320 @@
     <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@300&display=swap" rel="stylesheet">
 
     <!-- JAVA SCRIPT FILE -->
+    <script src="../node_modules/axios/dist/axios.min.js"></script>
     <script defer src="../script.js"></script>
+    <script defer src="../App.js"></script>
 </head>
-<body>
-    <header>
-        <nav class="flexbox">
-            <div class="container-nav">
+<body onload="checar_autorizacao(); get_username()">
+    <div class="container-usuario-autorizado">
+        <header>
+            <nav class="flexbox">
                 <p>Instalações</p>
-                <a href="../index.html"><i class="uil uil-home" id="uil-nav"></i></a>
-                <a href="./components/auth.html"><i class="uil uil-user" id="uil-nav"></i></a>
+                <div class="container-nav">
+                    <a href="../index.html"><i class="uil uil-home" id="uil-nav"></i></a>
+                    <a href="./auth.html"><i class="uil uil-user" id="uil-nav"></i></a>
+                    <div class="container-user">
+                        <p class="nome-usuario">Usuário</p>
+                        <a class="sair-usuario" onclick="logout()">Sair</a>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <div class="container" id="container-options">
+            <button onclick="buscar_instalacao()"><i class="uil uil-search"></i> Buscar por instalação</button>
+            <button onclick="adicionar_instalacao()"><i class="uil uil-plus"></i> Adicionar nova instalação</button>
+            <button onclick="atualizar_instalacao()"><i class="uil uil-refresh"></i> Atualizar uma instalação</button>
+            <button onclick="deletar_instalacao()"><i class="uil uil-trash"></i> Deletar uma instalação</button>
+        </div>
+        <div class="container" id="container-search-instalations">
+            <div class="container-instalacao-inexistente">
+                <img src="../img/falha.png" class="falha-instalacao">
+                <span class="campo-instalacao-inexistente">Instalação inexistente.</span>
             </div>
-        </nav>
-    </header>
-    <div class="container" id="container-options">
-        <button onclick="buscar_instalacao()"><i class="uil uil-search"></i> Buscar por instalação</button>
-        <button onclick="adicionar_instalacao()"><i class="uil uil-plus"></i> Adicionar nova instalação</button>
-        <button onclick="atualizar_instalacao()"><i class="uil uil-refresh"></i> Atualizar uma instalação</button>
-        <button onclick="deletar_instalacao()"><i class="uil uil-trash"></i> Deletar uma instalação</button>
+            <div class="container-form">
+                <form>
+                    <input type="text" class="número-instalação-buscar" placeholder="Ex.: 3000000000" required>
+                    <label for="name">Número da instalação*:</label>
+                </form>
+                <span class="campo-obrigatorio-instalacoes">Esse é um campo obrigatório.</span>
+            </div>
+            <div class="container-buttons-instalations">
+                <button  onclick="get_instalation()">Buscar</button> <a href=""><button>Cancelar</button></a>
+            </div>
+        </div>
+        <div class="container" id="container-instalacao-encontrada">
+            <div class="container-dados-instalacao-geral">
+                <div class="container-titulos-instalacao">
+                    <span id="title-instalation-number">Número da instalação:</span>
+                    <span id="title-instalation-client-number">Número do cliente:</span>
+                    <span id="title-instalation-street">Logradouro:</span>
+                    <span id="title-instalation-street-number">Número predial:</span>
+                    <span id="title-instalation-complement">Complemento:</span>
+                    <span id="title-instalation-district">Bairro:</span>
+                    <span id="title-instalation-city">Cidade:</span>
+                    <span id="title-instalation-cep">CEP:</span>
+                    <span id="title-instalation-latitude">Latitude:</span>
+                    <span id="title-instalation-longitude">Longitude:</span>
+                    <span id="title-instalation-coordinates">Coordenadas decimais:</span>
+                    <span id="title-instalation-added-in">Adicionado em:</span>
+                </div>
+                <div class="container-dados-instalacao">
+                    <span id="instalation-number"></span>
+                    <span id="instalation-client-number"></span>
+                    <span id="instalation-street"></span>
+                    <span id="instalation-street-number"></span>
+                    <span id="instalation-complement"></span>
+                    <span id="instalation-district"></span>
+                    <span id="instalation-city"></span>
+                    <span id="instalation-cep"></span>
+                    <span id="instalation-latitude"></span>
+                    <span id="instalation-longitude"></span>
+                    <span id="instalation-coordinates"></span>
+                    <span id="instalation-added-in"></span>
+                </div>
+            </div>
+            <div class="container-buttons-instalations">
+                <button onclick="buscar_instalacao()">Buscar nova instalação</button>  <a href=""><button>Voltar</button></a>
+            </div>
+        </div>
+        <div class="container" id="container-add-instalations">
+            <div class="container-instalacao-existente">
+                <img src="../img/falha.png" class="falha-instalacao">
+                <span class="campo-cliente-instalacao">Instalação já cadastrada.</span>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" class="número-instalação-adicionar" placeholder="Ex.: 3000000000" required>
+                    <label for="name">Número da instalação*:</label>
+                </form>
+                <span class="campo-obrigatorio-instalacoes">Esse é um campo obrigatório.</span>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" class="número-cliente-adicionar" placeholder="Ex.: 7000000000" required>
+                    <label for="name">Número do cliente*:</label>
+                </form>
+                <span class="campo-obrigatorio-instalacoes">Esse é um campo obrigatório.</span>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" class="logradouro-adicionar" required>
+                    <label for="name">Logradouro*:</label>
+                </form>
+                <span class="campo-obrigatorio-instalacoes">Esse é um campo obrigatório.</span>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" class="numero-predial-adicionar" required>
+                    <label for="name">Número predial*:</label>
+                </form>
+                <span class="campo-obrigatorio-instalacoes">Esse é um campo obrigatório.</span>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" class="complemento-adicionar" required>
+                    <label for="name">Complemento*:</label>
+                </form>
+                <span class="campo-obrigatorio-instalacoes">Esse é um campo obrigatório.</span>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" class="bairro-adicionar" required>
+                    <label for="name">Bairro*:</label>
+                </form>
+                <span class="campo-obrigatorio-instalacoes">Esse é um campo obrigatório.</span>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="name" class="cidade-adicionar" required>
+                    <label for="name">Cidade*:</label>
+                </form>
+                <span class="campo-obrigatorio-instalacoes">Esse é um campo obrigatório.</span>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="name" class="cep-adicionar" required>
+                    <label for="name">CEP*:</label>
+                </form>
+                <span class="campo-obrigatorio-instalacoes">Esse é um campo obrigatório.</span>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="name" class="classificacao-adicionar" required>
+                    <label for="name">Classificação*:</label>
+                </form>
+                <span class="campo-obrigatorio-instalacoes">Esse é um campo obrigatório.</span>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="name" class="latitude-adicionar" required>
+                    <label for="name">Latitude*:</label>
+                </form>
+                <span class="campo-obrigatorio-instalacoes">Esse é um campo obrigatório.</span>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="name" class="longitude-adicionar" required>
+                    <label for="name">Longitude*:</label>
+                </form>
+                <span class="campo-obrigatorio-instalacoes">Esse é um campo obrigatório.</span>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="name" class="coordenadas-decimais-adicionar" required>
+                    <label for="name">Coordenadas decimais*:</label>
+                </form>
+                <span class="campo-obrigatorio-instalacoes">Esse é um campo obrigatório.</span>
+            </div>
+            <div class="container-buttons-instalations">
+                <button  onclick="post_instalation()">Adicionar</button> <a href=""><button>Cancelar</button></a>
+            </div>
+        </div>
+        <div class="container" id="container-instalacao-adicionada">
+            <img src="../img/sucesso.png" class="sucesso">
+            <h1>Instalação adicionada com sucesso!</h1>
+            <div class="container-buttons-instalations">
+                <button onclick="adicionar_instalacao()">Adicionar nova instalação</button>  <a href="./project.html"><button>Ir para projetos</button></a>
+            </div>
+        </div>
+        <div class="container" id="container-search-to-update-instalations">
+            <div class="container-form">
+                <form>
+                    <input type="text" id="número-instalacao-buscar-atualizar" placeholder="Ex.: 3000000000" required>
+                    <label for="name">Número da instalação*:</label>
+                </form>
+                <span class="campo-obrigatorio-instalacoes">Esse é um campo obrigatório.</span>
+                <form class="form-checkbox">
+                    <input type="checkbox" class="checkbox" id="checkbox-numero-instalacao" required">
+                    <span>Deseja atualizar o número da instalação?</span>
+                </form>
+            </div>
+            <div class="container-buttons-clients">
+                <button onclick="mostrar_campos_atualizar_instalacoes()">Buscar</button> <a href=""><button>Cancelar</button></a>
+            </div>
+        </div>
+        <div class="container" id="container-update-instalations">
+            <div class="container-campos-nao-preenchidos">
+                <img src="../img/falha.png" class="falha-instalacao">
+                <span class="campo-nao-preenchido">Preencha pelo menos um dos campos.</span>
+            </div>
+            <div class="container-instalacao-inexistente">
+                <img src="../img/falha.png" class="falha-instalacao">
+                <span class="campo-cliente-inexistente">Instalação inexistente.</span>
+            </div>
+            <div class="container-form" id="container-form-numero-instalação">
+                <form>
+                    <input type="text" class="número-instalação-atualizar" placeholder="Ex.: 3000000000" required>
+                    <label for="name">Número da instalação:</label>
+                </form>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" class="número-cliente-atualizar" placeholder="Ex.: 7000000000" required>
+                    <label for="name">Número do cliente:</label>
+                </form>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" class="logradouro-atualizar" required>
+                    <label for="name">Logradouro:</label>
+                </form>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" class="numero-predial-atualizar" required>
+                    <label for="name">Número predial:</label>
+                </form>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" class="complemento-atualizar" required>
+                    <label for="name">Complemento:</label>
+                </form>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" class="bairro-atualizar" required>
+                    <label for="name">Bairro:</label>
+                </form>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="name" class="cidade-atualizar" required>
+                    <label for="name">Cidade:</label>
+                </form>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="name" class="cep-atualizar" required>
+                    <label for="name">CEP:</label>
+                </form>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="name" class="classificacao-atualizar" required>
+                    <label for="name">Classificação:</label>
+                </form>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="name" class="latitude-atualizar" required>
+                    <label for="name">Latitude:</label>
+                </form>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="name" class="longitude-atualizar" required>
+                    <label for="name">Longitude:</label>
+                </form>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="name" class="coordenadas-decimais-atualizar" required>
+                    <label for="name">Coordenadas decimais:</label>
+                </form>
+            </div>
+            <div class="container-buttons-instalations">
+                <button onclick="patch_instalation()">Atualizar</button> <button onclick="atualizar_instalacao()">Voltar</button>
+            </div>
+        </div>
+        <div class="container" id="container-instalacao-atualizada">
+            <img src="../img/sucesso.png" class="sucesso">
+            <h1>Instalação atualizada com sucesso!</h1>
+            <div class="container-buttons-instalations">
+                <a href="./project.html"><button>Ir para projetos</button></a>
+            </div>
+        </div>
+        <div class="container" id="container-delete-instalations">
+            <div class="container-instalacao-inexistente">
+                <img src="../img/falha.png" class="falha-instalacao">
+                <span class="campo-instalacao-inexistente">Instalação inexistente.</span>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" class="número-cliente" placeholder="Ex.: 3000000000" required>
+                    <label for="name">Número da instalação*:</label>
+                </form>
+                <span class="campo-obrigatorio-instalacoes">Esse é um campo obrigatório.</span>
+            </div>
+            <div class="container-buttons-instalations">
+                <button onclick="delete_instalation()">Deletar</button> <a href=""><button>Cancelar</button></a>
+            </div>
+        </div>
+        <div class="container" id="container-instalacao-deletada">
+            <img src="../img/sucesso.png" class="sucesso">
+            <h1>Instalação deletada com sucesso!</h1>
+            <div class="container-buttons-instalations">
+                <a href=""><button>Voltar</button></a>
+            </div>
+        </div>
     </div>
-    <div class="container" id="container-search-instalations">
-        <div class="container-form">
-            <form>
-                <input type="text" class="número-instalação" placeholder="Ex.: 3000000000" required>
-                <label for="name">Número da instalação:</label>
-            </form>
-        </div>
-        <div class="container-buttons-instalations">
-            <a href=""><button>Buscar</button></a> <a href=""><button>Cancelar</button></a>
-        </div>
-    </div>
-    <div class="container" id="container-add-instalations">
-        <div class="container-form">
-            <form>
-                <input type="text" class="número-instalação" placeholder="Ex.: 3000000000" required>
-                <label for="name">Número da instalação:</label>
-            </form>
-        </div>
-        <div class="container-form">
-            <form>
-                <input type="text" class="número-cliente" placeholder="Ex.: 7000000000" required>
-                <label for="name">Número do cliente:</label>
-            </form>
-        </div>
-        <div class="container-form">
-            <form>
-                <input type="text" class="logradouro" required>
-                <label for="name">Logradouro:</label>
-            </form>
-        </div>
-        <div class="container-form">
-            <form>
-                <input type="text" class="numero-predial" required>
-                <label for="name">Número predial:</label>
-            </form>
-        </div>
-        <div class="container-form">
-            <form>
-                <input type="text" class="complemento" required>
-                <label for="name">Complemento:</label>
-            </form>
-        </div>
-        <div class="container-form">
-            <form>
-                <input type="text" class="bairro" required>
-                <label for="name">Bairro:</label>
-            </form>
-        </div>
-        <div class="container-form">
-            <form>
-                <input type="name" class="cidade" required>
-                <label for="name">Cidade:</label>
-            </form>
-        </div>
-        <div class="container-form">
-            <form>
-                <input type="name" class="cep" required>
-                <label for="name">CEP:</label>
-            </form>
-        </div>
-        <div class="container-form">
-            <form>
-                <input type="name" class="classificacao" required>
-                <label for="name">Classificação:</label>
-            </form>
-        </div>
-        <div class="container-form">
-            <form>
-                <input type="name" class="latitude" required>
-                <label for="name">Latitude:</label>
-            </form>
-        </div>
-        <div class="container-form">
-            <form>
-                <input type="name" class="longitude" required>
-                <label for="name">Longitude:</label>
-            </form>
-        </div>
-        <div class="container-form">
-            <form>
-                <input type="name" class="coordenadas-decimais" required>
-                <label for="name">Coordenadas decimais:</label>
-            </form>
-        </div>
-        <div class="container-buttons-instalations">
-            <a href=""><button>Adicionar</button></a> <a href=""><button>Cancelar</button></a>
-        </div>
-    </div>
-    <div class="container" id="container-update-instalations">
-        <div class="container-form">
-            <form>
-                <input type="text" class="número-instalação" placeholder="Ex.: 3000000000" required>
-                <label for="name">Número da instalação:</label>
-            </form>
-        </div>
-        <div class="container-form">
-            <form>
-                <input type="text" class="número-cliente" placeholder="Ex.: 7000000000" required>
-                <label for="name">Número do cliente:</label>
-            </form>
-        </div>
-        <div class="container-form">
-            <form>
-                <input type="text" class="logradouro" required>
-                <label for="name">Logradouro:</label>
-            </form>
-        </div>
-        <div class="container-form">
-            <form>
-                <input type="text" class="numero-predial" required>
-                <label for="name">Número predial:</label>
-            </form>
-        </div>
-        <div class="container-form">
-            <form>
-                <input type="text" class="complemento" required>
-                <label for="name">Complemento:</label>
-            </form>
-        </div>
-        <div class="container-form">
-            <form>
-                <input type="text" class="bairro" required>
-                <label for="name">Bairro:</label>
-            </form>
-        </div>
-        <div class="container-form">
-            <form>
-                <input type="name" class="cidade" required>
-                <label for="name">Cidade:</label>
-            </form>
-        </div>
-        <div class="container-form">
-            <form>
-                <input type="name" class="cep" required>
-                <label for="name">CEP:</label>
-            </form>
-        </div>
-        <div class="container-form">
-            <form>
-                <input type="name" class="classificacao" required>
-                <label for="name">Classificação:</label>
-            </form>
-        </div>
-        <div class="container-form">
-            <form>
-                <input type="name" class="latitude" required>
-                <label for="name">Latitude:</label>
-            </form>
-        </div>
-        <div class="container-form">
-            <form>
-                <input type="name" class="longitude" required>
-                <label for="name">Longitude:</label>
-            </form>
-        </div>
-        <div class="container-form">
-            <form>
-                <input type="name" class="coordenadas-decimais" required>
-                <label for="name">Coordenadas decimais:</label>
-            </form>
-        </div>
-        <div class="container-buttons-instalations">
-            <a href=""><button>Atualizar</button></a> <a href=""><button>Cancelar</button></a>
-        </div>
-    </div>
-    <div class="container" id="container-delete-instalations">
-        <div class="container-form">
-            <form>
-                <input type="text" class="número-cliente" placeholder="Ex.: 3000000000" required>
-                <label for="name">Número da instalação:</label>
-            </form>
-        </div>
-        <div class="container-buttons-instalations">
-            <a href=""><button>Deletar</button></a> <a href=""><button>Cancelar</button></a>
+    <div class="container-usuario-nao-autorizado">
+        <div class="container">
+            <img src="../img/falha.png" class="falha">
+            <p class="usuario-nao-autorizado-principal">Acesso negado.</p>
+            <p class="usuario-nao-autorizado-secundario">Faça login primeiro.</p>
+            <a href="./auth.html"><button>Ir para a página de logins</button></a>
         </div>
     </div>
 </body>
