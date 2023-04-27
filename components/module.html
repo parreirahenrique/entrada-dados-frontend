@@ -17,237 +17,519 @@
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Josefin+Sans:ital,wght@0,100;1,700&family=Roboto&family=Zilla+Slab:wght@300&display=swap" rel="stylesheet">
 
     <!-- JAVA SCRIPT FILE -->
+    <script src="../node_modules/axios/dist/axios.min.js"></script>
     <script defer src="../script.js"></script>
+    <script defer src="../App.js"></script>
 </head>
-<body>
-    <header>
-        <nav class="flexbox">
-            <div class="container-nav">
+<body onload="checar_autorizacao(); get_username(); get_all_modules()">
+    <div class="container-usuario-autorizado">
+        <header>
+            <nav class="flexbox">
                 <p>Módulos</p>
-                <a href="../index.html"><i class="uil uil-home" id="uil-nav"></i></a>
-                <a href="./components/auth.html"><i class="uil uil-user" id="uil-nav"></i></a>
+                <div class="container-nav">
+                    <a href="../index.html"><i class="uil uil-home" id="uil-nav"></i></a>
+                    <a href="./auth.html"><i class="uil uil-user" id="uil-nav"></i></a>
+                    <div class="container-user">
+                        <p class="nome-usuario">Usuário</p>
+                        <a class="sair-usuario" onclick="logout()">Sair</a>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <div class="container" id="container-options">
+            <button onclick="buscar_modulo()"><i class="uil uil-search"></i> Buscar por módulo</button>
+            <button onclick="adicionar_modulo()"><i class="uil uil-plus"></i> Adicionar novo módulo</button>
+            <button onclick="atualizar_modulo()"><i class="uil uil-refresh"></i> Atualizar um módulo</button>
+            <button onclick="deletar_modulo()"><i class="uil uil-trash"></i> Deletar um módulo</button>
+        </div>
+        <div class="container" id="container-geral">
+            <div class="container-buttons-next-previous">
+                <button onclick="get_all_modules_skip(-10)"><i class="uil uil-backward"></i>Página anterior</button> <button onclick="get_all_modules_skip(10)">Próxima página <i class="uil uil-forward"></i></button>
             </div>
-        </nav>
-    </header>
-    <div class="container" id="container-options">
-        <button onclick="buscar_modulo()"><i class="uil uil-search"></i> Buscar por módulo</button>
-        <button onclick="adicionar_modulo()"><i class="uil uil-plus"></i> Adicionar novo módulo</button>
-        <button onclick="atualizar_modulo()"><i class="uil uil-refresh"></i> Atualizar um módulo</button>
-        <button onclick="deletar_modulo()"><i class="uil uil-trash"></i> Deletar um módulo</button>
+            <p>
+                <table id="tabela-clientes" style="width: 1450px;">
+                    <thead>
+                        <tr>
+                            <th style="width: 20%;">Modelo</th>
+                            <th style="width: 10%;">Fabricante</th>
+                            <th style="width: 10%;">Potência</th>
+                            <th style="width: 5%;">I<sub>mp</sub></th>
+                            <th style="width: 5%;">I<sub>sc</sub></th>
+                            <th style="width: 5%;">V<sub>mp</sub></th>
+                            <th style="width: 5%;">V<sub>oc</sub></th>
+                            <th style="width: 8%;">Comprimento</th>
+                            <th style="width: 8%;">Largura</th>
+                            <th style="width: 8%;">Espessura</th>
+                            <th style="width: 8%;">Eficiência</th>
+                            <th style="width: 8%;">Tipo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </p>
+        </div>
+        <div class="container" id="container-search-modules">
+            <div class="container-modulo-inexistente">
+                <img src="../img/falha.png" class="falha-modulo">
+                <span class="campo-modulo-inexistente">Módulo inexistente.</span>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" id="modelo-módulo-buscar" required>
+                    <label for="name">Modelo*:</label>
+                </form>
+                <span class="campo-obrigatorio-modulos">Esse é um campo obrigatório.</span>
+            </div>
+            <div class="container-buttons-modules">
+                <button onclick="get_module()">Buscar</button> <a href=""><button>Cancelar</button></a>
+            </div>
+        </div>
+        <div class="container" id="container-modulo-encontrado">
+            <div class="container-dados-modulo-geral">
+                <div class="container-titulos-cliente">
+                    <span id="title-module-model">Modelo do módulo:</span>
+                    <span id="title-module-manufacturer">Fabricante:</span>
+                    <span id="title-module-power">Potência de pico:</span>
+                    <span id="title-module-imp">Imp:</span>
+                    <span id="title-module-isc">Isc:</span>
+                    <span id="title-module-vmp">Vmp:</span>
+                    <span id="title-module-voc">Voc:</span>
+                    <span id="title-module-width">Comprimento:</span>
+                    <span id="title-module-length">Largura:</span>
+                    <span id="title-module-thickness">Espessura:</span>
+                    <span id="title-module-efficiency">Eficiência:</span>
+                    <span id="title-module-temperature">Temperatura nominal:</span>
+                    <span id="title-module-type">Tipo de célula:</span>
+                    <span id="title-module-coefficient">Coeficiente de temperatura:</span>
+                    <span id="title-module-added-in">Adicionado em:</span>
+                </div>
+                <div class="container-dados-modulo">
+                    <span id="module-model"></span>
+                    <span id="module-manufacturer"></span>
+                    <span id="module-power"></span>
+                    <span id="module-imp"></span>
+                    <span id="module-isc"></span>
+                    <span id="module-vmp"></span>
+                    <span id="module-voc"></span>
+                    <span id="module-width"></span>
+                    <span id="module-length"></span>
+                    <span id="module-thickness"></span>
+                    <span id="module-efficiency"></span>
+                    <span id="module-temperature"></span>
+                    <span id="module-type"></span>
+                    <span id="module-coefficient"></span>
+                    <span id="module-added-in"></span>
+                </div>
+            </div>
+            <div class="container-buttons-modules">
+                <button onclick="buscar_modulo()">Buscar novo módulo</button>  <a href=""><button>Voltar</button></a>
+            </div>
+        </div>
+        <div class="container" id="container-add-modules-general">
+            <div class="container-modulo-existente">
+                <img src="../img/falha.png" class="falha-modulo">
+                <span class="campo-modulo-existente">Módulo já cadastrado.</span>
+            </div>
+            <div id="container-add-modules">
+                <div class="container-form">
+                    <form>
+                        <input type="text" id="modelo-módulo-adicionar" required>
+                        <label for="name">Modelo*:</label>
+                    </form>
+                    <span class="campo-obrigatorio-modulos">Esse é um campo obrigatório.</span>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" id="fabricante-módulo-adicionar" required>
+                        <label for="name">Fabricante*:</label>
+                    </form>
+                    <span class="campo-obrigatorio-modulos">Esse é um campo obrigatório.</span>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" id="potência-módulo-adicionar" required>
+                        <label for="name">Potência de pico*:</label>
+                    </form>
+                    <span class="campo-obrigatorio-modulos">Esse é um campo obrigatório.</span>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" id="imp-módulo-adicionar" required>
+                        <label for="name">I<sub>mp</sub>*:</label>
+                    </form>
+                    <span class="campo-obrigatorio-modulos">Esse é um campo obrigatório.</span>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" id="isc-módulo-adicionar" required>
+                        <label for="name">I<sub>sc</sub>*:</label>
+                    </form>
+                    <span class="campo-obrigatorio-modulos">Esse é um campo obrigatório.</span>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" id="vmp-módulo-adicionar" required>
+                        <label for="name">V<sub>mp</sub>*:</label>
+                    </form>
+                    <span class="campo-obrigatorio-modulos">Esse é um campo obrigatório.</span>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" id="voc-módulo-adicionar" required>
+                        <label for="name">V<sub>oc</sub>*:</label>
+                    </form>
+                    <span class="campo-obrigatorio-modulos">Esse é um campo obrigatório.</span>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" id="comprimento-módulo-adicionar" required>
+                        <label for="name">Comprimento*:</label>
+                    </form>
+                    <span class="campo-obrigatorio-modulos">Esse é um campo obrigatório.</span>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" id="largura-módulo-adicionar" required>
+                        <label for="name">Largura*:</label>
+                    </form>
+                    <span class="campo-obrigatorio-modulos">Esse é um campo obrigatório.</span>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" id="espessura-módulo-adicionar" required>
+                        <label for="name">Espessura*:</label>
+                    </form>
+                    <span class="campo-obrigatorio-modulos">Esse é um campo obrigatório.</span>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" id="eficiência-módulo-adicionar" required>
+                        <label for="name">Eficiência*:</label>
+                    </form>
+                    <span class="campo-obrigatorio-modulos">Esse é um campo obrigatório.</span>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" id="temperatura-módulo-adicionar" required>
+                        <label for="name">Temperatura nominal*:</label>
+                    </form>
+                    <span class="campo-obrigatorio-modulos">Esse é um campo obrigatório.</span>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" id="tipo-módulo-adicionar" required>
+                        <label for="name">Tipo de célula*:</label>
+                    </form>
+                    <span class="campo-obrigatorio-modulos">Esse é um campo obrigatório.</span>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="name" id="coeficiente-módulo-adicionar" required>
+                        <label for="name">Coeficiente de temperatura*:</label>
+                    </form>
+                    <span class="campo-obrigatorio-modulos">Esse é um campo obrigatório.</span>
+                </div>
+            </div>
+            <div class="container-buttons-modules">
+                <button onclick="post_module()">Adicionar</button> <a href=""><button>Cancelar</button></a>
+            </div>
+        </div>
+        <div class="container" id="container-modulo-adicionado">
+            <img src="../img/sucesso.png" class="sucesso">
+            <h1>Módulo adicionado com sucesso!</h1>
+            <div class="container-buttons-modules">
+                <button onclick="adicionar_modulo()">Adicionar novo módulo</button>  <a href="./project.html"><button>Ir para projetos</button></a>
+            </div>
+        </div>
+        <div class="container" id="container-search-to-update-modules">
+            <div class="container-form">
+                <form>
+                    <input type="text" id="modelo-módulo-buscar-atualizar" required>
+                    <label for="name">ID do módulo*:</label>
+                </form>
+                <span class="campo-obrigatorio-modulos">Esse é um campo obrigatório.</span>
+            </div>
+            <div class="container-buttons-modules">
+                <button onclick="mostrar_campos_atualizar_modulos()">Buscar</button> <a href=""><button>Cancelar</button></a>
+            </div>
+        </div>
+        <div class="container" id="container-update-modules-general">
+            <div class="container-campos-nao-preenchidos">
+                <img src="../img/falha.png" class="falha-modulo">
+                <span class="campo-nao-preenchido">Preencha pelo menos um dos campos.</span>
+            </div>
+            <div class="container-modulo-inexistente">
+                <img src="../img/falha.png" class="falha-modulo">
+                <span class="campo-modulo-inexistente">Módulo inexistente.</span>
+            </div>
+            <div id="container-update-modules">
+                <div class="container-form" id="container-form-modelo-modulo">
+                    <form>
+                        <input type="text" id="modelo-módulo-atualizar" required>
+                        <label for="name">Modelo:</label>
+                    </form>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" id="fabricante-módulo-atualizar" required>
+                        <label for="name">Fabricante:</label>
+                    </form>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" id="potência-módulo-atualizar" required>
+                        <label for="name">Potência de pico:</label>
+                    </form>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" id="imp-módulo-atualizar" required>
+                        <label for="name">I<sub>mp</sub>:</label>
+                    </form>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" id="isc-módulo-atualizar" required>
+                        <label for="name">I<sub>sc</sub>:</label>
+                    </form>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" id="vmp-módulo-atualizar" required>
+                        <label for="name">V<sub>mp</sub>:</label>
+                    </form>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" id="voc-módulo-atualizar" required>
+                        <label for="name">V<sub>oc</sub>:</label>
+                    </form>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" id="comprimento-módulo-atualizar" required>
+                        <label for="name">Comprimento:</label>
+                    </form>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" id="largura-módulo-atualizar" required>
+                        <label for="name">Largura:</label>
+                    </form>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" id="espessura-módulo-atualizar" required>
+                        <label for="name">Espessura:</label>
+                    </form>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" id="eficiência-módulo-atualizar" required>
+                        <label for="name">Eficiência:</label>
+                    </form>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" id="temperatura-módulo-atualizar" required>
+                        <label for="name">Temperatura nominal:</label>
+                    </form>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" id="tipo-módulo-atualizar" required>
+                        <label for="name">Tipo de célula:</label>
+                    </form>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="name" id="coeficiente-módulo-atualizar" required>
+                        <label for="name">Coeficiente de temperatura:</label>
+                    </form>
+                </div>
+            </div>
+            <div class="container-buttons-modules">
+                <button onclick="patch_module()">Atualizar</button> <button onclick="atualizar_modulo()">Voltar</button>
+            </div>
+        </div>
+        <div class="container" id="container-modulo-atualizado">
+            <img src="../img/sucesso.png" class="sucesso">
+            <h1>Módulo atualizado com sucesso!</h1>
+            <div class="container-buttons-modules">
+                <a href="./project.html"><button>Ir para projetos</button></a>
+            </div>
+        </div>
+        <div class="container" id="container-delete-modules">
+            <div class="container-modulo-inexistente">
+                <img src="../img/falha.png" class="falha-modulo">
+                <span class="campo-modulo-inexistente">Módulo inexistente.</span>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" id="modelo-módulo-deletar" required>
+                    <label for="name">ID do módulo*:</label>
+                </form>
+                <span class="campo-obrigatorio-modulos">Esse é um campo obrigatório.</span>
+            </div>
+            <div class="container-buttons-modules">
+                <button onclick="delete_module()">Deletar</button> <a href=""><button>Cancelar</button></a>
+            </div>
+        </div>
+        <div class="container" id="container-modulo-deletado">
+            <img src="../img/sucesso.png" class="sucesso">
+            <h1>Módulo deletado com sucesso!</h1>
+            <div class="container-buttons-modules">
+                <a href=""><button>Voltar</button></a>
+            </div>
+        </div>
     </div>
-    <div class="container" id="container-geral">
-        <div class="container-buttons-next-previous">
-            <a href=""><button><i class="uil uil-backward"></i>Página anterior</button></a> <a href=""><button>Próxima página <i class="uil uil-forward"></i></button></a>
-        </div>
-        <p>
-        <!--MOSTRAR AQUI TODOS OS MÓDULOS, DE DEZ EM DEZ-->
-        </p>
-        <div class="container-buttons-next-previous">
-            <a href=""><button><i class="uil uil-backward"></i>Página anterior</button></a> <a href=""><button>Próxima página <i class="uil uil-forward"></i></button></a>
-        </div>
-    </div>
-    <div class="container" id="container-search-modules">
-        <div class="container-form">
-            <form>
-                <input type="text" class="modelo-módulo" required>
-                <label for="name">Modelo:</label>
-            </form>
-        </div>
-        <div class="container-buttons-clients">
-            <a href=""><button>Buscar</button></a> <a href=""><button>Cancelar</button></a>
-        </div>
-    </div>
-    <div class="container" id="container-add-modules-general">
-        <div id="container-add-modules">
-            <div class="container-form">
-                <form>
-                    <input type="text" class="modelo-módulo" required>
-                    <label for="name">Modelo:</label>
-                </form>
-            </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="fabricante-módulo" required>
-                    <label for="name">Fabricante:</label>
-                </form>
-            </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="potência-módulo" required>
-                    <label for="name">Potência de pico:</label>
-                </form>
-            </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="imp-modulo" required>
-                    <label for="name">I<sub>mp</sub>:</label>
-                </form>
-            </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="isc-modulo" required>
-                    <label for="name">I<sub>sc</sub>:</label>
-                </form>
-            </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="vmp-modulo" required>
-                    <label for="name">V<sub>mp</sub>:</label>
-                </form>
-            </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="voc-modulo" required>
-                    <label for="name">V<sub>oc</sub>:</label>
-                </form>
-            </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="comprimento-módulo" required>
-                    <label for="name">Comprimento:</label>
-                </form>
-            </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="largura-módulo" required>
-                    <label for="name">Largura:</label>
-                </form>
-            </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="espessura-módulo" required>
-                    <label for="name">Espessura:</label>
-                </form>
-            </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="eficiência-módulo" required>
-                    <label for="name">Eficiência:</label>
-                </form>
-            </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="temperatura-módulo" required>
-                    <label for="name">Temperatura nominal:</label>
-                </form>
-            </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="tipo-módulo" required>
-                    <label for="name">Tipo de célula:</label>
-                </form>
-            </div>
-            <div class="container-form">
-                <form>
-                    <input type="name" class="coeficiente-módulo" required>
-                    <label for="name">Coeficiente de temperatura:</label>
-                </form>
-            </div>
-        </div>
-        <div class="container-buttons-modules">
-            <a href=""><button>Adicionar</button></a> <a href=""><button>Cancelar</button></a>
-        </div>
-    </div>
-    <div class="container" id="container-update-modules-general">
-        <div id="container-update-modules">
-            <div class="container-form">
-                <form>
-                    <input type="text" class="modelo-módulo" required>
-                    <label for="name">Modelo:</label>
-                </form>
-            </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="fabricante-módulo" required>
-                    <label for="name">Fabricante:</label>
-                </form>
-            </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="potência-módulo" required>
-                    <label for="name">Potência de pico:</label>
-                </form>
-            </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="imp-modulo" required>
-                    <label for="name">I<sub>mp</sub>:</label>
-                </form>
-            </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="isc-modulo" required>
-                    <label for="name">I<sub>sc</sub>:</label>
-                </form>
-            </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="vmp-modulo" required>
-                    <label for="name">V<sub>mp</sub>:</label>
-                </form>
-            </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="voc-modulo" required>
-                    <label for="name">V<sub>oc</sub>:</label>
-                </form>
-            </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="comprimento-módulo" required>
-                    <label for="name">Comprimento:</label>
-                </form>
-            </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="largura-módulo" required>
-                    <label for="name">Largura:</label>
-                </form>
-            </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="espessura-módulo" required>
-                    <label for="name">Espessura:</label>
-                </form>
-            </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="eficiência-módulo" required>
-                    <label for="name">Eficiência:</label>
-                </form>
-            </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="temperatura-módulo" required>
-                    <label for="name">Temperatura nominal:</label>
-                </form>
-            </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="tipo-módulo" required>
-                    <label for="name">Tipo de célula:</label>
-                </form>
-            </div>
-            <div class="container-form">
-                <form>
-                    <input type="name" class="coeficiente-módulo" required>
-                    <label for="name">Coeficiente de temperatura:</label>
-                </form>
-            </div>
-        </div>
-        <div class="container-buttons-modules">
-            <a href=""><button>Atualizar</button></a> <a href=""><button>Cancelar</button></a>
-        </div>
-    </div>
-    <div class="container" id="container-delete-modules">
-        <div class="container-form">
-            <form>
-                <input type="text" class="modelo-módulo" required>
-                <label for="name">Modelo:</label>
-            </form>
-        </div>
-        <div class="container-buttons-modules">
-            <a href=""><button>Deletar</button></a> <a href=""><button>Cancelar</button></a>
+    <div class="container-usuario-nao-autorizado">
+        <div class="container">
+            <img src="../img/falha.png" class="falha">
+            <p class="usuario-nao-autorizado-principal">Acesso negado.</p>
+            <p class="usuario-nao-autorizado-secundario">Faça login primeiro.</p>
+            <a href="./auth.html"><button>Ir para a página de logins</button></a>
         </div>
     </div>
 </body>

@@ -555,67 +555,272 @@ function deletar_instalacao() {
 
 // FUNÇÕES PARA MOSTRAR CONTEÚDO DA PÁGINA DE MÓDULOS
 function buscar_modulo() {
+    let divGeral = document.getElementById('container-geral');
     let divSearchModule = document.getElementById('container-search-modules');
     let divAddModule = document.getElementById('container-add-modules-general');
+    let divSearchUpdateModule = document.getElementById('container-search-to-update-modules');
     let divUpdateModule = document.getElementById('container-update-modules-general');
     let divDeleteModule = document.getElementById('container-delete-modules');
+    let divModuleFound = document.getElementById('container-modulo-encontrado');
+    let divModuleAdded = document.getElementById('container-modulo-adicionado');
+    let divModuleUpdated = document.getElementById('container-modulo-atualizado');
+    let divModuleDeleted = document.getElementById('container-modulo-deletado');
+    let arrayCamposObrigatorios = document.getElementsByClassName('campo-obrigatorio-modulos');
+    let arrayClienteInexistente = document.getElementsByClassName('container-cliente-inexistente');
+            
+    document.getElementById('modelo-módulo-buscar').value = ''
     
+    divGeral.style.visibility = "hidden"
+    divGeral.style.display = "none";
     divSearchModule.style.visibility = "visible";
     divSearchModule.style.display = "grid";
     divAddModule.style.visibility = "hidden";
     divAddModule.style.display = "none";
+    divSearchUpdateModule.style.visibility = "hidden"
+    divSearchUpdateModule.style.display = "none"
     divUpdateModule.style.visibility = "hidden";
     divUpdateModule.style.display = "none";
     divDeleteModule.style.visibility = "hidden";
     divDeleteModule.style.display = "none";
+    divModuleFound.style.visibility = "hidden";
+    divModuleFound.style.display = "none";
+    divModuleAdded.style.visibility = "hidden";
+    divModuleAdded.style.display = "none";
+    divModuleUpdated.style.visibility = "hidden";
+    divModuleUpdated.style.display = "none";
+    divModuleDeleted.style.visibility = "hidden";
+    divModuleDeleted.style.display = "none";
+
+    for(i = 0; i < arrayCamposObrigatorios.length; i++) {
+        arrayCamposObrigatorios[i].style.visibility = "hidden"
+        arrayCamposObrigatorios[i].style.display = "none"
+    }
+
+    for(i = 0; i < arrayClienteInexistente.length; i++) {
+        arrayClienteInexistente[i].style.visibility = "hidden"
+        arrayClienteInexistente[i].style.display = "none"
+    }
 }
 
 function adicionar_modulo() {
+    let divGeral = document.getElementById('container-geral');
     let divSearchModule = document.getElementById('container-search-modules');
     let divAddModule = document.getElementById('container-add-modules-general');
+    let divSearchUpdateModule = document.getElementById('container-search-to-update-modules');
     let divUpdateModule = document.getElementById('container-update-modules-general');
     let divDeleteModule = document.getElementById('container-delete-modules');
+    let divModuleFound = document.getElementById('container-modulo-encontrado');
+    let divModuleAdded = document.getElementById('container-modulo-adicionado');
+    let divModuleUpdated = document.getElementById('container-modulo-atualizado');
+    let divModuleDeleted = document.getElementById('container-modulo-deletado');
+    let arrayCamposObrigatorios = document.getElementsByClassName('campo-obrigatorio-modulos');
+    let arrayClienteInexistente = document.getElementsByClassName('container-cliente-inexistente');
+            
+    document.getElementById('modelo-módulo-adicionar').value = ''
+    document.getElementById('fabricante-módulo-adicionar').value = ''
+    document.getElementById('potência-módulo-adicionar').value = ''
+    document.getElementById('imp-módulo-adicionar').value = ''
+    document.getElementById('isc-módulo-adicionar').value = ''
+    document.getElementById('vmp-módulo-adicionar').value = ''
+    document.getElementById('voc-módulo-adicionar').value = ''
+    document.getElementById('comprimento-módulo-adicionar').value = ''
+    document.getElementById('largura-módulo-adicionar').value = ''
+    document.getElementById('espessura-módulo-adicionar').value = ''
+    document.getElementById('eficiência-módulo-adicionar').value = ''
+    document.getElementById('temperatura-módulo-adicionar').value = ''
+    document.getElementById('tipo-módulo-adicionar').value = ''
+    document.getElementById('coeficiente-módulo-adicionar').value = ''
     
+    divGeral.style.visibility = "hidden"
+    divGeral.style.display = "none";
     divSearchModule.style.visibility = "hidden";
     divSearchModule.style.display = "none";
     divAddModule.style.visibility = "visible";
     divAddModule.style.display = "grid";
+    divSearchUpdateModule.style.visibility = "hidden"
+    divSearchUpdateModule.style.display = "none"
     divUpdateModule.style.visibility = "hidden";
     divUpdateModule.style.display = "none";
     divDeleteModule.style.visibility = "hidden";
     divDeleteModule.style.display = "none";
+    divModuleFound.style.visibility = "hidden";
+    divModuleFound.style.display = "none";
+    divModuleAdded.style.visibility = "hidden";
+    divModuleAdded.style.display = "none";
+    divModuleUpdated.style.visibility = "hidden";
+    divModuleUpdated.style.display = "none";
+    divModuleDeleted.style.visibility = "hidden";
+    divModuleDeleted.style.display = "none";
+
+    for(i = 0; i < arrayCamposObrigatorios.length; i++) {
+        arrayCamposObrigatorios[i].style.visibility = "hidden"
+        arrayCamposObrigatorios[i].style.display = "none"
+    }
+
+    for(i = 0; i < arrayClienteInexistente.length; i++) {
+        arrayClienteInexistente[i].style.visibility = "hidden"
+        arrayClienteInexistente[i].style.display = "none"
+    }
 }
 
 function atualizar_modulo() {
+    let divGeral = document.getElementById('container-geral');
     let divSearchModule = document.getElementById('container-search-modules');
     let divAddModule = document.getElementById('container-add-modules-general');
+    let divSearchUpdateModule = document.getElementById('container-search-to-update-modules');
     let divUpdateModule = document.getElementById('container-update-modules-general');
     let divDeleteModule = document.getElementById('container-delete-modules');
+    let divModuleFound = document.getElementById('container-modulo-encontrado');
+    let divModuleAdded = document.getElementById('container-modulo-adicionado');
+    let divModuleUpdated = document.getElementById('container-modulo-atualizado');
+    let divModuleDeleted = document.getElementById('container-modulo-deletado');
+    let arrayCamposObrigatorios = document.getElementsByClassName('campo-obrigatorio-modulos');
+    let arrayClienteInexistente = document.getElementsByClassName('container-cliente-inexistente');
+            
+    document.getElementById('modelo-módulo-adicionar').value = ''
+    document.getElementById('fabricante-módulo-adicionar').value = ''
+    document.getElementById('potência-módulo-adicionar').value = ''
+    document.getElementById('imp-módulo-adicionar').value = ''
+    document.getElementById('isc-módulo-adicionar').value = ''
+    document.getElementById('vmp-módulo-adicionar').value = ''
+    document.getElementById('voc-módulo-adicionar').value = ''
+    document.getElementById('comprimento-módulo-adicionar').value = ''
+    document.getElementById('largura-módulo-adicionar').value = ''
+    document.getElementById('espessura-módulo-adicionar').value = ''
+    document.getElementById('eficiência-módulo-adicionar').value = ''
+    document.getElementById('temperatura-módulo-adicionar').value = ''
+    document.getElementById('tipo-módulo-adicionar').value = ''
+    document.getElementById('coeficiente-módulo-adicionar').value = ''
     
+    divGeral.style.visibility = "hidden"
+    divGeral.style.display = "none";
     divSearchModule.style.visibility = "hidden";
     divSearchModule.style.display = "none";
     divAddModule.style.visibility = "hidden";
     divAddModule.style.display = "none";
-    divUpdateModule.style.visibility = "visible";
-    divUpdateModule.style.display = "grid";
+    divSearchUpdateModule.style.visibility = "visible"
+    divSearchUpdateModule.style.display = "grid"
+    divUpdateModule.style.visibility = "hidden";
+    divUpdateModule.style.display = "none";
     divDeleteModule.style.visibility = "hidden";
     divDeleteModule.style.display = "none";
+    divModuleFound.style.visibility = "hidden";
+    divModuleFound.style.display = "none";
+    divModuleAdded.style.visibility = "hidden";
+    divModuleAdded.style.display = "none";
+    divModuleUpdated.style.visibility = "hidden";
+    divModuleUpdated.style.display = "none";
+    divModuleDeleted.style.visibility = "hidden";
+    divModuleDeleted.style.display = "none";
+
+    for(i = 0; i < arrayCamposObrigatorios.length; i++) {
+        arrayCamposObrigatorios[i].style.visibility = "hidden"
+        arrayCamposObrigatorios[i].style.display = "none"
+    }
+
+    for(i = 0; i < arrayClienteInexistente.length; i++) {
+        arrayClienteInexistente[i].style.visibility = "hidden"
+        arrayClienteInexistente[i].style.display = "none"
+    }
+}
+
+function mostrar_campos_atualizar_modulos() {
+    let divSearchUpdateModule = document.getElementById('container-search-to-update-modules');
+    let divUpdateModule = document.getElementById('container-update-modules-general');
+
+    let divModelo = document.getElementById('container-form-modelo-modulo');
+
+    let arrayCamposObrigatorios = document.getElementsByClassName('campo-obrigatorio-modulos');
+    let arrayModuloInexistente = document.getElementsByClassName('container-modulo-inexistente');
+
+    let modelo = document.getElementById('modelo-módulo-buscar-atualizar').value;
+    
+    document.getElementById('modelo-módulo-atualizar').value = ''
+    document.getElementById('fabricante-módulo-atualizar').value = ''
+    document.getElementById('potência-módulo-atualizar').value = ''
+    document.getElementById('imp-módulo-atualizar').value = ''
+    document.getElementById('isc-módulo-atualizar').value = ''
+    document.getElementById('vmp-módulo-atualizar').value = ''
+    document.getElementById('voc-módulo-atualizar').value = ''
+    document.getElementById('comprimento-módulo-atualizar').value = ''
+    document.getElementById('largura-módulo-atualizar').value = ''
+    document.getElementById('espessura-módulo-atualizar').value = ''
+    document.getElementById('eficiência-módulo-atualizar').value = ''
+    document.getElementById('temperatura-módulo-atualizar').value = ''
+    document.getElementById('tipo-módulo-atualizar').value = ''
+    document.getElementById('coeficiente-módulo-atualizar').value = ''
+    
+    if (modelo != '') {
+        divSearchUpdateModule.style.visibility = "hidden"
+        divSearchUpdateModule.style.display = "none"
+        divUpdateModule.style.visibility = "visible"
+        divUpdateModule.style.display = "grid"
+
+        for(i = 0; i < arrayCamposObrigatorios.length; i++) {
+            arrayCamposObrigatorios[i].style.visibility = "hidden"
+            arrayCamposObrigatorios[i].style.display = "none"
+        }
+
+        for(i = 0; i < arrayModuloInexistente.length; i++) {
+            arrayModuloInexistente[i].style.visibility = "hidden"
+            arrayModuloInexistente[i].style.display = "none"
+        }
+    }
+
+    else {
+        for(i = 0; i < arrayCamposObrigatorios.length; i++) {
+            arrayCamposObrigatorios[i].style.visibility = "visible"
+            arrayCamposObrigatorios[i].style.display = "grid"
+        }
+    }
 }
 
 function deletar_modulo() {
+    let divGeral = document.getElementById('container-geral');
     let divSearchModule = document.getElementById('container-search-modules');
     let divAddModule = document.getElementById('container-add-modules-general');
+    let divSearchUpdateModule = document.getElementById('container-search-to-update-modules');
     let divUpdateModule = document.getElementById('container-update-modules-general');
     let divDeleteModule = document.getElementById('container-delete-modules');
-    
+    let divModuleFound = document.getElementById('container-modulo-encontrado');
+    let divModuleAdded = document.getElementById('container-modulo-adicionado');
+    let divModuleUpdated = document.getElementById('container-modulo-atualizado');
+    let divModuleDeleted = document.getElementById('container-modulo-deletado');
+    let arrayCamposObrigatorios = document.getElementsByClassName('campo-obrigatorio-modulos');
+    let arrayClienteInexistente = document.getElementsByClassName('container-cliente-inexistente');
+       
+    document.getElementById('modelo-módulo-deletar').value = ''
+
+    divGeral.style.visibility = "hidden"
+    divGeral.style.display = "none";
     divSearchModule.style.visibility = "hidden";
     divSearchModule.style.display = "none";
     divAddModule.style.visibility = "hidden";
     divAddModule.style.display = "none";
+    divSearchUpdateModule.style.visibility = "hidden"
+    divSearchUpdateModule.style.display = "none"
     divUpdateModule.style.visibility = "hidden";
     divUpdateModule.style.display = "none";
     divDeleteModule.style.visibility = "visible";
     divDeleteModule.style.display = "grid";
+    divModuleFound.style.visibility = "hidden";
+    divModuleFound.style.display = "none";
+    divModuleAdded.style.visibility = "hidden";
+    divModuleAdded.style.display = "none";
+    divModuleUpdated.style.visibility = "hidden";
+    divModuleUpdated.style.display = "none";
+    divModuleDeleted.style.visibility = "hidden";
+    divModuleDeleted.style.display = "none";
+
+    for(i = 0; i < arrayCamposObrigatorios.length; i++) {
+        arrayCamposObrigatorios[i].style.visibility = "hidden"
+        arrayCamposObrigatorios[i].style.display = "none"
+    }
+
+    for(i = 0; i < arrayClienteInexistente.length; i++) {
+        arrayClienteInexistente[i].style.visibility = "hidden"
+        arrayClienteInexistente[i].style.display = "none"
+    }
 }
 
 // FUNÇÕES PARA MOSTRAR CONTEÚDO DA PÁGINA DE INVERSORES

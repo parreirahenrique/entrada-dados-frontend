@@ -1068,11 +1068,470 @@ async function delete_instalation() {
                 arrayInstalacaoInexistente[i].style.display = 'flex';
             }
         }
-
     }
     
     else {
         let arrayCampos = document.getElementsByClassName('campo-obrigatorio-instalacoes');
+
+        for (i = 0; i < arrayCampos.length; i ++) {
+            arrayCampos[i].style.visibility = "visible";
+            arrayCampos[i].style.display = "grid";
+        }
+    }
+}
+
+async function get_module() {
+    let access_token = localStorage.getItem('access_token');
+
+    let modelo = document.getElementById('modelo-módulo-buscar').value;
+    let divSearchModule = document.getElementById('container-search-modules');
+
+    if (modelo != '') {
+        
+        let config = {
+            headers: {
+              'Authorization': 'Bearer ' + access_token
+            }
+        }
+
+        let dadosModulo = await axios.get(
+            'http://localhost:8000/modules/' + modelo, config
+        ).then(
+            function (response) {
+                const dadosModulo = response.data;
+                return dadosModulo;
+            }
+        ).catch(
+            function (error) {
+                console.log(error);
+                return error;
+            }
+        )
+        
+        if (dadosModulo != 'Error: Request failed with status code 401' & dadosModulo != 'Error: Request failed with status code 404') {
+            divSearchModule.style.visibility = 'hidden';
+            divSearchModule.style.display = 'none';
+
+            document.getElementById('container-modulo-encontrado').style.visibility = 'visible';
+            document.getElementById('container-modulo-encontrado').style.display = 'grid';
+            
+            let hora = dadosModulo.criado_em.split('T')[1].split('.')[0];
+            let data = dadosModulo.criado_em.split('-')[2].split('T')[0] + '/' + dadosModulo.criado_em.split('-')[1] + '/' + dadosModulo.criado_em.split('-')[0];
+            
+            if (dadosModulo.modelo != '') {
+                document.getElementById('module-model').innerHTML = dadosModulo.modelo;
+                document.getElementById('title-module-model').style.visibility = 'visible';
+                document.getElementById('title-module-model').style.display = 'grid';
+                document.getElementById('module-model').style.visibility = 'visible';
+                document.getElementById('module-model').style.display = 'grid';
+            }
+
+            if (dadosModulo.fabricante != '') {
+                document.getElementById('module-manufacturer').innerHTML = dadosModulo.fabricante;
+                document.getElementById('title-module-manufacturer').style.visibility = 'visible';
+                document.getElementById('title-module-manufacturer').style.display = 'grid';
+                document.getElementById('module-manufacturer').style.visibility = 'visible';
+                document.getElementById('module-manufacturer').style.display = 'grid';
+            }
+
+            if (dadosModulo.potencia != '') {
+                document.getElementById('module-power').innerHTML = dadosModulo.potencia.toString() + " Wp";
+                document.getElementById('title-module-power').style.visibility = 'visible';
+                document.getElementById('title-module-power').style.display = 'grid';
+                document.getElementById('module-power').style.visibility = 'visible';
+                document.getElementById('module-power').style.display = 'grid';
+            }
+            
+            if (dadosModulo.imp != '') {
+                document.getElementById('module-imp').innerHTML = dadosModulo.imp.toString().replace('.', ',') + " A";
+                document.getElementById('title-module-imp').style.visibility = 'visible';
+                document.getElementById('title-module-imp').style.display = 'grid';
+                document.getElementById('module-imp').style.visibility = 'visible';
+                document.getElementById('module-imp').style.display = 'grid';
+            }
+            
+            if (dadosModulo.isc != '') {
+                document.getElementById('module-isc').innerHTML = dadosModulo.isc.toString().replace('.', ',') + " A";
+                document.getElementById('title-module-isc').style.visibility = 'visible';
+                document.getElementById('title-module-isc').style.display = 'grid';
+                document.getElementById('module-isc').style.visibility = 'visible';
+                document.getElementById('module-isc').style.display = 'grid';
+            }
+
+            if (dadosModulo.vmp != '') {
+                document.getElementById('module-vmp').innerHTML = dadosModulo.vmp.toString().replace('.', ',') + " V";
+                document.getElementById('title-module-vmp').style.visibility = 'visible';
+                document.getElementById('title-module-vmp').style.display = 'grid';
+                document.getElementById('module-vmp').style.visibility = 'visible';
+                document.getElementById('module-vmp').style.display = 'grid';
+            }
+            
+            if (dadosModulo.voc != '') {
+                document.getElementById('module-voc').innerHTML = dadosModulo.voc.toString().replace('.', ',') + " V";
+                document.getElementById('title-module-voc').style.visibility = 'visible';
+                document.getElementById('title-module-voc').style.display = 'grid';
+                document.getElementById('module-voc').style.visibility = 'visible';
+                document.getElementById('module-voc').style.display = 'grid';
+            }
+            
+            if (dadosModulo.comprimento != '') {
+                document.getElementById('module-width').innerHTML = dadosModulo.comprimento.toString() + " mm";
+                document.getElementById('title-module-width').style.visibility = 'visible';
+                document.getElementById('title-module-width').style.display = 'grid';
+                document.getElementById('module-width').style.visibility = 'visible';
+                document.getElementById('module-width').style.display = 'grid';
+            }
+            
+            if (dadosModulo.largura != '') {
+                document.getElementById('module-length').innerHTML = dadosModulo.largura.toString() + " mm";
+                document.getElementById('title-module-length').style.visibility = 'visible';
+                document.getElementById('title-module-length').style.display = 'grid';
+                document.getElementById('module-length').style.visibility = 'visible';
+                document.getElementById('module-length').style.display = 'grid';
+            }
+            
+            if (dadosModulo.espessura != '') {
+                document.getElementById('module-thickness').innerHTML = dadosModulo.espessura.toString() + " mm";
+                document.getElementById('title-module-thickness').style.visibility = 'visible';
+                document.getElementById('title-module-thickness').style.display = 'grid';
+                document.getElementById('module-thickness').style.visibility = 'visible';
+                document.getElementById('module-thickness').style.display = 'grid';
+            }
+            
+            if (dadosModulo.eficiencia != '') {
+                document.getElementById('module-efficiency').innerHTML = dadosModulo.eficiencia.toString().replace('.', ',') + "%";
+                document.getElementById('title-module-efficiency').style.visibility = 'visible';
+                document.getElementById('title-module-efficiency').style.display = 'grid';
+                document.getElementById('module-efficiency').style.visibility = 'visible';
+                document.getElementById('module-efficiency').style.display = 'grid';
+            }
+
+            if (dadosModulo.temperatura_nominal != '') {
+                document.getElementById('module-temperature').innerHTML = dadosModulo.temperatura_nominal;
+                document.getElementById('title-module-temperature').style.visibility = 'visible';
+                document.getElementById('title-module-temperature').style.display = 'grid';
+                document.getElementById('module-temperature').style.visibility = 'visible';
+                document.getElementById('module-temperature').style.display = 'grid';
+            }
+            
+            if (dadosModulo.tipo != '') {
+                document.getElementById('module-type').innerHTML = dadosModulo.tipo;
+                document.getElementById('title-module-type').style.visibility = 'visible';
+                document.getElementById('title-module-type').style.display = 'grid';
+                document.getElementById('module-type').style.visibility = 'visible';
+                document.getElementById('module-type').style.display = 'grid';
+            }
+            
+            if (dadosModulo.coeficiente_temperatura != '') {
+                document.getElementById('module-coefficient').innerHTML = dadosModulo.coeficiente_temperatura.toString().replace('.', ',') + "%/°C";
+                document.getElementById('title-module-coefficient').style.visibility = 'visible';
+                document.getElementById('title-module-coefficient').style.display = 'grid';
+                document.getElementById('module-coefficient').style.visibility = 'visible';
+                document.getElementById('module-coefficient').style.display = 'grid';
+            }
+            
+            if (dadosModulo.criado_em != '') {
+                document.getElementById('module-added-in').innerHTML = data + ' às ' + hora;
+                document.getElementById('title-module-added-in').style.visibility = 'visible';
+                document.getElementById('title-module-added-in').style.display = 'grid';
+                document.getElementById('module-added-in').style.visibility = 'visible';
+                document.getElementById('module-added-in').style.display = 'grid';
+            }
+        }
+
+        else if (dadosModulo == 'Error: Request failed with status code 401') {
+            localStorage.setItem('access_token', dadosModulo);
+            checar_autorizacao();
+        }
+
+        else {
+            let arrayModuloInexistente = document.getElementsByClassName('container-modulo-inexistente')
+
+            for (i = 0; i < arrayModuloInexistente.length; i ++) {
+                arrayModuloInexistente[i].style.visibility = 'visible';
+                arrayModuloInexistente[i].style.display = 'flex';
+            }
+        }
+    }
+
+    else {
+        arrayCampos = document.getElementsByClassName('campo-obrigatorio-clientes')
+
+        for (i = 0; i < arrayCampos.length; i ++) {
+            arrayCampos[i].style.visibility = "visible";
+            arrayCampos[i].style.display = "grid";
+        }
+    }
+}
+
+async function post_module() {
+    let access_token = localStorage.getItem('access_token');
+
+    let modelo = document.getElementById('modelo-módulo-adicionar').value
+    let fabricante = document.getElementById('fabricante-módulo-adicionar').value
+    let potencia = document.getElementById('potência-módulo-adicionar').value
+    let imp = document.getElementById('imp-módulo-adicionar').value
+    let isc = document.getElementById('isc-módulo-adicionar').value
+    let vmp = document.getElementById('vmp-módulo-adicionar').value
+    let voc = document.getElementById('voc-módulo-adicionar').value
+    let comprimento = document.getElementById('comprimento-módulo-adicionar').value
+    let largura = document.getElementById('largura-módulo-adicionar').value
+    let espessura = document.getElementById('espessura-módulo-adicionar').value
+    let eficiencia = document.getElementById('eficiência-módulo-adicionar').value
+    let temperatura_nominal = document.getElementById('temperatura-módulo-adicionar').value
+    let tipo = document.getElementById('tipo-módulo-adicionar').value
+    let coeficiente_temperatura = document.getElementById('coeficiente-módulo-adicionar').value
+
+    dicionario = {
+        'modelo': modelo,
+        'fabricante': fabricante,
+        'potencia': potencia,
+        'imp': imp,
+        'isc': isc,
+        'vmp': vmp,
+        'voc': voc,
+        'comprimento': comprimento,
+        'largura': largura,
+        'espessura': espessura,
+        'eficiencia': eficiencia,
+        'temperatura_nominal': temperatura_nominal,
+        'tipo': tipo,
+        'coeficiente_temperatura': coeficiente_temperatura
+    }
+
+    let config = {
+        headers: {
+          'Authorization': 'Bearer ' + access_token
+        }
+    }
+
+    if (modelo != '' & fabricante != '' & potencia != '' & imp != '' & isc != '' & vmp != '' & voc != '' & comprimento != '' & largura != '' & espessura != '' & eficiencia != '' & temperatura_nominal != '' & tipo != '' & coeficiente_temperatura != ''){
+        resposta = await axios.post(
+            'http://localhost:8000/modules', dicionario, config
+        ).then(
+            function (response) {
+                const resposta = response.data;
+                return resposta;
+            }
+        ).catch(
+            function (error) {
+                console.log(error);
+                return error;
+            }
+        )
+
+        if (resposta != 'Error: Network Error' & resposta != 'Error: Request failed with status code 401') {
+            document.getElementById('container-modulo-adicionado').style.visibility = 'visible';
+            document.getElementById('container-modulo-adicionado').style.display = 'grid';
+            
+            document.getElementById('container-add-modules-general').style.visibility = 'hidden';
+            document.getElementById('container-add-modules-general').style.display = 'none';
+        }
+
+        else if (resposta == 'Error: Request failed with status code 401') {
+            localStorage.setItem('access_token', resposta);
+            checar_autorizacao();
+        }
+
+        else {
+            divExistentClient = document.getElementsByClassName('container-modulo-existente')
+            divExistentClient[0].style.visibility = 'visible';
+            divExistentClient[0].style.display = 'flex';
+        }
+    }
+
+    else {
+        arrayCampos = document.getElementsByClassName('campo-obrigatorio-modulos')
+
+        for (i = 0; i < arrayCampos.length; i ++) {
+            arrayCampos[i].style.visibility = "visible";
+            arrayCampos[i].style.display = "grid";
+        }
+    }
+}
+
+async function patch_module() {
+    let access_token = localStorage.getItem('access_token');
+
+    let id = document.getElementById('modelo-módulo-buscar-atualizar').value;
+    let modelo = document.getElementById('modelo-módulo-atualizar').value
+    let fabricante = document.getElementById('fabricante-módulo-atualizar').value
+    let potencia = document.getElementById('potência-módulo-atualizar').value
+    let imp = document.getElementById('imp-módulo-atualizar').value
+    let isc = document.getElementById('isc-módulo-atualizar').value
+    let vmp = document.getElementById('vmp-módulo-atualizar').value
+    let voc = document.getElementById('voc-módulo-atualizar').value
+    let comprimento = document.getElementById('comprimento-módulo-atualizar').value
+    let largura = document.getElementById('largura-módulo-atualizar').value
+    let espessura = document.getElementById('espessura-módulo-atualizar').value
+    let eficiencia = document.getElementById('eficiência-módulo-atualizar').value
+    let temperatura_nominal = document.getElementById('temperatura-módulo-atualizar').value
+    let tipo = document.getElementById('tipo-módulo-atualizar').value
+    let coeficiente_temperatura = document.getElementById('coeficiente-módulo-atualizar').value
+    let dicionario = {}; // Create an empty array
+
+    if (modelo == '' & fabricante == '' & potencia == '' & imp == '' & isc == '' & vmp == '' & voc == '' & comprimento == '' & largura == '' & espessura == '' & eficiencia == '' & temperatura_nominal == '' & tipo != '' & coeficiente_temperatura == ''){
+        containerCamposNaoPreenchidos = document.getElementsByClassName('container-campos-nao-preenchidos')
+        containerCamposNaoPreenchidos[0].style.visibility = "visible"
+        containerCamposNaoPreenchidos[0].style.display = "flex"
+    }
+
+    else {
+        if (modelo != ''){
+            dicionario['modelo'] = modelo
+        }
+
+        if (fabricante != ''){
+            dicionario['fabricante'] = fabricante
+        }
+
+        if (potencia != ''){
+            dicionario['potencia'] = potencia
+        }
+
+        if (imp != ''){
+            dicionario['imp'] = imp
+        }
+
+        if (isc != ''){
+            dicionario['isc'] = isc
+        }
+
+        if (vmp != ''){
+            dicionario['vmp'] = vmp
+        }
+
+        if (voc != ''){
+            dicionario['voc'] = voc
+        }
+        
+        if (comprimento != ''){
+            dicionario['comprimento'] = comprimento
+        }
+        
+        if (largura != ''){
+            dicionario['largura'] = largura
+        }
+        
+        if (espessura != ''){
+            dicionario['espessura'] = espessura
+        }
+        
+        if (eficiencia != ''){
+            dicionario['eficiencia'] = eficiencia
+        }
+
+        if (temperatura_nominal != ''){
+            dicionario['temperatura_nominal'] = temperatura_nominal
+        }
+
+        if (tipo != ''){
+            dicionario['tipo'] = tipo
+        }
+        
+        if (coeficiente_temperatura != ''){
+            dicionario['coeficiente_temperatura'] = coeficiente_temperatura
+        }
+        
+        let config = {
+            headers: {
+            'Authorization': 'Bearer ' + access_token
+            }
+        }
+        
+        console.log(dicionario)
+        url = 'http://localhost:8000/modules/' + id
+        
+        resposta = await axios.patch(
+            url, dicionario, config
+        ).then(
+            function (response) {
+                const resposta = response.data;
+                return resposta;
+            }
+        ).catch(
+            function (error) {
+                console.log(error);
+                return error;
+            }
+        )
+        
+        if (resposta != 'Error: Request failed with status code 404' & resposta != 'Error: Request failed with status code 401') {
+            document.getElementById('container-modulo-atualizado').style.visibility = 'visible';
+            document.getElementById('container-modulo-atualizado').style.display = 'grid';
+                
+            document.getElementById('container-update-modules-general').style.visibility = 'hidden';
+            document.getElementById('container-update-modules-general').style.display = 'none';
+        }
+
+        else if (resposta == 'Error: Request failed with status code 401') {
+            localStorage.setItem('access_token', resposta);
+            checar_autorizacao();
+        }
+
+        else {
+            let arrayModuloInexistente = document.getElementsByClassName('container-modulo-inexistente')
+
+            for (i = 0; i < arrayModuloInexistente.length; i ++) {
+                arrayModuloInexistente[i].style.visibility = 'visible'
+                arrayModuloInexistente[i].style.display = 'flex'
+            }
+        }
+    }
+}
+
+async function delete_module() {
+    let access_token = localStorage.getItem('access_token');
+    let id = document.getElementById('modelo-módulo-deletar').value;
+
+    if (id != '') {
+
+        let config = {
+            headers: {
+              'Authorization': 'Bearer ' + access_token
+            }
+        }
+
+        let resposta = await axios.delete(
+            'http://localhost:8000/modules/' + id, config
+        ).then(
+            function (response) {
+                const resposta = response.data;
+                return resposta;
+            }
+        ).catch(
+            function (error) {
+                console.log(error);
+                return error;
+            }
+        )
+        
+        if (resposta == '') {
+            document.getElementById('container-modulo-deletado').style.visibility = 'visible';
+            document.getElementById('container-modulo-deletado').style.display = 'grid';
+
+            document.getElementById('container-delete-modules').style.visibility = 'hidden';
+            document.getElementById('container-delete-modules').style.display = 'none';
+        }
+
+        else if (resposta == 'Error: Request failed with status code 401') {
+            localStorage.setItem('access_token', resposta);
+            checar_autorizacao();
+        }
+
+        else if (resposta == 'Error: Request failed with status code 404') {
+            let arrayModuloInexistente = document.getElementsByClassName('container-modulo-inexistente');
+
+            for (i = 0; i < arrayModuloInexistente.length; i ++) {
+                arrayModuloInexistente[i].style.visibility = 'visible';
+                arrayModuloInexistente[i].style.display = 'flex';
+            }
+        }
+
+    }
+    
+    else {
+        let arrayCampos = document.getElementsByClassName('campo-obrigatorio-modulos');
 
         for (i = 0; i < arrayCampos.length; i ++) {
             arrayCampos[i].style.visibility = "visible";

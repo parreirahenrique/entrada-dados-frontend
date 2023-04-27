@@ -323,7 +323,7 @@ td {
 }
 
 #container-geral {
-    width: 1000px;
+    width: 1500px;
 }
 
 /* ESTILOS DAS CLASSES DA PÁGINA DE LOGIN */
@@ -695,6 +695,106 @@ td {
 }
 
 /* ESTILOS DAS CLASSES DA PÁGINA DE MÓDULOS */
+.container-modulo-inexistente {
+    align-items: center;
+    visibility: hidden;
+    display: none;
+    flex-direction: row;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 20px;
+    font-size: large;
+    font-weight: bolder;
+    color: red;
+}
+
+.campo-modulo-inexistente {
+    margin-left: 5px;
+    font-size: large;
+    font-weight: bolder;
+    color: red;
+}
+
+.container-modulo-existente {
+    align-items: center;
+    visibility: hidden;
+    display: none;
+    flex-direction: row;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 20px;
+    font-size: large;
+    font-weight: bolder;
+    color: red;
+}
+
+.campo-modulo-existente {
+    margin-left: 5px;
+    font-size: large;
+    font-weight: bolder;
+    color: red;
+}
+
+.falha-modulo {
+    margin-right: 5px;
+    height: 20px;
+    width: 20px;
+}
+
+.campo-obrigatorio-modulos {
+    margin-right: 275px;
+    font-size: small;
+    visibility: hidden;
+    display: none;
+}
+
+#container-modulo-encontrado {
+    visibility: hidden;
+    display: none;
+}
+
+#container-modulo-adicionado {
+    visibility: hidden;
+    display: none;
+}
+
+#container-search-to-update-modules {
+    visibility: hidden;
+    display: none;
+    transition: .3s ease-in-out;
+}
+
+#container-modulo-atualizado {
+    visibility: hidden;
+    display: none;
+}
+
+#container-modulo-deletado {
+    visibility: hidden;
+    display: none;
+}
+
+.container-dados-modulo-geral {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+}
+
+.container-titulos-modulo {
+    display: grid;
+    text-align: right;
+    margin-right: 5px;
+    margin-left: auto;
+    font-weight: bolder;
+}
+
+.container-dados-modulo {
+    display: grid;
+    text-align: left;
+    margin-right: auto;
+    margin-left: 5px;
+}
+
 #container-search-modules {
     visibility: hidden;
     display: none;
@@ -706,11 +806,8 @@ td {
 }
 
 #container-add-modules {
-    display: flexbox;
+    display: flex;
     flex-direction: column;
-    -webkit-column-count: 2;
-    -moz-column-count: 2;
-    column-count: 2;
 }
 
 #container-update-modules-general {
@@ -719,11 +816,8 @@ td {
 }
 
 #container-update-modules {
-    display: flexbox;
+    display: flex;
     flex-direction: column;
-    -webkit-column-count: 2;
-    -moz-column-count: 2;
-    column-count: 2;
 }
 
 #container-delete-modules {
