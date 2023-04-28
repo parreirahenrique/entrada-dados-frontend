@@ -221,6 +221,29 @@ input:focus::placeholder{
     color: gray;
 }
 
+datalist {
+    cursor: pointer;
+    width: 100%;
+    pointer-events: all;
+    position: absolute;
+    background-color: rgb(255, 255, 255, .75);
+    border-radius: 0 0 5px 5px;
+    z-index: 1;
+  }
+  
+option {
+    text-align: left;
+    /* margin-left: 5px; */
+    align-items: center;
+    font-family: 'Roboto', sans-serif;
+    font-size: medium;
+    width: 100%;
+}
+
+option:hover, .active{
+    background-color: rgb(255, 255, 255, .9);
+}
+
 ul {
     -webkit-column-count: 2;
     -moz-column-count: 2;

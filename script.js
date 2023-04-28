@@ -111,6 +111,7 @@ function adicionar_cliente() {
     let arrayClienteInexistente = document.getElementsByClassName('container-cliente-inexistente');
             
     document.getElementById('número-cliente-adicionar').value = ''
+    document.getElementById('número-cliente-adicionar').autofocus = false
     document.getElementById('nome-cliente-adicionar').value = ''
     document.getElementById('cpf-adicionar').value = ''
     document.getElementById('rg-adicionar').value = ''
@@ -344,6 +345,20 @@ function buscar_instalacao() {
         arrayClienteInexistente[i].style.visibility = "hidden"
         arrayClienteInexistente[i].style.display = "none"
     }
+}
+
+function mostrar_clientes() {
+    let input = document.getElementById('número-cliente-adicionar')
+    let lista = document.getElementById('numerocliente')
+    
+    lista.style.display = 'block';
+    
+    for (let opcao of lista.options) {
+        opcao.onclick = function () {
+            input.value = opcao.value;
+            lista.style.display = 'none';
+        }
+    };
 }
 
 function adicionar_instalacao() {

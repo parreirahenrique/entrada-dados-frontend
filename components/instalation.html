@@ -107,8 +107,13 @@
                 <span class="campo-obrigatorio-instalacoes">Esse é um campo obrigatório.</span>
             </div>
             <div class="container-form">
-                <form>
-                    <input type="text" id="número-cliente-adicionar" placeholder="Ex.: 7000000000" required>
+                <form autocomplete="off">
+                    <input type="text" id="número-cliente-adicionar" list="numerocliente" autocomplete="off" onclick="mostrar_clientes()" required>
+                        <datalist id="numerocliente">
+                            <option>1 - Henrique</option>
+                            <option>999</option>
+                        </datalist>
+                    
                     <label for="name">Número do cliente*:</label>
                 </form>
                 <span class="campo-obrigatorio-instalacoes">Esse é um campo obrigatório.</span>
