@@ -676,21 +676,22 @@ function atualizar_modulo() {
     let divModuleDeleted = document.getElementById('container-modulo-deletado');
     let arrayCamposObrigatorios = document.getElementsByClassName('campo-obrigatorio-modulos');
     let arrayClienteInexistente = document.getElementsByClassName('container-cliente-inexistente');
-            
-    document.getElementById('modelo-módulo-adicionar').value = ''
-    document.getElementById('fabricante-módulo-adicionar').value = ''
-    document.getElementById('potência-módulo-adicionar').value = ''
-    document.getElementById('imp-módulo-adicionar').value = ''
-    document.getElementById('isc-módulo-adicionar').value = ''
-    document.getElementById('vmp-módulo-adicionar').value = ''
-    document.getElementById('voc-módulo-adicionar').value = ''
-    document.getElementById('comprimento-módulo-adicionar').value = ''
-    document.getElementById('largura-módulo-adicionar').value = ''
-    document.getElementById('espessura-módulo-adicionar').value = ''
-    document.getElementById('eficiência-módulo-adicionar').value = ''
-    document.getElementById('temperatura-módulo-adicionar').value = ''
-    document.getElementById('tipo-módulo-adicionar').value = ''
-    document.getElementById('coeficiente-módulo-adicionar').value = ''
+    
+    document.getElementById('modelo-módulo-buscar-atualizar').value = ''
+    document.getElementById('modelo-módulo-atualizar').value = ''
+    document.getElementById('fabricante-módulo-atualizar').value = ''
+    document.getElementById('potência-módulo-atualizar').value = ''
+    document.getElementById('imp-módulo-atualizar').value = ''
+    document.getElementById('isc-módulo-atualizar').value = ''
+    document.getElementById('vmp-módulo-atualizar').value = ''
+    document.getElementById('voc-módulo-atualizar').value = ''
+    document.getElementById('comprimento-módulo-atualizar').value = ''
+    document.getElementById('largura-módulo-atualizar').value = ''
+    document.getElementById('espessura-módulo-atualizar').value = ''
+    document.getElementById('eficiência-módulo-atualizar').value = ''
+    document.getElementById('temperatura-módulo-atualizar').value = ''
+    document.getElementById('tipo-módulo-atualizar').value = ''
+    document.getElementById('coeficiente-módulo-atualizar').value = ''
     
     divGeral.style.visibility = "hidden"
     divGeral.style.display = "none";
@@ -727,8 +728,6 @@ function atualizar_modulo() {
 function mostrar_campos_atualizar_modulos() {
     let divSearchUpdateModule = document.getElementById('container-search-to-update-modules');
     let divUpdateModule = document.getElementById('container-update-modules-general');
-
-    let divModelo = document.getElementById('container-form-modelo-modulo');
 
     let arrayCamposObrigatorios = document.getElementsByClassName('campo-obrigatorio-modulos');
     let arrayModuloInexistente = document.getElementsByClassName('container-modulo-inexistente');

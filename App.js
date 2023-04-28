@@ -1080,6 +1080,258 @@ async function delete_instalation() {
     }
 }
 
+//FUNÇÕES PARA A PÁGINA DE MÓDULOS
+async function get_all_modules() {
+    let access_token = localStorage.getItem('access_token');
+
+    if (access_token != 'Error: Request failed with status code 401' & access_token != 'Error: Request failed with status code 403' & access_token != 'Error: Request failed with status code 422' & access_token != 'Error: Network Error' & access_token != null) {
+        localStorage.setItem('paginaAtualModulos', 0);
+
+        let config = {
+            headers: {
+              'Authorization': 'Bearer ' + access_token
+            }
+        }
+
+        let dadosTodosModulos = await axios.get(
+            'http://localhost:8000/modules/', config
+        ).then(
+            function (response) {
+                const dadosTodosClientes = response.data;
+                return dadosTodosClientes;
+            }
+        ).catch(
+            function (error) {
+                console.log(error);
+                return error;
+            }
+        )
+        
+        if (dadosTodosModulos != 'Error: Request failed with status code 401' & dadosTodosModulos != 'Error: Request failed with status code 404') {
+            let arrayTD = document.getElementsByTagName('td')
+            
+            for (i = 0; i < 10; i++) {
+                if (i < dadosTodosModulos.length) {
+                    arrayTD[12 * i].innerHTML = dadosTodosModulos[i].modelo
+                    arrayTD[12 * i].style.visibility = 'visible'
+                    arrayTD[12 * i].style.display = 'table-cell'
+                    arrayTD[12 * i + 1].innerHTML = dadosTodosModulos[i].fabricante
+                    arrayTD[12 * i + 1].style.visibility = 'visible'
+                    arrayTD[12 * i + 1].style.display = 'table-cell'
+                    arrayTD[12 * i + 2].innerHTML = dadosTodosModulos[i].potencia
+                    arrayTD[12 * i + 2].style.visibility = 'visible'
+                    arrayTD[12 * i + 2].style.display = 'table-cell'
+                    arrayTD[12 * i + 3].innerHTML = dadosTodosModulos[i].imp
+                    arrayTD[12 * i + 3].style.visibility = 'visible'
+                    arrayTD[12 * i + 3].style.display = 'table-cell'
+                    arrayTD[12 * i + 4].innerHTML = dadosTodosModulos[i].isc
+                    arrayTD[12 * i + 4].style.visibility = 'visible'
+                    arrayTD[12 * i + 4].style.display = 'table-cell'
+                    arrayTD[12 * i + 5].innerHTML = dadosTodosModulos[i].vmp
+                    arrayTD[12 * i + 5].style.visibility = 'visible'
+                    arrayTD[12 * i + 5].style.display = 'table-cell'
+                    arrayTD[12 * i + 6].innerHTML = dadosTodosModulos[i].voc
+                    arrayTD[12 * i + 6].style.visibility = 'visible'
+                    arrayTD[12 * i + 6].style.display = 'table-cell'
+                    arrayTD[12 * i + 7].innerHTML = dadosTodosModulos[i].comprimento
+                    arrayTD[12 * i + 7].style.visibility = 'visible'
+                    arrayTD[12 * i + 7].style.display = 'table-cell'
+                    arrayTD[12 * i + 8].innerHTML = dadosTodosModulos[i].largura
+                    arrayTD[12 * i + 8].style.visibility = 'visible'
+                    arrayTD[12 * i + 8].style.display = 'table-cell'
+                    arrayTD[12 * i + 9].innerHTML = dadosTodosModulos[i].espessura
+                    arrayTD[12 * i + 9].style.visibility = 'visible'
+                    arrayTD[12 * i + 9].style.display = 'table-cell'
+                    arrayTD[12 * i + 10].innerHTML = dadosTodosModulos[i].eficiencia
+                    arrayTD[12 * i + 10].style.visibility = 'visible'
+                    arrayTD[12 * i + 10].style.display = 'table-cell'
+                    arrayTD[12 * i + 11].innerHTML = dadosTodosModulos[i].tipo
+                    arrayTD[12 * i + 11].style.visibility = 'visible'
+                    arrayTD[12 * i + 11].style.display = 'table-cell'
+                    
+                    if (i == (dadosTodosModulos.length - 1)) {
+                        arrayTD[12 * i].style.borderBottom = 0;
+                        arrayTD[12 * i + 1].style.borderBottom = 0;
+                        arrayTD[12 * i + 2].style.borderBottom = 0;
+                        arrayTD[12 * i + 3].style.borderBottom = 0;
+                        arrayTD[12 * i + 4].style.borderBottom = 0;
+                        arrayTD[12 * i + 5].style.borderBottom = 0;
+                        arrayTD[12 * i + 6].style.borderBottom = 0;
+                        arrayTD[12 * i + 7].style.borderBottom = 0;
+                        arrayTD[12 * i + 8].style.borderBottom = 0;
+                        arrayTD[12 * i + 9].style.borderBottom = 0;
+                        arrayTD[12 * i + 10].style.borderBottom = 0;
+                        arrayTD[12 * i + 11].style.borderBottom = 0;
+                    }
+                }
+
+                else {
+                    arrayTD[12 * i].style.visibility = 'hidden'
+                    arrayTD[12 * i].style.display = 'none'
+                    arrayTD[12 * i + 1].style.visibility = 'hidden'
+                    arrayTD[12 * i + 1].style.display = 'none'
+                    arrayTD[12 * i + 2].style.visibility = 'hidden'
+                    arrayTD[12 * i + 2].style.display = 'none'
+                    arrayTD[12 * i + 3].style.visibility = 'hidden'
+                    arrayTD[12 * i + 3].style.display = 'none'
+                    arrayTD[12 * i + 4].style.visibility = 'hidden'
+                    arrayTD[12 * i + 4].style.display = 'none'
+                    arrayTD[12 * i + 5].style.visibility = 'hidden'
+                    arrayTD[12 * i + 5].style.display = 'none'
+                    arrayTD[12 * i + 6].style.visibility = 'hidden'
+                    arrayTD[12 * i + 6].style.display = 'none'
+                    arrayTD[12 * i + 7].style.visibility = 'hidden'
+                    arrayTD[12 * i + 7].style.display = 'none'
+                    arrayTD[12 * i + 8].style.visibility = 'hidden'
+                    arrayTD[12 * i + 8].style.display = 'none'
+                    arrayTD[12 * i + 9].style.visibility = 'hidden'
+                    arrayTD[12 * i + 9].style.display = 'none'
+                    arrayTD[12 * i + 10].style.visibility = 'hidden'
+                    arrayTD[12 * i + 10].style.display = 'none'
+                    arrayTD[12 * i + 11].style.visibility = 'hidden'
+                    arrayTD[12 * i + 11].style.display = 'none'
+                }
+            }
+        }
+
+        else if (dadosTodosModulos == 'Error: Request failed with status code 401') {
+            localStorage.setItem('access_token', dadosTodosModulos);
+            checar_autorizacao();
+        }
+    }
+}
+
+async function get_all_modules_skip(alterar) {
+    let access_token = localStorage.getItem('access_token');
+
+    if (access_token != 'Error: Request failed with status code 401' & access_token != 'Error: Request failed with status code 403' & access_token != 'Error: Request failed with status code 422' & access_token != 'Error: Network Error' & access_token != null) {
+        
+        let pagina = parseInt(localStorage.getItem('paginaAtualModulos')) + parseInt(alterar);
+
+        if (pagina < 0) {
+            pagina = 0
+        }
+
+        let config = {
+            headers: {
+              'Authorization': 'Bearer ' + access_token
+            }
+        }
+
+        let dadosTodosModulos = await axios.get(
+            'http://localhost:8000/modules/?pular=' + pagina, config
+        ).then(
+            function (response) {
+                const dadosTodosModulos = response.data;
+                return dadosTodosModulos;
+            }
+        ).catch(
+            function (error) {
+                console.log(error);
+                return error;
+            }
+        )
+        
+        if (dadosTodosModulos != 'Error: Request failed with status code 401' & dadosTodosModulos != 'Error: Request failed with status code 404') {
+            let arrayTD = document.getElementsByTagName('td')
+            
+            if (pagina > dadosTodosModulos.length) {
+                pagina = parseInt(dadosTodosModulos.length - dadosTodosModulos.length % 10)
+            }
+            
+            localStorage.setItem('paginaAtualModulos', pagina);
+            
+            for (i = 0; i < 10; i++) {
+                if (i < dadosTodosModulos.length) {
+                    arrayTD[12 * i].innerHTML = dadosTodosModulos[i].modelo
+                    arrayTD[12 * i].style.visibility = 'visible'
+                    arrayTD[12 * i].style.display = 'table-cell'
+                    arrayTD[12 * i + 1].innerHTML = dadosTodosModulos[i].fabricante
+                    arrayTD[12 * i + 1].style.visibility = 'visible'
+                    arrayTD[12 * i + 1].style.display = 'table-cell'
+                    arrayTD[12 * i + 2].innerHTML = dadosTodosModulos[i].potencia
+                    arrayTD[12 * i + 2].style.visibility = 'visible'
+                    arrayTD[12 * i + 2].style.display = 'table-cell'
+                    arrayTD[12 * i + 3].innerHTML = dadosTodosModulos[i].imp
+                    arrayTD[12 * i + 3].style.visibility = 'visible'
+                    arrayTD[12 * i + 3].style.display = 'table-cell'
+                    arrayTD[12 * i + 4].innerHTML = dadosTodosModulos[i].isc
+                    arrayTD[12 * i + 4].style.visibility = 'visible'
+                    arrayTD[12 * i + 4].style.display = 'table-cell'
+                    arrayTD[12 * i + 5].innerHTML = dadosTodosModulos[i].vmp
+                    arrayTD[12 * i + 5].style.visibility = 'visible'
+                    arrayTD[12 * i + 5].style.display = 'table-cell'
+                    arrayTD[12 * i + 6].innerHTML = dadosTodosModulos[i].voc
+                    arrayTD[12 * i + 6].style.visibility = 'visible'
+                    arrayTD[12 * i + 6].style.display = 'table-cell'
+                    arrayTD[12 * i + 7].innerHTML = dadosTodosModulos[i].comprimento
+                    arrayTD[12 * i + 7].style.visibility = 'visible'
+                    arrayTD[12 * i + 7].style.display = 'table-cell'
+                    arrayTD[12 * i + 8].innerHTML = dadosTodosModulos[i].largura
+                    arrayTD[12 * i + 8].style.visibility = 'visible'
+                    arrayTD[12 * i + 8].style.display = 'table-cell'
+                    arrayTD[12 * i + 9].innerHTML = dadosTodosModulos[i].espessura
+                    arrayTD[12 * i + 9].style.visibility = 'visible'
+                    arrayTD[12 * i + 9].style.display = 'table-cell'
+                    arrayTD[12 * i + 10].innerHTML = dadosTodosModulos[i].eficiencia
+                    arrayTD[12 * i + 10].style.visibility = 'visible'
+                    arrayTD[12 * i + 10].style.display = 'table-cell'
+                    arrayTD[12 * i + 11].innerHTML = dadosTodosModulos[i].tipo
+                    arrayTD[12 * i + 11].style.visibility = 'visible'
+                    arrayTD[12 * i + 11].style.display = 'table-cell'
+                    
+                    if (i == (dadosTodosModulos.length - 1)) {
+                        arrayTD[12 * i].style.borderBottom = 0;
+                        arrayTD[12 * i + 1].style.borderBottom = 0;
+                        arrayTD[12 * i + 2].style.borderBottom = 0;
+                        arrayTD[12 * i + 3].style.borderBottom = 0;
+                        arrayTD[12 * i + 4].style.borderBottom = 0;
+                        arrayTD[12 * i + 5].style.borderBottom = 0;
+                        arrayTD[12 * i + 6].style.borderBottom = 0;
+                        arrayTD[12 * i + 7].style.borderBottom = 0;
+                        arrayTD[12 * i + 8].style.borderBottom = 0;
+                        arrayTD[12 * i + 9].style.borderBottom = 0;
+                        arrayTD[12 * i + 10].style.borderBottom = 0;
+                        arrayTD[12 * i + 11].style.borderBottom = 0;
+                    }
+                }
+                
+                else {
+                    arrayTD[12 * i].style.visibility = 'hidden'
+                    arrayTD[12 * i].style.display = 'none'
+                    arrayTD[12 * i + 1].style.visibility = 'hidden'
+                    arrayTD[12 * i + 1].style.display = 'none'
+                    arrayTD[12 * i + 2].style.visibility = 'hidden'
+                    arrayTD[12 * i + 2].style.display = 'none'
+                    arrayTD[12 * i + 3].style.visibility = 'hidden'
+                    arrayTD[12 * i + 3].style.display = 'none'
+                    arrayTD[12 * i + 4].style.visibility = 'hidden'
+                    arrayTD[12 * i + 4].style.display = 'none'
+                    arrayTD[12 * i + 5].style.visibility = 'hidden'
+                    arrayTD[12 * i + 5].style.display = 'none'
+                    arrayTD[12 * i + 6].style.visibility = 'hidden'
+                    arrayTD[12 * i + 6].style.display = 'none'
+                    arrayTD[12 * i + 7].style.visibility = 'hidden'
+                    arrayTD[12 * i + 7].style.display = 'none'
+                    arrayTD[12 * i + 8].style.visibility = 'hidden'
+                    arrayTD[12 * i + 8].style.display = 'none'
+                    arrayTD[12 * i + 9].style.visibility = 'hidden'
+                    arrayTD[12 * i + 9].style.display = 'none'
+                    arrayTD[12 * i + 10].style.visibility = 'hidden'
+                    arrayTD[12 * i + 10].style.display = 'none'
+                    arrayTD[12 * i + 11].style.visibility = 'hidden'
+                    arrayTD[12 * i + 11].style.display = 'none'
+                }
+            }
+        }
+
+        else if (dadosTodosModulos == 'Error: Request failed with status code 401') {
+            localStorage.setItem('access_token', dadosTodosModulos);
+            checar_autorizacao();
+        }
+    }
+}
+
 async function get_module() {
     let access_token = localStorage.getItem('access_token');
 
@@ -1255,7 +1507,7 @@ async function get_module() {
     }
 
     else {
-        arrayCampos = document.getElementsByClassName('campo-obrigatorio-clientes')
+        arrayCampos = document.getElementsByClassName('campo-obrigatorio-modulos')
 
         for (i = 0; i < arrayCampos.length; i ++) {
             arrayCampos[i].style.visibility = "visible";
