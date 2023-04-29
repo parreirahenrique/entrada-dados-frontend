@@ -222,6 +222,7 @@ input:focus::placeholder{
 }
 
 datalist {
+    overflow: hidden;
     cursor: pointer;
     width: 100%;
     pointer-events: all;
@@ -229,14 +230,17 @@ datalist {
     background-color: rgb(255, 255, 255, .75);
     border-radius: 0 0 5px 5px;
     z-index: 1;
-  }
+}
   
 option {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    color: #424242;
     text-align: left;
-    /* margin-left: 5px; */
     align-items: center;
+    align-content: center;
     font-family: 'Roboto', sans-serif;
-    font-size: medium;
+    font-size: 15px;
     width: 100%;
 }
 

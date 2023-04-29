@@ -347,18 +347,112 @@ function buscar_instalacao() {
     }
 }
 
-function mostrar_clientes() {
-    let input = document.getElementById('número-cliente-adicionar')
-    let lista = document.getElementById('numerocliente')
+async function mostrar_clientes(nomeFuncao) {
+    let input = document.getElementById('número-cliente-' + nomeFuncao)
+    let lista = document.getElementById('numerocliente-' + nomeFuncao)
+    let numeroCliente = []
+    let nome = []
+
+    while (lista.options.length > 0) {
+        lista.children[0].remove()
+    }
+
+    let access_token = localStorage.getItem('access_token')
+
+    if (access_token != 'Error: Request failed with status code 401' & access_token != 'Error: Request failed with status code 403' & access_token != 'Error: Request failed with status code 422' & access_token != 'Error: Network Error' & access_token != null) {
+        let config = {
+            headers: {
+              'Authorization': 'Bearer ' + access_token
+            }
+        }
+
+        let dadosTodosClientes = await axios.get(
+            'http://localhost:8000/all-clients', config
+        ).then(
+            function (response) {
+                const dadosTodosClientes = response.data;
+                return dadosTodosClientes;
+            }
+        ).catch(
+            function (error) {
+                console.log(error);
+                return error;
+            }
+        )
+        if (dadosTodosClientes != 'Error: Request failed with status code 401' & dadosTodosClientes != 'Error: Request failed with status code 404') {
+            for (i = 0; i < dadosTodosClientes.length; i++) {
+                numeroCliente[i] = String(dadosTodosClientes[i].numero_cliente);
+                nome[i] = dadosTodosClientes[i].nome.toUpperCase();
+                let opcao_atual = document.createElement('option');
+                let texto = document.createTextNode(numeroCliente[i] + ' - ' + nome[i])
+                
+                opcao_atual.value = numeroCliente[i] + ' - ' + nome[i]
+                opcao_atual.appendChild(texto)
+                lista.appendChild(opcao_atual)
+            }
+        }
+
+        else if (dadosTodosClientes == 'Error: Request failed with status code 401') {
+            localStorage.setItem('access_token', dadosTodosClientes);
+            checar_autorizacao();
+        }
+    }
+
+    localStorage.setItem('nome_cliente', nome)
+    localStorage.setItem('numero_cliente', numeroCliente)
     
+    lista.style.display = 'grid';
+
+    for (let opcao of lista.options) {
+        opcao.onclick = function () {
+            input.value = opcao.value.split(' - ')[0];
+            lista.style.display = 'none';
+        }
+    }
+}
+
+function filtrar_clientes(nomeFuncao) {
+    let input = document.getElementById('número-cliente-' + nomeFuncao);
+    let lista = document.getElementById('numerocliente-' + nomeFuncao);
+    
+    let nome = localStorage.getItem('nome_cliente').split(',')
+    let numero_cliente = localStorage.getItem('numero_cliente').split(',')
+
+    while (lista.options.length > 0) {
+        lista.children[0].remove()
+    }
+
+    for (i = 0; i < numero_cliente.length; i++) {
+        let opcao_atual = document.createElement('option');
+        let texto = document.createTextNode(numero_cliente[i] + ' - ' + nome[i])
+        
+        opcao_atual.value = numero_cliente[i] + ' - ' + nome[i]
+        opcao_atual.appendChild(texto)
+        lista.appendChild(opcao_atual)
+    }
+
+    let numeroCliente = input.value.toUpperCase();
+    let nOpcoes = lista.options.length - 1;
+
+    for (i = nOpcoes; i >= 0; i--) {
+        if (lista.options[i].value.includes(numeroCliente) == false) {
+            lista.children[i].remove()
+        }
+    }
+}
+
+function mostrar_classificacoes() {
+    let input = document.getElementById('classificacao-adicionar')
+    let lista = document.getElementById('classificacaocliente')
+
     lista.style.display = 'block';
-    
+
     for (let opcao of lista.options) {
         opcao.onclick = function () {
             input.value = opcao.value;
             lista.style.display = 'none';
         }
-    };
+    }
 }
 
 function adicionar_instalacao() {
