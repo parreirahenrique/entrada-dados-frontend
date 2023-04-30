@@ -871,6 +871,10 @@ function buscar_modulo() {
     let divModuleDeleted = document.getElementById('container-modulo-deletado');
     let arrayCamposObrigatorios = document.getElementsByClassName('campo-obrigatorio-modulos');
     let arrayClienteInexistente = document.getElementsByClassName('container-cliente-inexistente');
+    let dropDownListSearchModule = document.getElementById('modelomodulo-buscar');
+    let dropDownListUpdateModule = document.getElementById('modelomodulo-buscar-atualizar');
+    let dropDownListDeleteModule = document.getElementById('modelomodulo-deletar');
+
             
     document.getElementById('modelo-módulo-buscar').value = ''
     
@@ -894,6 +898,9 @@ function buscar_modulo() {
     divModuleUpdated.style.display = "none";
     divModuleDeleted.style.visibility = "hidden";
     divModuleDeleted.style.display = "none";
+    dropDownListSearchModule.style.display = "none";
+    dropDownListUpdateModule.style.display = "none";
+    dropDownListDeleteModule.style.display = "none";
 
     for(i = 0; i < arrayCamposObrigatorios.length; i++) {
         arrayCamposObrigatorios[i].style.visibility = "hidden"
@@ -919,6 +926,9 @@ function adicionar_modulo() {
     let divModuleDeleted = document.getElementById('container-modulo-deletado');
     let arrayCamposObrigatorios = document.getElementsByClassName('campo-obrigatorio-modulos');
     let arrayClienteInexistente = document.getElementsByClassName('container-cliente-inexistente');
+    let dropDownListSearchModule = document.getElementById('modelomodulo-buscar');
+    let dropDownListUpdateModule = document.getElementById('modelomodulo-buscar-atualizar');
+    let dropDownListDeleteModule = document.getElementById('modelomodulo-deletar');
             
     document.getElementById('modelo-módulo-adicionar').value = ''
     document.getElementById('fabricante-módulo-adicionar').value = ''
@@ -955,6 +965,9 @@ function adicionar_modulo() {
     divModuleUpdated.style.display = "none";
     divModuleDeleted.style.visibility = "hidden";
     divModuleDeleted.style.display = "none";
+    dropDownListSearchModule.style.display = "none";
+    dropDownListUpdateModule.style.display = "none";
+    dropDownListDeleteModule.style.display = "none";
 
     for(i = 0; i < arrayCamposObrigatorios.length; i++) {
         arrayCamposObrigatorios[i].style.visibility = "hidden"
@@ -980,6 +993,9 @@ function atualizar_modulo() {
     let divModuleDeleted = document.getElementById('container-modulo-deletado');
     let arrayCamposObrigatorios = document.getElementsByClassName('campo-obrigatorio-modulos');
     let arrayClienteInexistente = document.getElementsByClassName('container-cliente-inexistente');
+    let dropDownListSearchModule = document.getElementById('modelomodulo-buscar');
+    let dropDownListUpdateModule = document.getElementById('modelomodulo-buscar-atualizar');
+    let dropDownListDeleteModule = document.getElementById('modelomodulo-deletar');
     
     document.getElementById('modelo-módulo-buscar-atualizar').value = ''
     document.getElementById('modelo-módulo-atualizar').value = ''
@@ -1017,6 +1033,9 @@ function atualizar_modulo() {
     divModuleUpdated.style.display = "none";
     divModuleDeleted.style.visibility = "hidden";
     divModuleDeleted.style.display = "none";
+    dropDownListSearchModule.style.display = "none";
+    dropDownListUpdateModule.style.display = "none";
+    dropDownListDeleteModule.style.display = "none";
 
     for(i = 0; i < arrayCamposObrigatorios.length; i++) {
         arrayCamposObrigatorios[i].style.visibility = "hidden"
@@ -1032,6 +1051,9 @@ function atualizar_modulo() {
 function mostrar_campos_atualizar_modulos() {
     let divSearchUpdateModule = document.getElementById('container-search-to-update-modules');
     let divUpdateModule = document.getElementById('container-update-modules-general');
+    let dropDownListSearchModule = document.getElementById('modelomodulo-buscar');
+    let dropDownListUpdateModule = document.getElementById('modelomodulo-buscar-atualizar');
+    let dropDownListDeleteModule = document.getElementById('modelomodulo-deletar');
 
     let arrayCamposObrigatorios = document.getElementsByClassName('campo-obrigatorio-modulos');
     let arrayModuloInexistente = document.getElementsByClassName('container-modulo-inexistente');
@@ -1056,6 +1078,9 @@ function mostrar_campos_atualizar_modulos() {
     if (modelo != '') {
         divSearchUpdateModule.style.visibility = "hidden"
         divSearchUpdateModule.style.display = "none"
+        dropDownListSearchModule.style.display = "none";
+        dropDownListUpdateModule.style.display = "none";
+        dropDownListDeleteModule.style.display = "none";
         divUpdateModule.style.visibility = "visible"
         divUpdateModule.style.display = "grid"
 
@@ -1091,6 +1116,9 @@ function deletar_modulo() {
     let divModuleDeleted = document.getElementById('container-modulo-deletado');
     let arrayCamposObrigatorios = document.getElementsByClassName('campo-obrigatorio-modulos');
     let arrayClienteInexistente = document.getElementsByClassName('container-cliente-inexistente');
+    let dropDownListSearchModule = document.getElementById('modelomodulo-buscar');
+    let dropDownListUpdateModule = document.getElementById('modelomodulo-buscar-atualizar');
+    let dropDownListDeleteModule = document.getElementById('modelomodulo-deletar');
        
     document.getElementById('modelo-módulo-deletar').value = ''
 
@@ -1114,6 +1142,9 @@ function deletar_modulo() {
     divModuleUpdated.style.display = "none";
     divModuleDeleted.style.visibility = "hidden";
     divModuleDeleted.style.display = "none";
+    dropDownListSearchModule.style.display = "none";
+    dropDownListUpdateModule.style.display = "none";
+    dropDownListDeleteModule.style.display = "none";
 
     for(i = 0; i < arrayCamposObrigatorios.length; i++) {
         arrayCamposObrigatorios[i].style.visibility = "hidden"
@@ -1123,6 +1154,110 @@ function deletar_modulo() {
     for(i = 0; i < arrayClienteInexistente.length; i++) {
         arrayClienteInexistente[i].style.visibility = "hidden"
         arrayClienteInexistente[i].style.display = "none"
+    }
+}
+
+async function mostrar_modulos(nomeFuncao) {
+    let input = document.getElementById('modelo-módulo-' + nomeFuncao)
+    let lista = document.getElementById('modelomodulo-' + nomeFuncao)
+    let id = []
+    let modelo = []
+    let fabricante = []
+    let potencia = []
+
+    while (lista.options.length > 0) {
+        lista.children[0].remove()
+    }
+
+    let access_token = localStorage.getItem('access_token')
+
+    if (access_token != 'Error: Request failed with status code 401' & access_token != 'Error: Request failed with status code 403' & access_token != 'Error: Request failed with status code 422' & access_token != 'Error: Network Error' & access_token != null) {
+        let config = {
+            headers: {
+              'Authorization': 'Bearer ' + access_token
+            }
+        }
+
+        let dadosTodosModulos = await axios.get(
+            'http://localhost:8000/all-modules', config
+        ).then(
+            function (response) {
+                const dadosTodosModulos = response.data;
+                return dadosTodosModulos;
+            }
+        ).catch(
+            function (error) {
+                console.log(error);
+                return error;
+            }
+        )
+        if (dadosTodosModulos != 'Error: Request failed with status code 401' & dadosTodosModulos != 'Error: Request failed with status code 404') {
+            console.log(dadosTodosModulos)
+            for (i = 0; i < dadosTodosModulos.length; i++) {
+                id[i] = String(dadosTodosModulos[i].id);
+                modelo[i] = dadosTodosModulos[i].modelo;
+                fabricante[i] = dadosTodosModulos[i].fabricante;
+                potencia[i] = String(dadosTodosModulos[i].potencia) + ' Wp'
+
+                let opcao_atual = document.createElement('option');
+                let texto = document.createTextNode('ID #' + id[i] + ' - Fabricante: ' + fabricante[i] + ' - Potência: ' + potencia[i] + ' - Modelo: ' + modelo[i])
+                
+                opcao_atual.value = 'ID #' + id[i] + ' - Fabricante: ' + fabricante[i] + ' - Potência: ' + potencia[i] + ' - Modelo: ' + modelo[i]
+                opcao_atual.appendChild(texto)
+                lista.appendChild(opcao_atual)
+            }
+        }
+
+        else if (dadosTodosModulos == 'Error: Request failed with status code 401') {
+            localStorage.setItem('access_token', dadosTodosModulos);
+            checar_autorizacao();
+        }
+    }
+
+    localStorage.setItem('id_modulo', id)
+    localStorage.setItem('modelo_modulo', modelo)
+    localStorage.setItem('fabricante_modulo', fabricante)
+    localStorage.setItem('potencia_modulo', potencia)
+    
+    lista.style.display = 'grid';
+
+    for (let opcao of lista.options) {
+        opcao.onclick = function () {
+            input.value = opcao.value.split('ID #')[1].split(' - ')[0];
+            lista.style.display = 'none';
+        }
+    }
+}
+
+function filtrar_modulos(nomeFuncao) {
+    let input = document.getElementById('modelo-módulo-' + nomeFuncao);
+    let lista = document.getElementById('modelomodulo-' + nomeFuncao);
+    
+    let id = localStorage.getItem('id_modulo').split(',')
+    let modelo = localStorage.getItem('modelo_modulo').split(',')
+    let fabricante = localStorage.getItem('fabricante_modulo').split(',')
+    let potencia = localStorage.getItem('potencia_modulo').split(',')
+
+    while (lista.options.length > 0) {
+        lista.children[0].remove()
+    }
+
+    for (i = 0; i < id.length; i++) {
+        let opcao_atual = document.createElement('option');
+        let texto = document.createTextNode('ID #' + id[i] + ' - Fabricante: ' + fabricante[i] + ' - Potência: ' + potencia[i] + ' - Modelo: ' + modelo[i])
+        
+        opcao_atual.value = 'ID #' + id[i] + ' - Fabricante: ' + fabricante[i] + ' - Potência: ' + potencia[i] + ' - Modelo: ' + modelo[i]
+        opcao_atual.appendChild(texto)
+        lista.appendChild(opcao_atual)
+    }
+
+    let idModulo = input.value.toUpperCase();
+    let nOpcoes = lista.options.length - 1;
+
+    for (i = nOpcoes; i >= 0; i--) {
+        if (lista.options[i].value.includes(idModulo) == false) {
+            lista.children[i].remove()
+        }
     }
 }
 

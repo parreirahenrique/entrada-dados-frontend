@@ -1118,31 +1118,31 @@ async function get_all_modules() {
                     arrayTD[12 * i + 1].innerHTML = dadosTodosModulos[i].fabricante
                     arrayTD[12 * i + 1].style.visibility = 'visible'
                     arrayTD[12 * i + 1].style.display = 'table-cell'
-                    arrayTD[12 * i + 2].innerHTML = dadosTodosModulos[i].potencia
+                    arrayTD[12 * i + 2].innerHTML = String(dadosTodosModulos[i].potencia).replace('.', ',') + ' Wp'
                     arrayTD[12 * i + 2].style.visibility = 'visible'
                     arrayTD[12 * i + 2].style.display = 'table-cell'
-                    arrayTD[12 * i + 3].innerHTML = dadosTodosModulos[i].imp
+                    arrayTD[12 * i + 3].innerHTML = String(dadosTodosModulos[i].imp).replace('.', ',') + ' A'
                     arrayTD[12 * i + 3].style.visibility = 'visible'
                     arrayTD[12 * i + 3].style.display = 'table-cell'
-                    arrayTD[12 * i + 4].innerHTML = dadosTodosModulos[i].isc
+                    arrayTD[12 * i + 4].innerHTML = String(dadosTodosModulos[i].isc).replace('.', ',') + ' A'
                     arrayTD[12 * i + 4].style.visibility = 'visible'
                     arrayTD[12 * i + 4].style.display = 'table-cell'
-                    arrayTD[12 * i + 5].innerHTML = dadosTodosModulos[i].vmp
+                    arrayTD[12 * i + 5].innerHTML = String(dadosTodosModulos[i].vmp).replace('.', ',') + ' V'
                     arrayTD[12 * i + 5].style.visibility = 'visible'
                     arrayTD[12 * i + 5].style.display = 'table-cell'
-                    arrayTD[12 * i + 6].innerHTML = dadosTodosModulos[i].voc
+                    arrayTD[12 * i + 6].innerHTML = String(dadosTodosModulos[i].voc).replace('.', ',') + ' V'
                     arrayTD[12 * i + 6].style.visibility = 'visible'
                     arrayTD[12 * i + 6].style.display = 'table-cell'
-                    arrayTD[12 * i + 7].innerHTML = dadosTodosModulos[i].comprimento
+                    arrayTD[12 * i + 7].innerHTML = String(dadosTodosModulos[i].comprimento) + ' mm'
                     arrayTD[12 * i + 7].style.visibility = 'visible'
                     arrayTD[12 * i + 7].style.display = 'table-cell'
-                    arrayTD[12 * i + 8].innerHTML = dadosTodosModulos[i].largura
+                    arrayTD[12 * i + 8].innerHTML = String(dadosTodosModulos[i].largura) + ' mm'
                     arrayTD[12 * i + 8].style.visibility = 'visible'
                     arrayTD[12 * i + 8].style.display = 'table-cell'
-                    arrayTD[12 * i + 9].innerHTML = dadosTodosModulos[i].espessura
+                    arrayTD[12 * i + 9].innerHTML = String(dadosTodosModulos[i].espessura) + ' mm'
                     arrayTD[12 * i + 9].style.visibility = 'visible'
                     arrayTD[12 * i + 9].style.display = 'table-cell'
-                    arrayTD[12 * i + 10].innerHTML = dadosTodosModulos[i].eficiencia
+                    arrayTD[12 * i + 10].innerHTML = String(dadosTodosModulos[i].eficiencia).replace('.', ',') + '%'
                     arrayTD[12 * i + 10].style.visibility = 'visible'
                     arrayTD[12 * i + 10].style.display = 'table-cell'
                     arrayTD[12 * i + 11].innerHTML = dadosTodosModulos[i].tipo
@@ -1459,7 +1459,7 @@ async function get_module() {
             }
 
             if (dadosModulo.temperatura_nominal != '') {
-                document.getElementById('module-temperature').innerHTML = dadosModulo.temperatura_nominal;
+                document.getElementById('module-temperature').innerHTML = dadosModulo.temperatura_nominal.toString() + ' °C';
                 document.getElementById('title-module-temperature').style.visibility = 'visible';
                 document.getElementById('title-module-temperature').style.display = 'grid';
                 document.getElementById('module-temperature').style.visibility = 'visible';
@@ -1523,16 +1523,45 @@ async function post_module() {
     let fabricante = document.getElementById('fabricante-módulo-adicionar').value
     let potencia = document.getElementById('potência-módulo-adicionar').value
     let imp = document.getElementById('imp-módulo-adicionar').value
+    
+    if (imp.includes(',') == true) {
+        imp = imp.replace(',', '.')
+    }
+
     let isc = document.getElementById('isc-módulo-adicionar').value
+
+    if (isc.includes(',') == true) {
+        isc = isc.replace(',', '.')
+    }
+
     let vmp = document.getElementById('vmp-módulo-adicionar').value
+
+    if (vmp.includes(',') == true) {
+        vmp = vmp.replace(',', '.')
+    }
+
     let voc = document.getElementById('voc-módulo-adicionar').value
+
+    if (voc.includes(',') == true) {
+        voc = voc.replace(',', '.')
+    }
+
     let comprimento = document.getElementById('comprimento-módulo-adicionar').value
     let largura = document.getElementById('largura-módulo-adicionar').value
     let espessura = document.getElementById('espessura-módulo-adicionar').value
     let eficiencia = document.getElementById('eficiência-módulo-adicionar').value
+
+    if (eficiencia.includes(',') == true) {
+        eficiencia = eficiencia.replace(',', '.')
+    }
+
     let temperatura_nominal = document.getElementById('temperatura-módulo-adicionar').value
     let tipo = document.getElementById('tipo-módulo-adicionar').value
     let coeficiente_temperatura = document.getElementById('coeficiente-módulo-adicionar').value
+
+    if (coeficiente_temperatura.includes(',') == true) {
+        coeficiente_temperatura = coeficiente_temperatura.replace(',', '.')
+    }
 
     dicionario = {
         'modelo': modelo,
@@ -1610,16 +1639,46 @@ async function patch_module() {
     let fabricante = document.getElementById('fabricante-módulo-atualizar').value
     let potencia = document.getElementById('potência-módulo-atualizar').value
     let imp = document.getElementById('imp-módulo-atualizar').value
+
+    if (imp.includes(',') == true) {
+        imp = imp.replace(',', '.')
+    }
+
     let isc = document.getElementById('isc-módulo-atualizar').value
+
+    if (isc.includes(',') == true) {
+        isc = isc.replace(',', '.')
+    }
+
     let vmp = document.getElementById('vmp-módulo-atualizar').value
+
+    if (vmp.includes(',') == true) {
+        vmp = vmp.replace(',', '.')
+    }
+
     let voc = document.getElementById('voc-módulo-atualizar').value
+
+    if (voc.includes(',') == true) {
+        voc = voc.replace(',', '.')
+    }
+
     let comprimento = document.getElementById('comprimento-módulo-atualizar').value
     let largura = document.getElementById('largura-módulo-atualizar').value
     let espessura = document.getElementById('espessura-módulo-atualizar').value
     let eficiencia = document.getElementById('eficiência-módulo-atualizar').value
+
+    if (eficiencia.includes(',') == true) {
+        eficiencia = eficiencia.replace(',', '.')
+    }
+
     let temperatura_nominal = document.getElementById('temperatura-módulo-atualizar').value
     let tipo = document.getElementById('tipo-módulo-atualizar').value
     let coeficiente_temperatura = document.getElementById('coeficiente-módulo-atualizar').value
+
+    if (coeficiente_temperatura.includes(',') == true) {
+        coeficiente_temperatura = coeficiente_temperatura.replace(',', '.')
+    }
+
     let dicionario = {}; // Create an empty array
 
     if (modelo == '' & fabricante == '' & potencia == '' & imp == '' & isc == '' & vmp == '' & voc == '' & comprimento == '' & largura == '' & espessura == '' & eficiencia == '' & temperatura_nominal == '' & tipo != '' & coeficiente_temperatura == ''){
