@@ -61,6 +61,9 @@ function buscar_cliente() {
     let divClientDeleted = document.getElementById('container-cliente-deletado');
     let arrayCamposObrigatorios = document.getElementsByClassName('campo-obrigatorio-clientes');
     let arrayClienteInexistente = document.getElementsByClassName('container-cliente-inexistente');
+    let dropDownListSearchClient = document.getElementById('numerocliente-buscar');
+    let dropDownListUpdateClient = document.getElementById('numerocliente-buscar-atualizar');
+    let dropDownListDeleteClient = document.getElementById('numerocliente-deletar');
     
     document.getElementById('número-cliente-buscar').value = ''
 
@@ -84,6 +87,9 @@ function buscar_cliente() {
     divClientUpdated.style.display = "none";
     divClientDeleted.style.visibility = "hidden";
     divClientDeleted.style.display = "none";
+    dropDownListSearchClient.style.display = "none";
+    dropDownListUpdateClient.style.display = "none";
+    dropDownListDeleteClient.style.display = "none";
 
     for(i = 0; i < arrayCamposObrigatorios.length; i++) {
         arrayCamposObrigatorios[i].style.visibility = "hidden"
@@ -109,7 +115,10 @@ function adicionar_cliente() {
     let divClientDeleted = document.getElementById('container-cliente-deletado');
     let arrayCamposObrigatorios = document.getElementsByClassName('campo-obrigatorio-clientes');
     let arrayClienteInexistente = document.getElementsByClassName('container-cliente-inexistente');
-            
+    let dropDownListSearchClient = document.getElementById('numerocliente-buscar');
+    let dropDownListUpdateClient = document.getElementById('numerocliente-buscar-atualizar');
+    let dropDownListDeleteClient = document.getElementById('numerocliente-deletar');
+
     document.getElementById('número-cliente-adicionar').value = ''
     document.getElementById('número-cliente-adicionar').autofocus = false
     document.getElementById('nome-cliente-adicionar').value = ''
@@ -138,6 +147,9 @@ function adicionar_cliente() {
     divClientUpdated.style.display = "none";
     divClientDeleted.style.visibility = "hidden";
     divClientDeleted.style.display = "none";
+    dropDownListSearchClient.style.display = "none";
+    dropDownListUpdateClient.style.display = "none";
+    dropDownListDeleteClient.style.display = "none";
 
     for(i = 0; i < arrayCamposObrigatorios.length; i++) {
         arrayCamposObrigatorios[i].style.visibility = "hidden"
@@ -163,6 +175,9 @@ function atualizar_cliente() {
     let divClientDeleted = document.getElementById('container-cliente-deletado');
     let arrayCamposObrigatorios = document.getElementsByClassName('campo-obrigatorio-clientes');
     let arrayClienteInexistente = document.getElementsByClassName('container-cliente-inexistente');
+    let dropDownListSearchClient = document.getElementById('numerocliente-buscar');
+    let dropDownListUpdateClient = document.getElementById('numerocliente-buscar-atualizar');
+    let dropDownListDeleteClient = document.getElementById('numerocliente-deletar');
 
     document.getElementById('número-cliente-buscar-atualizar').value = ''
 
@@ -186,6 +201,9 @@ function atualizar_cliente() {
     divClientUpdated.style.display = "none";
     divClientDeleted.style.visibility = "hidden";
     divClientDeleted.style.display = "none";
+    dropDownListSearchClient.style.display = "none";
+    dropDownListUpdateClient.style.display = "none";
+    dropDownListDeleteClient.style.display = "none";
 
     for(i = 0; i < arrayCamposObrigatorios.length; i++) {
         arrayCamposObrigatorios[i].style.visibility = "hidden"
@@ -201,6 +219,9 @@ function atualizar_cliente() {
 function mostrar_campos_atualizar_clientes() {
     let divSearchUpdateClient = document.getElementById('container-search-to-update-clients');
     let divUpdateClient = document.getElementById('container-update-clients');
+    let dropDownListSearchClient = document.getElementById('numerocliente-buscar');
+    let dropDownListUpdateClient = document.getElementById('numerocliente-buscar-atualizar');
+    let dropDownListDeleteClient = document.getElementById('numerocliente-deletar');
 
     let checkboxNumeroCliente = document.getElementById('checkbox-numero-cliente')
 
@@ -221,6 +242,9 @@ function mostrar_campos_atualizar_clientes() {
     if (numeroCliente != '') {
         divSearchUpdateClient.style.visibility = "hidden"
         divSearchUpdateClient.style.display = "none"
+        dropDownListSearchClient.style.display = "none";
+        dropDownListUpdateClient.style.display = "none";
+        dropDownListDeleteClient.style.display = "none";
         divUpdateClient.style.visibility = "visible"
         divUpdateClient.style.display = "grid"
 
@@ -266,6 +290,9 @@ function deletar_cliente() {
     let divClientDeleted = document.getElementById('container-cliente-deletado');
     let arrayCamposObrigatorios = document.getElementsByClassName('campo-obrigatorio-clientes');
     let arrayClienteInexistente = document.getElementsByClassName('container-cliente-inexistente');
+    let dropDownListSearchClient = document.getElementById('numerocliente-buscar');
+    let dropDownListUpdateClient = document.getElementById('numerocliente-buscar-atualizar');
+    let dropDownListDeleteClient = document.getElementById('numerocliente-deletar');
 
     document.getElementById('número-cliente-deletar').value = ''
 
@@ -289,52 +316,9 @@ function deletar_cliente() {
     divClientUpdated.style.display = "none";
     divClientDeleted.style.visibility = "hidden";
     divClientDeleted.style.display = "none";
-
-    for(i = 0; i < arrayCamposObrigatorios.length; i++) {
-        arrayCamposObrigatorios[i].style.visibility = "hidden"
-        arrayCamposObrigatorios[i].style.display = "none"
-    }
-
-    for(i = 0; i < arrayClienteInexistente.length; i++) {
-        arrayClienteInexistente[i].style.visibility = "hidden"
-        arrayClienteInexistente[i].style.display = "none"
-    }
-}
-
-// FUNÇÕES PARA MOSTRAR CONTEÚDO DA PÁGINA DE INSTALAÇÕES
-function buscar_instalacao() {
-    let divSearchInstalation = document.getElementById('container-search-instalations');
-    let divAddInstalation = document.getElementById('container-add-instalations');
-    let divSearchUpdateInstalation = document.getElementById('container-search-to-update-instalations');
-    let divUpdateInstalation = document.getElementById('container-update-instalations');
-    let divDeleteInstalation = document.getElementById('container-delete-instalations');
-    let divInstalationFound = document.getElementById('container-instalacao-encontrada');
-    let divInstalationAdded = document.getElementById('container-instalacao-adicionada');
-    let divInstalationUpdated = document.getElementById('container-instalacao-atualizada');
-    let divInstalationDeleted = document.getElementById('container-instalacao-deletada');
-    let arrayCamposObrigatorios = document.getElementsByClassName('campo-obrigatorio-instalacoes');
-    let arrayClienteInexistente = document.getElementsByClassName('container-instalacao-inexistente');
-    
-    document.getElementById('número-instalação-buscar').value = ''
-
-    divSearchInstalation.style.visibility = "visible";
-    divSearchInstalation.style.display = "grid";
-    divAddInstalation.style.visibility = "hidden";
-    divAddInstalation.style.display = "none";
-    divSearchUpdateInstalation.style.visibility = "hidden"
-    divSearchUpdateInstalation.style.display = "none"
-    divUpdateInstalation.style.visibility = "hidden";
-    divUpdateInstalation.style.display = "none";
-    divDeleteInstalation.style.visibility = "hidden";
-    divDeleteInstalation.style.display = "none";
-    divInstalationFound.style.visibility = "hidden";
-    divInstalationFound.style.display = "none";
-    divInstalationAdded.style.visibility = "hidden";
-    divInstalationAdded.style.display = "none";
-    divInstalationUpdated.style.visibility = "hidden";
-    divInstalationUpdated.style.display = "none";
-    divInstalationDeleted.style.visibility = "hidden";
-    divInstalationDeleted.style.display = "none";
+    dropDownListSearchClient.style.display = "none";
+    dropDownListUpdateClient.style.display = "none";
+    dropDownListDeleteClient.style.display = "none";
 
     for(i = 0; i < arrayCamposObrigatorios.length; i++) {
         arrayCamposObrigatorios[i].style.visibility = "hidden"
@@ -441,17 +425,63 @@ function filtrar_clientes(nomeFuncao) {
     }
 }
 
-function mostrar_classificacoes() {
-    let input = document.getElementById('classificacao-adicionar')
-    let lista = document.getElementById('classificacaocliente')
+// FUNÇÕES PARA MOSTRAR CONTEÚDO DA PÁGINA DE INSTALAÇÕES
+function buscar_instalacao() {
+    let divSearchInstalation = document.getElementById('container-search-instalations');
+    let divAddInstalation = document.getElementById('container-add-instalations');
+    let divSearchUpdateInstalation = document.getElementById('container-search-to-update-instalations');
+    let divUpdateInstalation = document.getElementById('container-update-instalations');
+    let divDeleteInstalation = document.getElementById('container-delete-instalations');
+    let divInstalationFound = document.getElementById('container-instalacao-encontrada');
+    let divInstalationAdded = document.getElementById('container-instalacao-adicionada');
+    let divInstalationUpdated = document.getElementById('container-instalacao-atualizada');
+    let divInstalationDeleted = document.getElementById('container-instalacao-deletada');
+    let arrayCamposObrigatorios = document.getElementsByClassName('campo-obrigatorio-instalacoes');
+    let arrayClienteInexistente = document.getElementsByClassName('container-instalacao-inexistente');
+    let dropDownListSearchInstalation = document.getElementById('numeroinstalacao-buscar');
+    let dropDownListUpdateInstalation = document.getElementById('numeroinstalacao-buscar-atualizar');
+    let dropDownListDeleteInstalation = document.getElementById('numeroinstalacao-deletar');
+    let dropDownListAddClient = document.getElementById('numerocliente-adicionar');
+    let dropDownListUpdateClient = document.getElementById('numerocliente-atualizar');
+    let dropDownListAddClassification = document.getElementById('classificacaocliente-adicionar');
+    let dropDownListUpdateClassification = document.getElementById('classificacaocliente-atualizar');
+    
+    document.getElementById('número-instalação-buscar').value = ''
 
-    lista.style.display = 'block';
+    divSearchInstalation.style.visibility = "visible";
+    divSearchInstalation.style.display = "grid";
+    divAddInstalation.style.visibility = "hidden";
+    divAddInstalation.style.display = "none";
+    divSearchUpdateInstalation.style.visibility = "hidden"
+    divSearchUpdateInstalation.style.display = "none"
+    divUpdateInstalation.style.visibility = "hidden";
+    divUpdateInstalation.style.display = "none";
+    divDeleteInstalation.style.visibility = "hidden";
+    divDeleteInstalation.style.display = "none";
+    divInstalationFound.style.visibility = "hidden";
+    divInstalationFound.style.display = "none";
+    divInstalationAdded.style.visibility = "hidden";
+    divInstalationAdded.style.display = "none";
+    divInstalationUpdated.style.visibility = "hidden";
+    divInstalationUpdated.style.display = "none";
+    divInstalationDeleted.style.visibility = "hidden";
+    divInstalationDeleted.style.display = "none";
+    dropDownListSearchInstalation.style.display = "none";
+    dropDownListUpdateInstalation.style.display = "none";
+    dropDownListDeleteInstalation.style.display = "none";
+    dropDownListAddClient.style.display = "none";
+    dropDownListUpdateClient.style.display = "none";
+    dropDownListAddClassification.style.display = "none";
+    dropDownListUpdateClassification.style.display = "none";
 
-    for (let opcao of lista.options) {
-        opcao.onclick = function () {
-            input.value = opcao.value;
-            lista.style.display = 'none';
-        }
+    for(i = 0; i < arrayCamposObrigatorios.length; i++) {
+        arrayCamposObrigatorios[i].style.visibility = "hidden"
+        arrayCamposObrigatorios[i].style.display = "none"
+    }
+
+    for(i = 0; i < arrayClienteInexistente.length; i++) {
+        arrayClienteInexistente[i].style.visibility = "hidden"
+        arrayClienteInexistente[i].style.display = "none"
     }
 }
 
@@ -467,6 +497,13 @@ function adicionar_instalacao() {
     let divInstalationDeleted = document.getElementById('container-instalacao-deletada');
     let arrayCamposObrigatorios = document.getElementsByClassName('campo-obrigatorio-instalacoes');
     let arrayClienteInexistente = document.getElementsByClassName('container-instalacao-inexistente');
+    let dropDownListSearchInstalation = document.getElementById('numeroinstalacao-buscar');
+    let dropDownListUpdateInstalation = document.getElementById('numeroinstalacao-buscar-atualizar');
+    let dropDownListDeleteInstalation = document.getElementById('numeroinstalacao-deletar');
+    let dropDownListAddClient = document.getElementById('numerocliente-adicionar');
+    let dropDownListUpdateClient = document.getElementById('numerocliente-atualizar');
+    let dropDownListAddClassification = document.getElementById('classificacaocliente-adicionar');
+    let dropDownListUpdateClassification = document.getElementById('classificacaocliente-atualizar');
         
     document.getElementById('número-instalação-adicionar').value = ''
     document.getElementById('número-cliente-adicionar').value = ''
@@ -499,6 +536,13 @@ function adicionar_instalacao() {
     divInstalationUpdated.style.display = "none";
     divInstalationDeleted.style.visibility = "hidden";
     divInstalationDeleted.style.display = "none";
+    dropDownListSearchInstalation.style.display = "none";
+    dropDownListUpdateInstalation.style.display = "none";
+    dropDownListDeleteInstalation.style.display = "none";
+    dropDownListAddClient.style.display = "none";
+    dropDownListUpdateClient.style.display = "none";
+    dropDownListAddClassification.style.display = "none";
+    dropDownListUpdateClassification.style.display = "none";
 
     for(i = 0; i < arrayCamposObrigatorios.length; i++) {
         arrayCamposObrigatorios[i].style.visibility = "hidden"
@@ -514,6 +558,14 @@ function adicionar_instalacao() {
 function mostrar_campos_atualizar_instalacoes() {
     let divSearchUpdateInstalation = document.getElementById('container-search-to-update-instalations');
     let divUpdateInstalation = document.getElementById('container-update-instalations');
+    let dropDownListSearchInstalation = document.getElementById('numeroinstalacao-buscar');
+    let dropDownListUpdateInstalation = document.getElementById('numeroinstalacao-buscar-atualizar');
+    let dropDownListDeleteInstalation = document.getElementById('numeroinstalacao-deletar');
+    let dropDownListAddClient = document.getElementById('numerocliente-adicionar');
+    let dropDownListUpdateClient = document.getElementById('numerocliente-atualizar');
+    let dropDownListAddClassification = document.getElementById('classificacaocliente-adicionar');
+    let dropDownListUpdateClassification = document.getElementById('classificacaocliente-atualizar');
+
 
     let checkboxNumeroInstalacao = document.getElementById('checkbox-numero-instalacao')
 
@@ -540,6 +592,13 @@ function mostrar_campos_atualizar_instalacoes() {
     if (numeroInstalacao != '') {
         divSearchUpdateInstalation.style.visibility = "hidden"
         divSearchUpdateInstalation.style.display = "none"
+        dropDownListSearchInstalation.style.display = "none";
+        dropDownListUpdateInstalation.style.display = "none";
+        dropDownListDeleteInstalation.style.display = "none";
+        dropDownListAddClient.style.display = "none";
+        dropDownListUpdateClient.style.display = "none";
+        dropDownListAddClassification.style.display = "none";
+        dropDownListUpdateClassification.style.display = "none";
         divUpdateInstalation.style.visibility = "visible"
         divUpdateInstalation.style.display = "grid"
 
@@ -584,6 +643,13 @@ function atualizar_instalacao() {
     let divInstalationDeleted = document.getElementById('container-instalacao-deletada');
     let arrayCamposObrigatorios = document.getElementsByClassName('campo-obrigatorio-instalacoes');
     let arrayClienteInexistente = document.getElementsByClassName('container-instalacao-inexistente');
+    let dropDownListSearchInstalation = document.getElementById('numeroinstalacao-buscar');
+    let dropDownListUpdateInstalation = document.getElementById('numeroinstalacao-buscar-atualizar');
+    let dropDownListDeleteInstalation = document.getElementById('numeroinstalacao-deletar');
+    let dropDownListAddClient = document.getElementById('numerocliente-adicionar');
+    let dropDownListUpdateClient = document.getElementById('numerocliente-atualizar');
+    let dropDownListAddClassification = document.getElementById('classificacaocliente-adicionar');
+    let dropDownListUpdateClassification = document.getElementById('classificacaocliente-atualizar');
 
     document.getElementById('número-instalação-buscar-atualizar').value = ''
 
@@ -605,6 +671,13 @@ function atualizar_instalacao() {
     divInstalationUpdated.style.display = "none";
     divInstalationDeleted.style.visibility = "hidden";
     divInstalationDeleted.style.display = "none";
+    dropDownListSearchInstalation.style.display = "none";
+    dropDownListUpdateInstalation.style.display = "none";
+    dropDownListDeleteInstalation.style.display = "none";
+    dropDownListAddClient.style.display = "none";
+    dropDownListUpdateClient.style.display = "none";
+    dropDownListAddClassification.style.display = "none";
+    dropDownListUpdateClassification.style.display = "none";
 
     for(i = 0; i < arrayCamposObrigatorios.length; i++) {
         arrayCamposObrigatorios[i].style.visibility = "hidden"
@@ -629,6 +702,13 @@ function deletar_instalacao() {
     let divInstalationDeleted = document.getElementById('container-instalacao-deletada');
     let arrayCamposObrigatorios = document.getElementsByClassName('campo-obrigatorio-instalacoes');
     let arrayClienteInexistente = document.getElementsByClassName('container-instalacao-inexistente');
+    let dropDownListSearchInstalation = document.getElementById('numeroinstalacao-buscar');
+    let dropDownListUpdateInstalation = document.getElementById('numeroinstalacao-buscar-atualizar');
+    let dropDownListDeleteInstalation = document.getElementById('numeroinstalacao-deletar');
+    let dropDownListAddClient = document.getElementById('numerocliente-adicionar');
+    let dropDownListUpdateClient = document.getElementById('numerocliente-atualizar');
+    let dropDownListAddClassification = document.getElementById('classificacaocliente-adicionar');
+    let dropDownListUpdateClassification = document.getElementById('classificacaocliente-atualizar');
 
     document.getElementById('número-instalação-deletar').value = ''
 
@@ -650,6 +730,13 @@ function deletar_instalacao() {
     divInstalationUpdated.style.display = "none";
     divInstalationDeleted.style.visibility = "hidden";
     divInstalationDeleted.style.display = "none";
+    dropDownListSearchInstalation.style.display = "none";
+    dropDownListUpdateInstalation.style.display = "none";
+    dropDownListDeleteInstalation.style.display = "none";
+    dropDownListAddClient.style.display = "none";
+    dropDownListUpdateClient.style.display = "none";
+    dropDownListAddClassification.style.display = "none";
+    dropDownListUpdateClassification.style.display = "none";
 
     for(i = 0; i < arrayCamposObrigatorios.length; i++) {
         arrayCamposObrigatorios[i].style.visibility = "hidden"
@@ -659,6 +746,114 @@ function deletar_instalacao() {
     for(i = 0; i < arrayClienteInexistente.length; i++) {
         arrayClienteInexistente[i].style.visibility = "hidden"
         arrayClienteInexistente[i].style.display = "none"
+    }
+}
+
+async function mostrar_instalacoes(nomeFuncao) {
+    let input = document.getElementById('número-instalação-' + nomeFuncao)
+    let lista = document.getElementById('numeroinstalacao-' + nomeFuncao)
+    let numeroInstalacao = []
+    let endereco = []
+
+    while (lista.options.length > 0) {
+        lista.children[0].remove()
+    }
+
+    let access_token = localStorage.getItem('access_token')
+
+    if (access_token != 'Error: Request failed with status code 401' & access_token != 'Error: Request failed with status code 403' & access_token != 'Error: Request failed with status code 422' & access_token != 'Error: Network Error' & access_token != null) {
+        let config = {
+            headers: {
+              'Authorization': 'Bearer ' + access_token
+            }
+        }
+
+        let dadosTodasInstalacoes = await axios.get(
+            'http://localhost:8000/all-instalations', config
+        ).then(
+            function (response) {
+                const dadosTodasInstalacoes = response.data;
+                return dadosTodasInstalacoes;
+            }
+        ).catch(
+            function (error) {
+                console.log(error);
+                return error;
+            }
+        )
+        if (dadosTodasInstalacoes != 'Error: Request failed with status code 401' & dadosTodasInstalacoes != 'Error: Request failed with status code 404') {
+            for (i = 0; i < dadosTodasInstalacoes.length; i++) {
+                numeroInstalacao[i] = String(dadosTodasInstalacoes[i].numero_instalacao);
+                endereco[i] = dadosTodasInstalacoes[i].logradouro + ', ' + String(dadosTodasInstalacoes[i].numero_predial) + ' ' + dadosTodasInstalacoes[i].complemento + ', ' + dadosTodasInstalacoes[i].bairro + ', ' + dadosTodasInstalacoes[i].cidade;
+                let opcao_atual = document.createElement('option');
+                let texto = document.createTextNode(numeroInstalacao[i] + ' - ' + endereco[i])
+                
+                opcao_atual.value = numeroInstalacao[i] + ' - ' + endereco[i]
+                opcao_atual.appendChild(texto)
+                lista.appendChild(opcao_atual)
+            }
+        }
+
+        else if (dadosTodasInstalacoes == 'Error: Request failed with status code 401') {
+            localStorage.setItem('access_token', dadosTodasInstalacoes);
+            checar_autorizacao();
+        }
+    }
+
+    localStorage.setItem('endereco', endereco.join('///'))
+    localStorage.setItem('numero_instalacao', numeroInstalacao)
+    
+    lista.style.display = 'grid';
+
+    for (let opcao of lista.options) {
+        opcao.onclick = function () {
+            input.value = opcao.value.split(' - ')[0];
+            lista.style.display = 'none';
+        }
+    }
+}
+
+function filtrar_instalacoes(nomeFuncao) {
+    let input = document.getElementById('número-instalação-' + nomeFuncao);
+    let lista = document.getElementById('numeroinstalacao-' + nomeFuncao);
+    
+    let endereco = localStorage.getItem('endereco').split('///')
+    let numero_instalacao = localStorage.getItem('numero_instalacao').split(',')
+
+    while (lista.options.length > 0) {
+        lista.children[0].remove()
+    }
+
+    for (i = 0; i < numero_instalacao.length; i++) {
+        let opcao_atual = document.createElement('option');
+        let texto = document.createTextNode(numero_instalacao[i] + ' - ' + endereco[i])
+        
+        opcao_atual.value = numero_instalacao[i] + ' - ' + endereco[i]
+        opcao_atual.appendChild(texto)
+        lista.appendChild(opcao_atual)
+    }
+
+    let numeroInstalacao = input.value.toUpperCase();
+    let nOpcoes = lista.options.length - 1;
+
+    for (i = nOpcoes; i >= 0; i--) {
+        if (lista.options[i].value.includes(numeroInstalacao) == false) {
+            lista.children[i].remove()
+        }
+    }
+}
+
+function mostrar_classificacoes(nomeFuncao) {
+    let input = document.getElementById('classificacao-' + nomeFuncao)
+    let lista = document.getElementById('classificacaocliente-' + nomeFuncao)
+
+    lista.style.display = 'block';
+
+    for (let opcao of lista.options) {
+        opcao.onclick = function () {
+            input.value = opcao.value;
+            lista.style.display = 'none';
+        }
     }
 }
 

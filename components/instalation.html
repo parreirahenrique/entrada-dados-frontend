@@ -50,8 +50,10 @@
             </div>
             <div class="container-form">
                 <form>
-                    <input type="text" id="número-instalação-buscar" placeholder="Ex.: 3000000000" required>
-                    <label for="name">Número da instalação*:</label>
+                    <input type="text" id="número-instalação-buscar" list="" autocomplete="off" onmousedown="value = '';" onclick="mostrar_instalacoes('buscar')" oninput="filtrar_instalacoes('buscar')" placeholder="Ex.: 3000000000" required>
+                    <label for="name">Número da instalação*:</label>    
+                        <datalist id="numeroinstalacao-buscar">
+                        </datalist>
                 </form>
                 <span class="campo-obrigatorio-instalacoes">Esse é um campo obrigatório.</span>
             </div>
@@ -159,9 +161,9 @@
             </div>
             <div class="container-form">
                 <form>
-                    <input type="text" id="classificacao-adicionar" list="" autocomplete="off" onmousedown="value = '';" onclick="mostrar_classificacoes()" required>
+                    <input type="text" id="classificacao-adicionar" list="" autocomplete="off" onmousedown="value = '';" onclick="mostrar_classificacoes('adicionar')" required>
                     <label for="name">Classificação*:</label>    
-                        <datalist id="classificacaocliente">
+                        <datalist id="classificacaocliente-adicionar">
                             <option value="Residencial">Residencial</option>
                             <option value="Rural">Rural</option>
                             <option value="Comercial">Comercial</option>
@@ -208,8 +210,10 @@
         <div class="container" id="container-search-to-update-instalations">
             <div class="container-form">
                 <form>
-                    <input type="text" id="número-instalação-buscar-atualizar" placeholder="Ex.: 3000000000" required>
-                    <label for="name">Número da instalação*:</label>
+                    <input type="text" id="número-instalação-buscar-atualizar" list="" autocomplete="off" onmousedown="value = '';" onclick="mostrar_instalacoes('buscar-atualizar')" oninput="filtrar_instalacoes('buscar-atualizar')" placeholder="Ex.: 3000000000" required>
+                    <label for="name">Número da instalação*:</label>    
+                        <datalist id="numeroinstalacao-buscar-atualizar">
+                        </datalist>
                 </form>
                 <span class="campo-obrigatorio-instalacoes">Esse é um campo obrigatório.</span>
                 <form class="form-checkbox">
@@ -238,8 +242,10 @@
             </div>
             <div class="container-form">
                 <form>
-                    <input type="text" id="número-cliente-atualizar" placeholder="Ex.: 7000000000" required>
-                    <label for="name">Número do cliente:</label>
+                    <input type="text" id="número-cliente-atualizar" list="" autocomplete="off" onmousedown="value = '';" onclick="mostrar_clientes('atualizar')" oninput="filtrar_clientes('atualizar')" placeholder="Ex.: 7000000000" required>
+                    <label for="name">Número do cliente*:</label>    
+                        <datalist id="numerocliente-atualizar">
+                        </datalist>
                 </form>
             </div>
             <div class="container-form">
@@ -280,8 +286,17 @@
             </div>
             <div class="container-form">
                 <form>
-                    <input type="name" id="classificacao-atualizar" required>
-                    <label for="name">Classificação:</label>
+                    <input type="text" id="classificacao-atualizar" list="" autocomplete="off" onmousedown="value = '';" onclick="mostrar_classificacoes('atualizar')" required>
+                    <label for="name">Classificação:</label>    
+                        <datalist id="classificacaocliente-atualizar">
+                            <option value="Residencial">Residencial</option>
+                            <option value="Rural">Rural</option>
+                            <option value="Comercial">Comercial</option>
+                            <option value="Industrial">Industrial</option>
+                            <option value="Poder Público">Poder Público</option>
+                            <option value="Iluminação Pública">Iluminação Pública</option>
+                            <option value="Serviço Público">Serviço Público</option>
+                        </datalist>
                 </form>
             </div>
             <div class="container-form">
@@ -320,8 +335,10 @@
             </div>
             <div class="container-form">
                 <form>
-                    <input type="text" id="número-instalação-deletar" placeholder="Ex.: 3000000000" required>
-                    <label for="name">Número da instalação*:</label>
+                    <input type="text" id="número-instalação-deletar" list="" autocomplete="off" onmousedown="value = '';" onclick="mostrar_instalacoes('deletar')" oninput="filtrar_instalacoes('deletar')" placeholder="Ex.: 3000000000" required>
+                    <label for="name">Número da instalação*:</label>    
+                        <datalist id="numeroinstalacao-deletar">
+                        </datalist>
                 </form>
                 <span class="campo-obrigatorio-instalacoes">Esse é um campo obrigatório.</span>
             </div>
