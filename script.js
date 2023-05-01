@@ -1,27 +1,53 @@
 // FUNÇÕES GERAIS PARA TODAS AS PÁGINAS
 function apenas_numeros(input) {
-    let ultimoDigito = input.value.slice(-1)
-
-    if (isNaN(ultimoDigito) == true) {
-        input.value = input.value.split(ultimoDigito)[0]
+    let valor_numerico = input.value.toString()
+    
+    for (i = (valor_numerico.length - 1); i >= 0; i--) {
+        if (isNaN(valor_numerico[i]) == true || valor_numerico[i] == ' ') {
+            valor_numerico = valor_numerico.replace(valor_numerico[i], '')
+        }
     }
+    
+    input.value = valor_numerico
+}
+
+function apenas_letras(input) {
+    let valor = input.value.normalize("NFD").replace(/[\u0300-\u036f]/g, '');
+    
+    for (i = (valor.length - 1); i >= 0; i--) {
+        if (isNaN(valor[i]) == false & valor[i] != ' ') {
+            valor = valor.replace(valor[i], '')
+        }
+    }
+
+    input.value = valor.toUpperCase()
+}
+
+function remover_caracteres_especiais(input) {
+    let valor = input.value.normalize("NFD").replace(/[\u0300-\u036f]/g, '');
+    
+    input.value = valor.toUpperCase()
 }
 
 function cpf_cnpj(input) {
-    let valor = input.value
-    let valor_numerico = valor.replace('.', '').replace('.', '').replace('.', '').replace('.', '').replace('-', '').replace('-', '').replace('/', '')
-    let ultimoDigito = input.value.slice(-1)
-
-    if (isNaN(ultimoDigito) == true) {
-        valor = valor.split(ultimoDigito)[0]
+    let valor_numerico = input.value.toString()
+    
+    for (i = (valor_numerico.length - 1); i >= 0; i--) {
+        if (isNaN(valor_numerico[i]) == true || valor_numerico[i] == ' ') {
+            valor_numerico = valor_numerico.replace(valor_numerico[i], '')
+        }
     }
 
-    if (valor_numerico.length == 11) {
+    if (valor_numerico.length < 11) {
+        input.value = valor_numerico
+    }
+
+    else if (valor_numerico.length == 11) {
         valor_numerico = valor_numerico.slice(0, 3) + '.' + valor_numerico.slice(3, 6) + '.' + valor_numerico.slice(6, 9) + '-' + valor_numerico.slice(9, 11)
         input.value = valor_numerico
     }
     
-    else if (valor_numerico > 11) {
+    else {
         input.value = valor_numerico
 
         if (valor_numerico.length == 14) {
@@ -29,8 +55,106 @@ function cpf_cnpj(input) {
             input.value = valor_numerico
         }
     }
+}
+
+function cep(input) {
+    let valor_numerico = input.value.toString()
     
+    for (i = (valor_numerico.length - 1); i >= 0; i--) {
+        if (isNaN(valor_numerico[i]) == true || valor_numerico[i] == ' ') {
+            valor_numerico = valor_numerico.replace(valor_numerico[i], '')
+        }
+    }
+
+    if (valor_numerico.length < 8) {
+        input.value = valor_numerico
+    }
+
+    if (valor_numerico.length == 8) {
+        valor_numerico = valor_numerico.slice(0, 5) + '-' + valor_numerico.slice(5, 8)
+        input.value = valor_numerico
+    }
+}
+
+function numero_decimal(input) {
+    let valor_numerico = input.value.toString()
+    let digitos = []
+
+    for (i = (valor_numerico.length - 1); i >= 0; i--) {
+        if (isNaN(valor_numerico[i]) == true || valor_numerico[i] == ' ') {
+            valor_numerico = valor_numerico.replace(valor_numerico[i], '')
+        }
+    }
+
+    for (i = 0; i < valor_numerico.length; i++) {
+        digitos[i] = valor_numerico[i]
+    }
     
+    let expoente = -2
+    let valor = 0
+
+    for (i = (digitos.length - 1); i >= 0; i--) {
+        valor += parseFloat(parseInt(digitos[i]) * (10 ** expoente))
+        expoente += 1
+    }
+
+    if (valor == 0) {
+        input.value = ''
+    }
+
+    else {
+        input.value = parseFloat(valor).toFixed(2).toString().replace('.', ',')
+    }
+}
+
+function temperatura_nominal(input) {
+    let valor_numerico = input.value.toString()
+    
+    for (i = (valor_numerico.length - 1); i >= 0; i--) {
+        if (isNaN(valor_numerico[i]) == true || valor_numerico[i] == ' ') {
+            valor_numerico = valor_numerico.replace(valor_numerico[i], '')
+        }
+    }
+
+    if (valor_numerico.length < 3) {
+        input.value = valor_numerico
+    }
+
+    if (valor_numerico.length >= 3) {
+        valor_numerico = valor_numerico.slice(0, 2) + '±' + valor_numerico.slice(2, 3)
+        input.value = valor_numerico
+    }
+}
+
+function coeficiente_temperatura(input) {
+    let valor_numerico = input.value.toString()
+    let digitos = []
+
+    for (i = (valor_numerico.length - 1); i >= 0; i--) {
+        if (isNaN(valor_numerico[i]) == true || valor_numerico[i] == ' ') {
+            valor_numerico = valor_numerico.replace(valor_numerico[i], '')
+        }
+    }
+
+    for (i = 0; i < valor_numerico.length; i++) {
+        digitos[i] = valor_numerico[i]
+    }
+    
+    let expoente = -2
+    let valor = 0
+
+    for (i = (digitos.length - 1); i >= 0; i--) {
+        valor += parseFloat(parseInt(digitos[i]) * (10 ** expoente))
+        expoente += 1
+    }
+
+    if (valor == 0) {
+        input.value = ''
+    }
+
+    else {
+        input.value = parseFloat(valor * (-1)).toFixed(2).toString().replace('.', ',')
+    }
 }
 
 // FUNÇÃO PARA MOSTRAR CONTEÚDO PARA USUÁRIOS AUTORIZADOS
@@ -909,6 +1033,8 @@ function buscar_modulo() {
     let dropDownListSearchModule = document.getElementById('modelomodulo-buscar');
     let dropDownListUpdateModule = document.getElementById('modelomodulo-buscar-atualizar');
     let dropDownListDeleteModule = document.getElementById('modelomodulo-deletar');
+    let dropDownListAddType = document.getElementById('tipomodulo-adicionar');
+    let dropDownListUpdateType = document.getElementById('tipomodulo-atualizar');
 
             
     document.getElementById('modelo-módulo-buscar').value = ''
@@ -936,6 +1062,8 @@ function buscar_modulo() {
     dropDownListSearchModule.style.display = "none";
     dropDownListUpdateModule.style.display = "none";
     dropDownListDeleteModule.style.display = "none";
+    dropDownListAddType.style.display = "none";
+    dropDownListUpdateType.style.display = "none";
 
     for(i = 0; i < arrayCamposObrigatorios.length; i++) {
         arrayCamposObrigatorios[i].style.visibility = "hidden"
@@ -964,6 +1092,8 @@ function adicionar_modulo() {
     let dropDownListSearchModule = document.getElementById('modelomodulo-buscar');
     let dropDownListUpdateModule = document.getElementById('modelomodulo-buscar-atualizar');
     let dropDownListDeleteModule = document.getElementById('modelomodulo-deletar');
+    let dropDownListAddType = document.getElementById('tipomodulo-adicionar');
+    let dropDownListUpdateType = document.getElementById('tipomodulo-atualizar');
             
     document.getElementById('modelo-módulo-adicionar').value = ''
     document.getElementById('fabricante-módulo-adicionar').value = ''
@@ -1003,6 +1133,8 @@ function adicionar_modulo() {
     dropDownListSearchModule.style.display = "none";
     dropDownListUpdateModule.style.display = "none";
     dropDownListDeleteModule.style.display = "none";
+    dropDownListAddType.style.display = "none";
+    dropDownListUpdateType.style.display = "none";
 
     for(i = 0; i < arrayCamposObrigatorios.length; i++) {
         arrayCamposObrigatorios[i].style.visibility = "hidden"
@@ -1031,6 +1163,9 @@ function atualizar_modulo() {
     let dropDownListSearchModule = document.getElementById('modelomodulo-buscar');
     let dropDownListUpdateModule = document.getElementById('modelomodulo-buscar-atualizar');
     let dropDownListDeleteModule = document.getElementById('modelomodulo-deletar');
+    let dropDownListAddType = document.getElementById('tipomodulo-adicionar');
+    let dropDownListUpdateType = document.getElementById('tipomodulo-atualizar');
+
     
     document.getElementById('modelo-módulo-buscar-atualizar').value = ''
     document.getElementById('modelo-módulo-atualizar').value = ''
@@ -1071,6 +1206,8 @@ function atualizar_modulo() {
     dropDownListSearchModule.style.display = "none";
     dropDownListUpdateModule.style.display = "none";
     dropDownListDeleteModule.style.display = "none";
+    dropDownListAddType.style.display = "none";
+    dropDownListUpdateType.style.display = "none";
 
     for(i = 0; i < arrayCamposObrigatorios.length; i++) {
         arrayCamposObrigatorios[i].style.visibility = "hidden"
@@ -1089,6 +1226,8 @@ function mostrar_campos_atualizar_modulos() {
     let dropDownListSearchModule = document.getElementById('modelomodulo-buscar');
     let dropDownListUpdateModule = document.getElementById('modelomodulo-buscar-atualizar');
     let dropDownListDeleteModule = document.getElementById('modelomodulo-deletar');
+    let dropDownListAddType = document.getElementById('tipomodulo-adicionar');
+    let dropDownListUpdateType = document.getElementById('tipomodulo-atualizar');
 
     let arrayCamposObrigatorios = document.getElementsByClassName('campo-obrigatorio-modulos');
     let arrayModuloInexistente = document.getElementsByClassName('container-modulo-inexistente');
@@ -1116,6 +1255,8 @@ function mostrar_campos_atualizar_modulos() {
         dropDownListSearchModule.style.display = "none";
         dropDownListUpdateModule.style.display = "none";
         dropDownListDeleteModule.style.display = "none";
+        dropDownListAddType.style.display = "none";
+        dropDownListUpdateType.style.display = "none";
         divUpdateModule.style.visibility = "visible"
         divUpdateModule.style.display = "grid"
 
@@ -1154,6 +1295,8 @@ function deletar_modulo() {
     let dropDownListSearchModule = document.getElementById('modelomodulo-buscar');
     let dropDownListUpdateModule = document.getElementById('modelomodulo-buscar-atualizar');
     let dropDownListDeleteModule = document.getElementById('modelomodulo-deletar');
+    let dropDownListAddType = document.getElementById('tipomodulo-adicionar');
+    let dropDownListUpdateType = document.getElementById('tipomodulo-atualizar');
        
     document.getElementById('modelo-módulo-deletar').value = ''
 
@@ -1180,6 +1323,8 @@ function deletar_modulo() {
     dropDownListSearchModule.style.display = "none";
     dropDownListUpdateModule.style.display = "none";
     dropDownListDeleteModule.style.display = "none";
+    dropDownListAddType.style.display = "none";
+    dropDownListUpdateType.style.display = "none";
 
     for(i = 0; i < arrayCamposObrigatorios.length; i++) {
         arrayCamposObrigatorios[i].style.visibility = "hidden"
@@ -1227,7 +1372,6 @@ async function mostrar_modulos(nomeFuncao) {
             }
         )
         if (dadosTodosModulos != 'Error: Request failed with status code 401' & dadosTodosModulos != 'Error: Request failed with status code 404') {
-            console.log(dadosTodosModulos)
             for (i = 0; i < dadosTodosModulos.length; i++) {
                 id[i] = String(dadosTodosModulos[i].id);
                 modelo[i] = dadosTodosModulos[i].modelo;
@@ -1292,6 +1436,20 @@ function filtrar_modulos(nomeFuncao) {
     for (i = nOpcoes; i >= 0; i--) {
         if (lista.options[i].value.includes(idModulo) == false) {
             lista.children[i].remove()
+        }
+    }
+}
+
+function mostrar_tipos(nomeFuncao) {
+    let input = document.getElementById('tipo-módulo-' + nomeFuncao)
+    let lista = document.getElementById('tipomodulo-' + nomeFuncao)
+
+    lista.style.display = 'block';
+
+    for (let opcao of lista.options) {
+        opcao.onclick = function () {
+            input.value = opcao.value;
+            lista.style.display = 'none';
         }
     }
 }

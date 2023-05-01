@@ -450,11 +450,11 @@ async function post_client() {
     let access_token = localStorage.getItem('access_token');
 
     let numero_cliente = document.getElementById('número-cliente-adicionar').value;
-    let nome = document.getElementById('nome-cliente-adicionar').value;
+    let nome = document.getElementById('nome-cliente-adicionar').value.toUpperCase();
     let cpf = document.getElementById('cpf-adicionar').value;
     let rg = document.getElementById('rg-adicionar').value;
     let nascimento = document.getElementById('data-nascimento-adicionar').value.split('-').reverse().join('/');
-    let nome_pais = document.getElementById('nome-pais-adicionar').value;
+    let nome_pais = document.getElementById('nome-pais-adicionar').value.toUpperCase();
 
     dicionario = {
         'nome': nome,
@@ -521,11 +521,11 @@ async function patch_client() {
 
     let numero_cliente_buscar = document.getElementById('número-cliente-buscar-atualizar').value;
     let numero_cliente = document.getElementById('número-cliente-atualizar').value;
-    let nome = document.getElementById('nome-cliente-atualizar').value;
+    let nome = document.getElementById('nome-cliente-atualizar').value.toUpperCase();
     let cpf = document.getElementById('cpf-atualizar').value;
     let rg = document.getElementById('rg-atualizar').value;
     let nascimento = document.getElementById('data-nascimento-atualizar').value;
-    let nome_pais = document.getElementById('nome-pais-atualizar').value;
+    let nome_pais = document.getElementById('nome-pais-atualizar').value.toUpperCase();
     let dicionario = {}; // Create an empty array
 
     if (numero_cliente == '' & nome == '' & cpf == '' & rg == '' & nascimento == '' & nome_pais == '') {
@@ -832,11 +832,11 @@ async function post_instalation() {
 
     let numero_instalacao = document.getElementById('número-instalação-adicionar').value
     let numero_cliente = document.getElementById('número-cliente-adicionar').value
-    let logradouro = document.getElementById('logradouro-adicionar').value
+    let logradouro = document.getElementById('logradouro-adicionar').value.toUpperCase()
     let numero_predial = document.getElementById('numero-predial-adicionar').value
-    let complemento = document.getElementById('complemento-adicionar').value
-    let bairro = document.getElementById('bairro-adicionar').value
-    let cidade = document.getElementById('cidade-adicionar').value
+    let complemento = document.getElementById('complemento-adicionar').value.toUpperCase()
+    let bairro = document.getElementById('bairro-adicionar').value.toUpperCase()
+    let cidade = document.getElementById('cidade-adicionar').value.toUpperCase()
     let cep = document.getElementById('cep-adicionar').value
     let classificacao = document.getElementById('classificacao-adicionar').value
     let latitude = document.getElementById('latitude-adicionar').value
@@ -915,11 +915,11 @@ async function patch_instalation() {
     let numero_instalacao_buscar = document.getElementById('número-instalação-buscar-atualizar').value;
     let numero_instalacao = document.getElementById('número-instalação-atualizar').value
     let numero_cliente = document.getElementById('número-cliente-atualizar').value
-    let logradouro = document.getElementById('logradouro-atualizar').value
+    let logradouro = document.getElementById('logradouro-atualizar').value.toUpperCase()
     let numero_predial = document.getElementById('numero-predial-atualizar').value
-    let complemento = document.getElementById('complemento-atualizar').value
-    let bairro = document.getElementById('bairro-atualizar').value
-    let cidade = document.getElementById('cidade-atualizar').value
+    let complemento = document.getElementById('complemento-atualizar').value.toUpperCase()
+    let bairro = document.getElementById('bairro-atualizar').value.toUpperCase()
+    let cidade = document.getElementById('cidade-atualizar').value.toUpperCase()
     let cep = document.getElementById('cep-atualizar').value
     let classificacao = document.getElementById('classificacao-atualizar').value
     let latitude = document.getElementById('latitude-atualizar').value
@@ -1520,7 +1520,7 @@ async function post_module() {
     let access_token = localStorage.getItem('access_token');
 
     let modelo = document.getElementById('modelo-módulo-adicionar').value
-    let fabricante = document.getElementById('fabricante-módulo-adicionar').value
+    let fabricante = document.getElementById('fabricante-módulo-adicionar').value.toUpperCase()
     let potencia = document.getElementById('potência-módulo-adicionar').value
     let imp = document.getElementById('imp-módulo-adicionar').value
     
@@ -1636,7 +1636,7 @@ async function patch_module() {
 
     let id = document.getElementById('modelo-módulo-buscar-atualizar').value;
     let modelo = document.getElementById('modelo-módulo-atualizar').value
-    let fabricante = document.getElementById('fabricante-módulo-atualizar').value
+    let fabricante = document.getElementById('fabricante-módulo-atualizar').value.toUpperCase()
     let potencia = document.getElementById('potência-módulo-atualizar').value
     let imp = document.getElementById('imp-módulo-atualizar').value
 

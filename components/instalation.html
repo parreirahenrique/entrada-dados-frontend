@@ -22,7 +22,7 @@
     <script defer src="../script.js"></script>
     <script defer src="../App.js"></script>
 </head>
-<body onload="checar_autorizacao(); get_username()">
+<body onload="checar_autorizacao(); get_username();">
     <div class="container-usuario-autorizado">
         <header>
             <nav class="flexbox">
@@ -119,7 +119,7 @@
             </div>
             <div class="container-form">
                 <form>
-                    <input type="text" id="logradouro-adicionar" required>
+                    <input type="text" id="logradouro-adicionar" oninput="remover_caracteres_especiais(this)" required>
                     <label for="name">Logradouro*:</label>
                 </form>
                 <span class="campo-obrigatorio-instalacoes">Esse é um campo obrigatório.</span>
@@ -133,28 +133,28 @@
             </div>
             <div class="container-form">
                 <form>
-                    <input type="text" id="complemento-adicionar" required>
+                    <input type="text" id="complemento-adicionar" oninput="remover_caracteres_especiais(this)" required>
                     <label for="name">Complemento*:</label>
                 </form>
                 <span class="campo-obrigatorio-instalacoes">Esse é um campo obrigatório.</span>
             </div>
             <div class="container-form">
                 <form>
-                    <input type="text" id="bairro-adicionar" required>
+                    <input type="text" id="bairro-adicionar" oninput="remover_caracteres_especiais(this)" required>
                     <label for="name">Bairro*:</label>
                 </form>
                 <span class="campo-obrigatorio-instalacoes">Esse é um campo obrigatório.</span>
             </div>
             <div class="container-form">
                 <form>
-                    <input type="name" id="cidade-adicionar" required>
+                    <input type="name" id="cidade-adicionar" oninput="apenas_letras(this)" required>
                     <label for="name">Cidade*:</label>
                 </form>
                 <span class="campo-obrigatorio-instalacoes">Esse é um campo obrigatório.</span>
             </div>
             <div class="container-form">
                 <form>
-                    <input type="name" id="cep-adicionar" required>
+                    <input type="name" id="cep-adicionar" oninput="cep(this)" required>
                     <label for="name">CEP*:</label>
                 </form>
                 <span class="campo-obrigatorio-instalacoes">Esse é um campo obrigatório.</span>
@@ -250,7 +250,7 @@
             </div>
             <div class="container-form">
                 <form>
-                    <input type="text" id="logradouro-atualizar" required>
+                    <input type="text" id="logradouro-atualizar" oninput="remover_caracteres_especiais(this)" required>
                     <label for="name">Logradouro:</label>
                 </form>
             </div>
@@ -262,25 +262,25 @@
             </div>
             <div class="container-form">
                 <form>
-                    <input type="text" id="complemento-atualizar" required>
+                    <input type="text" id="complemento-atualizar" oninput="remover_caracteres_especiais(this)" required>
                     <label for="name">Complemento:</label>
                 </form>
             </div>
             <div class="container-form">
                 <form>
-                    <input type="text" id="bairro-atualizar" required>
+                    <input type="text" id="bairro-atualizar" oninput="remover_caracteres_especiais(this)" required>
                     <label for="name">Bairro:</label>
                 </form>
             </div>
             <div class="container-form">
                 <form>
-                    <input type="name" id="cidade-atualizar" required>
+                    <input type="name" id="cidade-atualizar" oninput="apenas_letras(this)" required>
                     <label for="name">Cidade:</label>
                 </form>
             </div>
             <div class="container-form">
                 <form>
-                    <input type="name" id="cep-atualizar" required>
+                    <input type="name" id="cep-atualizar" oninput="cep(this)" required>
                     <label for="name">CEP:</label>
                 </form>
             </div>

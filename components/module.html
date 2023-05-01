@@ -276,14 +276,14 @@
             <div id="container-add-modules">
                 <div class="container-form">
                     <form>
-                        <input type="text" id="modelo-módulo-adicionar" required>
+                        <input type="text" id="modelo-módulo-adicionar" oninput="remover_caracteres_especiais(this)" required>
                         <label for="name">Modelo*:</label>
                     </form>
                     <span class="campo-obrigatorio-modulos">Esse é um campo obrigatório.</span>
                 </div>
                 <div class="container-form">
                     <form>
-                        <input type="text" id="fabricante-módulo-adicionar" required>
+                        <input type="text" id="fabricante-módulo-adicionar" oninput="remover_caracteres_especiais(this)" required>
                         <label for="name">Fabricante*:</label>
                     </form>
                     <span class="campo-obrigatorio-modulos">Esse é um campo obrigatório.</span>
@@ -297,28 +297,28 @@
                 </div>
                 <div class="container-form">
                     <form>
-                        <input type="text" id="imp-módulo-adicionar" required>
+                        <input type="text" id="imp-módulo-adicionar" oninput="numero_decimal(this)" required>
                         <label for="name">I<sub>mp</sub>*:</label>
                     </form>
                     <span class="campo-obrigatorio-modulos">Esse é um campo obrigatório.</span>
                 </div>
                 <div class="container-form">
                     <form>
-                        <input type="text" id="isc-módulo-adicionar" required>
+                        <input type="text" id="isc-módulo-adicionar" oninput="numero_decimal(this)" required>
                         <label for="name">I<sub>sc</sub>*:</label>
                     </form>
                     <span class="campo-obrigatorio-modulos">Esse é um campo obrigatório.</span>
                 </div>
                 <div class="container-form">
                     <form>
-                        <input type="text" id="vmp-módulo-adicionar" required>
+                        <input type="text" id="vmp-módulo-adicionar" oninput="numero_decimal(this)" required>
                         <label for="name">V<sub>mp</sub>*:</label>
                     </form>
                     <span class="campo-obrigatorio-modulos">Esse é um campo obrigatório.</span>
                 </div>
                 <div class="container-form">
                     <form>
-                        <input type="text" id="voc-módulo-adicionar" required>
+                        <input type="text" id="voc-módulo-adicionar" oninput="numero_decimal(this)" required>
                         <label for="name">V<sub>oc</sub>*:</label>
                     </form>
                     <span class="campo-obrigatorio-modulos">Esse é um campo obrigatório.</span>
@@ -346,28 +346,32 @@
                 </div>
                 <div class="container-form">
                     <form>
-                        <input type="text" id="eficiência-módulo-adicionar" required>
+                        <input type="text" id="eficiência-módulo-adicionar" oninput="numero_decimal(this)" required>
                         <label for="name">Eficiência*:</label>
                     </form>
                     <span class="campo-obrigatorio-modulos">Esse é um campo obrigatório.</span>
                 </div>
                 <div class="container-form">
                     <form>
-                        <input type="text" id="temperatura-módulo-adicionar" required>
+                        <input type="text" id="temperatura-módulo-adicionar" oninput="temperatura_nominal(this)" required>
                         <label for="name">Temperatura nominal*:</label>
                     </form>
                     <span class="campo-obrigatorio-modulos">Esse é um campo obrigatório.</span>
                 </div>
                 <div class="container-form">
                     <form>
-                        <input type="text" id="tipo-módulo-adicionar" required>
-                        <label for="name">Tipo de célula*:</label>
+                        <input type="text" id="tipo-módulo-adicionar" list="" autocomplete="off" onmousedown="value = '';" onclick="mostrar_tipos('adicionar')" required>
+                        <label for="name">Tipo de célula*:</label>    
+                            <datalist id="tipomodulo-adicionar">
+                                <option value="Residencial">Monocristalino</option>
+                                <option value="Rural">Policristalino</option>
+                            </datalist>
                     </form>
                     <span class="campo-obrigatorio-modulos">Esse é um campo obrigatório.</span>
                 </div>
                 <div class="container-form">
                     <form>
-                        <input type="name" id="coeficiente-módulo-adicionar" required>
+                        <input type="name" id="coeficiente-módulo-adicionar" oninput="coeficiente_temperatura(this)" required>
                         <label for="name">Coeficiente de temperatura*:</label>
                     </form>
                     <span class="campo-obrigatorio-modulos">Esse é um campo obrigatório.</span>
@@ -410,85 +414,89 @@
             <div id="container-update-modules">
                 <div class="container-form" id="container-form-modelo-modulo">
                     <form>
-                        <input type="text" id="modelo-módulo-atualizar" required>
+                        <input type="text" id="modelo-módulo-atualizar" oninput="remover_caracteres_especiais(this)" required>
                         <label for="name">Modelo:</label>
                     </form>
                 </div>
                 <div class="container-form">
                     <form>
-                        <input type="text" id="fabricante-módulo-atualizar" required>
+                        <input type="text" id="fabricante-módulo-atualizar" oninput="remover_caracteres_especiais(this)" required>
                         <label for="name">Fabricante:</label>
                     </form>
                 </div>
                 <div class="container-form">
                     <form>
-                        <input type="text" id="potência-módulo-atualizar" required>
+                        <input type="text" id="potência-módulo-atualizar" oninput="apenas_numeros(this)" required>
                         <label for="name">Potência de pico:</label>
                     </form>
                 </div>
                 <div class="container-form">
                     <form>
-                        <input type="text" id="imp-módulo-atualizar" required>
+                        <input type="text" id="imp-módulo-atualizar" oninput="numero_decimal(this)" required>
                         <label for="name">I<sub>mp</sub>:</label>
                     </form>
                 </div>
                 <div class="container-form">
                     <form>
-                        <input type="text" id="isc-módulo-atualizar" required>
+                        <input type="text" id="isc-módulo-atualizar" oninput="numero_decimal(this)" required>
                         <label for="name">I<sub>sc</sub>:</label>
                     </form>
                 </div>
                 <div class="container-form">
                     <form>
-                        <input type="text" id="vmp-módulo-atualizar" required>
+                        <input type="text" id="vmp-módulo-atualizar" oninput="numero_decimal(this)" required>
                         <label for="name">V<sub>mp</sub>:</label>
                     </form>
                 </div>
                 <div class="container-form">
                     <form>
-                        <input type="text" id="voc-módulo-atualizar" required>
+                        <input type="text" id="voc-módulo-atualizar" oninput="numero_decimal(this)" required>
                         <label for="name">V<sub>oc</sub>:</label>
                     </form>
                 </div>
                 <div class="container-form">
                     <form>
-                        <input type="text" id="comprimento-módulo-atualizar" required>
+                        <input type="text" id="comprimento-módulo-atualizar" oninput="apenas_numeros(this)" required>
                         <label for="name">Comprimento (em milímetros):</label>
                     </form>
                 </div>
                 <div class="container-form">
                     <form>
-                        <input type="text" id="largura-módulo-atualizar" required>
+                        <input type="text" id="largura-módulo-atualizar" oninput="apenas_numeros(this)" required>
                         <label for="name">Largura (em milímetros):</label>
                     </form>
                 </div>
                 <div class="container-form">
                     <form>
-                        <input type="text" id="espessura-módulo-atualizar" required>
+                        <input type="text" id="espessura-módulo-atualizar" oninput="apenas_numeros(this)" required>
                         <label for="name">Espessura (em milímetros):</label>
                     </form>
                 </div>
                 <div class="container-form">
                     <form>
-                        <input type="text" id="eficiência-módulo-atualizar" required>
+                        <input type="text" id="eficiência-módulo-atualizar" oninput="numero_decimal(this)" required>
                         <label for="name">Eficiência:</label>
                     </form>
                 </div>
                 <div class="container-form">
                     <form>
-                        <input type="text" id="temperatura-módulo-atualizar" required>
+                        <input type="text" id="temperatura-módulo-atualizar" oninput="temperatura_nominal(this)" required>
                         <label for="name">Temperatura nominal:</label>
                     </form>
                 </div>
                 <div class="container-form">
                     <form>
-                        <input type="text" id="tipo-módulo-atualizar" required>
-                        <label for="name">Tipo de célula:</label>
+                        <input type="text" id="tipo-módulo-atualizar" list="" autocomplete="off" onmousedown="value = '';" onclick="mostrar_tipos('atualizar')" required>
+                        <label for="name">Tipo de célula:</label>    
+                            <datalist id="tipomodulo-atualizar">
+                                <option value="Residencial">Monocristalino</option>
+                                <option value="Rural">Policristalino</option>
+                            </datalist>
                     </form>
                 </div>
                 <div class="container-form">
                     <form>
-                        <input type="name" id="coeficiente-módulo-atualizar" required>
+                        <input type="name" id="coeficiente-módulo-atualizar" oninput="coeficiente_temperatura(this)" required>
                         <label for="name">Coeficiente de temperatura:</label>
                     </form>
                 </div>

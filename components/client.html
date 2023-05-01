@@ -200,7 +200,7 @@
             </div>
             <div class="container-form">
                 <form>
-                    <input type="text" id="nome-cliente-adicionar" required>
+                    <input type="text" id="nome-cliente-adicionar" oninput="apenas_letras(this)" required>
                     <label for="name">Nome*:</label>
                 </form>
                 <span class="campo-obrigatorio-clientes">Esse é um campo obrigatório.</span>
@@ -214,7 +214,7 @@
             </div>
             <div class="container-form">
                 <form>
-                    <input type="text" id="rg-adicionar" required>
+                    <input type="text" id="rg-adicionar" oninput="apenas_numeros(this)" required>
                     <label for="name">RG:</label>
                 </form>
             </div>
@@ -226,7 +226,7 @@
             </div>
             <div class="container-form">
                 <form>
-                    <input type="name" id="nome-pais-adicionar" required>
+                    <input type="name" id="nome-pais-adicionar" oninput="apenas_letras(this)" required>
                     <label for="name">Nome do pai/mãe:</label>
                 </form>
             </div>
@@ -276,7 +276,7 @@
             </div>
             <div class="container-form">
                 <form>
-                    <input type="text" id="nome-cliente-atualizar" required>
+                    <input type="text" id="nome-cliente-atualizar" oninput="apenas_letras(this)" required>
                     <label for="name">Nome:</label>
                 </form>
             </div>
@@ -288,7 +288,7 @@
             </div>
             <div class="container-form">
                 <form>
-                    <input type="text" id="rg-atualizar" required>
+                    <input type="text" id="rg-atualizar" oninput="apenas_numeros(this)" required>
                     <label for="name">RG:</label>
                 </form>
             </div>
@@ -300,7 +300,7 @@
             </div>
             <div class="container-form">
                 <form>
-                    <input type="name" id="nome-pais-atualizar" required>
+                    <input type="name" id="nome-pais-atualizar" oninput="apenas_letras(this)" required>
                     <label for="name">Nome do pai/mãe:</label>
                 </form>
             </div>
