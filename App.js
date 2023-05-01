@@ -831,6 +831,7 @@ async function post_instalation() {
     let access_token = localStorage.getItem('access_token');
 
     let numero_instalacao = document.getElementById('número-instalação-adicionar').value
+
     let numero_cliente = document.getElementById('número-cliente-adicionar').value
     let logradouro = document.getElementById('logradouro-adicionar').value.toUpperCase()
     let numero_predial = document.getElementById('numero-predial-adicionar').value
@@ -843,8 +844,11 @@ async function post_instalation() {
     let longitude = document.getElementById('longitude-adicionar').value
     let coordenadas_decimais = document.getElementById('coordenadas-decimais-adicionar').value
     
+    if (numero_instalacao != ''){
+        dicionario['numero_instalacao'] = numero_instalacao
+    }
+
     dicionario = {
-        'numero_instalacao': numero_instalacao,
         'numero_cliente': numero_cliente,
         'logradouro': logradouro,
         'numero_predial': numero_predial,
@@ -864,7 +868,7 @@ async function post_instalation() {
         }
     }
 
-    if (numero_instalacao != '' & numero_cliente != '' & logradouro != '' & numero_predial != '' & complemento != '' & bairro != '' & cidade != '' & cep != '' & classificacao != '' & latitude != '' & cep != '' & coordenadas_decimais != ''){
+    if (numero_cliente != '' & logradouro != '' & numero_predial != '' & complemento != '' & bairro != '' & cidade != '' & cep != '' & classificacao != '' & latitude != '' & cep != '' & coordenadas_decimais != ''){
         resposta = await axios.post(
             'http://localhost:8000/instalations', dicionario, config
         ).then(

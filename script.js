@@ -908,6 +908,36 @@ function deletar_instalacao() {
     }
 }
 
+function ligacao_nova() {
+    let estadoLigacao = document.getElementById('checkbox-ligacao').checked;
+    let arrayCheckbox = document.getElementsByClassName('form-checkbox-aumento-usina');
+    let arrayContainer = document.getElementsByClassName('container-modulo-2')
+    
+    if (estadoLigacao == true) {
+        document.getElementById('checkbox-aumento-carga-1').checked = false;
+        document.getElementById('checkbox-aumento-usina-1').checked = false;
+
+        document.getElementById('container-numero-instalacao-1').style.visibility = "hidden";
+        document.getElementById('container-numero-instalacao-1').style.display = "none";
+        document.getElementById('container-aumento-carga-1').style.visibility = "hidden";
+        document.getElementById('container-aumento-carga-1').style.display = "none";
+
+        for (let i = 0; i < arrayCheckbox.length; i++) {
+            arrayCheckbox[i].style.visibility = "hidden"
+        }
+
+        for (let i = 0; i < arrayContainer.length; i++) {
+            arrayContainer[i].style.visibility = "hidden"
+            arrayContainer[i].style.display = "none"
+        }
+    }
+
+    else if(estadoLigacao == false) {
+        document.getElementById('container-numero-instalacao-1').style.visibility = "visible";
+        document.getElementById('container-numero-instalacao-1').style.display = "grid";
+    }
+}
+
 async function mostrar_instalacoes(nomeFuncao) {
     let input = document.getElementById('número-instalação-' + nomeFuncao)
     let lista = document.getElementById('numeroinstalacao-' + nomeFuncao)
