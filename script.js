@@ -1,3 +1,38 @@
+// FUNÇÕES GERAIS PARA TODAS AS PÁGINAS
+function apenas_numeros(input) {
+    let ultimoDigito = input.value.slice(-1)
+
+    if (isNaN(ultimoDigito) == true) {
+        input.value = input.value.split(ultimoDigito)[0]
+    }
+}
+
+function cpf_cnpj(input) {
+    let valor = input.value
+    let valor_numerico = valor.replace('.', '').replace('.', '').replace('.', '').replace('.', '').replace('-', '').replace('-', '').replace('/', '')
+    let ultimoDigito = input.value.slice(-1)
+
+    if (isNaN(ultimoDigito) == true) {
+        valor = valor.split(ultimoDigito)[0]
+    }
+
+    if (valor_numerico.length == 11) {
+        valor_numerico = valor_numerico.slice(0, 3) + '.' + valor_numerico.slice(3, 6) + '.' + valor_numerico.slice(6, 9) + '-' + valor_numerico.slice(9, 11)
+        input.value = valor_numerico
+    }
+    
+    else if (valor_numerico > 11) {
+        input.value = valor_numerico
+
+        if (valor_numerico.length == 14) {
+            valor_numerico = valor_numerico.slice(0, 2) + '.' + valor_numerico.slice(2, 5) + '.' + valor_numerico.slice(5, 8) + '/' + valor_numerico.slice(8, 12) + '-' +  valor_numerico.slice(12, 14)
+            input.value = valor_numerico
+        }
+    }
+    
+    
+}
+
 // FUNÇÃO PARA MOSTRAR CONTEÚDO PARA USUÁRIOS AUTORIZADOS
 function checar_autorizacao() {
     access_token = localStorage.getItem('access_token');

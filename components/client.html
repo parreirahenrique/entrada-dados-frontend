@@ -193,7 +193,7 @@
             </div>
             <div class="container-form">
                 <form>
-                    <input type="text" id="número-cliente-adicionar" placeholder="Ex.: 7000000000" required>
+                    <input type="text" id="número-cliente-adicionar" oninput="apenas_numeros(this)" placeholder="Ex.: 7000000000" required>
                     <label for="name">Número do cliente*:</label>
                 </form>
                 <span class="campo-obrigatorio-clientes">Esse é um campo obrigatório.</span>
@@ -207,7 +207,7 @@
             </div>
             <div class="container-form">
                 <form>
-                    <input type="text" id="cpf-adicionar" required>
+                    <input type="text" id="cpf-adicionar" oninput="cpf_cnpj(this)" required>
                     <label for="name">CPF/CNPJ*:</label>
                 </form>
                 <span class="campo-obrigatorio-clientes">Esse é um campo obrigatório.</span>
@@ -270,7 +270,7 @@
             </div>
             <div class="container-form" id="container-form-numero-cliente">
                 <form>
-                    <input type="text" id="número-cliente-atualizar" placeholder="Ex.: 7000000000" required>
+                    <input type="text" id="número-cliente-atualizar" oninput="apenas_numeros(this)" placeholder="Ex.: 7000000000" required>
                     <label for="name">Número do cliente:</label>
                 </form>
             </div>
@@ -282,7 +282,7 @@
             </div>
             <div class="container-form">
                 <form>
-                    <input type="text" id="cpf-atualizar" required>
+                    <input type="text" id="cpf-atualizar" oninput="cpf_cnpj(this)" required>
                     <label for="name">CPF/CNPJ:</label>
                 </form>
             </div>

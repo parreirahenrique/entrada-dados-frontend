@@ -103,7 +103,7 @@
             </div>
             <div class="container-form">
                 <form>
-                    <input type="text" id="número-instalação-adicionar" placeholder="Ex.: 3000000000" required>
+                    <input type="text" id="número-instalação-adicionar" oninput="apenas_numeros(this)" placeholder="Ex.: 3000000000" required>
                     <label for="name">Número da instalação*:</label>
                 </form>
                 <span class="campo-obrigatorio-instalacoes">Esse é um campo obrigatório.</span>
@@ -126,7 +126,7 @@
             </div>
             <div class="container-form">
                 <form>
-                    <input type="text" id="numero-predial-adicionar" required>
+                    <input type="text" id="numero-predial-adicionar" oninput="apenas_numeros(this)" required>
                     <label for="name">Número predial*:</label>
                 </form>
                 <span class="campo-obrigatorio-instalacoes">Esse é um campo obrigatório.</span>
@@ -177,14 +177,14 @@
             </div>
             <div class="container-form">
                 <form>
-                    <input type="name" id="latitude-adicionar" required>
+                    <input type="name" id="latitude-adicionar" oninput="apenas_numeros(this)" required>
                     <label for="name">Latitude*:</label>
                 </form>
                 <span class="campo-obrigatorio-instalacoes">Esse é um campo obrigatório.</span>
             </div>
             <div class="container-form">
                 <form>
-                    <input type="name" id="longitude-adicionar" required>
+                    <input type="name" id="longitude-adicionar" oninput="apenas_numeros(this)" required>
                     <label for="name">Longitude*:</label>
                 </form>
                 <span class="campo-obrigatorio-instalacoes">Esse é um campo obrigatório.</span>
@@ -236,7 +236,7 @@
             </div>
             <div class="container-form" id="container-form-numero-instalacao">
                 <form>
-                    <input type="text" id="número-instalação-atualizar" placeholder="Ex.: 3000000000" required>
+                    <input type="text" id="número-instalação-atualizar" placeholder="Ex.: 3000000000" oninput="apenas_numeros(this)" required>
                     <label for="name">Número da instalação:</label>
                 </form>
             </div>
@@ -256,7 +256,7 @@
             </div>
             <div class="container-form">
                 <form>
-                    <input type="text" id="numero-predial-atualizar" required>
+                    <input type="text" id="numero-predial-atualizar" oninput="apenas_numeros(this)" required>
                     <label for="name">Número predial:</label>
                 </form>
             </div>
@@ -301,13 +301,13 @@
             </div>
             <div class="container-form">
                 <form>
-                    <input type="name" id="latitude-atualizar" required>
+                    <input type="name" id="latitude-atualizar" oninput="apenas_numeros(this)" required>
                     <label for="name">Latitude:</label>
                 </form>
             </div>
             <div class="container-form">
                 <form>
-                    <input type="name" id="longitude-atualizar" required>
+                    <input type="name" id="longitude-atualizar" oninput="apenas_numeros(this)" required>
                     <label for="name">Longitude:</label>
                 </form>
             </div>
