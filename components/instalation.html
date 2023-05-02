@@ -101,6 +101,10 @@
                 <img src="../img/falha.png" class="falha-instalacao">
                 <span class="campo-instalacao-existente">Instalação já cadastrada.</span>
             </div>
+            <form class="form-checkbox">
+                <input type="checkbox" class="checkbox" id="checkbox-ligacao-adicionar" required onchange="ligacao_nova('adicionar')">
+                <span>Ligação nova</span>
+            </form>
             <div class="container-form" id="container-form-numero-instalacao-adicionar">
                 <form>
                     <input type="text" id="número-instalação-adicionar" oninput="apenas_numeros(this)" placeholder="Ex.: 3000000000" required>
@@ -234,11 +238,16 @@
                 <img src="../img/falha.png" class="falha-instalacao">
                 <span class="campo-cliente-inexistente">Instalação inexistente.</span>
             </div>
-            <div class="container-form" id="container-form-numero-instalacao">
+            <form class="form-checkbox" id="form-checkbox-ligacao-atualizar">
+                <input type="checkbox" class="checkbox" id="checkbox-ligacao-atualizar" required onchange="ligacao_nova('atualizar')">
+                <span>Ligação nova</span>
+            </form>
+            <div class="container-form" id="container-form-numero-instalacao-atualizar">
                 <form>
-                    <input type="text" id="número-instalação-atualizar" placeholder="Ex.: 3000000000" oninput="apenas_numeros(this)" required>
+                    <input type="text" id="número-instalação-atualizar" oninput="apenas_numeros(this)" placeholder="Ex.: 3000000000" required>
                     <label for="name">Número da instalação:</label>
                 </form>
+                <span class="campo-obrigatorio-instalacoes">Esse é um campo obrigatório.</span>
             </div>
             <div class="container-form">
                 <form>

@@ -829,9 +829,11 @@ async function get_instalation() {
 
 async function post_instalation() {
     let access_token = localStorage.getItem('access_token');
-
+    
+    let divNumeroInstalacao = document.getElementById('container-form-numero-instalacao-adicionar')
+    let visibilidade = window.getComputedStyle(divNumeroInstalacao).visibility
+    
     let numero_instalacao = document.getElementById('número-instalação-adicionar').value
-
     let numero_cliente = document.getElementById('número-cliente-adicionar').value
     let logradouro = document.getElementById('logradouro-adicionar').value.toUpperCase()
     let numero_predial = document.getElementById('numero-predial-adicionar').value
@@ -843,10 +845,7 @@ async function post_instalation() {
     let latitude = document.getElementById('latitude-adicionar').value
     let longitude = document.getElementById('longitude-adicionar').value
     let coordenadas_decimais = document.getElementById('coordenadas-decimais-adicionar').value
-    
-    if (numero_instalacao != ''){
-        dicionario['numero_instalacao'] = numero_instalacao
-    }
+    let dicionario = {}
 
     dicionario = {
         'numero_cliente': numero_cliente,
@@ -862,53 +861,104 @@ async function post_instalation() {
         'coordenadas_decimais': coordenadas_decimais
     }
 
+    if (numero_instalacao != ''){
+        dicionario['numero_instalacao'] = numero_instalacao
+    }
+
     let config = {
         headers: {
           'Authorization': 'Bearer ' + access_token
         }
     }
+    if (visibilidade == 'hidden') {
+        if (numero_cliente != '' & logradouro != '' & numero_predial != '' & complemento != '' & bairro != '' & cidade != '' & cep != '' & classificacao != '' & latitude != '' & cep != '' & coordenadas_decimais != ''){
+            resposta = await axios.post(
+                'http://localhost:8000/instalations', dicionario, config
+            ).then(
+                function (response) {
+                    const resposta = response.data;
+                    return resposta;
+                }
+            ).catch(
+                function (error) {
+                    console.log(error);
+                    return error;
+                }
+            )
 
-    if (numero_cliente != '' & logradouro != '' & numero_predial != '' & complemento != '' & bairro != '' & cidade != '' & cep != '' & classificacao != '' & latitude != '' & cep != '' & coordenadas_decimais != ''){
-        resposta = await axios.post(
-            'http://localhost:8000/instalations', dicionario, config
-        ).then(
-            function (response) {
-                const resposta = response.data;
-                return resposta;
+            if (resposta != 'Error: Network Error' & resposta != 'Error: Request failed with status code 401') {
+                document.getElementById('container-instalacao-adicionada').style.visibility = 'visible';
+                document.getElementById('container-instalacao-adicionada').style.display = 'grid';
+                
+                document.getElementById('container-add-instalations').style.visibility = 'hidden';
+                document.getElementById('container-add-instalations').style.display = 'none';
             }
-        ).catch(
-            function (error) {
-                console.log(error);
-                return error;
+
+            else if (resposta == 'Error: Request failed with status code 401') {
+                localStorage.setItem('access_token', resposta);
+                checar_autorizacao();
             }
-        )
 
-        if (resposta != 'Error: Network Error' & resposta != 'Error: Request failed with status code 401') {
-            document.getElementById('container-instalacao-adicionada').style.visibility = 'visible';
-            document.getElementById('container-instalacao-adicionada').style.display = 'grid';
-            
-            document.getElementById('container-add-instalations').style.visibility = 'hidden';
-            document.getElementById('container-add-instalations').style.display = 'none';
-        }
-
-        else if (resposta == 'Error: Request failed with status code 401') {
-            localStorage.setItem('access_token', resposta);
-            checar_autorizacao();
+            else {
+                divExistentInstalation = document.getElementsByClassName('container-instalacao-existente')
+                divExistentInstalation[0].style.visibility = 'visible';
+                divExistentInstalation[0].style.display = 'flex';
+            }
         }
 
         else {
-            divExistentInstalation = document.getElementsByClassName('container-instalacao-existente')
-            divExistentInstalation[0].style.visibility = 'visible';
-            divExistentInstalation[0].style.display = 'flex';
+            arrayCampos = document.getElementsByClassName('campo-obrigatorio-instalacoes')
+
+            for (i = 0; i < arrayCampos.length; i ++) {
+                arrayCampos[i].style.visibility = "visible";
+                arrayCampos[i].style.display = "grid";
+            }
         }
     }
 
-    else {
-        arrayCampos = document.getElementsByClassName('campo-obrigatorio-instalacoes')
+    else if(visibilidade == 'visible') {
+        if (numero_instalacao != '' & numero_cliente != '' & logradouro != '' & numero_predial != '' & complemento != '' & bairro != '' & cidade != '' & cep != '' & classificacao != '' & latitude != '' & cep != '' & coordenadas_decimais != ''){
+            resposta = await axios.post(
+                'http://localhost:8000/instalations', dicionario, config
+            ).then(
+                function (response) {
+                    const resposta = response.data;
+                    return resposta;
+                }
+            ).catch(
+                function (error) {
+                    console.log(error);
+                    return error;
+                }
+            )
 
-        for (i = 0; i < arrayCampos.length; i ++) {
-            arrayCampos[i].style.visibility = "visible";
-            arrayCampos[i].style.display = "grid";
+            if (resposta != 'Error: Network Error' & resposta != 'Error: Request failed with status code 401') {
+                document.getElementById('container-instalacao-adicionada').style.visibility = 'visible';
+                document.getElementById('container-instalacao-adicionada').style.display = 'grid';
+                
+                document.getElementById('container-add-instalations').style.visibility = 'hidden';
+                document.getElementById('container-add-instalations').style.display = 'none';
+            }
+
+            else if (resposta == 'Error: Request failed with status code 401') {
+                localStorage.setItem('access_token', resposta);
+                checar_autorizacao();
+            }
+
+            else {
+                divExistentInstalation = document.getElementsByClassName('container-instalacao-existente')
+                divExistentInstalation[0].style.visibility = 'visible';
+                divExistentInstalation[0].style.display = 'flex';
+            }
+        }
+
+        else {
+            arrayCampos = document.getElementsByClassName('campo-obrigatorio-instalacoes')
+
+            for (i = 0; i < arrayCampos.length; i ++) {
+                arrayCampos[i].style.visibility = "visible";
+                arrayCampos[i].style.display = "grid";
+            }
         }
     }
 }
@@ -916,66 +966,74 @@ async function post_instalation() {
 async function patch_instalation() {
     let access_token = localStorage.getItem('access_token');
 
-    let numero_instalacao_buscar = document.getElementById('número-instalação-buscar-atualizar').value;
-    let numero_instalacao = document.getElementById('número-instalação-atualizar').value
-    let numero_cliente = document.getElementById('número-cliente-atualizar').value
-    let logradouro = document.getElementById('logradouro-atualizar').value.toUpperCase()
-    let numero_predial = document.getElementById('numero-predial-atualizar').value
-    let complemento = document.getElementById('complemento-atualizar').value.toUpperCase()
-    let bairro = document.getElementById('bairro-atualizar').value.toUpperCase()
-    let cidade = document.getElementById('cidade-atualizar').value.toUpperCase()
-    let cep = document.getElementById('cep-atualizar').value
-    let classificacao = document.getElementById('classificacao-atualizar').value
-    let latitude = document.getElementById('latitude-atualizar').value
-    let longitude = document.getElementById('longitude-atualizar').value
-    let coordenadas_decimais = document.getElementById('coordenadas-decimais-atualizar').value
-    let dicionario = {}; // Create an empty array
+    let checkboxLigacao = document.getElementById('checkbox-ligacao-atualizar').checked;
 
+    let numero_instalacao_buscar = document.getElementById('número-instalação-buscar-atualizar').value;
+    let numero_instalacao = document.getElementById('número-instalação-atualizar').value;
+    let numero_cliente = document.getElementById('número-cliente-atualizar').value;
+    let logradouro = document.getElementById('logradouro-atualizar').value.toUpperCase();
+    let numero_predial = document.getElementById('numero-predial-atualizar').value;
+    let complemento = document.getElementById('complemento-atualizar').value.toUpperCase();
+    let bairro = document.getElementById('bairro-atualizar').value.toUpperCase();
+    let cidade = document.getElementById('cidade-atualizar').value.toUpperCase();
+    let cep = document.getElementById('cep-atualizar').value;
+    let classificacao = document.getElementById('classificacao-atualizar').value;
+    let latitude = document.getElementById('latitude-atualizar').value;
+    let longitude = document.getElementById('longitude-atualizar').value;
+    let coordenadas_decimais = document.getElementById('coordenadas-decimais-atualizar').value;
+    let dicionario = {};
+
+    console.log(numero_instalacao)
+    if (checkboxLigacao == true) {
+        numero_instalacao = '0';
+    }
+    
+    console.log(numero_instalacao)
     if (numero_instalacao == '' & numero_cliente == '' & logradouro == '' & numero_predial == '' & complemento == '' & bairro == '' & cidade == '' & cep == '' & classificacao == '' & latitude == '' & cep == '' & coordenadas_decimais == ''){
-        containerCamposNaoPreenchidos = document.getElementsByClassName('container-campos-nao-preenchidos')
-        containerCamposNaoPreenchidos[0].style.visibility = "visible"
-        containerCamposNaoPreenchidos[0].style.display = "flex"
+        containerCamposNaoPreenchidos = document.getElementsByClassName('container-campos-nao-preenchidos');
+        containerCamposNaoPreenchidos[0].style.visibility = "visible";
+        containerCamposNaoPreenchidos[0].style.display = "flex";
     }
 
     else {
         if (numero_instalacao != ''){
-            dicionario['numero_instalacao'] = numero_instalacao
+            dicionario['numero_instalacao'] = numero_instalacao;
         }
 
         if (numero_cliente != ''){
-            dicionario['numero_cliente'] = numero_cliente
+            dicionario['numero_cliente'] = numero_cliente;
         }
 
         if (logradouro != ''){
-            dicionario['logradouro'] = logradouro
+            dicionario['logradouro'] = logradouro;
         }
 
         if (numero_predial != ''){
-            dicionario['numero_predial'] = numero_predial
+            dicionario['numero_predial'] = numero_predial;
         }
 
         if (complemento != ''){
-            dicionario['complemento'] = complemento
+            dicionario['complemento'] = complemento;
         }
 
         if (cep != ''){
-            dicionario['cep'] = cep
+            dicionario['cep'] = cep;
         }
 
         if (classificacao != ''){
-            dicionario['classificacao'] = classificacao
+            dicionario['classificacao'] = classificacao;
         }
         
         if (latitude != ''){
-            dicionario['latitude'] = latitude
+            dicionario['latitude'] = latitude;
         }
         
         if (longitude != ''){
-            dicionario['longitude'] = longitude
+            dicionario['longitude'] = longitude;
         }
 
         if (coordenadas_decimais != ''){
-            dicionario['coordenadas_decimais'] = coordenadas_decimais
+            dicionario['coordenadas_decimais'] = coordenadas_decimais;
         }
 
         let config = {
@@ -985,7 +1043,7 @@ async function patch_instalation() {
         }
         
         
-        url = 'http://localhost:8000/instalations/' + numero_instalacao_buscar
+        url = 'http://localhost:8000/instalations/' + numero_instalacao_buscar;
         
         resposta = await axios.patch(
             url, dicionario, config
@@ -1018,8 +1076,8 @@ async function patch_instalation() {
             let arrayInstalacaoInexistente = document.getElementsByClassName('container-instalacao-inexistente')
 
             for (i = 0; i < arrayInstalacaoInexistente.length; i ++) {
-                arrayInstalacaoInexistente[i].style.visibility = 'visible'
-                arrayInstalacaoInexistente[i].style.display = 'flex'
+                arrayInstalacaoInexistente[i].style.visibility = 'visible';
+                arrayInstalacaoInexistente[i].style.display = 'flex';
             }
         }
     }
