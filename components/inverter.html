@@ -17,273 +17,566 @@
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Josefin+Sans:ital,wght@0,100;1,700&family=Roboto&family=Zilla+Slab:wght@300&display=swap" rel="stylesheet">
 
     <!-- JAVA SCRIPT FILE -->
+    <script src="../node_modules/axios/dist/axios.min.js"></script>
     <script defer src="../script.js"></script>
+    <script defer src="../App.js"></script>
 </head>
-<body>
-    <header>
-        <nav class="flexbox">
-            <div class="container-nav">
+<body onload="checar_autorizacao(); get_username(); get_all_inverters()">
+    <div class="container-usuario-autorizado">
+        <header>
+            <nav class="flexbox">
                 <p>Inversores</p>
-                <a href="../index.html"><i class="uil uil-home" id="uil-nav"></i></a>
-                <a href="./components/auth.html"><i class="uil uil-user" id="uil-nav"></i></a>
+                <div class="container-nav">
+                    <a href="../index.html"><i class="uil uil-home" id="uil-nav"></i></a>
+                    <a href="./auth.html"><i class="uil uil-user" id="uil-nav"></i></a>
+                    <div class="container-user">
+                        <p class="nome-usuario">Usuário</p>
+                        <a class="sair-usuario" onclick="logout()">Sair</a>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <div class="container" id="container-options">
+            <button onclick="buscar_inversor()"><i class="uil uil-search"></i> Buscar por inversor</button>
+            <button onclick="adicionar_inversor()"><i class="uil uil-plus"></i> Adicionar novo inversor</button>
+            <button onclick="atualizar_inversor()"><i class="uil uil-refresh"></i> Atualizar um inversor</button>
+            <button onclick="deletar_inversor()"><i class="uil uil-trash"></i> Deletar um inversor</button>
+        </div>
+        <div class="container" id="container-geral">
+            <div class="container-buttons-next-previous">
+                <button onclick="get_all_inverters_skip(-10)"><i class="uil uil-backward"></i>Página anterior</button> <button onclick="get_all_inverters_skip(10)">Próxima página <i class="uil uil-forward"></i></button>
             </div>
-        </nav>
-    </header>
-    <div class="container" id="container-options">
-        <button onclick="buscar_inversor()"><i class="uil uil-search"></i> Buscar por inversor</button>
-        <button onclick="adicionar_inversor()"><i class="uil uil-plus"></i> Adicionar novo inversor</button>
-        <button onclick="atualizar_inversor()"><i class="uil uil-refresh"></i> Atualizar um inversor</button>
-        <button onclick="deletar_inversor()"><i class="uil uil-trash"></i> Deletar um inversor</button>
+            <table id="tabela-inversores" style="width: 1450px;">
+                <thead>
+                    <tr>
+                        <th style="width: 15%;">Modelo</th>
+                        <th style="width: 10%;">Fabricante</th>
+                        <th style="width: 7.5%;">Potência</th>
+                        <th style="width: 7.5%;">Overload</th>
+                        <th style="width: 7.5%;">Número de MPPTs</th>
+                        <th style="width: 7.5%;">Número de Entradas</th>
+                        <th style="width: 5%;">I<sub>mp</sub></th>
+                        <th style="width: 5%;">I<sub>sc</sub></th>
+                        <th style="width: 10%;">Faixa de Tensão da MPPT</th>
+                        <th style="width: 10%;">Tensão Máxima de Entrada</th>
+                        <th style="width: 7.5%;">I<sub>out</sub></th>
+                        <th style="width: 7.5%;">V<sub>out</sub></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="container" id="container-search-inverters">
+            <div class="container-inversor-inexistente">
+                <img src="../img/falha.png" class="falha-inversor">
+                <span class="campo-inversor-inexistente">Inversor inexistente.</span>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" id="modelo-inversor-buscar" list="" autocomplete="off" onmousedown="value = '';" onclick="mostrar_inversores('buscar')" oninput="filtrar_inversores('buscar')" required>
+                    <label for="name">ID do inversor*:</label> 
+                        <datalist id="modeloinversor-buscar">
+                        </datalist>
+                </form>
+                <span class="campo-obrigatorio-inversores">Esse é um campo obrigatório.</span>
+            </div>
+            <div class="container-buttons-inverters">
+                <button onclick="get_inverter()">Buscar</button> <a href=""><button>Cancelar</button></a>
+            </div>
+        </div>
+        <div class="container" id="container-inversor-encontrado">
+            <div class="container-dados-inversor-geral">
+                <div class="container-titulos-inversor">
+                    <span id="title-inverter-model">Modelo do inversor:</span>
+                    <span id="title-inverter-manufacturer">Fabricante:</span>
+                    <span id="title-inverter-power">Potência nominal de saída:</span>
+                    <span id="title-inverter-overload">Overload:</span>
+                    <span id="title-inverter-mppt">Número de MPPTs:</span>
+                    <span id="title-inverter-input">Número de entradas:</span>
+                    <span id="title-inverter-imp">Imp:</span>
+                    <span id="title-inverter-isc">Isc:</span>
+                    <span id="title-inverter-vmp">Faixa de tensão da MPPT:</span>
+                    <span id="title-inverter-voc">Tensão máxima de entrada:</span>
+                    <span id="title-inverter-iout">Corrente de saída:</span>
+                    <span id="title-inverter-vout">Tensão de saída:</span>
+                    <span id="title-inverter-width">Comprimento:</span>
+                    <span id="title-inverter-length">Largura:</span>
+                    <span id="title-inverter-thickness">Espessura:</span>
+                    <span id="title-inverter-efficiency">Eficiência:</span>
+                    <span id="inverter-added-in">Adicionado em:</span>
+                </div>
+                <div class="container-dados-inversor">
+                    <span id="inverter-model"></span>
+                    <span id="inverter-manufacturer"></span>
+                    <span id="inverter-power"></span>
+                    <span id="inverter-overload"></span>
+                    <span id="inverter-mppt"></span>
+                    <span id="inverter-input"></span>
+                    <span id="inverter-imp"></span>
+                    <span id="inverter-isc"></span>
+                    <span id="inverter-vmp"></span>
+                    <span id="inverter-voc"></span>
+                    <span id="inverter-iout"></span>
+                    <span id="inverter-vout"></span>
+                    <span id="inverter-width"></span>
+                    <span id="inverter-length"></span>
+                    <span id="inverter-thickness"></span>
+                    <span id="inverter-efficiency"></span>
+                    <span id="inverter-added-in"></span>
+                </div>
+            </div>
+            <div class="container-buttons-inverters">
+                <button onclick="buscar_inversor()">Buscar novo inversor</button>  <a href=""><button>Voltar</button></a>
+            </div>
+        </div>
+        <div class="container" id="container-add-inverters-general">
+            <div class="container-inversor-existente">
+                <img src="../img/falha.png" class="falha-inversor">
+                <span class="campo-inversor-existente">Inversor já cadastrado.</span>
+            </div>
+            <div id="container-add-inverters">
+                <div class="container-form">
+                    <form>
+                        <input type="text" id="modelo-inversor-adicionar" oninput="remover_caracteres_especiais(this)" required>
+                        <label for="name">Modelo*:</label>
+                    </form>
+                    <span class="campo-obrigatorio-inversores">Esse é um campo obrigatório.</span>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" id="fabricante-inversor-adicionar" oninput="remover_caracteres_especiais(this)" required>
+                        <label for="name">Fabricante*:</label>
+                    </form>
+                    <span class="campo-obrigatorio-inversores">Esse é um campo obrigatório.</span>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" id="potência-inversor-adicionar" oninput="apenas_numeros(this)" required>
+                        <label for="name">Potência nominal*:</label>
+                    </form>
+                    <span class="campo-obrigatorio-inversores">Esse é um campo obrigatório.</span>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" id="overload-inversor-adicionar" oninput="apenas_numeros(this)" required>
+                        <label for="name">Overload*:</label>
+                    </form>
+                    <span class="campo-obrigatorio-inversores">Esse é um campo obrigatório.</span>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" id="imp-inversor-adicionar" oninput="numero_decimal(this)" required>
+                        <label for="name">I<sub>mp</sub>*:</label>
+                    </form>
+                    <span class="campo-obrigatorio-inversores">Esse é um campo obrigatório.</span>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" id="isc-inversor-adicionar" oninput="numero_decimal(this)" required>
+                        <label for="name">I<sub>sc</sub>*:</label>
+                    </form>
+                    <span class="campo-obrigatorio-inversores">Esse é um campo obrigatório.</span>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" id="vmin-mppt-inversor-adicionar" oninput="apenas_numeros(this)" required>
+                        <label for="name">Tensão mínima da MPPT*:</label>
+                    </form>
+                    <span class="campo-obrigatorio-inversores">Esse é um campo obrigatório.</span>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" id="vmax-mppt-inversor-adicionar" oninput="apenas_numeros(this)" required>
+                        <label for="name">Tensão máxima da MPPT*:</label>
+                    </form>
+                    <span class="campo-obrigatorio-inversores">Esse é um campo obrigatório.</span>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" id="voc-inversor-adicionar" oninput="apenas_numeros(this)" required>
+                        <label for="name">Tensão máxima de entrada*:</label>
+                    </form>
+                    <span class="campo-obrigatorio-inversores">Esse é um campo obrigatório.</span>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" id="n-mppt-inversor-adicionar" oninput="apenas_numeros(this)" required>
+                        <label for="name">Número de MPPTs*:</label>
+                    </form>
+                    <span class="campo-obrigatorio-inversores">Esse é um campo obrigatório.</span>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" id="n-entrada-inversor-adicionar" oninput="apenas_numeros(this)" required>
+                        <label for="name">Número de entradas*:</label>
+                    </form>
+                    <span class="campo-obrigatorio-inversores">Esse é um campo obrigatório.</span>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" id="v-saída-inversor-adicionar" oninput="apenas_numeros(this)" required>
+                        <label for="name">Tensão de saída*:</label>
+                    </form>
+                    <span class="campo-obrigatorio-inversores">Esse é um campo obrigatório.</span>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" id="i-saída-inversor-adicionar" oninput="numero_decimal(this)" required>
+                        <label for="name">Corrente de saída*:</label>
+                    </form>
+                    <span class="campo-obrigatorio-inversores">Esse é um campo obrigatório.</span>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" id="comprimento-inversor-adicionar" oninput="apenas_numeros(this)" required>
+                        <label for="name">Comprimento (em milímetros)*:</label>
+                    </form>
+                    <span class="campo-obrigatorio-inversores">Esse é um campo obrigatório.</span>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" id="largura-inversor-adicionar" oninput="apenas_numeros(this)" required>
+                        <label for="name">Largura (em milímetros)*:</label>
+                    </form>
+                    <span class="campo-obrigatorio-inversores">Esse é um campo obrigatório.</span>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" id="espessura-inversor-adicionar" oninput="apenas_numeros(this)" required>
+                        <label for="name">Espessura (em milímetros)*:</label>
+                    </form>
+                    <span class="campo-obrigatorio-inversores">Esse é um campo obrigatório.</span>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" id="eficiência-inversor-adicionar" oninput="numero_decimal(this)" required>
+                        <label for="name">Eficiência*:</label>
+                    </form>
+                    <span class="campo-obrigatorio-inversores">Esse é um campo obrigatório.</span>
+                </div>
+            </div>
+            <div class="container-buttons-inverters">
+                <button onclick="post_inverter()">Adicionar</button> <a href=""><button>Cancelar</button></a>
+            </div>
+        </div>
+        <div class="container" id="container-inversor-adicionado">
+            <img src="../img/sucesso.png" class="sucesso">
+            <h1>Inversor adicionado com sucesso!</h1>
+            <div class="container-buttons-inverters">
+                <button onclick="adicionar_inversor()">Adicionar novo inversor</button>  <a href="./project.html"><button>Ir para projetos</button></a>
+            </div>
+        </div>
+        <div class="container" id="container-search-to-update-inverters">
+            <div class="container-form">
+                <form>
+                    <input type="text" id="modelo-inversor-buscar-atualizar" list="" autocomplete="off" onmousedown="value = '';" onclick="mostrar_inversores('buscar-atualizar')" oninput="filtrar_inversores('buscar-atualizar')" required>
+                    <label for="name">ID do inversor*:</label> 
+                        <datalist id="modeloinversor-buscar-atualizar">
+                        </datalist>
+                </form>
+                <span class="campo-obrigatorio-inversores">Esse é um campo obrigatório.</span>
+            </div>
+            <div class="container-buttons-inverters">
+                <button onclick="mostrar_campos_atualizar_inversores()">Buscar</button> <a href=""><button>Cancelar</button></a>
+            </div>
+        </div>
+        <div class="container" id="container-update-inverters-general">
+            <div class="container-campos-nao-preenchidos">
+                <img src="../img/falha.png" class="falha-inversor">
+                <span class="campo-nao-preenchido">Preencha pelo menos um dos campos.</span>
+            </div>
+            <div class="container-inversor-inexistente">
+                <img src="../img/falha.png" class="falha-inversor">
+                <span class="campo-inversor-inexistente">Inversor inexistente.</span>
+            </div>
+            <div id="container-update-inverters">
+                <div class="container-form" id="container-form-modelo-inversor">
+                    <form>
+                        <input type="text" id="modelo-inversor-atualizar" oninput="remover_caracteres_especiais(this)" required>
+                        <label for="name">Modelo:</label>
+                    </form>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" id="fabricante-inversor-atualizar" oninput="remover_caracteres_especiais(this)" required>
+                        <label for="name">Fabricante:</label>
+                    </form>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" id="potência-inversor-atualizar" oninput="apenas_numeros(this)" required>
+                        <label for="name">Potência nominal:</label>
+                    </form>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" id="overload-inversor-atualizar" oninput="apenas_numeros(this)" required>
+                        <label for="name">Overload:</label>
+                    </form>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" id="imp-inversor-atualizar" oninput="numero_decimal(this)" required>
+                        <label for="name">I<sub>mp</sub>:</label>
+                    </form>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" id="isc-inversor-atualizar" oninput="numero_decimal(this)" required>
+                        <label for="name">I<sub>sc</sub>:</label>
+                    </form>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" id="vmin-mppt-inversor-atualizar" oninput="apenas_numeros(this)" required>
+                        <label for="name">Tensão mínima da MPPT:</label>
+                    </form>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" id="vmax-mppt-inversor-atualizar" oninput="apenas_numeros(this)" required>
+                        <label for="name">Tensão máxima da MPPT:</label>
+                    </form>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" id="voc-inversor-atualizar" oninput="apenas_numeros(this)" required>
+                        <label for="name">Tensão máxima de entrada:</label>
+                    </form>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" id="n-mppt-inversor-atualizar" oninput="apenas_numeros(this)" required>
+                        <label for="name">Número de MPPTs:</label>
+                    </form>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" id="n-entrada-inversor-atualizar" oninput="apenas_numeros(this)" required>
+                        <label for="name">Número de entradas:</label>
+                    </form>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" id="v-saída-inversor-atualizar" oninput="apenas_numeros(this)" required>
+                        <label for="name">Tensão de saída:</label>
+                    </form>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" id="i-saída-inversor-atualizar" oninput="numero_decimal(this)" required>
+                        <label for="name">Corrente de saída:</label>
+                    </form>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" id="comprimento-inversor-atualizar" oninput="apenas_numeros(this)" required>
+                        <label for="name">Comprimento:</label>
+                    </form>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" id="largura-inversor-atualizar" oninput="apenas_numeros(this)" required>
+                        <label for="name">Largura:</label>
+                    </form>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" id="espessura-inversor-atualizar" oninput="apenas_numeros(this)" required>
+                        <label for="name">Espessura:</label>
+                    </form>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" id="eficiência-inversor-atualizar" oninput="numero_decimal(this)" required>
+                        <label for="name">Eficiência:</label>
+                    </form>
+                </div>
+            </div>
+            <div class="container-buttons-inverters">
+                <button onclick="patch_inverter()">Atualizar</button></a> <a href=""><button>Cancelar</button></a>
+            </div>
+        </div>
+        <div class="container" id="container-inversor-atualizado">
+            <img src="../img/sucesso.png" class="sucesso">
+            <h1>Inversor atualizado com sucesso!</h1>
+            <div class="container-buttons-inverters">
+                <a href="./project.html"><button>Ir para projetos</button></a>
+            </div>
+        </div>
+        <div class="container" id="container-delete-inverters">
+            <div class="container-inversor-inexistente">
+                <img src="../img/falha.png" class="falha-inversor">
+                <span class="campo-inversor-inexistente">Inversor inexistente.</span>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" id="modelo-inversor-deletar" list="" autocomplete="off" onmousedown="value = '';" onclick="mostrar_inversores('deletar')" oninput="filtrar_inversores('deletar')" required>
+                    <label for="name">ID do inversor*:</label> 
+                        <datalist id="modeloinversor-deletar">
+                        </datalist>
+                </form>
+                <span class="campo-obrigatorio-inversores">Esse é um campo obrigatório.</span>
+            </div>
+            <div class="container-buttons-inverters">
+                <button onclick="delete_inverter()">Deletar</button> <a href=""><button>Cancelar</button></a>
+            </div>
+        </div>
+        <div class="container" id="container-inversor-deletado">
+            <img src="../img/sucesso.png" class="sucesso">
+            <h1>Inversor deletado com sucesso!</h1>
+            <div class="container-buttons-inverters">
+                <a href=""><button>Voltar</button></a>
+            </div>
+        </div>
     </div>
-    <div class="container" id="container-geral">
-        <div class="container-buttons-next-previous">
-            <a href=""><button><i class="uil uil-backward"></i>Página anterior</button></a> <a href=""><button>Próxima página <i class="uil uil-forward"></i></button></a>
-        </div>
-        <p>
-        <!--MOSTRAR AQUI TODOS OS INVERSORES, DE DEZ EM DEZ-->
-        </p>
-        <div class="container-buttons-next-previous">
-            <a href=""><button><i class="uil uil-backward"></i>Página anterior</button></a> <a href=""><button>Próxima página <i class="uil uil-forward"></i></button></a>
-        </div>
-    </div>
-    <div class="container" id="container-search-inverters">
-        <div class="container-form">
-            <form>
-                <input type="text" class="modelo-inversor" required>
-                <label for="name">Modelo:</label>
-            </form>
-        </div>
-        <div class="container-buttons-inverters">
-            <a href=""><button>Buscar</button></a> <a href=""><button>Cancelar</button></a>
-        </div>
-    </div>
-    <div class="container" id="container-add-inverters-general">
-        <div id="container-add-inverters">
-            <div class="container-form">
-                <form>
-                    <input type="text" class="modelo-inversor" required>
-                    <label for="name">Modelo:</label>
-                </form>
-            </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="fabricante-inversor" required>
-                    <label for="name">Fabricante:</label>
-                </form>
-            </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="potência-inversor" required>
-                    <label for="name">Potência nominal:</label>
-                </form>
-            </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="overload-inversor" required>
-                    <label for="name">Overload:</label>
-                </form>
-            </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="imp-inversor" required>
-                    <label for="name">I<sub>mp</sub>:</label>
-                </form>
-            </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="isc-inversor" required>
-                    <label for="name">I<sub>sc</sub>:</label>
-                </form>
-            </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="vmin-mppt-inversor" required>
-                    <label for="name">Tensão mínima da MPPT:</label>
-                </form>
-            </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="vmax-mppt-inversor" required>
-                    <label for="name">Tensão máxima da MPPT:</label>
-                </form>
-            </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="voc-inversor" required>
-                    <label for="name">Tensão máxima de entrada:</label>
-                </form>
-            </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="n-mppt-inversor" required>
-                    <label for="name">Número de MPPTs:</label>
-                </form>
-            </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="n-entrada-inversor" required>
-                    <label for="name">Número de entradas:</label>
-                </form>
-            </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="v-saída-inversor" required>
-                    <label for="name">Tensão de saída:</label>
-                </form>
-            </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="i-saída-inversor" required>
-                    <label for="name">Corrente de saída:</label>
-                </form>
-            </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="comprimento-inversor" required>
-                    <label for="name">Comprimento:</label>
-                </form>
-            </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="largura-inversor" required>
-                    <label for="name">Largura:</label>
-                </form>
-            </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="espessura-inversor" required>
-                    <label for="name">Espessura:</label>
-                </form>
-            </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="eficiência-inversor" required>
-                    <label for="name">Eficiência:</label>
-                </form>
-            </div>
-        </div>
-        <div class="container-buttons-inverters">
-            <a href=""><button>Adicionar</button></a> <a href=""><button>Cancelar</button></a>
-        </div>
-    </div>
-    <div class="container" id="container-update-inverters-general">
-        <div id="container-update-inverters">
-            <div class="container-form">
-                <form>
-                    <input type="text" class="modelo-inversor" required>
-                    <label for="name">Modelo:</label>
-                </form>
-            </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="fabricante-inversor" required>
-                    <label for="name">Fabricante:</label>
-                </form>
-            </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="potência-inversor" required>
-                    <label for="name">Potência nominal:</label>
-                </form>
-            </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="overload-inversor" required>
-                    <label for="name">Overload:</label>
-                </form>
-            </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="imp-inversor" required>
-                    <label for="name">I<sub>mp</sub>:</label>
-                </form>
-            </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="isc-inversor" required>
-                    <label for="name">I<sub>sc</sub>:</label>
-                </form>
-            </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="vmin-mppt-inversor" required>
-                    <label for="name">Tensão mínima da MPPT:</label>
-                </form>
-            </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="vmax-mppt-inversor" required>
-                    <label for="name">Tensão máxima da MPPT:</label>
-                </form>
-            </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="voc-inversor" required>
-                    <label for="name">Tensão máxima de entrada:</label>
-                </form>
-            </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="n-mppt-inversor" required>
-                    <label for="name">Número de MPPTs:</label>
-                </form>
-            </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="n-entrada-inversor" required>
-                    <label for="name">Número de entradas:</label>
-                </form>
-            </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="v-saída-inversor" required>
-                    <label for="name">Tensão de saída:</label>
-                </form>
-            </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="i-saída-inversor" required>
-                    <label for="name">Corrente de saída:</label>
-                </form>
-            </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="comprimento-inversor" required>
-                    <label for="name">Comprimento:</label>
-                </form>
-            </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="largura-inversor" required>
-                    <label for="name">Largura:</label>
-                </form>
-            </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="espessura-inversor" required>
-                    <label for="name">Espessura:</label>
-                </form>
-            </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="eficiência-inversor" required>
-                    <label for="name">Eficiência:</label>
-                </form>
-            </div>
-        </div>
-        <div class="container-buttons-inverters">
-            <a href=""><button>Atualizar</button></a> <a href=""><button>Cancelar</button></a>
-        </div>
-    </div>
-    <div class="container" id="container-delete-inverters">
-        <div class="container-form">
-            <form>
-                <input type="text" class="modelo-inversor" required>
-                <label for="name">Modelo:</label>
-            </form>
-        </div>
-        <div class="container-buttons-inverters">
-            <a href=""><button>Deletar</button></a> <a href=""><button>Cancelar</button></a>
+    <div class="container-usuario-nao-autorizado">
+        <div class="container">
+            <img src="../img/falha.png" class="falha">
+            <p class="usuario-nao-autorizado-principal">Acesso negado.</p>
+            <p class="usuario-nao-autorizado-secundario">Faça login primeiro.</p>
+            <a href="./auth.html"><button>Ir para a página de logins</button></a>
         </div>
     </div>
 </body>

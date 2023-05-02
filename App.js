@@ -983,12 +983,10 @@ async function patch_instalation() {
     let coordenadas_decimais = document.getElementById('coordenadas-decimais-atualizar').value;
     let dicionario = {};
 
-    console.log(numero_instalacao)
     if (checkboxLigacao == true) {
         numero_instalacao = '0';
     }
     
-    console.log(numero_instalacao)
     if (numero_instalacao == '' & numero_cliente == '' & logradouro == '' & numero_predial == '' & complemento == '' & bairro == '' & cidade == '' & cep == '' & classificacao == '' & latitude == '' & cep == '' & coordenadas_decimais == ''){
         containerCamposNaoPreenchidos = document.getElementsByClassName('container-campos-nao-preenchidos');
         containerCamposNaoPreenchidos[0].style.visibility = "visible";
@@ -1812,7 +1810,6 @@ async function patch_module() {
             }
         }
         
-        console.log(dicionario)
         url = 'http://localhost:8000/modules/' + id
         
         resposta = await axios.patch(
@@ -1909,6 +1906,258 @@ async function delete_module() {
         for (i = 0; i < arrayCampos.length; i ++) {
             arrayCampos[i].style.visibility = "visible";
             arrayCampos[i].style.display = "grid";
+        }
+    }
+}
+
+//FUNÇÕES PARA A PÁGINA DE MÓDULOS
+async function get_all_inverters() {
+    let access_token = localStorage.getItem('access_token');
+
+    if (access_token != 'Error: Request failed with status code 401' & access_token != 'Error: Request failed with status code 403' & access_token != 'Error: Request failed with status code 422' & access_token != 'Error: Network Error' & access_token != null) {
+        localStorage.setItem('paginaAtualInversores', 0);
+
+        let config = {
+            headers: {
+              'Authorization': 'Bearer ' + access_token
+            }
+        }
+
+        let dadosTodosInversores = await axios.get(
+            'http://localhost:8000/inverters/', config
+        ).then(
+            function (response) {
+                const dadosTodosInversores = response.data;
+                return dadosTodosInversores;
+            }
+        ).catch(
+            function (error) {
+                console.log(error);
+                return error;
+            }
+        )
+        
+        if (dadosTodosInversores != 'Error: Request failed with status code 401' & dadosTodosInversores != 'Error: Request failed with status code 404') {
+            let arrayTD = document.getElementsByTagName('td')
+            
+            for (i = 0; i < 10; i++) {
+                if (i < dadosTodosInversores.length) {
+                    arrayTD[12 * i].innerHTML = dadosTodosInversores[i].modelo
+                    arrayTD[12 * i].style.visibility = 'visible'
+                    arrayTD[12 * i].style.display = 'table-cell'
+                    arrayTD[12 * i + 1].innerHTML = dadosTodosInversores[i].fabricante
+                    arrayTD[12 * i + 1].style.visibility = 'visible'
+                    arrayTD[12 * i + 1].style.display = 'table-cell'
+                    arrayTD[12 * i + 2].innerHTML = (dadosTodosInversores[i].potencia / 1000).toString().replace('.', ',') + ' kW'
+                    arrayTD[12 * i + 2].style.visibility = 'visible'
+                    arrayTD[12 * i + 2].style.display = 'table-cell'
+                    arrayTD[12 * i + 3].innerHTML = (dadosTodosInversores[i].overload / 1000).toString().replace('.', ',') + ' kW'
+                    arrayTD[12 * i + 3].style.visibility = 'visible'
+                    arrayTD[12 * i + 3].style.display = 'table-cell'
+                    arrayTD[12 * i + 4].innerHTML = dadosTodosInversores[i].n_mppt
+                    arrayTD[12 * i + 4].style.visibility = 'visible'
+                    arrayTD[12 * i + 4].style.display = 'table-cell'
+                    arrayTD[12 * i + 5].innerHTML = dadosTodosInversores[i].n_entrada
+                    arrayTD[12 * i + 5].style.visibility = 'visible'
+                    arrayTD[12 * i + 5].style.display = 'table-cell'
+                    arrayTD[12 * i + 6].innerHTML = (dadosTodosInversores[i].imp).toString().replace('.', ',') + ' A'
+                    arrayTD[12 * i + 6].style.visibility = 'visible'
+                    arrayTD[12 * i + 6].style.display = 'table-cell'
+                    arrayTD[12 * i + 7].innerHTML = (dadosTodosInversores[i].isc).toString().replace('.', ',') + ' A'
+                    arrayTD[12 * i + 7].style.visibility = 'visible'
+                    arrayTD[12 * i + 7].style.display = 'table-cell'
+                    arrayTD[12 * i + 8].innerHTML = dadosTodosInversores[i].v_min_mppt + '-' + dadosTodosInversores[i].v_max_mppt + ' V'
+                    arrayTD[12 * i + 8].style.visibility = 'visible'
+                    arrayTD[12 * i + 8].style.display = 'table-cell'
+                    arrayTD[12 * i + 9].innerHTML = dadosTodosInversores[i].v_max + ' V'
+                    arrayTD[12 * i + 9].style.visibility = 'visible'
+                    arrayTD[12 * i + 9].style.display = 'table-cell'
+                    arrayTD[12 * i + 10].innerHTML = dadosTodosInversores[i].i_saida + ' A'
+                    arrayTD[12 * i + 10].style.visibility = 'visible'
+                    arrayTD[12 * i + 10].style.display = 'table-cell'
+                    arrayTD[12 * i + 11].innerHTML = dadosTodosInversores[i].v_saida + ' V'
+                    arrayTD[12 * i + 11].style.visibility = 'visible'
+                    arrayTD[12 * i + 11].style.display = 'table-cell'
+                    
+                    if (i == (dadosTodosInversores.length - 1)) {
+                        arrayTD[12 * i].style.borderBottom = 0;
+                        arrayTD[12 * i + 1].style.borderBottom = 0;
+                        arrayTD[12 * i + 2].style.borderBottom = 0;
+                        arrayTD[12 * i + 3].style.borderBottom = 0;
+                        arrayTD[12 * i + 4].style.borderBottom = 0;
+                        arrayTD[12 * i + 5].style.borderBottom = 0;
+                        arrayTD[12 * i + 6].style.borderBottom = 0;
+                        arrayTD[12 * i + 7].style.borderBottom = 0;
+                        arrayTD[12 * i + 8].style.borderBottom = 0;
+                        arrayTD[12 * i + 9].style.borderBottom = 0;
+                        arrayTD[12 * i + 10].style.borderBottom = 0;
+                        arrayTD[12 * i + 11].style.borderBottom = 0;
+                    }
+                }
+
+                else {
+                    arrayTD[12 * i].style.visibility = 'hidden'
+                    arrayTD[12 * i].style.display = 'none'
+                    arrayTD[12 * i + 1].style.visibility = 'hidden'
+                    arrayTD[12 * i + 1].style.display = 'none'
+                    arrayTD[12 * i + 2].style.visibility = 'hidden'
+                    arrayTD[12 * i + 2].style.display = 'none'
+                    arrayTD[12 * i + 3].style.visibility = 'hidden'
+                    arrayTD[12 * i + 3].style.display = 'none'
+                    arrayTD[12 * i + 4].style.visibility = 'hidden'
+                    arrayTD[12 * i + 4].style.display = 'none'
+                    arrayTD[12 * i + 5].style.visibility = 'hidden'
+                    arrayTD[12 * i + 5].style.display = 'none'
+                    arrayTD[12 * i + 6].style.visibility = 'hidden'
+                    arrayTD[12 * i + 6].style.display = 'none'
+                    arrayTD[12 * i + 7].style.visibility = 'hidden'
+                    arrayTD[12 * i + 7].style.display = 'none'
+                    arrayTD[12 * i + 8].style.visibility = 'hidden'
+                    arrayTD[12 * i + 8].style.display = 'none'
+                    arrayTD[12 * i + 9].style.visibility = 'hidden'
+                    arrayTD[12 * i + 9].style.display = 'none'
+                    arrayTD[12 * i + 10].style.visibility = 'hidden'
+                    arrayTD[12 * i + 10].style.display = 'none'
+                    arrayTD[12 * i + 11].style.visibility = 'hidden'
+                    arrayTD[12 * i + 11].style.display = 'none'
+                }
+            }
+        }
+
+        else if (dadosTodosInversores == 'Error: Request failed with status code 401') {
+            localStorage.setItem('access_token', dadosTodosInversores);
+            checar_autorizacao();
+        }
+    }
+}
+
+async function get_all_inverters_skip(alterar) {
+    let access_token = localStorage.getItem('access_token');
+
+    if (access_token != 'Error: Request failed with status code 401' & access_token != 'Error: Request failed with status code 403' & access_token != 'Error: Request failed with status code 422' & access_token != 'Error: Network Error' & access_token != null) {
+        
+        let pagina = parseInt(localStorage.getItem('paginaAtualInversores')) + parseInt(alterar);
+
+        if (pagina < 0) {
+            pagina = 0
+        }
+
+        let config = {
+            headers: {
+              'Authorization': 'Bearer ' + access_token
+            }
+        }
+
+        let dadosTodosInversores = await axios.get(
+            'http://localhost:8000/inverters/?pular=' + pagina, config
+        ).then(
+            function (response) {
+                const dadosTodosInversores = response.data;
+                return dadosTodosInversores;
+            }
+        ).catch(
+            function (error) {
+                console.log(error);
+                return error;
+            }
+        )
+        
+        if (dadosTodosInversores != 'Error: Request failed with status code 401' & dadosTodosInversores != 'Error: Request failed with status code 404') {
+            let arrayTD = document.getElementsByTagName('td')
+            
+            if (pagina > dadosTodosInversores.length) {
+                pagina = parseInt(dadosTodosInversores.length - dadosTodosInversores.length % 10)
+            }
+            
+            localStorage.setItem('paginaAtualInversores', pagina);
+            
+            for (i = 0; i < 10; i++) {
+                if (i < dadosTodosInversores.length) {
+                    arrayTD[12 * i].innerHTML = dadosTodosInversores[i].modelo
+                    arrayTD[12 * i].style.visibility = 'visible'
+                    arrayTD[12 * i].style.display = 'table-cell'
+                    arrayTD[12 * i + 1].innerHTML = dadosTodosInversores[i].fabricante
+                    arrayTD[12 * i + 1].style.visibility = 'visible'
+                    arrayTD[12 * i + 1].style.display = 'table-cell'
+                    arrayTD[12 * i + 2].innerHTML = (dadosTodosInversores[i].potencia / 1000).toString().replace('.', ',') + ' kW'
+                    arrayTD[12 * i + 2].style.visibility = 'visible'
+                    arrayTD[12 * i + 2].style.display = 'table-cell'
+                    arrayTD[12 * i + 3].innerHTML = (dadosTodosInversores[i].overload / 1000).toString().replace('.', ',') + ' kW'
+                    arrayTD[12 * i + 3].style.visibility = 'visible'
+                    arrayTD[12 * i + 3].style.display = 'table-cell'
+                    arrayTD[12 * i + 4].innerHTML = dadosTodosInversores[i].n_mppt
+                    arrayTD[12 * i + 4].style.visibility = 'visible'
+                    arrayTD[12 * i + 4].style.display = 'table-cell'
+                    arrayTD[12 * i + 5].innerHTML = dadosTodosInversores[i].n_entrada
+                    arrayTD[12 * i + 5].style.visibility = 'visible'
+                    arrayTD[12 * i + 5].style.display = 'table-cell'
+                    arrayTD[12 * i + 6].innerHTML = (dadosTodosInversores[i].imp).toString().replace('.', ',') + ' A'
+                    arrayTD[12 * i + 6].style.visibility = 'visible'
+                    arrayTD[12 * i + 6].style.display = 'table-cell'
+                    arrayTD[12 * i + 7].innerHTML = (dadosTodosInversores[i].isc).toString().replace('.', ',') + ' A'
+                    arrayTD[12 * i + 7].style.visibility = 'visible'
+                    arrayTD[12 * i + 7].style.display = 'table-cell'
+                    arrayTD[12 * i + 8].innerHTML = dadosTodosInversores[i].v_min_mppt + '-' + dadosTodosInversores[i].v_max_mppt + ' V'
+                    arrayTD[12 * i + 8].style.visibility = 'visible'
+                    arrayTD[12 * i + 8].style.display = 'table-cell'
+                    arrayTD[12 * i + 9].innerHTML = dadosTodosInversores[i].v_max + ' V'
+                    arrayTD[12 * i + 9].style.visibility = 'visible'
+                    arrayTD[12 * i + 9].style.display = 'table-cell'
+                    arrayTD[12 * i + 10].innerHTML = dadosTodosInversores[i].i_saida + ' A'
+                    arrayTD[12 * i + 10].style.visibility = 'visible'
+                    arrayTD[12 * i + 10].style.display = 'table-cell'
+                    arrayTD[12 * i + 11].innerHTML = dadosTodosInversores[i].v_saida + ' V'
+                    arrayTD[12 * i + 11].style.visibility = 'visible'
+                    arrayTD[12 * i + 11].style.display = 'table-cell'
+                    
+                    if (i == (dadosTodosInversores.length - 1)) {
+                        arrayTD[12 * i].style.borderBottom = 0;
+                        arrayTD[12 * i + 1].style.borderBottom = 0;
+                        arrayTD[12 * i + 2].style.borderBottom = 0;
+                        arrayTD[12 * i + 3].style.borderBottom = 0;
+                        arrayTD[12 * i + 4].style.borderBottom = 0;
+                        arrayTD[12 * i + 5].style.borderBottom = 0;
+                        arrayTD[12 * i + 6].style.borderBottom = 0;
+                        arrayTD[12 * i + 7].style.borderBottom = 0;
+                        arrayTD[12 * i + 8].style.borderBottom = 0;
+                        arrayTD[12 * i + 9].style.borderBottom = 0;
+                        arrayTD[12 * i + 10].style.borderBottom = 0;
+                        arrayTD[12 * i + 11].style.borderBottom = 0;
+                    }
+                }
+
+                else {
+                    arrayTD[12 * i].style.visibility = 'hidden'
+                    arrayTD[12 * i].style.display = 'none'
+                    arrayTD[12 * i + 1].style.visibility = 'hidden'
+                    arrayTD[12 * i + 1].style.display = 'none'
+                    arrayTD[12 * i + 2].style.visibility = 'hidden'
+                    arrayTD[12 * i + 2].style.display = 'none'
+                    arrayTD[12 * i + 3].style.visibility = 'hidden'
+                    arrayTD[12 * i + 3].style.display = 'none'
+                    arrayTD[12 * i + 4].style.visibility = 'hidden'
+                    arrayTD[12 * i + 4].style.display = 'none'
+                    arrayTD[12 * i + 5].style.visibility = 'hidden'
+                    arrayTD[12 * i + 5].style.display = 'none'
+                    arrayTD[12 * i + 6].style.visibility = 'hidden'
+                    arrayTD[12 * i + 6].style.display = 'none'
+                    arrayTD[12 * i + 7].style.visibility = 'hidden'
+                    arrayTD[12 * i + 7].style.display = 'none'
+                    arrayTD[12 * i + 8].style.visibility = 'hidden'
+                    arrayTD[12 * i + 8].style.display = 'none'
+                    arrayTD[12 * i + 9].style.visibility = 'hidden'
+                    arrayTD[12 * i + 9].style.display = 'none'
+                    arrayTD[12 * i + 10].style.visibility = 'hidden'
+                    arrayTD[12 * i + 10].style.display = 'none'
+                    arrayTD[12 * i + 11].style.visibility = 'hidden'
+                    arrayTD[12 * i + 11].style.display = 'none'
+                }
+            }
+        }
+
+        else if (dadosTodosInversores == 'Error: Request failed with status code 401') {
+            localStorage.setItem('access_token', dadosTodosInversores);
+            checar_autorizacao();
         }
     }
 }
