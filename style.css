@@ -450,6 +450,7 @@ td {
     visibility: hidden;
     display: none;
 }
+
 /* ESTILOS DAS CLASSES DA PÁGINA DE CLIENTES */
 #container-options {
     display: flex;
@@ -1055,6 +1056,99 @@ td {
 }
 
 /* ESTILOS DAS CLASSES DA PÁGINA DE PROJETOS */
+.container-projeto-existente {
+    align-items: center;
+    visibility: hidden;
+    display: none;
+    flex-direction: row;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 20px;
+    font-size: large;
+    font-weight: bolder;
+    color: red;
+}
+
+.campo-projeto-existente {
+    margin-left: 5px;
+    font-size: large;
+    font-weight: bolder;
+    color: red;
+}
+
+.container-projeto-inexistente {
+    align-items: center;
+    visibility: hidden;
+    display: none;
+    flex-direction: row;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 20px;
+    font-size: large;
+    font-weight: bolder;
+    color: red;
+}
+
+.campo-projeto-inexistente {
+    margin-left: 5px;
+    font-size: large;
+    font-weight: bolder;
+    color: red;
+}
+
+.falha-projeto {
+    margin-right: 5px;
+    height: 20px;
+    width: 20px;
+}
+
+.campo-obrigatorio-projetos {
+    margin-right: 275px;
+    font-size: small;
+    visibility: hidden;
+    display: none;
+}
+
+.container-dados-projeto-geral {
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: row;
+}
+
+.container-titulos-projeto {
+    display: grid;
+    text-align: right;
+    margin-right: 5px;
+    font-weight: bolder;
+}
+
+.container-dados-projeto {
+    display: grid;
+    text-align: left;
+    margin-left: 5px;
+}
+
+#container-projeto-encontrado {
+    visibility: hidden;
+    display: none;
+}
+
+#container-projeto-adicionado {
+    visibility: hidden;
+    display: none;
+}
+
+#container-projeto-atualizado {
+    visibility: hidden;
+    display: none;
+}
+
+#container-projeto-deletado {
+    visibility: hidden;
+    display: none;
+}
+
 .checkbox {
     cursor: pointer;
     appearance: none;
@@ -1096,6 +1190,11 @@ span {
     display: flex;
     margin-bottom: 20px;
     flex-direction: row;
+}
+
+#container-search-to-update-projects {
+    visibility: hidden;
+    display: none;
 }
 
 #container-search-projects {

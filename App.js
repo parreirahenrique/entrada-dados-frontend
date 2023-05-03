@@ -52,8 +52,6 @@ async function login() {
             arrayCampos[i].style.display = "grid";
         }
     }
-    
-    
 }
 
 async function logout() {

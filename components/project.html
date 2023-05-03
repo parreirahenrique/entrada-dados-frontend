@@ -17,507 +17,793 @@
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Josefin+Sans:ital,wght@0,100;1,700&family=Roboto&family=Zilla+Slab:wght@300&display=swap" rel="stylesheet">
 
     <!-- JAVA SCRIPT FILE -->
+    <script src="../node_modules/axios/dist/axios.min.js"></script>
     <script defer src="../script.js"></script>
+    <script defer src="../App.js"></script>
 </head>
-<body>
-    <header>
-        <nav class="flexbox">
-            <div class="container-nav">
+<body onload="checar_autorizacao(); get_username(); get_all_projects()">
+    <div class="container-usuario-autorizado">
+        <header>
+            <nav class="flexbox">
                 <p>Projetos</p>
-                <a href="../index.html"><i class="uil uil-home" id="uil-nav"></i></a>
-                <a href="./components/auth.html"><i class="uil uil-user" id="uil-nav"></i></a>
+                <div class="container-nav">
+                    <a href="../index.html"><i class="uil uil-home" id="uil-nav"></i></a>
+                    <a href="./auth.html"><i class="uil uil-user" id="uil-nav"></i></a>
+                    <div class="container-user">
+                        <p class="nome-usuario">Usuário</p>
+                        <a class="sair-usuario" onclick="logout()">Sair</a>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <div class="container" id="container-options">
+            <button onclick="buscar_projeto()"><i class="uil uil-search"></i> Buscar por projeto</button>
+            <button onclick="adicionar_projeto()"><i class="uil uil-plus"></i> Adicionar novo projeto</button>
+            <button onclick="atualizar_projeto()"><i class="uil uil-refresh"></i> Atualizar um projeto</button>
+            <button onclick="deletar_projeto()"><i class="uil uil-trash"></i> Deletar um projeto</button>
+        </div>
+        <div class="container" id="container-geral">
+            <div class="container-buttons-next-previous">
+                <a href=""><button><i class="uil uil-backward"></i>Página anterior</button></a> <a href=""><button>Próxima página <i class="uil uil-forward"></i></button></a>
             </div>
-        </nav>
-    </header>
-    <div class="container" id="container-options">
-        <button onclick="buscar_projeto()"><i class="uil uil-search"></i> Buscar por projeto</button>
-        <button onclick="adicionar_projeto()"><i class="uil uil-plus"></i> Adicionar novo projeto</button>
-        <button onclick="atualizar_projeto()"><i class="uil uil-refresh"></i> Atualizar um projeto</button>
-        <button onclick="deletar_projeto()"><i class="uil uil-trash"></i> Deletar um projeto</button>
+            <table id="tabela-projetos" style="width: 1450px;">
+                <thead>
+                    <tr>
+                        <th style="width: 20%;">Nome do Cliente</th>
+                        <th style="width: 5.833333%;">Ligação<br>Nova</th>
+                        <th style="width: 5.833333%;">Aumento<br>de Carga</th>
+                        <th style="width: 5.833333%;">Aumento<br>de Usina</th>
+                        <th style="width: 7.5%;">Agrupamento</th>
+                        <th style="width: 7.5%;">Qtd.<br>Módulo(s)</th>
+                        <th style="width: 20%;">Módulo(s)</th>
+                        <th style="width: 7.5%;">Qtd.<br>Inversor(es)</th>
+                        <th style="width: 20%;">Inversor(es)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="container" id="container-search-projects">
+            <div class="container-projeto-inexistente">
+                <img src="../img/falha.png" class="falha-projeto">
+                <span class="campo-projeto-inexistente">Projeto inexistente.</span>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" id="id-projeto-buscar" list="" autocomplete="off" onmousedown="value = '';" onclick="mostrar_projetos('buscar')" oninput="filtrar_projetos('buscar')" required>
+                    <label for="name">ID do projeto*:</label>    
+                        <datalist id="idprojeto-buscar">
+                        </datalist>
+                    
+                </form>
+                <span class="campo-obrigatorio-projetos">Esse é um campo obrigatório.</span>
+            </div>
+            <div class="container-buttons-projects">
+                <button onclick="get_project()">Buscar</button> <a href=""><button>Cancelar</button></a>
+            </div>
+        </div>
+        <div class="container" id="container-projeto-encontrado">
+            <div class="container-dados-projeto-geral">
+                <div class="container-titulos-projeto">
+                    <span id="title-project-instalation">Número da instalação:</span>
+                    <span id="title-project-client">Número do cliente:</span>
+                    <span id="title-project-link">Ligação nova:</span>
+                    <span id="title-project-load">Aumento de carga:</span>
+                    <span id="title-project-plant">Aumento de usina:</span>
+                    <span id="title-project-grouping">Agrupamento:</span>
+                    <span id="title-project-phases">Número de fases atual:</span>
+                    <span id="title-project-breaker">Disjuntor atual:</span>
+                    <span id="title-project-n-phases">Número de fases solicitado:</span>
+                    <span id="title-project-n-breaker">Disjuntor solicitado:</span>
+                    <span id="title-project-g-phases">Número de fases do agrupamento:</span>
+                    <span id="title-project-g-breaker">Disjuntor do agrupamento:</span>
+                    <span id="title-project-q-modules-1">Quantidade de módulo 1:</span>
+                    <span id="title-project-f-modules-1">Fabricante do módulo 1:</span>
+                    <span id="title-project-m-modules-1">Modelo do módulo 1:</span>
+                    <span id="title-project-q-modules-2">Quantidade de módulo 2:</span>
+                    <span id="title-project-f-modules-2">Fabricante do módulos 2:</span>
+                    <span id="title-project-m-modules-2">Modelo do módulo 2:</span>
+                    <span id="title-project-q-inverter-1">Quantidade de inversor 1:</span>
+                    <span id="title-project-f-inverter-1">Fabricante do inversor 1:</span>
+                    <span id="title-project-m-inverter-1">Modelo do inversor 1:</span>
+                    <span id="title-project-q-inverter-2">Quantidade de inversor 2:</span>
+                    <span id="title-project-f-inverter-2">Fabricante do inversor 2:</span>
+                    <span id="title-project-m-inverter-2">Modelo do inversor 2:</span>
+                    <span id="title-project-q-inverter-3">Quantidade de inversor 3:</span>
+                    <span id="title-project-f-inverter-3">Fabricante do inversor 3:</span>
+                    <span id="title-project-m-inverter-3">Modelo do inversor 3:</span>
+                    <span id="title-project-q-inverter-4">Quantidade de inversor 4:</span>
+                    <span id="title-project-f-inverter-4">Fabricante do inversor 4:</span>
+                    <span id="title-project-m-inverter-4">Modelo do inversor 4:</span>
+                </div>
+                <div class="container-dados-projeto">
+                    <span id="project-instalation"></span>
+                    <span id="project-client"></span>
+                    <span id="project-link"></span>
+                    <span id="project-load"></span>
+                    <span id="project-plant"></span>
+                    <span id="project-grouping"></span>
+                    <span id="project-phases"></span>
+                    <span id="project-breaker"></span>
+                    <span id="project-n-phases"></span>
+                    <span id="project-n-breaker"></span>
+                    <span id="project-g-phases"></span>
+                    <span id="project-g-breaker"></span>
+                    <span id="project-q-modules-1"></span>
+                    <span id="project-f-modules-1"></span>
+                    <span id="project-m-modules-1"></span>
+                    <span id="project-q-modules-2"></span>
+                    <span id="project-f-modules-2"></span>
+                    <span id="project-m-modules-2"></span>
+                    <span id="project-q-inverter-1"></span>
+                    <span id="project-f-inverter-1"></span>
+                    <span id="project-m-inverter-1"></span>
+                    <span id="project-q-inverter-2"></span>
+                    <span id="project-f-inverter-2"></span>
+                    <span id="project-m-inverter-2"></span>
+                    <span id="project-q-inverter-3"></span>
+                    <span id="project-f-inverter-3"></span>
+                    <span id="project-m-inverter-3"></span>
+                    <span id="project-q-inverter-4"></span>
+                    <span id="project-f-inverter-4"></span>
+                    <span id="project-m-inverter-4"></span>
+                </div>
+            </div>
+            <div class="container-buttons-projects">
+                <button onclick="buscar_projeto()">Buscar novo projeto</button>  <a href=""><button>Voltar</button></a>
+            </div>
+        </div>
+        <div class="container" id="container-add-projects-general">
+            <div id="container-add-projects">
+                <div class="container-projeto-existente">
+                    <img src="../img/falha.png" class="falha-projeto">
+                    <span class="campo-projeto-existente">Projeto já cadastrado.</span>
+                </div>
+                <div class="container-checkbox">
+                    <form class="form-checkbox">
+                        <input type="checkbox" class="checkbox" id="checkbox-ligacao-1" required onchange="ligacao_nova1()">
+                        <span>Ligação nova</span>
+                    </form>
+                    <form class="form-checkbox">
+                        <input type="checkbox" class="checkbox" id="checkbox-aumento-carga-1" required onchange="aumento_carga1()">
+                        <span>Aumento de carga</span>
+                    </form>
+                    <form class="form-checkbox">
+                        <input type="checkbox" class="checkbox" id="checkbox-aumento-usina-1" required onchange="aumento_usina1()">
+                        <span>Aumento de usina</span>
+                    </form>
+                    <form class="form-checkbox">
+                        <input type="checkbox" class="checkbox" id="checkbox-agrupamento-1" required onchange="agrupamento1()">
+                        <span>Agrupamento</span>
+                    </form>
+                </div>
+                <div id="container-numero-instalacao-1">
+                    <div class="container-form">
+                        <form>
+                            <input type="text" class="numero-instalação-adicionar" oninput="apenas_numeros(this)" required>
+                            <label for="name">Número de instalação*:</label>
+                        </form>
+                        <span class="campo-obrigatorio-projetos">Esse é um campo obrigatório.</span>
+                    </div>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" class="número-cliente-adicionar" oninput="apenas_numeros(this)" required>
+                        <label for="name">Número do cliente*:</label>
+                    </form>
+                    <span class="campo-obrigatorio-projetos">Esse é um campo obrigatório.</span>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" class="n-fases-adicionar" required>
+                        <label for="name">Número de fases atual*:</label>
+                    </form>
+                    <span class="campo-obrigatorio-projetos">Esse é um campo obrigatório.</span>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" class="disjuntor-adicionar" oninput="apenas_numeros(this)" required>
+                        <label for="name">Disjuntor atual*:</label>
+                    </form>
+                    <span class="campo-obrigatorio-projetos">Esse é um campo obrigatório.</span>
+                </div>
+                <div class="container-aumento-carga" id="container-aumento-carga-1">
+                    <div class="container-form">
+                        <form>
+                            <input type="text" class="novo-n-fase-adicionar" required>
+                            <label for="name">Número de fases solicitado*:</label>
+                        </form>
+                        <span class="campo-obrigatorio-projetos">Esse é um campo obrigatório.</span>
+                    </div>
+                    <div class="container-form">
+                        <form>
+                            <input type="text" class="novo-disjuntor-adicionar" oninput="apenas_numeros(this)" required>
+                            <label for="name">Disjuntor solicitado*:</label>
+                        </form>
+                        <span class="campo-obrigatorio-projetos">Esse é um campo obrigatório.</span>
+                    </div>
+                </div>
+                <div class="container-agrupamento" id="container-agrupamento-1">
+                    <div class="container-form">
+                        <form>
+                            <input type="text" class="n-fases-agrupamento-adicionar" required>
+                            <label for="name">Número de fases do agrupamento*:</label>
+                        </form>
+                        <span class="campo-obrigatorio-projetos">Esse é um campo obrigatório.</span>
+                    </div>
+                    <div class="container-form">
+                        <form>
+                            <input type="text" class="disjuntor-agrupamento-adicionar" oninput="apenas_numeros(this)" required>
+                            <label for="name">Disjuntor geral do agrupamento*:</label>
+                        </form>
+                        <span class="campo-obrigatorio-projetos">Esse é um campo obrigatório.</span>
+                    </div>
+                </div>
+                <div class="container-modulo-1">
+                    <form class="form-checkbox-aumento-usina">
+                        <input type="checkbox" class="checkbox" required>
+                        <span>Módulo da usina anterior?</span>
+                    </form>
+                    <div class="container-form">
+                        <form>
+                            <input type="text" id="quantidade-módulo-1-adicionar" oninput="apenas_numeros(this)" required>
+                            <label for="name">Quantidade do módulo 1:</label>
+                        </form>
+                        <span class="campo-obrigatorio-projetos">Esse é um campo obrigatório.</span>
+                    </div>
+                    <div class="container-form">
+                        <form>
+                            <input type="text" id="fabricante-módulo-1-adicionar" required>
+                            <label for="name">Fabricante do módulo 1:</label>
+                        </form>
+                        <span class="campo-obrigatorio-projetos">Esse é um campo obrigatório.</span>
+                    </div>
+                    <div class="container-form">
+                        <form>
+                            <input type="text" id="modelo-módulo-1-adicionar" required>
+                            <label for="name">Modelo do módulo 1:</label>
+                        </form>
+                        <span class="campo-obrigatorio-projetos">Esse é um campo obrigatório.</span>
+                    </div>
+                </div>
+                <div class="container-modulo-2">
+                    <form class="form-checkbox-aumento-usina">
+                        <input type="checkbox" class="checkbox" required>
+                        <span>Módulo da usina anterior?</span>
+                    </form>
+                    <div class="container-form">
+                        <form>
+                            <input type="text" id="quantidade-módulo-2-adicionar" oninput="apenas_numeros(this)" required>
+                            <label for="name">Quantidade do módulo 2:</label>
+                        </form>
+                        <span class="campo-obrigatorio-projetos">Esse é um campo obrigatório.</span>
+                    </div>
+                    <div class="container-form">
+                        <form>
+                            <input type="text" id="fabricante-módulo-2-adicionar" required>
+                            <label for="name">Fabricante do módulo 2:</label>
+                        </form>
+                        <span class="campo-obrigatorio-projetos">Esse é um campo obrigatório.</span>
+                    </div>
+                    <div class="container-form">
+                        <form>
+                            <input type="text" id="modelo-módulo-2-adicionar" required>
+                            <label for="name">Modelo do módulo 2:</label>
+                        </form>
+                    </div>
+                </div>
+                <div class="container-add-inverter">
+                    <button onclick="adicionar_inversor1()">Adicionar inversor</button> <button onclick="remover_inversor1()">Remover inversor</button>
+                </div>
+                <div class="container-inversor-1" id="container-inversor-11">
+                    <form class="form-checkbox-aumento-usina">
+                        <input type="checkbox" class="checkbox" required>
+                        <span>Inversor da usina anterior?</span>
+                    </form>
+                    <div class="container-form">
+                        <form>
+                            <input type="text" id="quantidade-inversor-1-adicionar" oninput="apenas_numeros(this)" required>
+                            <label for="name">Quantidade do inversor 1:</label>
+                        </form>
+                        <span class="campo-obrigatorio-projetos">Esse é um campo obrigatório.</span>
+                    </div>
+                    <div class="container-form">
+                        <form>
+                            <input type="text" id="fabricante-inversor-1-adicionar" required>
+                            <label for="name">Fabricante do inversor 1:</label>
+                        </form>
+                        <span class="campo-obrigatorio-projetos">Esse é um campo obrigatório.</span>
+                    </div>
+                    <div class="container-form">
+                        <form>
+                            <input type="text" id="modelo-inversor-1-adicionar" required>
+                            <label for="name">Modelo do inversor 1:</label>
+                        </form>
+                        <span class="campo-obrigatorio-projetos">Esse é um campo obrigatório.</span>
+                    </div>
+                </div>
+                <div class="container-inversor-2" id="container-inversor-21">
+                    <form class="form-checkbox-aumento-usina">
+                        <input type="checkbox" class="checkbox" required>
+                        <span>Inversor da usina anterior?</span>
+                    </form>
+                    <div class="container-form">
+                        <form>
+                            <input type="text" id="quantidade-inversor-2-adicionar" oninput="apenas_numeros(this)" required>
+                            <label for="name">Quantidade do inversor 2:</label>
+                        </form>
+                        <span class="campo-obrigatorio-projetos">Esse é um campo obrigatório.</span>
+                    </div>
+                    <div class="container-form">
+                        <form>
+                            <input type="text" id="fabricante-inversor-2-adicionar" required>
+                            <label for="name">Fabricante do inversor 2:</label>
+                        </form>
+                        <span class="campo-obrigatorio-projetos">Esse é um campo obrigatório.</span>
+                    </div>
+                    <div class="container-form">
+                        <form>
+                            <input type="text" id="modelo-inversor-2-adicionar" required>
+                            <label for="name">Modelo do inversor 2:</label>
+                        </form>
+                        <span class="campo-obrigatorio-projetos">Esse é um campo obrigatório.</span>
+                    </div>
+                </div>
+                <div class="container-inversor-3" id="container-inversor-31">
+                    <form class="form-checkbox-aumento-usina">
+                        <input type="checkbox" class="checkbox" required>
+                        <span>Inversor da usina anterior?</span>
+                    </form>
+                    <div class="container-form">
+                        <form>
+                            <input type="text" id="quantidade-inversor-3-adicionar" oninput="apenas_numeros(this)" required>
+                            <label for="name">Quantidade do inversor 3:</label>
+                        </form>
+                        <span class="campo-obrigatorio-projetos">Esse é um campo obrigatório.</span>
+                    </div>
+                    <div class="container-form">
+                        <form>
+                            <input type="text" id="fabricante-inversor-3-adicionar" required>
+                            <label for="name">Fabricante do inversor 3:</label>
+                        </form>
+                        <span class="campo-obrigatorio-projetos">Esse é um campo obrigatório.</span>
+                    </div>
+                    <div class="container-form">
+                        <form>
+                            <input type="text" id="modelo-inversor-3-adicionar" required>
+                            <label for="name">Modelo do inversor 3:</label>
+                        </form>
+                        <span class="campo-obrigatorio-projetos">Esse é um campo obrigatório.</span>
+                    </div>
+                </div>
+                <div class="container-inversor-4" id="container-inversor-41">
+                    <form class="form-checkbox-aumento-usina">
+                        <input type="checkbox" class="checkbox" required>
+                        <span>Inversor da usina anterior?</span>
+                    </form>
+                    <div class="container-form">
+                        <form>
+                            <input type="text" id="quantidade-inversor-4-adicionar" oninput="apenas_numeros(this)" required>
+                            <label for="name">Quantidade do inversor 4:</label>
+                        </form>
+                        <span class="campo-obrigatorio-projetos">Esse é um campo obrigatório.</span>
+                    </div>
+                    <div class="container-form">
+                        <form>
+                            <input type="text" id="fabricante-inversor-4-adicionar" required>
+                            <label for="name">Fabricante do inversor 4:</label>
+                        </form>
+                        <span class="campo-obrigatorio-projetos">Esse é um campo obrigatório.</span>
+                    </div>
+                    <div class="container-form">
+                        <form>
+                            <input type="text" id="modelo-inversor-4-adicionar" required>
+                            <label for="name">Modelo do inversor 4:</label>
+                        </form>
+                        <span class="campo-obrigatorio-projetos">Esse é um campo obrigatório.</span>
+                    </div>
+                </div>
+            </div>
+            <div class="container-buttons-projects">
+                <button onclick="post_project()">Adicionar</button> <a href=""><button>Cancelar</button></a>
+            </div>
+        </div>
+        <div class="container" id="container-projeto-adicionado">
+            <img src="../img/sucesso.png" class="sucesso">
+            <h1>Projeto adicionado com sucesso!</h1>
+            <div class="container-buttons-projects">
+                <button onclick="print_project()">Imprimir projeto</button> <button onclick="adicionar_projeto()">Adicionar novo projeto</button> <a href=""><button>Voltar</button></a>
+            </div>
+        </div>
+        <div class="container" id="container-search-to-update-projects">
+            <div class="container-form">
+                <form>
+                    <input type="text" id="id-projeto-buscar-atualizar" list="" autocomplete="off" onmousedown="value = '';" onclick="mostrar_clientes('buscar-atualizar')" oninput="filtrar_clientes('buscar-atualizar')" placeholder="Ex.: 7000000000" required>
+                    <label for="name">ID do projeto*:</label>    
+                        <datalist id="idprojeto-buscar-atualizar">
+                        </datalist>
+                </form>
+                <span class="campo-obrigatorio-projetos">Esse é um campo obrigatório.</span>
+            </div>
+            <div class="container-buttons-projects">
+                <button onclick="mostrar_campos_atualizar_projetos()">Buscar</button> <a href=""><button>Cancelar</button></a>
+            </div>
+        </div>
+        <div class="container" id="container-update-projects-general">
+            <div id="container-update-projects">
+                <div class="container-checkbox">
+                    <form class="form-checkbox">
+                        <input type="checkbox" class="checkbox" id="checkbox-ligacao-2" required onchange="ligacao_nova2()">
+                        <span>Ligação nova</span>
+                    </form>
+                    <form class="form-checkbox">
+                        <input type="checkbox" class="checkbox" id="checkbox-aumento-carga-2" required onchange="aumento_carga2()">
+                        <span>Aumento de carga</span>
+                    </form>
+                    <form class="form-checkbox">
+                        <input type="checkbox" class="checkbox" id="checkbox-aumento-usina-2" required onchange="aumento_usina2()">
+                        <span>Aumento de usina</span>
+                    </form>
+                    <form class="form-checkbox">
+                        <input type="checkbox" class="checkbox" id="checkbox-agrupamento-2" required onchange="agrupamento2()">
+                        <span>Agrupamento</span>
+                    </form>
+                </div>
+                <div id="container-numero-instalacao-2">
+                    <div class="container-form">
+                        <form>
+                            <input type="text" id="numero-instalação-atualizar" oninput="apenas_numeros(this)" required>
+                            <label for="name">Número de instalação:</label>
+                        </form>
+                    </div>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" id="número-cliente-atualizar" oninput="apenas_numeros(this)" required>
+                        <label for="name">Número do cliente:</label>
+                    </form>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" id="n-fases-atualizar" required>
+                        <label for="name">Número de fases atual:</label>
+                    </form>
+                </div>
+                <div class="container-form">
+                    <form>
+                        <input type="text" class="disjuntor-atualizar" oninput="apenas_numeros(this)" required>
+                        <label for="name">Disjuntor atual:</label>
+                    </form>
+                </div>
+                <div class="container-aumento-carga" id="container-aumento-carga-2">
+                    <div class="container-form">
+                        <form>
+                            <input type="text" class="novo-n-fases-atualizar" required>
+                            <label for="name">Número de fases solicitado:</label>
+                        </form>
+                    </div>
+                    <div class="container-form">
+                        <form>
+                            <input type="text" class="novo-disjuntor-atualizar" oninput="apenas_numeros(this)" required>
+                            <label for="name">Disjuntor solicitado:</label>
+                        </form>
+                    </div>
+                </div>
+                <div class="container-agrupamento" id="container-agrupamento-2">
+                    <div class="container-form">
+                        <form>
+                            <input type="text" class="n-fases-agrupamento-atualizar" required>
+                            <label for="name">Número de fases do agrupamento:</label>
+                        </form>
+                    </div>
+                    <div class="container-form">
+                        <form>
+                            <input type="text" class="disjuntor-agrupamento-atualizar" oninput="apenas_numeros(this)" required>
+                            <label for="name">Disjuntor geral do agrupamento:</label>
+                        </form>
+                    </div>
+                </div>
+                <div class="container-modulo-1">
+                    <form class="form-checkbox-aumento-usina">
+                        <input type="checkbox" class="checkbox" required>
+                        <span>Módulo da usina anterior?</span>
+                    </form>
+                    <div class="container-form">
+                        <form>
+                            <input type="text" class="quantidade-módulo-1-atualizar" oninput="apenas_numeros(this)" required>
+                            <label for="name">Quantidade do módulo 1:</label>
+                        </form>
+                    </div>
+                    <div class="container-form">
+                        <form>
+                            <input type="text" class="fabricante-módulo-1-atualizar" required>
+                            <label for="name">Fabricante do módulo 1:</label>
+                        </form>
+                    </div>
+                    <div class="container-form">
+                        <form>
+                            <input type="text" class="modelo-módulo-1-atualizar" required>
+                            <label for="name">Modelo do módulo 1:</label>
+                        </form>
+                    </div>
+                </div>
+                <div class="container-modulo-2">
+                    <form class="form-checkbox-aumento-usina">
+                        <input type="checkbox" class="checkbox" required>
+                        <span>Módulo da usina anterior?</span>
+                    </form>
+                    <div class="container-form">
+                        <form>
+                            <input type="text" class="quantidade-módulo-2-atualizar" oninput="apenas_numeros(this)" required>
+                            <label for="name">Quantidade do módulo 2:</label>
+                        </form>
+                    </div>
+                    <div class="container-form">
+                        <form>
+                            <input type="text" class="fabricante-módulo-2-atualizar" required>
+                            <label for="name">Fabricante do módulo 2:</label>
+                        </form>
+                    </div>
+                    <div class="container-form">
+                        <form>
+                            <input type="text" class="modelo-módulo-2-atualizar" required>
+                            <label for="name">Modelo do módulo 2:</label>
+                        </form>
+                    </div>
+                </div>
+                <div class="container-add-inverter">
+                    <button onclick="adicionar_inversor2()">Adicionar inversor</button> <button onclick="remover_inversor2()">Remover inversor</button>
+                </div>
+                <div class="container-inversor-1" id="container-inversor-12">
+                    <form class="form-checkbox-aumento-usina">
+                        <input type="checkbox" class="checkbox" required>
+                        <span>Inversor da usina anterior?</span>
+                    </form>
+                    <div class="container-form">
+                        <form>
+                            <input type="text" class="quantidade-inversor-1-atualizar" oninput="apenas_numeros(this)" required>
+                            <label for="name">Quantidade do inversor 1:</label>
+                        </form>
+                    </div>
+                    <div class="container-form">
+                        <form>
+                            <input type="text" class="fabricante-inversor-1-atualizar" required>
+                            <label for="name">Fabricante do inversor 1:</label>
+                        </form>
+                    </div>
+                    <div class="container-form">
+                        <form>
+                            <input type="text" class="modelo-inversor-1-atualizar" required>
+                            <label for="name">Modelo do inversor 1:</label>
+                        </form>
+                    </div>
+                </div>
+                <div class="container-inversor-2" id="container-inversor-22">
+                    <form class="form-checkbox-aumento-usina">
+                        <input type="checkbox" class="checkbox" required>
+                        <span>Inversor da usina anterior?</span>
+                    </form>
+                    <div class="container-form">
+                        <form>
+                            <input type="text" class="quantidade-inversor-2-atualizar" oninput="apenas_numeros(this)" required>
+                            <label for="name">Quantidade do inversor 2:</label>
+                        </form>
+                    </div>
+                    <div class="container-form">
+                        <form>
+                            <input type="text" class="fabricante-inversor-2-atualizar" required>
+                            <label for="name">Fabricante do inversor 2:</label>
+                        </form>
+                    </div>
+                    <div class="container-form">
+                        <form>
+                            <input type="text" class="modelo-inversor-2-atualizar" required>
+                            <label for="name">Modelo do inversor 2:</label>
+                        </form>
+                    </div>
+                </div>
+                <div class="container-inversor-3" id="container-inversor-32">
+                    <form class="form-checkbox-aumento-usina">
+                        <input type="checkbox" class="checkbox" required>
+                        <span>Inversor da usina anterior?</span>
+                    </form>
+                    <div class="container-form">
+                        <form>
+                            <input type="text" class="quantidade-inversor-3-atualizar" oninput="apenas_numeros(this)" required>
+                            <label for="name">Quantidade do inversor 3:</label>
+                        </form>
+                    </div>
+                    <div class="container-form">
+                        <form>
+                            <input type="text" class="fabricante-inversor-3-atualizar" required>
+                            <label for="name">Fabricante do inversor 3:</label>
+                        </form>
+                    </div>
+                    <div class="container-form">
+                        <form>
+                            <input type="text" class="modelo-inversor-3-atualizar" required>
+                            <label for="name">Modelo do inversor 3:</label>
+                        </form>
+                    </div>
+                </div>
+                <div class="container-inversor-4" id="container-inversor-42">
+                    <form class="form-checkbox-aumento-usina">
+                        <input type="checkbox" class="checkbox" required>
+                        <span>Inversor da usina anterior?</span>
+                    </form>
+                    <div class="container-form">
+                        <form>
+                            <input type="text" class="quantidade-inversor-4-atualizar" oninput="apenas_numeros(this)" required>
+                            <label for="name">Quantidade do inversor 4:</label>
+                        </form>
+                    </div>
+                    <div class="container-form">
+                        <form>
+                            <input type="text" class="fabricante-inversor-4-atualizar" required>
+                            <label for="name">Fabricante do inversor 4:</label>
+                        </form>
+                    </div>
+                    <div class="container-form">
+                        <form>
+                            <input type="text" class="modelo-inversor-4-atualizar" required>
+                            <label for="name">Modelo do inversor 4:</label>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="container-buttons-projects">
+                <button onclick="patch_project()">Atualizar</button> <button onclick="atualizar_projeto()">Voltar</button>
+            </div>
+        </div>
+        <div class="container" id="container-projeto-atualizado">
+            <img src="../img/sucesso.png" class="sucesso">
+            <h1>Projeto atualizado com sucesso!</h1>
+            <div class="container-buttons-projects">
+                <button onclick="print_project()">Imprimir projeto</button> <a href=""><button>Voltar</button></a>
+            </div>
+        </div>
+        <div class="container" id="container-delete-projects">
+            <div class="container-projeto-inexistente">
+                <img src="../img/falha.png" class="falha-projeto">
+                <span class="campo-projeto-inexistente">Projeto inexistente.</span>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" id="id-projeto-deletar" list="" autocomplete="off" onmousedown="value = '';" onclick="mostrar_projetos('deletar')" oninput="filtrar_projetos('deletar')" required>
+                    <label for="name">ID do projeto*:</label>    
+                        <datalist id="idprojeto-deletar">
+                        </datalist>
+                </form>
+            </div>
+            <div class="container-buttons-projects">
+                <button onclick="delete_project()">Deletar</button> <a href=""><button>Cancelar</button></a>
+            </div>
+        </div>
+        <div class="container" id="container-projeto-deletado">
+            <img src="../img/sucesso.png" class="sucesso">
+            <h1>Projeto deletado com sucesso!</h1>
+            <div class="container-buttons-projects">
+                <a href=""><button>Voltar</button></a>
+            </div>
+        </div>
     </div>
-    <div class="container" id="container-geral">
-        <div class="container-buttons-next-previous">
-            <a href=""><button><i class="uil uil-backward"></i>Página anterior</button></a> <a href=""><button>Próxima página <i class="uil uil-forward"></i></button></a>
-        </div>
-        <p>
-        <!--MOSTRAR AQUI TODOS OS PROJETOS, DE DEZ EM DEZ-->
-        </p>
-        <div class="container-buttons-next-previous">
-            <a href=""><button><i class="uil uil-backward"></i>Página anterior</button></a> <a href=""><button>Próxima página <i class="uil uil-forward"></i></button></a>
-        </div>
-    </div>
-    <div class="container" id="container-search-projects">
-        <div class="container-form">
-            <form>
-                <input type="text" class="id-projeto" required>
-                <label for="name">ID:</label>
-            </form>
-        </div>
-        <div class="container-buttons-clients">
-            <a href=""><button>Buscar</button></a> <a href=""><button>Cancelar</button></a>
-        </div>
-    </div>
-    <div class="container" id="container-add-projects-general">
-        <div id="container-add-projects">
-            <div class="container-checkbox">
-                <form class="form-checkbox">
-                    <input type="checkbox" class="checkbox" id="checkbox-ligacao-1" required onchange="ligacao_nova1()">
-                    <span>Ligação nova</span>
-                </form>
-                <form class="form-checkbox">
-                    <input type="checkbox" class="checkbox" id="checkbox-aumento-carga-1" required onchange="aumento_carga1()">
-                    <span>Aumento de carga</span>
-                </form>
-                <form class="form-checkbox">
-                    <input type="checkbox" class="checkbox" id="checkbox-aumento-usina-1" required onchange="aumento_usina1()">
-                    <span>Aumento de usina</span>
-                </form>
-                <form class="form-checkbox">
-                    <input type="checkbox" class="checkbox" id="checkbox-agrupamento-1" required onchange="agrupamento1()">
-                    <span>Agrupamento</span>
-                </form>
-            </div>
-            <div id="container-numero-instalacao-1">
-                <div class="container-form">
-                    <form>
-                        <input type="text" class="numero-instalação" required>
-                        <label for="name">Número de instalação:</label>
-                    </form>
-                </div>
-            </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="número-cliente" required>
-                    <label for="name">Número do cliente:</label>
-                </form>
-            </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="n-fases" required>
-                    <label for="name">Número de fases atual:</label>
-                </form>
-            </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="disjuntor" required>
-                    <label for="name">Disjuntor atual:</label>
-                </form>
-            </div>
-            <div class="container-aumento-carga" id="container-aumento-carga-1">
-                <div class="container-form">
-                    <form>
-                        <input type="text" class="novo-n-fases" required>
-                        <label for="name">Número de fases solicitado:</label>
-                    </form>
-                </div>
-                <div class="container-form">
-                    <form>
-                        <input type="text" class="novo-disjuntor" required>
-                        <label for="name">Disjuntor solicitado:</label>
-                    </form>
-                </div>
-            </div>
-            <div class="container-agrupamento" id="container-agrupamento-1">
-                <div class="container-form">
-                    <form>
-                        <input type="text" class="n-fases-agrupamento" required>
-                        <label for="name">Número de fases do agrupamento:</label>
-                    </form>
-                </div>
-                <div class="container-form">
-                    <form>
-                        <input type="text" class="disjuntor-agrupamento" required>
-                        <label for="name">Disjuntor geral do agrupamento:</label>
-                    </form>
-                </div>
-            </div>
-            <div class="container-modulo-1">
-                <form class="form-checkbox-aumento-usina">
-                    <input type="checkbox" class="checkbox" required>
-                    <span>Módulo da usina anterior?</span>
-                </form>
-                <div class="container-form">
-                    <form>
-                        <input type="text" class="quantidade-módulo-1" required>
-                        <label for="name">Quantidade do módulo 1:</label>
-                    </form>
-                </div>
-                <div class="container-form">
-                    <form>
-                        <input type="text" class="fabricante-módulo-1" required>
-                        <label for="name">Fabricante do módulo 1:</label>
-                    </form>
-                </div>
-                <div class="container-form">
-                    <form>
-                        <input type="text" class="modelo-módulo-1" required>
-                        <label for="name">Modelo do módulo 1:</label>
-                    </form>
-                </div>
-            </div>
-            <div class="container-modulo-2">
-                <form class="form-checkbox-aumento-usina">
-                    <input type="checkbox" class="checkbox" required>
-                    <span>Módulo da usina anterior?</span>
-                </form>
-                <div class="container-form">
-                    <form>
-                        <input type="text" class="quantidade-módulo-2" required>
-                        <label for="name">Quantidade do módulo 2:</label>
-                    </form>
-                </div>
-                <div class="container-form">
-                    <form>
-                        <input type="text" class="fabricante-módulo-2" required>
-                        <label for="name">Fabricante do módulo 2:</label>
-                    </form>
-                </div>
-                <div class="container-form">
-                    <form>
-                        <input type="text" class="modelo-módulo-2" required>
-                        <label for="name">Modelo do módulo 2:</label>
-                    </form>
-                </div>
-            </div>
-            <div class="container-add-inverter">
-                <button onclick="adicionar_inversor1()">Adicionar inversor</button> <button onclick="remover_inversor1()">Remover inversor</button>
-            </div>
-            <div class="container-inversor-1" id="container-inversor-11">
-                <form class="form-checkbox-aumento-usina">
-                    <input type="checkbox" class="checkbox" required>
-                    <span>Inversor da usina anterior?</span>
-                </form>
-                <div class="container-form">
-                    <form>
-                        <input type="text" class="quantidade-inversor-1" required>
-                        <label for="name">Quantidade do inversor 1:</label>
-                    </form>
-                </div>
-                <div class="container-form">
-                    <form>
-                        <input type="text" class="fabricante-inversor-1" required>
-                        <label for="name">Fabricante do inversor 1:</label>
-                    </form>
-                </div>
-                <div class="container-form">
-                    <form>
-                        <input type="text" class="modelo-inversor-1" required>
-                        <label for="name">Modelo do inversor 1:</label>
-                    </form>
-                </div>
-            </div>
-            <div class="container-inversor-2" id="container-inversor-21">
-                <form class="form-checkbox-aumento-usina">
-                    <input type="checkbox" class="checkbox" required>
-                    <span>Inversor da usina anterior?</span>
-                </form>
-                <div class="container-form">
-                    <form>
-                        <input type="text" class="quantidade-inversor-2" required>
-                        <label for="name">Quantidade do inversor 2:</label>
-                    </form>
-                </div>
-                <div class="container-form">
-                    <form>
-                        <input type="text" class="fabricante-inversor-2" required>
-                        <label for="name">Fabricante do inversor 2:</label>
-                    </form>
-                </div>
-                <div class="container-form">
-                    <form>
-                        <input type="text" class="modelo-inversor-2" required>
-                        <label for="name">Modelo do inversor 2:</label>
-                    </form>
-                </div>
-            </div>
-            <div class="container-inversor-3" id="container-inversor-31">
-                <form class="form-checkbox-aumento-usina">
-                    <input type="checkbox" class="checkbox" required>
-                    <span>Inversor da usina anterior?</span>
-                </form>
-                <div class="container-form">
-                    <form>
-                        <input type="text" class="quantidade-inversor-3" required>
-                        <label for="name">Quantidade do inversor 3:</label>
-                    </form>
-                </div>
-                <div class="container-form">
-                    <form>
-                        <input type="text" class="fabricante-inversor-3" required>
-                        <label for="name">Fabricante do inversor 3:</label>
-                    </form>
-                </div>
-                <div class="container-form">
-                    <form>
-                        <input type="text" class="modelo-inversor-3" required>
-                        <label for="name">Modelo do inversor 3:</label>
-                    </form>
-                </div>
-            </div>
-            <div class="container-inversor-4" id="container-inversor-41">
-                <form class="form-checkbox-aumento-usina">
-                    <input type="checkbox" class="checkbox" required>
-                    <span>Inversor da usina anterior?</span>
-                </form>
-                <div class="container-form">
-                    <form>
-                        <input type="text" class="quantidade-inversor-4" required>
-                        <label for="name">Quantidade do inversor 4:</label>
-                    </form>
-                </div>
-                <div class="container-form">
-                    <form>
-                        <input type="text" class="fabricante-inversor-4" required>
-                        <label for="name">Fabricante do inversor 4:</label>
-                    </form>
-                </div>
-                <div class="container-form">
-                    <form>
-                        <input type="text" class="modelo-inversor-4" required>
-                        <label for="name">Modelo do inversor 4:</label>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <div class="container-buttons-modules">
-            <a href=""><button>Adicionar</button></a> <a href=""><button>Cancelar</button></a>
-        </div>
-    </div>
-    <div class="container" id="container-update-projects-general">
-        <div id="container-update-projects">
-            <div class="container-checkbox">
-                <form class="form-checkbox">
-                    <input type="checkbox" class="checkbox" id="checkbox-ligacao-2" required onchange="ligacao_nova2()">
-                    <span>Ligação nova</span>
-                </form>
-                <form class="form-checkbox">
-                    <input type="checkbox" class="checkbox" id="checkbox-aumento-carga-2" required onchange="aumento_carga2()">
-                    <span>Aumento de carga</span>
-                </form>
-                <form class="form-checkbox">
-                    <input type="checkbox" class="checkbox" id="checkbox-aumento-usina-2" required onchange="aumento_usina2()">
-                    <span>Aumento de usina</span>
-                </form>
-                <form class="form-checkbox">
-                    <input type="checkbox" class="checkbox" id="checkbox-agrupamento-2" required onchange="agrupamento2()">
-                    <span>Agrupamento</span>
-                </form>
-            </div>
-            <div id="container-numero-instalacao-2">
-                <div class="container-form">
-                    <form>
-                        <input type="text" class="numero-instalação" required>
-                        <label for="name">Número de instalação:</label>
-                    </form>
-                </div>
-            </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="número-cliente" required>
-                    <label for="name">Número do cliente:</label>
-                </form>
-            </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="n-fases" required>
-                    <label for="name">Número de fases atual:</label>
-                </form>
-            </div>
-            <div class="container-form">
-                <form>
-                    <input type="text" class="disjuntor" required>
-                    <label for="name">Disjuntor atual:</label>
-                </form>
-            </div>
-            <div class="container-aumento-carga" id="container-aumento-carga-2">
-                <div class="container-form">
-                    <form>
-                        <input type="text" class="novo-n-fases" required>
-                        <label for="name">Número de fases solicitado:</label>
-                    </form>
-                </div>
-                <div class="container-form">
-                    <form>
-                        <input type="text" class="novo-disjuntor" required>
-                        <label for="name">Disjuntor solicitado:</label>
-                    </form>
-                </div>
-            </div>
-            <div class="container-agrupamento" id="container-agrupamento-2">
-                <div class="container-form">
-                    <form>
-                        <input type="text" class="n-fases-agrupamento" required>
-                        <label for="name">Número de fases do agrupamento:</label>
-                    </form>
-                </div>
-                <div class="container-form">
-                    <form>
-                        <input type="text" class="disjuntor-agrupamento" required>
-                        <label for="name">Disjuntor geral do agrupamento:</label>
-                    </form>
-                </div>
-            </div>
-            <div class="container-modulo-1">
-                <form class="form-checkbox-aumento-usina">
-                    <input type="checkbox" class="checkbox" required>
-                    <span>Módulo da usina anterior?</span>
-                </form>
-                <div class="container-form">
-                    <form>
-                        <input type="text" class="quantidade-módulo-1" required>
-                        <label for="name">Quantidade do módulo 1:</label>
-                    </form>
-                </div>
-                <div class="container-form">
-                    <form>
-                        <input type="text" class="fabricante-módulo-1" required>
-                        <label for="name">Fabricante do módulo 1:</label>
-                    </form>
-                </div>
-                <div class="container-form">
-                    <form>
-                        <input type="text" class="modelo-módulo-1" required>
-                        <label for="name">Modelo do módulo 1:</label>
-                    </form>
-                </div>
-            </div>
-            <div class="container-modulo-2">
-                <form class="form-checkbox-aumento-usina">
-                    <input type="checkbox" class="checkbox" required>
-                    <span>Módulo da usina anterior?</span>
-                </form>
-                <div class="container-form">
-                    <form>
-                        <input type="text" class="quantidade-módulo-2" required>
-                        <label for="name">Quantidade do módulo 2:</label>
-                    </form>
-                </div>
-                <div class="container-form">
-                    <form>
-                        <input type="text" class="fabricante-módulo-2" required>
-                        <label for="name">Fabricante do módulo 2:</label>
-                    </form>
-                </div>
-                <div class="container-form">
-                    <form>
-                        <input type="text" class="modelo-módulo-2" required>
-                        <label for="name">Modelo do módulo 2:</label>
-                    </form>
-                </div>
-            </div>
-            <div class="container-add-inverter">
-                <button onclick="adicionar_inversor2()">Adicionar inversor</button> <button onclick="remover_inversor2()">Remover inversor</button>
-            </div>
-            <div class="container-inversor-1" id="container-inversor-12">
-                <form class="form-checkbox-aumento-usina">
-                    <input type="checkbox" class="checkbox" required>
-                    <span>Inversor da usina anterior?</span>
-                </form>
-                <div class="container-form">
-                    <form>
-                        <input type="text" class="quantidade-inversor-1" required>
-                        <label for="name">Quantidade do inversor 1:</label>
-                    </form>
-                </div>
-                <div class="container-form">
-                    <form>
-                        <input type="text" class="fabricante-inversor-1" required>
-                        <label for="name">Fabricante do inversor 1:</label>
-                    </form>
-                </div>
-                <div class="container-form">
-                    <form>
-                        <input type="text" class="modelo-inversor-1" required>
-                        <label for="name">Modelo do inversor 1:</label>
-                    </form>
-                </div>
-            </div>
-            <div class="container-inversor-2" id="container-inversor-22">
-                <form class="form-checkbox-aumento-usina">
-                    <input type="checkbox" class="checkbox" required>
-                    <span>Inversor da usina anterior?</span>
-                </form>
-                <div class="container-form">
-                    <form>
-                        <input type="text" class="quantidade-inversor-2" required>
-                        <label for="name">Quantidade do inversor 2:</label>
-                    </form>
-                </div>
-                <div class="container-form">
-                    <form>
-                        <input type="text" class="fabricante-inversor-2" required>
-                        <label for="name">Fabricante do inversor 2:</label>
-                    </form>
-                </div>
-                <div class="container-form">
-                    <form>
-                        <input type="text" class="modelo-inversor-2" required>
-                        <label for="name">Modelo do inversor 2:</label>
-                    </form>
-                </div>
-            </div>
-            <div class="container-inversor-3" id="container-inversor-32">
-                <form class="form-checkbox-aumento-usina">
-                    <input type="checkbox" class="checkbox" required>
-                    <span>Inversor da usina anterior?</span>
-                </form>
-                <div class="container-form">
-                    <form>
-                        <input type="text" class="quantidade-inversor-3" required>
-                        <label for="name">Quantidade do inversor 3:</label>
-                    </form>
-                </div>
-                <div class="container-form">
-                    <form>
-                        <input type="text" class="fabricante-inversor-3" required>
-                        <label for="name">Fabricante do inversor 3:</label>
-                    </form>
-                </div>
-                <div class="container-form">
-                    <form>
-                        <input type="text" class="modelo-inversor-3" required>
-                        <label for="name">Modelo do inversor 3:</label>
-                    </form>
-                </div>
-            </div>
-            <div class="container-inversor-4" id="container-inversor-42">
-                <form class="form-checkbox-aumento-usina">
-                    <input type="checkbox" class="checkbox" required>
-                    <span>Inversor da usina anterior?</span>
-                </form>
-                <div class="container-form">
-                    <form>
-                        <input type="text" class="quantidade-inversor-4" required>
-                        <label for="name">Quantidade do inversor 4:</label>
-                    </form>
-                </div>
-                <div class="container-form">
-                    <form>
-                        <input type="text" class="fabricante-inversor-4" required>
-                        <label for="name">Fabricante do inversor 4:</label>
-                    </form>
-                </div>
-                <div class="container-form">
-                    <form>
-                        <input type="text" class="modelo-inversor-4" required>
-                        <label for="name">Modelo do inversor 4:</label>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <div class="container-buttons-modules">
-            <a href=""><button>Atualizar</button></a> <a href=""><button>Cancelar</button></a>
-        </div>
-    </div>
-    <div class="container" id="container-delete-projects">
-        <div class="container-form">
-            <form>
-                <input type="text" class="id-projeto" required>
-                <label for="name">ID:</label>
-            </form>
-        </div>
-        <div class="container-buttons-modules">
-            <a href=""><button>Deletar</button></a> <a href=""><button>Cancelar</button></a>
+    <div class="container-usuario-nao-autorizado">
+        <div class="container">
+            <img src="../img/falha.png" class="falha">
+            <p class="usuario-nao-autorizado-principal">Acesso negado.</p>
+            <p class="usuario-nao-autorizado-secundario">Faça login primeiro.</p>
+            <a href="./auth.html"><button>Ir para a página de logins</button></a>
         </div>
     </div>
 </body>

@@ -192,9 +192,34 @@ function coeficiente_temperatura(input) {
 }
 
 // FUNÇÃO PARA MOSTRAR CONTEÚDO PARA USUÁRIOS AUTORIZADOS
-function checar_autorizacao() {
+async function checar_autorizacao() {
     access_token = localStorage.getItem('access_token');
+    username = localStorage.getItem('username');
     
+    let config = {
+        headers: {
+          'Authorization': 'Bearer ' + access_token
+        }
+    }
+
+    let dadosUsuario = await axios.get(
+        'http://localhost:8000/users/' + username, config
+    ).then(
+        function (response) {
+            const dadosUsuario = response.data;
+            return dadosUsuario;
+        }
+    ).catch(
+        function (error) {
+            console.log(error);
+            return error;
+        }
+    )
+
+    if (dadosUsuario == 'Error: Request failed with status code 401' || dadosUsuario == 'Error: Request failed with status code 403' || dadosUsuario == 'Error: Request failed with status code 422' || dadosUsuario == 'Error: Network Error' || dadosUsuario == null) {
+        access_token = dadosUsuario
+    }
+
     if (access_token != 'Error: Request failed with status code 401' & access_token != 'Error: Request failed with status code 403' & access_token != 'Error: Request failed with status code 422' & access_token != 'Error: Network Error' & access_token != null) {
         let nomePagina = String(location.pathname.split("/").slice(-1));
         
