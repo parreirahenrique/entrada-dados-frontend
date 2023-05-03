@@ -244,11 +244,225 @@ function checar_autorizacao() {
 function criar_usuario() {
     let divMostrarUsuario = document.getElementById('container-show-user');
     let divCriarUsuario = document.getElementById('container-add-users');
+    let divBuscarAtualizarUsuario = document.getElementById('container-search-to-update-users');
+    let divAtualizarUsuario = document.getElementById('container-update-users');
+    let arrayCamposObrigatorios = document.getElementsByClassName('campo-obrigatorio-usuarios');
+    let arraySenhasDivergentes = document.getElementsByClassName('container-senha-divergente')
+    let arrayUsuarioInexistente = document.getElementsByClassName('container-usuario-inexistente');
 
     divMostrarUsuario.style.visibility = "hidden";
     divMostrarUsuario.style.display = "none";
     divCriarUsuario.style.visibility = "visible";
     divCriarUsuario.style.display = "grid";
+    divBuscarAtualizarUsuario.style.visibility = "hidden";
+    divBuscarAtualizarUsuario.style.display = "none";
+    divAtualizarUsuario.style.visibility = "hidden";
+    divAtualizarUsuario.style.display = "none";
+
+    for(i = 0; i < arrayCamposObrigatorios.length; i++) {
+        arrayCamposObrigatorios[i].style.visibility = "hidden"
+        arrayCamposObrigatorios[i].style.display = "none"
+    }
+
+    for(i = 0; i < arrayUsuarioInexistente.length; i++) {
+        arrayUsuarioInexistente[i].style.visibility = "hidden"
+        arrayUsuarioInexistente[i].style.display = "none"
+    }
+
+    for(i = 0; i < arraySenhasDivergentes.length; i++) {
+        arraySenhasDivergentes[i].style.visibility = "hidden"
+        arraySenhasDivergentes[i].style.display = "none"
+    }
+}
+
+function atualizar_usuario() {
+    let divMostrarUsuario = document.getElementById('container-show-user');
+    let divCriarUsuario = document.getElementById('container-add-users');
+    let divBuscarAtualizarUsuario = document.getElementById('container-search-to-update-users');
+    let divAtualizarUsuario = document.getElementById('container-update-users');
+    let arrayCamposObrigatorios = document.getElementsByClassName('campo-obrigatorio-usuarios');
+    let arraySenhasDivergentes = document.getElementsByClassName('container-senha-divergente')
+    let arrayUsuarioInexistente = document.getElementsByClassName('container-usuario-inexistente');
+
+    document.getElementById('usuário-buscar-atualizar').value = ''
+
+    divMostrarUsuario.style.visibility = "hidden";
+    divMostrarUsuario.style.display = "none";
+    divCriarUsuario.style.visibility = "hidden";
+    divCriarUsuario.style.display = "none";
+    divBuscarAtualizarUsuario.style.visibility = "visible";
+    divBuscarAtualizarUsuario.style.display = "grid";
+    divAtualizarUsuario.style.visibility = "hidden";
+    divAtualizarUsuario.style.display = "none";
+
+    
+    for(i = 0; i < arrayCamposObrigatorios.length; i++) {
+        arrayCamposObrigatorios[i].style.visibility = "hidden"
+        arrayCamposObrigatorios[i].style.display = "none"
+    }
+
+    for(i = 0; i < arrayUsuarioInexistente.length; i++) {
+        arrayUsuarioInexistente[i].style.visibility = "hidden"
+        arrayUsuarioInexistente[i].style.display = "none"
+    }
+
+    for(i = 0; i < arraySenhasDivergentes.length; i++) {
+        arraySenhasDivergentes[i].style.visibility = "hidden"
+        arraySenhasDivergentes[i].style.display = "none"
+    }
+}
+
+function mostrar_campos_atualizar_usuarios() {
+    let divBuscarAtualizarUsuario = document.getElementById('container-search-to-update-users');
+    let divAtualizarUsuario = document.getElementById('container-update-users');
+
+    let checkboxNome = document.getElementById('checkbox-nome-usuario')
+
+    let divNomeUsuario = document.getElementById('container-form-nome-usuario');
+    
+    let arraySenhasDivergentes = document.getElementsByClassName('container-senha-divergente')
+    let arrayUsuarioInexistente = document.getElementsByClassName('container-usuario-inexistente');
+    let arrayCamposObrigatorios = document.getElementsByClassName('campo-obrigatorio-usuarios');
+    
+    for(i = 0; i < arrayCamposObrigatorios.length; i++) {
+        arrayCamposObrigatorios[i].style.visibility = "hidden"
+        arrayCamposObrigatorios[i].style.display = "none"
+    }
+
+    for(i = 0; i < arraySenhasDivergentes.length; i++) {
+        arraySenhasDivergentes[i].style.visibility = "hidden"
+        arraySenhasDivergentes[i].style.display = "none"
+    }
+
+    let nomeUsuario = document.getElementById('usuário-buscar-atualizar').value;
+    
+    document.getElementById('usuário-atualizar').value = ''
+    document.getElementById('senha-atualizar').value = ''
+    document.getElementById('confirmar-senha-atualizar').value = ''
+
+    if (nomeUsuario != '') {
+        divBuscarAtualizarUsuario.style.visibility = "hidden"
+        divBuscarAtualizarUsuario.style.display = "none"
+        divAtualizarUsuario.style.visibility = "visible"
+        divAtualizarUsuario.style.display = "grid"
+
+        if (checkboxNome.checked == true) {
+            divNomeUsuario.style.visibility = "visible"
+            divNomeUsuario.style.display = "grid"
+        }
+
+        else {
+            divNomeUsuario.style.visibility = "hidden"
+            divNomeUsuario.style.display = "none"
+        }
+
+        for(i = 0; i < arrayCamposObrigatorios.length; i++) {
+            arrayCamposObrigatorios[i].style.visibility = "hidden"
+            arrayCamposObrigatorios[i].style.display = "none"
+        }
+
+        for(i = 0; i < arrayUsuarioInexistente.length; i++) {
+            arrayUsuarioInexistente[i].style.visibility = "hidden"
+            arrayUsuarioInexistente[i].style.display = "none"
+        }
+    }
+
+    else {
+        for(i = 0; i < arrayCamposObrigatorios.length; i++) {
+            arrayCamposObrigatorios[i].style.visibility = "visible"
+            arrayCamposObrigatorios[i].style.display = "grid"
+        }
+    }
+}
+
+async function mostrar_usuarios(nomeFuncao) {
+    let input = document.getElementById('usuário-' + nomeFuncao)
+    let lista = document.getElementById('nomeusuario-' + nomeFuncao)
+    let nome = []
+
+    while (lista.options.length > 0) {
+        lista.children[0].remove()
+    }
+
+    let access_token = localStorage.getItem('access_token')
+
+    if (access_token != 'Error: Request failed with status code 401' & access_token != 'Error: Request failed with status code 403' & access_token != 'Error: Request failed with status code 422' & access_token != 'Error: Network Error' & access_token != null) {
+        let config = {
+            headers: {
+              'Authorization': 'Bearer ' + access_token
+            }
+        }
+
+        let dadosTodosUsuarios = await axios.get(
+            'http://localhost:8000/users', config
+        ).then(
+            function (response) {
+                const dadosTodosUsuarios = response.data;
+                return dadosTodosUsuarios;
+            }
+        ).catch(
+            function (error) {
+                console.log(error);
+                return error;
+            }
+        )
+        if (dadosTodosUsuarios != 'Error: Request failed with status code 401' & dadosTodosUsuarios != 'Error: Request failed with status code 404') {
+            for (i = 0; i < dadosTodosUsuarios.length; i++) {
+                nome[i] = dadosTodosUsuarios[i].nome;
+                let opcao_atual = document.createElement('option');
+                let texto = document.createTextNode(String(i + 1) + ' - ' + nome[i])
+                
+                opcao_atual.value = String(i + 1) + ' - ' + nome[i]
+                opcao_atual.appendChild(texto)
+                lista.appendChild(opcao_atual)
+            }
+        }
+
+        else if (dadosTodosUsuarios == 'Error: Request failed with status code 401') {
+            localStorage.setItem('access_token', dadosTodosUsuarios);
+            checar_autorizacao();
+        }
+    }
+
+    localStorage.setItem('nome_usuario', nome)
+    
+    lista.style.display = 'grid';
+
+    for (let opcao of lista.options) {
+        opcao.onclick = function () {
+            input.value = opcao.value.split(' - ')[1];
+            lista.style.display = 'none';
+        }
+    }
+}
+
+function filtrar_usuarios(nomeFuncao) {
+    let input = document.getElementById('usuário-' + nomeFuncao);
+    let lista = document.getElementById('nomeusuario-' + nomeFuncao);
+    
+    let nome = localStorage.getItem('nome_usuario').split(',')
+    
+    while (lista.options.length > 0) {
+        lista.children[0].remove()
+    }
+
+    for (i = 0; i < nome.length; i++) {
+        let opcao_atual = document.createElement('option');
+        let texto = document.createTextNode(String(i + 1) + ' - ' + nome[i])
+        
+        opcao_atual.value = String(i + 1) + ' - ' + nome[i]
+        opcao_atual.appendChild(texto)
+        lista.appendChild(opcao_atual)
+    }
+
+    let nomeUsuario = input.value;
+    let nOpcoes = lista.options.length - 1;
+
+    for (i = nOpcoes; i >= 0; i--) {
+        if (lista.options[i].value.includes(nomeUsuario) == false) {
+            lista.children[i].remove()
+        }
+    }
 }
 
 // FUNÇÕES PARA MOSTRAR CONTEÚDO DA PÁGINA DE CLIENTES

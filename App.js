@@ -168,7 +168,8 @@ async function get_user_role() {
         if (dadosUsuario.cargo == 'Administrador') {
             containerAdministrador = document.getElementsByClassName('container-usuario-administrador')
             containerAdministrador[0].style.visibility = 'visible'
-            containerAdministrador[0].style.display = 'grid'
+            containerAdministrador[0].style.display = 'flex'
+            containerAdministrador[0].style.flexDirection = 'row'
         }
     }
 }
@@ -229,9 +230,9 @@ async function post_user() {
         }
 
         else {
-            divExistentUser = document.getElementsByClassName('container-senha-divergente')
-            divExistentUser[0].style.visibility = 'visible';
-            divExistentUser[0].style.display = 'flex';
+            divDivergentPassword = document.getElementsByClassName('container-senha-divergente')
+            divDivergentPassword[0].style.visibility = 'visible';
+            divDivergentPassword[0].style.display = 'flex';
         }
         
     }
@@ -242,6 +243,86 @@ async function post_user() {
         for (i = 0; i < arrayCampos.length; i ++) {
             arrayCampos[i].style.visibility = "visible";
             arrayCampos[i].style.display = "grid";
+        }
+    }
+}
+
+async function patch_user() {
+    let access_token = localStorage.getItem('access_token');
+
+    let nome_buscar = document.getElementById('usuário-buscar-atualizar').value;
+
+    let nome = document.getElementById('usuário-atualizar').value;
+    let senha = document.getElementById('senha-atualizar').value;
+    let confirmar_senha = document.getElementById('confirmar-senha-atualizar').value;
+
+    let dicionario = {};
+
+    if (nome == '' & senha == '' & confirmar_senha == '') {
+        containerCamposNaoPreenchidos = document.getElementsByClassName('container-campos-nao-preenchidos')
+        containerCamposNaoPreenchidos[0].style.visibility = "visible"
+        containerCamposNaoPreenchidos[0].style.display = "flex"
+    }
+
+    else {
+        if (senha == confirmar_senha) {
+            if (nome != ''){
+                dicionario['nome'] = nome
+            }
+
+            if (senha != ''){
+                dicionario['senha'] = senha
+            }
+
+            let config = {
+                headers: {
+                'Authorization': 'Bearer ' + access_token
+                }
+            }
+            
+            url = 'http://localhost:8000/users/' + nome_buscar
+            
+            resposta = await axios.patch(
+                url, dicionario, config
+            ).then(
+                function (response) {
+                    const resposta = response.data;
+                    return resposta;
+                }
+            ).catch(
+                function (error) {
+                    console.log(error);
+                    return error;
+                }
+            )
+            
+            if (resposta != 'Error: Request failed with status code 404' & resposta != 'Error: Request failed with status code 401') {
+                document.getElementById('container-usuario-atualizado').style.visibility = 'visible';
+                document.getElementById('container-usuario-atualizado').style.display = 'grid';
+                    
+                document.getElementById('container-update-users').style.visibility = 'hidden';
+                document.getElementById('container-update-users').style.display = 'none';
+            }
+
+            else if (resposta == 'Error: Request failed with status code 401') {
+                localStorage.setItem('access_token', resposta);
+                checar_autorizacao();
+            }
+
+            else {
+                let arrayUsarioInexistente = document.getElementsByClassName('container-usuario-inexistente')
+
+                for (i = 0; i < arrayUsarioInexistente.length; i ++) {
+                    arrayUsarioInexistente[i].style.visibility = 'visible'
+                    arrayUsarioInexistente[i].style.display = 'flex'
+                }
+            }
+        }
+
+        else {
+            divDivergentPassword = document.getElementsByClassName('container-senha-divergente')
+            divDivergentPassword[1].style.visibility = 'visible';
+            divDivergentPassword[1].style.display = 'flex';
         }
     }
 }
@@ -671,7 +752,6 @@ async function patch_client() {
             'Authorization': 'Bearer ' + access_token
             }
         }
-        
         
         url = 'http://localhost:8000/clients/' + numero_cliente_buscar
         

@@ -355,6 +355,8 @@ td {
 
 /* ESTILOS DAS CLASSES DA PÁGINA DE LOGIN */
 .container-dados-usuario-geral {
+    margin-left: auto;
+    margin-right: auto;
     display: flex;
     flex-direction: row;
 }
@@ -388,6 +390,21 @@ td {
 }
 
 #container-add-users {
+    visibility: hidden;
+    display: none;
+}
+
+#container-search-to-update-users {
+    visibility: hidden;
+    display: none;
+}
+
+#container-update-users {
+    visibility: hidden;
+    display: none;
+}
+
+#container-usuario-atualizado {
     visibility: hidden;
     display: none;
 }
