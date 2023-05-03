@@ -22,7 +22,7 @@
     <script defer src="../script.js"></script>
     <script defer src="../App.js"></script>
 </head>
-<body onload="checar_autorizacao(); get_username(); get_user()">
+<body onload="checar_autorizacao(); get_username(); get_user(); get_user_role()">
     <header>
         <nav class="flexbox">
             <p id="titulo-pagina">Entrada de Projetos</p>
@@ -37,7 +37,7 @@
         </nav>
     </header>
     <div class="container-usuario-autorizado">
-        <div class="container">
+        <div class="container" id="container-show-user">
             <div class="container-dados-usuario-geral">
                 <div class="container-titulos-usuario">
                     <span class="titulo">Nome do usuário:</span>
@@ -50,6 +50,50 @@
                     <span id="user-created-at"></span>
                 </div>
             </div>
+            <div class="container-usuario-administrador">
+                <button onclick="criar_usuario()">Criar novo usuário</button>
+            </div>
+        </div>
+        <div class="container" id="container-add-users">
+            <div class="container-usuario-existente">
+                <img src="../img/falha.png" class="falha-usuario">
+                <span class="campo-usuario-existente">Usuário já cadastrado.</span>
+            </div>
+            <div class="container-senha-divergente">
+                <img src="../img/falha.png" class="falha-usuario">
+                <span class="campo-usuario-existente">Senhas não compatíveis.</span>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" id="usuário-adicionar" oninput="nome_usuario(this)" required>
+                    <label for="name">Nome do usuário*:</label>
+                </form>
+                <span class="campo-obrigatorio-usuarios">Esse é um campo obrigatório.</span>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="password" id="senha-adicionar" required>
+                    <label for="password">Senha*:</label>
+                </form>
+                <span class="campo-obrigatorio-usuarios">Esse é um campo obrigatório.</span>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="password" id="confirmar-senha-adicionar" required>
+                    <label for="password">Confirmar senha*:</label>
+                </form>
+                <span class="campo-obrigatorio-usuarios">Esse é um campo obrigatório.</span>
+                <div class="container-buttons-clients">
+                    <button onclick="post_user()">Criar novo usuário</button>  <a href="./instalation.html"><a href=""><button>Voltar</button></a>
+                </div>
+            </div>
+        </div>
+        <div class="container" id="container-usuario-adicionado">
+            <img src="../img/sucesso.png" class="sucesso">
+            <h1>Usuário adicionado com sucesso!</h1>
+            <div class="container-buttons-users">
+                <a href=""><button>Voltar</button></a>
+            </div>
         </div>
     </div>
     <div class="container-usuario-nao-autorizado">    
@@ -60,7 +104,7 @@
             </div>
             <div class="container-form">
                 <form>
-                    <input type="text" id="usuário" required>
+                    <input type="text" id="usuário" oninput="nome_usuario(this)" required>
                     <label for="name">Usuário:</label>
                     <span class="campo-obrigatorio-usuarios">Esse é um campo obrigatório.</span>
                 </form>

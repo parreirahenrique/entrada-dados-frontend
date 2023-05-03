@@ -139,6 +139,113 @@ async function get_user() {
     }
 }
 
+async function get_user_role() {
+    let access_token = localStorage.getItem('access_token');
+    let username = localStorage.getItem('username')
+
+    if (username != '' & username != null) {
+
+        let config = {
+            headers: {
+              'Authorization': 'Bearer ' + access_token
+            }
+        }
+
+        let dadosUsuario = await axios.get(
+            'http://localhost:8000/users/' + username, config
+        ).then(
+            function (response) {
+                const dadosUsuario = response.data;
+                return dadosUsuario;
+            }
+        ).catch(
+            function (error) {
+                console.log(error);
+                return error;
+            }
+        )
+        
+        if (dadosUsuario.cargo == 'Administrador') {
+            containerAdministrador = document.getElementsByClassName('container-usuario-administrador')
+            containerAdministrador[0].style.visibility = 'visible'
+            containerAdministrador[0].style.display = 'grid'
+        }
+    }
+}
+
+async function post_user() {
+    let access_token = localStorage.getItem('access_token');
+
+    let nome = document.getElementById('usuário-adicionar').value;
+    let senha = document.getElementById('senha-adicionar').value;
+    let confirmar_senha = document.getElementById('confirmar-senha-adicionar').value;
+    
+    dicionario = {
+        'nome': nome,
+        'senha': senha,
+        'confirmar_senha': confirmar_senha
+    }
+
+    let config = {
+        headers: {
+          'Authorization': 'Bearer ' + access_token
+        }
+    }
+
+    if (nome != '' & senha != '' & confirmar_senha != '') {
+        if(senha == confirmar_senha) {
+            resposta = await axios.post(
+                'http://localhost:8000/users', dicionario, config
+            ).then(
+                function (response) {
+                    const resposta = response.data;
+                    return resposta;
+                }
+            ).catch(
+                function (error) {
+                    console.log(error);
+                    return error;
+                }
+            )
+    
+            if (resposta != 'Error: Network Error' & resposta != 'Error: Request failed with status code 401') {
+                document.getElementById('container-usuario-adicionado').style.visibility = 'visible';
+                document.getElementById('container-usuario-adicionado').style.display = 'grid';
+                
+                document.getElementById('container-add-users').style.visibility = 'hidden';
+                document.getElementById('container-add-users').style.display = 'none';
+            }
+    
+            else if (resposta == 'Error: Request failed with status code 401') {
+                localStorage.setItem('access_token', resposta);
+                checar_autorizacao();
+            }
+    
+            else {
+                divExistentUser = document.getElementsByClassName('container-usuario-existente')
+                divExistentUser[0].style.visibility = 'visible';
+                divExistentUser[0].style.display = 'flex';
+            }
+        }
+
+        else {
+            divExistentUser = document.getElementsByClassName('container-senha-divergente')
+            divExistentUser[0].style.visibility = 'visible';
+            divExistentUser[0].style.display = 'flex';
+        }
+        
+    }
+
+    else {
+        arrayCampos = document.getElementsByClassName('campo-obrigatorio-usuarios')
+
+        for (i = 0; i < arrayCampos.length; i ++) {
+            arrayCampos[i].style.visibility = "visible";
+            arrayCampos[i].style.display = "grid";
+        }
+    }
+}
+
 // FUNÇÕES PARA A PÁGINA DE CLIENTES
 async function get_all_clients() {
     let access_token = localStorage.getItem('access_token');

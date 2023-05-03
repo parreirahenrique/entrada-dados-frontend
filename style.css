@@ -379,6 +379,60 @@ td {
     display: none;
 }
 
+.container-usuario-administrador {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    visibility: hidden;
+    display: none;
+}
+
+#container-add-users {
+    visibility: hidden;
+    display: none;
+}
+
+.container-usuario-existente {
+    align-items: center;
+    visibility: hidden;
+    display: none;
+    flex-direction: row;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 20px;
+    font-size: large;
+    font-weight: bolder;
+    color: red;
+}
+
+.container-senha-divergente {
+    align-items: center;
+    visibility: hidden;
+    display: none;
+    flex-direction: row;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 20px;
+    font-size: large;
+    font-weight: bolder;
+    color: red;
+}
+
+.campo-usuario-existente {
+    margin-left: 5px;
+    font-size: large;
+    font-weight: bolder;
+    color: red;
+}
+
+.container-buttons-clients {
+    margin-top: 20px;
+}
+
+#container-usuario-adicionado {
+    visibility: hidden;
+    display: none;
+}
 /* ESTILOS DAS CLASSES DA PÁGINA DE CLIENTES */
 #container-options {
     display: flex;

@@ -1,4 +1,38 @@
 // FUNÇÕES GERAIS PARA TODAS AS PÁGINAS
+function nome_usuario(input) {
+    let valor = input.value.normalize("NFD").replace(/[\u0300-\u036f]/g, '');
+
+    for (i = (valor.length - 1); i >= 0; i--) {
+        if (isNaN(valor[i]) == false & valor[i] != ' ') {
+            valor = valor.replace(valor[i], '')
+        }
+    }
+    
+    if (valor[0] == ' ') {
+        valor = valor.replace(valor[0], '')
+    }
+
+    for (i = 0; i < valor.length; i++) {
+        if (i == 0) {
+            valor = valor.replace(valor[i], valor[i].toUpperCase())
+            
+        }
+        
+        else {
+            if (valor[i - 1] == ' ') {
+                valor = valor.replace(valor[i], valor[i].toUpperCase())
+                console.log(valor[i])
+            }
+
+            else {
+                valor = valor.replace(valor[i], valor[i].toLowerCase())
+            }
+        }
+    }
+
+    input.value = valor
+}
+
 function apenas_numeros(input) {
     let valor_numerico = input.value.toString()
     
@@ -204,6 +238,17 @@ function checar_autorizacao() {
         naoAutorizado[0].style.visibility = 'visible';
         naoAutorizado[0].style.display = 'grid';
         }
+}
+
+// FUNÇÕES PARA MOSTRAR CONTEÚDO DA PÁGINA DE USUÁRIOS
+function criar_usuario() {
+    let divMostrarUsuario = document.getElementById('container-show-user');
+    let divCriarUsuario = document.getElementById('container-add-users');
+
+    divMostrarUsuario.style.visibility = "hidden";
+    divMostrarUsuario.style.display = "none";
+    divCriarUsuario.style.visibility = "visible";
+    divCriarUsuario.style.display = "grid";
 }
 
 // FUNÇÕES PARA MOSTRAR CONTEÚDO DA PÁGINA DE CLIENTES
