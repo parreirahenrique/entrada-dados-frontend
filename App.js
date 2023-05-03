@@ -2161,3 +2161,539 @@ async function get_all_inverters_skip(alterar) {
         }
     }
 }
+
+async function get_inverter() {
+    let access_token = localStorage.getItem('access_token');
+
+    let modelo = document.getElementById('modelo-inversor-buscar').value;
+    let divSearchInverter = document.getElementById('container-search-inverters');
+
+    if (modelo != '') {
+        
+        let config = {
+            headers: {
+              'Authorization': 'Bearer ' + access_token
+            }
+        }
+
+        let dadosInversor = await axios.get(
+            'http://localhost:8000/inverters/' + modelo, config
+        ).then(
+            function (response) {
+                const dadosInversor = response.data;
+                return dadosInversor;
+            }
+        ).catch(
+            function (error) {
+                console.log(error);
+                return error;
+            }
+        )
+        
+        if (dadosInversor != 'Error: Request failed with status code 401' & dadosInversor != 'Error: Request failed with status code 404') {
+            divSearchInverter.style.visibility = 'hidden';
+            divSearchInverter.style.display = 'none';
+
+            document.getElementById('container-inversor-encontrado').style.visibility = 'visible';
+            document.getElementById('container-inversor-encontrado').style.display = 'grid';
+            
+            let hora = dadosInversor.criado_em.split('T')[1].split('.')[0];
+            let data = dadosInversor.criado_em.split('-')[2].split('T')[0] + '/' + dadosInversor.criado_em.split('-')[1] + '/' + dadosInversor.criado_em.split('-')[0];
+
+            if (dadosInversor.modelo != '') {
+                document.getElementById('inverter-model').innerHTML = dadosInversor.modelo;
+                document.getElementById('title-inverter-model').style.visibility = 'visible';
+                document.getElementById('title-inverter-model').style.display = 'grid';
+                document.getElementById('inverter-model').style.visibility = 'visible';
+                document.getElementById('inverter-model').style.display = 'grid';
+            }
+
+            if (dadosInversor.fabricante != '') {
+                document.getElementById('inverter-manufacturer').innerHTML = dadosInversor.fabricante;
+                document.getElementById('title-inverter-manufacturer').style.visibility = 'visible';
+                document.getElementById('title-inverter-manufacturer').style.display = 'grid';
+                document.getElementById('inverter-manufacturer').style.visibility = 'visible';
+                document.getElementById('inverter-manufacturer').style.display = 'grid';
+            }
+
+            if (dadosInversor.potencia != '') {
+                document.getElementById('inverter-power').innerHTML = (dadosInversor.potencia / 1000).toString().replace('.', ',') + " kW";
+                document.getElementById('title-inverter-power').style.visibility = 'visible';
+                document.getElementById('title-inverter-power').style.display = 'grid';
+                document.getElementById('inverter-power').style.visibility = 'visible';
+                document.getElementById('inverter-power').style.display = 'grid';
+            }
+            
+            if (dadosInversor.overload != '') {
+                document.getElementById('inverter-overload').innerHTML = (dadosInversor.overload / 1000).toString().replace('.', ',') + " kW";
+                document.getElementById('title-inverter-overload').style.visibility = 'visible';
+                document.getElementById('title-inverter-overload').style.display = 'grid';
+                document.getElementById('inverter-overload').style.visibility = 'visible';
+                document.getElementById('inverter-overload').style.display = 'grid';
+            }
+
+            if (dadosInversor.n_mppt != '') {
+                document.getElementById('inverter-mppt').innerHTML = dadosInversor.n_mppt;
+                document.getElementById('title-inverter-mppt').style.visibility = 'visible';
+                document.getElementById('title-inverter-mppt').style.display = 'grid';
+                document.getElementById('inverter-mppt').style.visibility = 'visible';
+                document.getElementById('inverter-mppt').style.display = 'grid';
+            }
+
+            if (dadosInversor.n_entrada != '') {
+                document.getElementById('inverter-input').innerHTML = dadosInversor.n_entrada;
+                document.getElementById('title-inverter-input').style.visibility = 'visible';
+                document.getElementById('title-inverter-input').style.display = 'grid';
+                document.getElementById('inverter-input').style.visibility = 'visible';
+                document.getElementById('inverter-input').style.display = 'grid';
+            }
+            
+            if (dadosInversor.imp != '') {
+                document.getElementById('inverter-imp').innerHTML = dadosInversor.imp.toString().replace('.', ',') + " A";
+                document.getElementById('title-inverter-imp').style.visibility = 'visible';
+                document.getElementById('title-inverter-imp').style.display = 'grid';
+                document.getElementById('inverter-imp').style.visibility = 'visible';
+                document.getElementById('inverter-imp').style.display = 'grid';
+            }
+
+            if (dadosInversor.isc != '') {
+                document.getElementById('inverter-isc').innerHTML = dadosInversor.isc.toString().replace('.', ',') + " A";
+                document.getElementById('title-inverter-isc').style.visibility = 'visible';
+                document.getElementById('title-inverter-isc').style.display = 'grid';
+                document.getElementById('inverter-isc').style.visibility = 'visible';
+                document.getElementById('inverter-isc').style.display = 'grid';
+            }
+
+            if (dadosInversor.v_max_mppt != '' & dadosInversor.v_min_mppt != '') {
+                document.getElementById('inverter-vmp').innerHTML = dadosInversor.v_min_mppt.toString() + "-" + dadosInversor.v_max_mppt.toString() + " V";
+                document.getElementById('title-inverter-vmp').style.visibility = 'visible';
+                document.getElementById('title-inverter-vmp').style.display = 'grid';
+                document.getElementById('inverter-vmp').style.visibility = 'visible';
+                document.getElementById('inverter-vmp').style.display = 'grid';
+            }
+            
+            if (dadosInversor.v_max != '') {
+                document.getElementById('inverter-voc').innerHTML = dadosInversor.v_max.toString() + " V";
+                document.getElementById('title-inverter-voc').style.visibility = 'visible';
+                document.getElementById('title-inverter-voc').style.display = 'grid';
+                document.getElementById('inverter-voc').style.visibility = 'visible';
+                document.getElementById('inverter-voc').style.display = 'grid';
+            }
+            
+            if (dadosInversor.i_saida != '') {
+                document.getElementById('inverter-iout').innerHTML = dadosInversor.i_saida.toString().replace('.', ',') + " A";
+                document.getElementById('title-inverter-iout').style.visibility = 'visible';
+                document.getElementById('title-inverter-iout').style.display = 'grid';
+                document.getElementById('inverter-iout').style.visibility = 'visible';
+                document.getElementById('inverter-iout').style.display = 'grid';
+            }
+
+            if (dadosInversor.v_saida != '') {
+                document.getElementById('inverter-vout').innerHTML = dadosInversor.v_saida.toString() + " V";
+                document.getElementById('title-inverter-vout').style.visibility = 'visible';
+                document.getElementById('title-inverter-vout').style.display = 'grid';
+                document.getElementById('inverter-vout').style.visibility = 'visible';
+                document.getElementById('inverter-vout').style.display = 'grid';
+            }
+            
+            if (dadosInversor.comprimento != '') {
+                document.getElementById('inverter-width').innerHTML = dadosInversor.comprimento.toString() + " mm";
+                document.getElementById('title-inverter-width').style.visibility = 'visible';
+                document.getElementById('title-inverter-width').style.display = 'grid';
+                document.getElementById('inverter-width').style.visibility = 'visible';
+                document.getElementById('inverter-width').style.display = 'grid';
+            }
+
+            if (dadosInversor.largura != '') {
+                document.getElementById('inverter-length').innerHTML = dadosInversor.largura.toString() + " mm";
+                document.getElementById('title-inverter-length').style.visibility = 'visible';
+                document.getElementById('title-inverter-length').style.display = 'grid';
+                document.getElementById('inverter-length').style.visibility = 'visible';
+                document.getElementById('inverter-length').style.display = 'grid';
+            }
+
+            if (dadosInversor.espessura != '') {
+                document.getElementById('inverter-thickness').innerHTML = dadosInversor.espessura.toString() + " mm";
+                document.getElementById('title-inverter-thickness').style.visibility = 'visible';
+                document.getElementById('title-inverter-thickness').style.display = 'grid';
+                document.getElementById('inverter-thickness').style.visibility = 'visible';
+                document.getElementById('inverter-thickness').style.display = 'grid';
+            }
+            
+            if (dadosInversor.eficiencia != '') {
+                document.getElementById('inverter-efficiency').innerHTML = dadosInversor.eficiencia.toString().replace('.', ',') + "%";
+                document.getElementById('title-inverter-efficiency').style.visibility = 'visible';
+                document.getElementById('title-inverter-efficiency').style.display = 'grid';
+                document.getElementById('inverter-efficiency').style.visibility = 'visible';
+                document.getElementById('inverter-efficiency').style.display = 'grid';
+            }
+
+            if (dadosInversor.temperatura_nominal != '') {
+                document.getElementById('inverter-added-in').innerHTML = data + " ás " + hora;
+                document.getElementById('title-inverter-added-in').style.visibility = 'visible';
+                document.getElementById('title-inverter-added-in').style.display = 'grid';
+                document.getElementById('inverter-added-in').style.visibility = 'visible';
+                document.getElementById('inverter-added-in').style.display = 'grid';
+            }
+        }
+
+        else if (dadosInversor == 'Error: Request failed with status code 401') {
+            localStorage.setItem('access_token', dadosInversor);
+            checar_autorizacao();
+        }
+
+        else {
+            let arrayInversorInexistente = document.getElementsByClassName('container-inversor-inexistente')
+
+            for (i = 0; i < arrayInversorInexistente.length; i ++) {
+                arrayInversorInexistente[i].style.visibility = 'visible';
+                arrayInversorInexistente[i].style.display = 'flex';
+            }
+        }
+    }
+
+    else {
+        arrayCampos = document.getElementsByClassName('campo-obrigatorio-modulos')
+
+        for (i = 0; i < arrayCampos.length; i ++) {
+            arrayCampos[i].style.visibility = "visible";
+            arrayCampos[i].style.display = "grid";
+        }
+    }
+}
+
+async function post_inverter() {
+    let access_token = localStorage.getItem('access_token');
+
+    let modelo = document.getElementById('modelo-inversor-adicionar').value
+    let fabricante = document.getElementById('fabricante-inversor-adicionar').value.toUpperCase()
+    let potencia = document.getElementById('potência-inversor-adicionar').value
+    let overload = document.getElementById('overload-inversor-adicionar').value
+    let imp = document.getElementById('imp-inversor-adicionar').value
+    
+    if (imp.includes(',') == true) {
+        imp = imp.replace(',', '.')
+    }
+
+    let isc = document.getElementById('isc-inversor-adicionar').value
+
+    if (isc.includes(',') == true) {
+        isc = isc.replace(',', '.')
+    }
+
+    let v_min_mppt = document.getElementById('vmin-mppt-inversor-adicionar').value
+    let v_max_mppt = document.getElementById('vmax-mppt-inversor-adicionar').value
+    let v_max = document.getElementById('voc-inversor-adicionar').value
+    let n_mppt = document.getElementById('n-mppt-inversor-adicionar').value
+    let n_entrada = document.getElementById('n-entrada-inversor-adicionar').value
+    let v_saida = document.getElementById('v-saída-inversor-adicionar').value
+    let i_saida = document.getElementById('i-saída-inversor-adicionar').value
+
+    if (i_saida.includes(',') == true) {
+        i_saida = i_saida.replace(',', '.')
+    }
+
+    let comprimento = document.getElementById('comprimento-inversor-adicionar').value
+    let largura = document.getElementById('largura-inversor-adicionar').value
+    let espessura = document.getElementById('espessura-inversor-adicionar').value
+    let eficiencia = document.getElementById('eficiência-inversor-adicionar').value
+
+    if (eficiencia.includes(',') == true) {
+        eficiencia = eficiencia.replace(',', '.')
+    }
+
+    dicionario = {
+        'modelo': modelo,
+        'fabricante': fabricante,
+        'potencia': potencia,
+        'overload': overload,
+        'imp': imp,
+        'isc': isc,
+        'v_min_mppt': v_min_mppt,
+        'v_max_mppt': v_max_mppt,
+        'v_max': v_max,
+        'n_mppt': n_mppt,
+        'n_entrada': n_entrada,
+        'v_saida': v_saida,
+        'i_saida': i_saida,
+        'comprimento': comprimento,
+        'largura': largura,
+        'espessura': espessura,
+        'eficiencia': eficiencia
+    }
+
+    let config = {
+        headers: {
+          'Authorization': 'Bearer ' + access_token
+        }
+    }
+
+    if (modelo != '' & fabricante != '' & potencia != '' & overload != '' & imp != '' & isc != '' & v_min_mppt != '' & v_max_mppt != '' & v_max != '' & n_mppt != '' & n_entrada != '' & v_saida != '' & i_saida != '' & comprimento != '' & largura != '' & espessura != '' & eficiencia != ''){
+        resposta = await axios.post(
+            'http://localhost:8000/inverters', dicionario, config
+        ).then(
+            function (response) {
+                const resposta = response.data;
+                return resposta;
+            }
+        ).catch(
+            function (error) {
+                console.log(error);
+                return error;
+            }
+        )
+
+        if (resposta != 'Error: Network Error' & resposta != 'Error: Request failed with status code 401') {
+            document.getElementById('container-inversor-adicionado').style.visibility = 'visible';
+            document.getElementById('container-inversor-adicionado').style.display = 'grid';
+            
+            document.getElementById('container-add-inverters-general').style.visibility = 'hidden';
+            document.getElementById('container-add-inverters-general').style.display = 'none';
+        }
+
+        else if (resposta == 'Error: Request failed with status code 401') {
+            localStorage.setItem('access_token', resposta);
+            checar_autorizacao();
+        }
+
+        else {
+            divExistentInverter = document.getElementsByClassName('container-inversor-existente')
+            divExistentInverter[0].style.visibility = 'visible';
+            divExistentInverter[0].style.display = 'flex';
+        }
+    }
+
+    else {
+        arrayCampos = document.getElementsByClassName('campo-obrigatorio-modulos')
+
+        for (i = 0; i < arrayCampos.length; i ++) {
+            arrayCampos[i].style.visibility = "visible";
+            arrayCampos[i].style.display = "grid";
+        }
+    }
+}
+
+async function patch_inverter() {
+    let access_token = localStorage.getItem('access_token');
+
+    let id = document.getElementById('modelo-inversor-buscar-atualizar').value;
+    
+    let modelo = document.getElementById('modelo-inversor-atualizar').value
+    let fabricante = document.getElementById('fabricante-inversor-atualizar').value.toUpperCase()
+    let potencia = document.getElementById('potência-inversor-atualizar').value
+    let overload = document.getElementById('overload-inversor-atualizar').value
+    let imp = document.getElementById('imp-inversor-atualizar').value
+    
+    if (imp.includes(',') == true) {
+        imp = imp.replace(',', '.')
+    }
+
+    let isc = document.getElementById('isc-inversor-atualizar').value
+
+    if (isc.includes(',') == true) {
+        isc = isc.replace(',', '.')
+    }
+
+    let v_min_mppt = document.getElementById('vmin-mppt-inversor-atualizar').value
+    let v_max_mppt = document.getElementById('vmax-mppt-inversor-atualizar').value
+    let v_max = document.getElementById('voc-inversor-atualizar').value
+    let n_mppt = document.getElementById('n-mppt-inversor-atualizar').value
+    let n_entrada = document.getElementById('n-entrada-inversor-atualizar').value
+    let v_saida = document.getElementById('v-saída-inversor-atualizar').value
+    let i_saida = document.getElementById('i-saída-inversor-atualizar').value
+
+    if (i_saida.includes(',') == true) {
+        i_saida = i_saida.replace(',', '.')
+    }
+
+    let comprimento = document.getElementById('comprimento-inversor-atualizar').value
+    let largura = document.getElementById('largura-inversor-atualizar').value
+    let espessura = document.getElementById('espessura-inversor-atualizar').value
+    let eficiencia = document.getElementById('eficiência-inversor-atualizar').value
+
+    if (eficiencia.includes(',') == true) {
+        eficiencia = eficiencia.replace(',', '.')
+    }
+
+    let dicionario = {}; // Create an empty array
+
+    if (modelo == '' & fabricante == '' & potencia == '' & overload == '' & imp == '' & isc == '' & v_min_mppt == '' & v_max_mppt == '' & v_max == '' & n_mppt == '' & n_entrada == '' & v_saida == '' & i_saida == '' & comprimento == '' & largura == '' & espessura == '' & eficiencia == ''){
+        containerCamposNaoPreenchidos = document.getElementsByClassName('container-campos-nao-preenchidos')
+        containerCamposNaoPreenchidos[0].style.visibility = "visible"
+        containerCamposNaoPreenchidos[0].style.display = "flex"
+    }
+
+    else {
+        if (modelo != ''){
+            dicionario['modelo'] = modelo
+        }
+
+        if (fabricante != ''){
+            dicionario['fabricante'] = fabricante
+        }
+
+        if (potencia != ''){
+            dicionario['potencia'] = potencia
+        }
+
+        if (overload != ''){
+            dicionario['overload'] = overload
+        }
+
+        if (imp != ''){
+            dicionario['imp'] = imp
+        }
+
+        if (isc != ''){
+            dicionario['isc'] = isc
+        }
+
+        if (v_min_mppt != ''){
+            dicionario['v_min_mppt'] = v_min_mppt
+        }
+
+        if (v_max_mppt != ''){
+            dicionario['v_max_mppt'] = v_max_mppt
+        }
+
+        if (v_max != ''){
+            dicionario['v_max'] = v_max
+        }
+
+        if (n_mppt != ''){
+            dicionario['n_mppt'] = n_mppt
+        }
+        
+        if (n_entrada != ''){
+            dicionario['n_entrada'] = n_entrada
+        }
+        
+        if (i_saida != ''){
+            dicionario['i_saida'] = i_saida
+        }
+
+        if (v_saida != ''){
+            dicionario['v_saida'] = v_saida
+        }
+
+        if (comprimento != ''){
+            dicionario['comprimento'] = comprimento
+        }
+        
+        if (largura != ''){
+            dicionario['largura'] = largura
+        }
+        
+        if (espessura != ''){
+            dicionario['espessura'] = espessura
+        }
+        
+        if (eficiencia != ''){
+            dicionario['eficiencia'] = eficiencia
+        }
+
+        let config = {
+            headers: {
+            'Authorization': 'Bearer ' + access_token
+            }
+        }
+        
+        url = 'http://localhost:8000/inverters/' + id
+        
+        resposta = await axios.patch(
+            url, dicionario, config
+        ).then(
+            function (response) {
+                const resposta = response.data;
+                return resposta;
+            }
+        ).catch(
+            function (error) {
+                console.log(error);
+                return error;
+            }
+        )
+        
+        if (resposta != 'Error: Request failed with status code 404' & resposta != 'Error: Request failed with status code 401') {
+            document.getElementById('container-inversor-atualizado').style.visibility = 'visible';
+            document.getElementById('container-inversor-atualizado').style.display = 'grid';
+                
+            document.getElementById('container-update-inverters-general').style.visibility = 'hidden';
+            document.getElementById('container-update-inverters-general').style.display = 'none';
+        }
+
+        else if (resposta == 'Error: Request failed with status code 401') {
+            localStorage.setItem('access_token', resposta);
+            checar_autorizacao();
+        }
+
+        else {
+            let arrayInversorInexistente = document.getElementsByClassName('container-inversor-inexistente')
+
+            for (i = 0; i < arrayInversorInexistente.length; i ++) {
+                arrayInversorInexistente[i].style.visibility = 'visible'
+                arrayInversorInexistente[i].style.display = 'flex'
+            }
+        }
+    }
+}
+
+async function delete_inverter() {
+    let access_token = localStorage.getItem('access_token');
+    let id = document.getElementById('modelo-inversor-deletar').value;
+
+    if (id != '') {
+
+        let config = {
+            headers: {
+              'Authorization': 'Bearer ' + access_token
+            }
+        }
+
+        let resposta = await axios.delete(
+            'http://localhost:8000/inverters/' + id, config
+        ).then(
+            function (response) {
+                const resposta = response.data;
+                return resposta;
+            }
+        ).catch(
+            function (error) {
+                console.log(error);
+                return error;
+            }
+        )
+        
+        if (resposta == '') {
+            document.getElementById('container-inversor-deletado').style.visibility = 'visible';
+            document.getElementById('container-inversor-deletado').style.display = 'grid';
+
+            document.getElementById('container-delete-inverters').style.visibility = 'hidden';
+            document.getElementById('container-delete-inverters').style.display = 'none';
+        }
+
+        else if (resposta == 'Error: Request failed with status code 401') {
+            localStorage.setItem('access_token', resposta);
+            checar_autorizacao();
+        }
+
+        else if (resposta == 'Error: Request failed with status code 404') {
+            let arrayInversorInexistente = document.getElementsByClassName('container-inversor-inexistente');
+
+            for (i = 0; i < arrayInversorInexistente.length; i ++) {
+                arrayInversorInexistente[i].style.visibility = 'visible';
+                arrayInversorInexistente[i].style.display = 'flex';
+            }
+        }
+
+    }
+    
+    else {
+        let arrayCampos = document.getElementsByClassName('campo-obrigatorio-inversores');
+
+        for (i = 0; i < arrayCampos.length; i ++) {
+            arrayCampos[i].style.visibility = "visible";
+            arrayCampos[i].style.display = "grid";
+        }
+    }
+}
