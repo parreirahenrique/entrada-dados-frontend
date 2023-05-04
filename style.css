@@ -353,6 +353,16 @@ td {
     width: 1500px;
 }
 
+.content {
+    visibility: hidden;
+    display: none;
+}
+
+.title {
+    visibility: hidden;
+    display: none;
+}
+
 /* ESTILOS DAS CLASSES DA PÁGINA DE LOGIN */
 .container-dados-usuario-geral {
     margin-left: auto;
@@ -598,76 +608,6 @@ td {
 }
 
 #container-cliente-deletado {
-    visibility: hidden;
-    display: none;
-}
-
-#title-client-name {
-    visibility: hidden;
-    display: none;
-}
-
-#client-name {
-    visibility: hidden;
-    display: none;
-}
-
-#title-client-cpf {
-    visibility: hidden;
-    display: none;
-}
-
-#client-cpf {
-    visibility: hidden;
-    display: none;
-}
-
-#title-client-number {
-    visibility: hidden;
-    display: none;
-}
-
-#client-number {
-    visibility: hidden;
-    display: none;
-}
-
-#title-client-rg {
-    visibility: hidden;
-    display: none;
-}
-
-#client-rg {
-    visibility: hidden;
-    display: none;
-}
-
-#title-client-date {
-    visibility: hidden;
-    display: none;
-}
-
-#client-date {
-    visibility: hidden;
-    display: none;
-}
-
-#title-client-parent-name {
-    visibility: hidden;
-    display: none;
-}
-
-#client-parent-name {
-    visibility: hidden;
-    display: none;
-}
-
-#title-client-added-in {
-    visibility: hidden;
-    display: none;
-}
-
-#client-added-in {
     visibility: hidden;
     display: none;
 }

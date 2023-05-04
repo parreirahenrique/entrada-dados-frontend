@@ -566,7 +566,7 @@ async function get_client() {
                 document.getElementById('client-cpf').style.display = 'grid';
             }
 
-            if (dadosCliente.numero_cliente != '') {
+            if (dadosCliente.numero_cliente != 0) {
                 document.getElementById('client-number').innerHTML = dadosCliente.numero_cliente;
                 document.getElementById('title-client-number').style.visibility = 'visible';
                 document.getElementById('title-client-number').style.display = 'grid';
@@ -1494,31 +1494,31 @@ async function get_all_modules_skip(alterar) {
                     arrayTD[12 * i + 1].innerHTML = dadosTodosModulos[i].fabricante
                     arrayTD[12 * i + 1].style.visibility = 'visible'
                     arrayTD[12 * i + 1].style.display = 'table-cell'
-                    arrayTD[12 * i + 2].innerHTML = dadosTodosModulos[i].potencia
+                    arrayTD[12 * i + 2].innerHTML = String(dadosTodosModulos[i].potencia).replace('.', ',') + ' Wp'
                     arrayTD[12 * i + 2].style.visibility = 'visible'
                     arrayTD[12 * i + 2].style.display = 'table-cell'
-                    arrayTD[12 * i + 3].innerHTML = dadosTodosModulos[i].imp
+                    arrayTD[12 * i + 3].innerHTML = String(dadosTodosModulos[i].imp).replace('.', ',') + ' A'
                     arrayTD[12 * i + 3].style.visibility = 'visible'
                     arrayTD[12 * i + 3].style.display = 'table-cell'
-                    arrayTD[12 * i + 4].innerHTML = dadosTodosModulos[i].isc
+                    arrayTD[12 * i + 4].innerHTML = String(dadosTodosModulos[i].isc).replace('.', ',') + ' A'
                     arrayTD[12 * i + 4].style.visibility = 'visible'
                     arrayTD[12 * i + 4].style.display = 'table-cell'
-                    arrayTD[12 * i + 5].innerHTML = dadosTodosModulos[i].vmp
+                    arrayTD[12 * i + 5].innerHTML = String(dadosTodosModulos[i].vmp).replace('.', ',') + ' V'
                     arrayTD[12 * i + 5].style.visibility = 'visible'
                     arrayTD[12 * i + 5].style.display = 'table-cell'
-                    arrayTD[12 * i + 6].innerHTML = dadosTodosModulos[i].voc
+                    arrayTD[12 * i + 6].innerHTML = String(dadosTodosModulos[i].voc).replace('.', ',') + ' V'
                     arrayTD[12 * i + 6].style.visibility = 'visible'
                     arrayTD[12 * i + 6].style.display = 'table-cell'
-                    arrayTD[12 * i + 7].innerHTML = dadosTodosModulos[i].comprimento
+                    arrayTD[12 * i + 7].innerHTML = String(dadosTodosModulos[i].comprimento) + ' mm'
                     arrayTD[12 * i + 7].style.visibility = 'visible'
                     arrayTD[12 * i + 7].style.display = 'table-cell'
-                    arrayTD[12 * i + 8].innerHTML = dadosTodosModulos[i].largura
+                    arrayTD[12 * i + 8].innerHTML = String(dadosTodosModulos[i].largura) + ' mm'
                     arrayTD[12 * i + 8].style.visibility = 'visible'
                     arrayTD[12 * i + 8].style.display = 'table-cell'
-                    arrayTD[12 * i + 9].innerHTML = dadosTodosModulos[i].espessura
+                    arrayTD[12 * i + 9].innerHTML = String(dadosTodosModulos[i].espessura) + ' mm'
                     arrayTD[12 * i + 9].style.visibility = 'visible'
                     arrayTD[12 * i + 9].style.display = 'table-cell'
-                    arrayTD[12 * i + 10].innerHTML = dadosTodosModulos[i].eficiencia
+                    arrayTD[12 * i + 10].innerHTML = String(dadosTodosModulos[i].eficiencia).replace('.', ',') + '%'
                     arrayTD[12 * i + 10].style.visibility = 'visible'
                     arrayTD[12 * i + 10].style.display = 'table-cell'
                     arrayTD[12 * i + 11].innerHTML = dadosTodosModulos[i].tipo
@@ -1631,7 +1631,7 @@ async function get_module() {
                 document.getElementById('module-manufacturer').style.display = 'grid';
             }
 
-            if (dadosModulo.potencia != '') {
+            if (dadosModulo.potencia != 0) {
                 document.getElementById('module-power').innerHTML = dadosModulo.potencia.toString() + " Wp";
                 document.getElementById('title-module-power').style.visibility = 'visible';
                 document.getElementById('title-module-power').style.display = 'grid';
@@ -1639,7 +1639,7 @@ async function get_module() {
                 document.getElementById('module-power').style.display = 'grid';
             }
             
-            if (dadosModulo.imp != '') {
+            if (dadosModulo.imp != 0) {
                 document.getElementById('module-imp').innerHTML = dadosModulo.imp.toString().replace('.', ',') + " A";
                 document.getElementById('title-module-imp').style.visibility = 'visible';
                 document.getElementById('title-module-imp').style.display = 'grid';
@@ -1647,7 +1647,7 @@ async function get_module() {
                 document.getElementById('module-imp').style.display = 'grid';
             }
             
-            if (dadosModulo.isc != '') {
+            if (dadosModulo.isc != 0) {
                 document.getElementById('module-isc').innerHTML = dadosModulo.isc.toString().replace('.', ',') + " A";
                 document.getElementById('title-module-isc').style.visibility = 'visible';
                 document.getElementById('title-module-isc').style.display = 'grid';
@@ -1655,7 +1655,7 @@ async function get_module() {
                 document.getElementById('module-isc').style.display = 'grid';
             }
 
-            if (dadosModulo.vmp != '') {
+            if (dadosModulo.vmp != 0) {
                 document.getElementById('module-vmp').innerHTML = dadosModulo.vmp.toString().replace('.', ',') + " V";
                 document.getElementById('title-module-vmp').style.visibility = 'visible';
                 document.getElementById('title-module-vmp').style.display = 'grid';
@@ -1663,7 +1663,7 @@ async function get_module() {
                 document.getElementById('module-vmp').style.display = 'grid';
             }
             
-            if (dadosModulo.voc != '') {
+            if (dadosModulo.voc != 0) {
                 document.getElementById('module-voc').innerHTML = dadosModulo.voc.toString().replace('.', ',') + " V";
                 document.getElementById('title-module-voc').style.visibility = 'visible';
                 document.getElementById('title-module-voc').style.display = 'grid';
@@ -1671,7 +1671,7 @@ async function get_module() {
                 document.getElementById('module-voc').style.display = 'grid';
             }
             
-            if (dadosModulo.comprimento != '') {
+            if (dadosModulo.comprimento != 0) {
                 document.getElementById('module-width').innerHTML = dadosModulo.comprimento.toString() + " mm";
                 document.getElementById('title-module-width').style.visibility = 'visible';
                 document.getElementById('title-module-width').style.display = 'grid';
@@ -1679,7 +1679,7 @@ async function get_module() {
                 document.getElementById('module-width').style.display = 'grid';
             }
             
-            if (dadosModulo.largura != '') {
+            if (dadosModulo.largura != 0) {
                 document.getElementById('module-length').innerHTML = dadosModulo.largura.toString() + " mm";
                 document.getElementById('title-module-length').style.visibility = 'visible';
                 document.getElementById('title-module-length').style.display = 'grid';
@@ -1687,7 +1687,7 @@ async function get_module() {
                 document.getElementById('module-length').style.display = 'grid';
             }
             
-            if (dadosModulo.espessura != '') {
+            if (dadosModulo.espessura != 0) {
                 document.getElementById('module-thickness').innerHTML = dadosModulo.espessura.toString() + " mm";
                 document.getElementById('title-module-thickness').style.visibility = 'visible';
                 document.getElementById('title-module-thickness').style.display = 'grid';
@@ -1695,7 +1695,7 @@ async function get_module() {
                 document.getElementById('module-thickness').style.display = 'grid';
             }
             
-            if (dadosModulo.eficiencia != '') {
+            if (dadosModulo.eficiencia != 0) {
                 document.getElementById('module-efficiency').innerHTML = dadosModulo.eficiencia.toString().replace('.', ',') + "%";
                 document.getElementById('title-module-efficiency').style.visibility = 'visible';
                 document.getElementById('title-module-efficiency').style.display = 'grid';
@@ -1719,7 +1719,7 @@ async function get_module() {
                 document.getElementById('module-type').style.display = 'grid';
             }
             
-            if (dadosModulo.coeficiente_temperatura != '') {
+            if (dadosModulo.coeficiente_temperatura != 0) {
                 document.getElementById('module-coefficient').innerHTML = dadosModulo.coeficiente_temperatura.toString().replace('.', ',') + "%/°C";
                 document.getElementById('title-module-coefficient').style.visibility = 'visible';
                 document.getElementById('title-module-coefficient').style.display = 'grid';
@@ -2401,7 +2401,7 @@ async function get_inverter() {
                 document.getElementById('inverter-manufacturer').style.display = 'grid';
             }
 
-            if (dadosInversor.potencia != '') {
+            if (dadosInversor.potencia != 0) {
                 document.getElementById('inverter-power').innerHTML = (dadosInversor.potencia / 1000).toString().replace('.', ',') + " kW";
                 document.getElementById('title-inverter-power').style.visibility = 'visible';
                 document.getElementById('title-inverter-power').style.display = 'grid';
@@ -2409,7 +2409,7 @@ async function get_inverter() {
                 document.getElementById('inverter-power').style.display = 'grid';
             }
             
-            if (dadosInversor.overload != '') {
+            if (dadosInversor.overload != 0) {
                 document.getElementById('inverter-overload').innerHTML = (dadosInversor.overload / 1000).toString().replace('.', ',') + " kW";
                 document.getElementById('title-inverter-overload').style.visibility = 'visible';
                 document.getElementById('title-inverter-overload').style.display = 'grid';
@@ -2417,7 +2417,7 @@ async function get_inverter() {
                 document.getElementById('inverter-overload').style.display = 'grid';
             }
 
-            if (dadosInversor.n_mppt != '') {
+            if (dadosInversor.n_mppt != 0) {
                 document.getElementById('inverter-mppt').innerHTML = dadosInversor.n_mppt;
                 document.getElementById('title-inverter-mppt').style.visibility = 'visible';
                 document.getElementById('title-inverter-mppt').style.display = 'grid';
@@ -2425,7 +2425,7 @@ async function get_inverter() {
                 document.getElementById('inverter-mppt').style.display = 'grid';
             }
 
-            if (dadosInversor.n_entrada != '') {
+            if (dadosInversor.n_entrada != 0) {
                 document.getElementById('inverter-input').innerHTML = dadosInversor.n_entrada;
                 document.getElementById('title-inverter-input').style.visibility = 'visible';
                 document.getElementById('title-inverter-input').style.display = 'grid';
@@ -2433,7 +2433,7 @@ async function get_inverter() {
                 document.getElementById('inverter-input').style.display = 'grid';
             }
             
-            if (dadosInversor.imp != '') {
+            if (dadosInversor.imp != 0) {
                 document.getElementById('inverter-imp').innerHTML = dadosInversor.imp.toString().replace('.', ',') + " A";
                 document.getElementById('title-inverter-imp').style.visibility = 'visible';
                 document.getElementById('title-inverter-imp').style.display = 'grid';
@@ -2441,7 +2441,7 @@ async function get_inverter() {
                 document.getElementById('inverter-imp').style.display = 'grid';
             }
 
-            if (dadosInversor.isc != '') {
+            if (dadosInversor.isc != 0) {
                 document.getElementById('inverter-isc').innerHTML = dadosInversor.isc.toString().replace('.', ',') + " A";
                 document.getElementById('title-inverter-isc').style.visibility = 'visible';
                 document.getElementById('title-inverter-isc').style.display = 'grid';
@@ -2449,7 +2449,7 @@ async function get_inverter() {
                 document.getElementById('inverter-isc').style.display = 'grid';
             }
 
-            if (dadosInversor.v_max_mppt != '' & dadosInversor.v_min_mppt != '') {
+            if (dadosInversor.v_max_mppt != 0 & dadosInversor.v_min_mppt != 0) {
                 document.getElementById('inverter-vmp').innerHTML = dadosInversor.v_min_mppt.toString() + "-" + dadosInversor.v_max_mppt.toString() + " V";
                 document.getElementById('title-inverter-vmp').style.visibility = 'visible';
                 document.getElementById('title-inverter-vmp').style.display = 'grid';
@@ -2457,7 +2457,7 @@ async function get_inverter() {
                 document.getElementById('inverter-vmp').style.display = 'grid';
             }
             
-            if (dadosInversor.v_max != '') {
+            if (dadosInversor.v_max != 0) {
                 document.getElementById('inverter-voc').innerHTML = dadosInversor.v_max.toString() + " V";
                 document.getElementById('title-inverter-voc').style.visibility = 'visible';
                 document.getElementById('title-inverter-voc').style.display = 'grid';
@@ -2465,7 +2465,7 @@ async function get_inverter() {
                 document.getElementById('inverter-voc').style.display = 'grid';
             }
             
-            if (dadosInversor.i_saida != '') {
+            if (dadosInversor.i_saida != 0) {
                 document.getElementById('inverter-iout').innerHTML = dadosInversor.i_saida.toString().replace('.', ',') + " A";
                 document.getElementById('title-inverter-iout').style.visibility = 'visible';
                 document.getElementById('title-inverter-iout').style.display = 'grid';
@@ -2473,7 +2473,7 @@ async function get_inverter() {
                 document.getElementById('inverter-iout').style.display = 'grid';
             }
 
-            if (dadosInversor.v_saida != '') {
+            if (dadosInversor.v_saida != 0) {
                 document.getElementById('inverter-vout').innerHTML = dadosInversor.v_saida.toString() + " V";
                 document.getElementById('title-inverter-vout').style.visibility = 'visible';
                 document.getElementById('title-inverter-vout').style.display = 'grid';
@@ -2481,7 +2481,7 @@ async function get_inverter() {
                 document.getElementById('inverter-vout').style.display = 'grid';
             }
             
-            if (dadosInversor.comprimento != '') {
+            if (dadosInversor.comprimento != 0) {
                 document.getElementById('inverter-width').innerHTML = dadosInversor.comprimento.toString() + " mm";
                 document.getElementById('title-inverter-width').style.visibility = 'visible';
                 document.getElementById('title-inverter-width').style.display = 'grid';
@@ -2489,7 +2489,7 @@ async function get_inverter() {
                 document.getElementById('inverter-width').style.display = 'grid';
             }
 
-            if (dadosInversor.largura != '') {
+            if (dadosInversor.largura != 0) {
                 document.getElementById('inverter-length').innerHTML = dadosInversor.largura.toString() + " mm";
                 document.getElementById('title-inverter-length').style.visibility = 'visible';
                 document.getElementById('title-inverter-length').style.display = 'grid';
@@ -2497,7 +2497,7 @@ async function get_inverter() {
                 document.getElementById('inverter-length').style.display = 'grid';
             }
 
-            if (dadosInversor.espessura != '') {
+            if (dadosInversor.espessura != 0) {
                 document.getElementById('inverter-thickness').innerHTML = dadosInversor.espessura.toString() + " mm";
                 document.getElementById('title-inverter-thickness').style.visibility = 'visible';
                 document.getElementById('title-inverter-thickness').style.display = 'grid';
@@ -2505,7 +2505,7 @@ async function get_inverter() {
                 document.getElementById('inverter-thickness').style.display = 'grid';
             }
             
-            if (dadosInversor.eficiencia != '') {
+            if (dadosInversor.eficiencia != 0) {
                 document.getElementById('inverter-efficiency').innerHTML = dadosInversor.eficiencia.toString().replace('.', ',') + "%";
                 document.getElementById('title-inverter-efficiency').style.visibility = 'visible';
                 document.getElementById('title-inverter-efficiency').style.display = 'grid';
@@ -2513,7 +2513,7 @@ async function get_inverter() {
                 document.getElementById('inverter-efficiency').style.display = 'grid';
             }
 
-            if (dadosInversor.temperatura_nominal != '') {
+            if (dadosInversor.criado_em != 0) {
                 document.getElementById('inverter-added-in').innerHTML = data + " ás " + hora;
                 document.getElementById('title-inverter-added-in').style.visibility = 'visible';
                 document.getElementById('title-inverter-added-in').style.display = 'grid';
@@ -2879,6 +2879,661 @@ async function delete_inverter() {
         for (i = 0; i < arrayCampos.length; i ++) {
             arrayCampos[i].style.visibility = "visible";
             arrayCampos[i].style.display = "grid";
+        }
+    }
+}
+
+//FUNÇÕES PARA A PÁGINA DE PROJETOS
+async function get_project() {
+    let access_token = localStorage.getItem('access_token');
+
+    let id = document.getElementById('id-projeto-buscar').value;
+    let divSearchProject = document.getElementById('container-search-projects');
+
+    if (id != '') {
+        
+        let config = {
+            headers: {
+              'Authorization': 'Bearer ' + access_token
+            }
+        }
+
+        let dadosProjeto = await axios.get(
+            'http://localhost:8000/projects/' + id.toString(), config
+        ).then(
+            function (response) {
+                const dadosProjeto = response.data;
+                return dadosProjeto;
+            }
+        ).catch(
+            function (error) {
+                console.log(error);
+                return error;
+            }
+        )
+        
+        if (dadosProjeto != 'Error: Request failed with status code 401' & dadosProjeto != 'Error: Request failed with status code 404') {
+            divSearchProject.style.visibility = 'hidden';
+            divSearchProject.style.display = 'none';
+
+            document.getElementById('container-projeto-encontrado').style.visibility = 'visible';
+            document.getElementById('container-projeto-encontrado').style.display = 'grid';
+            console.log(dadosProjeto)
+            let hora = dadosProjeto.criado_em.split('T')[1].split('.')[0];
+            let data = dadosProjeto.criado_em.split('-')[2].split('T')[0] + '/' + dadosProjeto.criado_em.split('-')[1] + '/' + dadosProjeto.criado_em.split('-')[0];
+
+            if (dadosProjeto.id != 0) {
+                document.getElementById('project-id').innerHTML = dadosProjeto.id;
+                document.getElementById('title-project-id').style.visibility = 'visible';
+                document.getElementById('title-project-id').style.display = 'grid';
+                document.getElementById('project-id').style.visibility = 'visible';
+                document.getElementById('project-id').style.display = 'grid';
+            }
+
+            if (dadosProjeto.numero_instalacao != 0) {
+                document.getElementById('project-instalation').innerHTML = dadosProjeto.numero_instalacao;
+                document.getElementById('title-project-instalation').style.visibility = 'visible';
+                document.getElementById('title-project-instalation').style.display = 'grid';
+                document.getElementById('project-instalation').style.visibility = 'visible';
+                document.getElementById('project-instalation').style.display = 'grid';
+            }
+
+            if (dadosProjeto.numero_cliente != 0) {
+                document.getElementById('project-client').innerHTML = dadosProjeto.numero_cliente;
+                document.getElementById('title-project-client').style.visibility = 'visible';
+                document.getElementById('title-project-client').style.display = 'grid';
+                document.getElementById('project-client').style.visibility = 'visible';
+                document.getElementById('project-client').style.display = 'grid';
+            }
+            
+            if (dadosProjeto.ligacao_nova == true) {
+                document.getElementById('project-link').innerHTML = 'Sim';
+                document.getElementById('title-project-link').style.visibility = 'visible';
+                document.getElementById('title-project-link').style.display = 'grid';
+                document.getElementById('project-link').style.visibility = 'visible';
+                document.getElementById('project-link').style.display = 'grid';
+            }
+
+            if (dadosProjeto.aumento_carga == true) {
+                document.getElementById('project-load').innerHTML = 'Sim';
+                document.getElementById('title-project-load').style.visibility = 'visible';
+                document.getElementById('title-project-load').style.display = 'grid';
+                document.getElementById('project-load').style.visibility = 'visible';
+                document.getElementById('project-load').style.display = 'grid';
+            }
+
+            if (dadosProjeto.aumento_usina == true) {
+                document.getElementById('project-plant').innerHTML = 'Sim';
+                document.getElementById('title-project-plant').style.visibility = 'visible';
+                document.getElementById('title-project-plant').style.display = 'grid';
+                document.getElementById('project-plant').style.visibility = 'visible';
+                document.getElementById('project-plant').style.display = 'grid';
+            }
+            
+            if (dadosProjeto.agrupamento == true) {
+                document.getElementById('project-grouping').innerHTML = 'Sim';
+                document.getElementById('title-project-grouping').style.visibility = 'visible';
+                document.getElementById('title-project-grouping').style.display = 'grid';
+                document.getElementById('project-grouping').style.visibility = 'visible';
+                document.getElementById('project-grouping').style.display = 'grid';
+            }
+
+            if (dadosProjeto.n_fases != '') {
+                document.getElementById('project-phases').innerHTML = dadosProjeto.n_fases;
+                document.getElementById('title-project-phases').style.visibility = 'visible';
+                document.getElementById('title-project-phases').style.display = 'grid';
+                document.getElementById('project-phases').style.visibility = 'visible';
+                document.getElementById('project-phases').style.display = 'grid';
+            }
+
+            if (dadosProjeto.disjuntor != '') {
+                document.getElementById('project-breaker').innerHTML = dadosProjeto.disjuntor + ' A';
+                document.getElementById('title-project-breaker').style.visibility = 'visible';
+                document.getElementById('title-project-breaker').style.display = 'grid';
+                document.getElementById('project-breaker').style.visibility = 'visible';
+                document.getElementById('project-breaker').style.display = 'grid';
+            }
+
+            if (dadosProjeto.novo_n_fases != null) {
+                document.getElementById('project-n-phases').innerHTML = dadosProjeto.novo_n_fases;
+                document.getElementById('title-project-n-phases').style.visibility = 'visible';
+                document.getElementById('title-project-n-phases').style.display = 'grid';
+                document.getElementById('project-n-phases').style.visibility = 'visible';
+                document.getElementById('project-n-phases').style.display = 'grid';
+            }
+
+            if (dadosProjeto.novo_disjuntor != 0) {
+                document.getElementById('project-n-breaker').innerHTML = dadosProjeto.novo_disjuntor + ' A';
+                document.getElementById('title-project-n-breaker').style.visibility = 'visible';
+                document.getElementById('title-project-n-breaker').style.display = 'grid';
+                document.getElementById('project-n-breaker').style.visibility = 'visible';
+                document.getElementById('project-n-breaker').style.display = 'grid';
+            }
+
+            if (dadosProjeto.n_fases_agrupamento != null) {
+                document.getElementById('project-g-phases').innerHTML = dadosProjeto.n_fases_agrupamento;
+                document.getElementById('title-project-g-phases').style.visibility = 'visible';
+                document.getElementById('title-project-g-phases').style.display = 'grid';
+                document.getElementById('project-g-phases').style.visibility = 'visible';
+                document.getElementById('project-g-phases').style.display = 'grid';
+            }
+
+            if (dadosProjeto.disjuntor_agrupamento != 0) {
+                document.getElementById('project-g-breaker').innerHTML = dadosProjeto.disjuntor_agrupamento;
+                document.getElementById('title-project-g-breaker').style.visibility = 'visible';
+                document.getElementById('title-project-g-breaker').style.display = 'grid';
+                document.getElementById('project-g-breaker').style.visibility = 'visible';
+                document.getElementById('project-g-breaker').style.display = 'grid';
+            }
+
+            if (dadosProjeto.modulo_anterior_1 == true) {
+                document.getElementById('project-o-modules-1').innerHTML = 'Sim';
+                document.getElementById('title-project-o-modules-1').style.visibility = 'visible';
+                document.getElementById('title-project-o-modules-1').style.display = 'grid';
+                document.getElementById('project-o-modules-1').style.visibility = 'visible';
+                document.getElementById('project-o-modules-1').style.display = 'grid';
+            }
+
+            if (dadosProjeto.quantidade_modulo_1 != 0) {
+                document.getElementById('project-q-modules-1').innerHTML = dadosProjeto.quantidade_modulo_1;
+                document.getElementById('title-project-q-modules-1').style.visibility = 'visible';
+                document.getElementById('title-project-q-modules-1').style.display = 'grid';
+                document.getElementById('project-q-modules-1').style.visibility = 'visible';
+                document.getElementById('project-q-modules-1').style.display = 'grid';
+            }
+            
+            if (dadosProjeto.modelo_modulo_1 != '') {
+                document.getElementById('project-m-modules-1').innerHTML = dadosProjeto.modelo_modulo_1;
+                document.getElementById('title-project-m-modules-1').style.visibility = 'visible';
+                document.getElementById('title-project-m-modules-1').style.display = 'grid';
+                document.getElementById('project-m-modules-1').style.visibility = 'visible';
+                document.getElementById('project-m-modules-1').style.display = 'grid';
+            }
+
+            if (dadosProjeto.modulo_anterior_2 == true) {
+                document.getElementById('project-o-modules-2').innerHTML = 'Sim';
+                document.getElementById('title-project-o-modules-2').style.visibility = 'visible';
+                document.getElementById('title-project-o-modules-2').style.display = 'grid';
+                document.getElementById('project-o-modules-2').style.visibility = 'visible';
+                document.getElementById('project-o-modules-2').style.display = 'grid';
+            }
+
+            if (dadosProjeto.quantidade_modulo_2 != 0) {
+                document.getElementById('project-q-modules-2').innerHTML = dadosProjeto.quantidade_modulo_2;
+                document.getElementById('title-project-q-modules-2').style.visibility = 'visible';
+                document.getElementById('title-project-q-modules-2').style.display = 'grid';
+                document.getElementById('project-q-modules-2').style.visibility = 'visible';
+                document.getElementById('project-q-modules-2').style.display = 'grid';
+            }
+            
+            if (dadosProjeto.modelo_modulo_2 != '') {
+                document.getElementById('project-m-modules-2').innerHTML = dadosProjeto.modelo_modulo_2;
+                document.getElementById('title-project-m-modules-2').style.visibility = 'visible';
+                document.getElementById('title-project-m-modules-2').style.display = 'grid';
+                document.getElementById('project-m-modules-2').style.visibility = 'visible';
+                document.getElementById('project-m-modules-2').style.display = 'grid';
+            }
+            
+            if (dadosProjeto.inversor_anterior_1 == true) {
+                document.getElementById('project-o-inverter-1').innerHTML = 'Sim';
+                document.getElementById('title-project-o-inverter-1').style.visibility = 'visible';
+                document.getElementById('title-project-o-inverter-1').style.display = 'grid';
+                document.getElementById('project-o-inverter-1').style.visibility = 'visible';
+                document.getElementById('project-o-inverter-1').style.display = 'grid';
+            }
+
+            if (dadosProjeto.quantidade_inversor_1 != 0) {
+                document.getElementById('project-q-inverter-1').innerHTML = dadosProjeto.quantidade_inversor_1;
+                document.getElementById('title-project-q-inverter-1').style.visibility = 'visible';
+                document.getElementById('title-project-q-inverter-1').style.display = 'grid';
+                document.getElementById('project-q-inverter-1').style.visibility = 'visible';
+                document.getElementById('project-q-inverter-1').style.display = 'grid';
+            }
+            
+            if (dadosProjeto.modelo_inversor_1 != '') {
+                document.getElementById('project-m-inverter-1').innerHTML = dadosProjeto.modelo_inversor_1;
+                document.getElementById('title-project-m-inverter-1').style.visibility = 'visible';
+                document.getElementById('title-project-m-inverter-1').style.display = 'grid';
+                document.getElementById('project-m-inverter-1').style.visibility = 'visible';
+                document.getElementById('project-m-inverter-1').style.display = 'grid';
+            }
+            
+            if (dadosProjeto.inversor_anterior_2 == true) {
+                document.getElementById('project-o-inverter-2').innerHTML = 'Sim';
+                document.getElementById('title-project-o-inverter-2').style.visibility = 'visible';
+                document.getElementById('title-project-o-inverter-2').style.display = 'grid';
+                document.getElementById('project-o-inverter-2').style.visibility = 'visible';
+                document.getElementById('project-o-inverter-2').style.display = 'grid';
+            }
+
+            if (dadosProjeto.quantidade_inversor_2 != 0) {
+                document.getElementById('project-q-inverter-2').innerHTML = dadosProjeto.quantidade_inversor_2;
+                document.getElementById('title-project-q-inverter-2').style.visibility = 'visible';
+                document.getElementById('title-project-q-inverter-2').style.display = 'grid';
+                document.getElementById('project-q-inverter-2').style.visibility = 'visible';
+                document.getElementById('project-q-inverter-2').style.display = 'grid';
+            }
+            
+            if (dadosProjeto.modelo_inversor_2 != '') {
+                document.getElementById('project-m-inverter-2').innerHTML = dadosProjeto.modelo_inversor_2;
+                document.getElementById('title-project-m-inverter-2').style.visibility = 'visible';
+                document.getElementById('title-project-m-inverter-2').style.display = 'grid';
+                document.getElementById('project-m-inverter-2').style.visibility = 'visible';
+                document.getElementById('project-m-inverter-2').style.display = 'grid';
+            }
+            
+            if (dadosProjeto.inversor_anterior_3 == true) {
+                document.getElementById('project-o-inverter-3').innerHTML = 'Sim';
+                document.getElementById('title-project-o-inverter-3').style.visibility = 'visible';
+                document.getElementById('title-project-o-inverter-3').style.display = 'grid';
+                document.getElementById('project-o-inverter-3').style.visibility = 'visible';
+                document.getElementById('project-o-inverter-3').style.display = 'grid';
+            }
+
+            if (dadosProjeto.quantidade_inversor_3 != 0) {
+                document.getElementById('project-q-inverter-3').innerHTML = dadosProjeto.quantidade_inversor_3;
+                document.getElementById('title-project-q-inverter-3').style.visibility = 'visible';
+                document.getElementById('title-project-q-inverter-3').style.display = 'grid';
+                document.getElementById('project-q-inverter-3').style.visibility = 'visible';
+                document.getElementById('project-q-inverter-3').style.display = 'grid';
+            }
+            
+            if (dadosProjeto.modelo_inversor_3 != '') {
+                document.getElementById('project-m-inverter-3').innerHTML = dadosProjeto.modelo_inversor_3;
+                document.getElementById('title-project-m-inverter-3').style.visibility = 'visible';
+                document.getElementById('title-project-m-inverter-3').style.display = 'grid';
+                document.getElementById('project-m-inverter-3').style.visibility = 'visible';
+                document.getElementById('project-m-inverter-3').style.display = 'grid';
+            }
+            
+            if (dadosProjeto.inversor_anterior_4 == true) {
+                document.getElementById('project-o-inverter-4').innerHTML = 'Sim';
+                document.getElementById('title-project-o-inverter-4').style.visibility = 'visible';
+                document.getElementById('title-project-o-inverter-4').style.display = 'grid';
+                document.getElementById('project-o-inverter-4').style.visibility = 'visible';
+                document.getElementById('project-o-inverter-4').style.display = 'grid';
+            }
+
+            if (dadosProjeto.quantidade_inversor_4 != 0) {
+                document.getElementById('project-q-inverter-4').innerHTML = dadosProjeto.quantidade_inversor_4;
+                document.getElementById('title-project-q-inverter-4').style.visibility = 'visible';
+                document.getElementById('title-project-q-inverter-4').style.display = 'grid';
+                document.getElementById('project-q-inverter-4').style.visibility = 'visible';
+                document.getElementById('project-q-inverter-4').style.display = 'grid';
+            }
+            
+            if (dadosProjeto.modelo_inversor_4 != '') {
+                document.getElementById('project-m-inverter-4').innerHTML = dadosProjeto.modelo_inversor_4;
+                document.getElementById('title-project-m-inverter-4').style.visibility = 'visible';
+                document.getElementById('title-project-m-inverter-4').style.display = 'grid';
+                document.getElementById('project-m-inverter-4').style.visibility = 'visible';
+                document.getElementById('project-m-inverter-4').style.display = 'grid';
+            }
+
+            if (dadosProjeto.criado_em != '') {
+                document.getElementById('project-added-in').innerHTML = data + ' às ' + hora;
+                document.getElementById('title-project-added-in').style.visibility = 'visible';
+                document.getElementById('title-project-added-in').style.display = 'grid';
+                document.getElementById('project-added-in').style.visibility = 'visible';
+                document.getElementById('project-added-in').style.display = 'grid';
+            }
+        }
+
+        else if (dadosInversor == 'Error: Request failed with status code 401') {
+            localStorage.setItem('access_token', dadosInversor);
+            checar_autorizacao();
+        }
+
+        else {
+            let arrayInversorInexistente = document.getElementsByClassName('container-inversor-inexistente')
+
+            for (i = 0; i < arrayInversorInexistente.length; i ++) {
+                arrayInversorInexistente[i].style.visibility = 'visible';
+                arrayInversorInexistente[i].style.display = 'flex';
+            }
+        }
+    }
+
+    else {
+        arrayCampos = document.getElementsByClassName('campo-obrigatorio-modulos')
+
+        for (i = 0; i < arrayCampos.length; i ++) {
+            arrayCampos[i].style.visibility = "visible";
+            arrayCampos[i].style.display = "grid";
+        }
+    }
+}
+
+async function post_project() {
+    let access_token = localStorage.getItem('access_token');
+
+    let numero_instalacao = document.getElementById('número-instalação-adicionar').value;
+    let numero_cliente = document.getElementById('número-cliente-adicionar').value;
+    let ligacao_nova = document.getElementById('checkbox-ligacao-1').checked.toString();
+    let aumento_carga = document.getElementById('checkbox-aumento-carga-1').checked.toString();
+    let aumento_usina = document.getElementById('checkbox-aumento-usina-1').checked.toString();
+    let agrupamento = document.getElementById('checkbox-agrupamento-1').checked.toString();
+    let n_fases = document.getElementById('n-fases-adicionar').value;
+    let disjuntor = document.getElementById('disjuntor-adicionar').value;
+    let novo_n_fases = document.getElementById('novo-n-fases-adicionar').value;
+    let novo_disjuntor = document.getElementById('novo-disjuntor-adicionar').value;
+    let n_fases_agrupamento = document.getElementById('disjuntor-agrupamento-adicionar').value;
+    let disjuntor_agrupamento = document.getElementById('n-fases-agrupamento-adicionar').value;
+    let tensao = document.getElementById('tensão-adicionar').value;
+    let modulo_anterior_1 = document.getElementById('modulo-anterior-1-adicionar').checked.toString();
+    let quantidade_modulo_1 = document.getElementById('quantidade-módulo-1-adicionar').value;
+    let modelo_modulo_1 = document.getElementById('modelo-módulo-1-adicionar').value;
+    let modulo_anterior_2 = document.getElementById('modulo-anterior-2-adicionar').checked.toString();
+    let quantidade_modulo_2 = document.getElementById('quantidade-módulo-2-adicionar').value;
+    let modelo_modulo_2 = document.getElementById('modelo-módulo-2-adicionar').value;
+    let inversor_anterior_1 = document.getElementById('inversor-anterior-1-adicionar').checked.toString();
+    let quantidade_inversor_1 = document.getElementById('quantidade-inversor-1-adicionar').value;
+    let modelo_inversor_1 = document.getElementById('modelo-inversor-1-adicionar').value;
+    let inversor_anterior_2 = document.getElementById('inversor-anterior-2-adicionar').checked.toString();
+    let quantidade_inversor_2 = document.getElementById('quantidade-inversor-2-adicionar').value;
+    let modelo_inversor_2 = document.getElementById('modelo-inversor-2-adicionar').value;
+    let inversor_anterior_3 = document.getElementById('inversor-anterior-3-adicionar').checked.toString();
+    let quantidade_inversor_3 = document.getElementById('quantidade-inversor-3-adicionar').value;
+    let modelo_inversor_3 = document.getElementById('modelo-inversor-3-adicionar').value;
+    let inversor_anterior_4 = document.getElementById('inversor-anterior-4-adicionar').checked.toString();
+    let quantidade_inversor_4 = document.getElementById('quantidade-inversor-4-adicionar').value;
+    let modelo_inversor_4 = document.getElementById('modelo-inversor-4-adicionar').value;
+    let dicionario = {};
+    
+    dicionario = {
+        'numero_instalacao': numero_instalacao,
+        'numero_cliente': numero_cliente,
+        'ligacao_nova': ligacao_nova,
+        'aumento_carga': aumento_carga,
+        'aumento_usina': aumento_usina,
+        'agrupamento': agrupamento,
+        'n_fases': n_fases,
+        'disjuntor': disjuntor,
+        'tensao': tensao,
+        'modulo_anterior_1': modulo_anterior_1,
+        'quantidade_modulo_1': quantidade_modulo_1,
+        'modelo_modulo_1': modelo_modulo_1,
+        'inversor_anterior_1': inversor_anterior_1,
+        'quantidade_inversor_1': quantidade_inversor_1,
+        'modelo_inversor_1': modelo_inversor_1
+    }
+
+    if (aumento_carga == 'true') {
+        dicionario['novo_n_fases'] = novo_n_fases;
+        dicionario['novo_disjuntor'] = novo_disjuntor;
+    }
+
+    if (agrupamento == 'true') {
+        dicionario['n_fases_agrupamento'] = n_fases_agrupamento;
+        dicionario['disjuntor_agrupamento'] = disjuntor_agrupamento;
+    }
+    
+    if (aumento_usina == 'true') {
+        dicionario['modulo_anterior_2'] = modulo_anterior_2;
+        dicionario['quantidade_modulo_2'] = quantidade_modulo_2;
+        dicionario['modelo_modulo_2'] = modelo_modulo_2;
+    }
+
+    if (quantidade_inversor_2 != '' & quantidade_inversor_2 != '0') {
+        dicionario['inversor_anterior_2'] = inversor_anterior_2;
+        dicionario['quantidade_inversor_2'] = quantidade_inversor_2;
+        dicionario['modelo_inversor_2'] = modelo_inversor_2;
+    }
+    
+    if (quantidade_inversor_3 != '' & quantidade_inversor_3 != '0') {
+        dicionario['inversor_anterior_3'] = inversor_anterior_3;
+        dicionario['quantidade_inversor_3'] = quantidade_inversor_3;
+        dicionario['modelo_inversor_3'] = modelo_inversor_3;
+    }
+    
+    if (quantidade_inversor_4 != '' & quantidade_inversor_4 != '0') {
+        dicionario['inversor_anterior_4'] = inversor_anterior_4;
+        dicionario['quantidade_inversor_4'] = quantidade_inversor_4;
+        dicionario['modelo_inversor_4'] = modelo_inversor_4;
+    }
+
+    let config = {
+        headers: {
+          'Authorization': 'Bearer ' + access_token
+        }
+    }
+
+    if (numero_instalacao != '' & numero_cliente != '' & n_fases != '' & disjuntor != '' & tensao != '' & quantidade_modulo_1 != '' & modelo_modulo_1 != '' & quantidade_inversor_1 != '' & modelo_inversor_1 != ''){
+        resposta = await axios.post(
+            'http://localhost:8000/projects', dicionario, config
+        ).then(
+            function (response) {
+                const resposta = response.data;
+                return resposta;
+            }
+        ).catch(
+            function (error) {
+                console.log(error);
+                return error;
+            }
+        )
+
+        if (resposta != 'Error: Network Error' & resposta != 'Error: Request failed with status code 401') {
+            document.getElementById('container-projeto-adicionado').style.visibility = 'visible';
+            document.getElementById('container-projeto-adicionado').style.display = 'grid';
+            
+            document.getElementById('container-add-projects-general').style.visibility = 'hidden';
+            document.getElementById('container-add-projects-general').style.display = 'none';
+        }
+
+        else if (resposta == 'Error: Request failed with status code 401') {
+            localStorage.setItem('access_token', resposta);
+            checar_autorizacao();
+        }
+
+        else {
+            divExistentProject = document.getElementsByClassName('container-inversor-existente')
+            divExistentProject[0].style.visibility = 'visible';
+            divExistentProject[0].style.display = 'flex';
+        }
+    }
+
+    else {
+        arrayCampos = document.getElementsByClassName('campo-obrigatorio-projetos')
+
+        for (i = 0; i < arrayCampos.length; i ++) {
+            arrayCampos[i].style.visibility = "visible";
+            arrayCampos[i].style.display = "grid";
+        }
+    }
+}
+
+async function patch_inverter() {
+    let access_token = localStorage.getItem('access_token');
+
+    let id = document.getElementById('id-projeto-buscar-atualizar').value;
+    
+    let numero_instalacao = document.getElementById('número-instalação-atualizar').value;
+    let numero_cliente = document.getElementById('número-cliente-atualizar').value;
+    let ligacao_nova = document.getElementById('checkbox-ligacao-2').checked.toString();
+    let aumento_carga = document.getElementById('checkbox-aumento-carga-2').checked.toString();
+    let aumento_usina = document.getElementById('checkbox-aumento-usina-2').checked.toString();
+    let agrupamento = document.getElementById('checkbox-agrupamento-2').checked.toString();
+    let n_fases = document.getElementById('n-fases-atualizar').value;
+    let disjuntor = document.getElementById('disjuntor-atualizar').value;
+    let novo_n_fases = document.getElementById('novo-n-fases-atualizar').value;
+    let novo_disjuntor = document.getElementById('novo-disjuntor-atualizar').value;
+    let n_fases_agrupamento = document.getElementById('disjuntor-agrupamento-atualizar').value;
+    let disjuntor_agrupamento = document.getElementById('n-fases-agrupamento-atualizar').value;
+    let tensao = document.getElementById('tensão-atualizar').value;
+    let modulo_anterior_1 = document.getElementById('modulo-anterior-1-atualizar').checked.toString();
+    let quantidade_modulo_1 = document.getElementById('quantidade-módulo-1-atualizar').value;
+    let modelo_modulo_1 = document.getElementById('modelo-módulo-1-atualizar').value;
+    let modulo_anterior_2 = document.getElementById('modulo-anterior-2-atualizar').checked.toString();
+    let quantidade_modulo_2 = document.getElementById('quantidade-módulo-2-atualizar').value;
+    let modelo_modulo_2 = document.getElementById('modelo-módulo-2-atualizar').value;
+    let inversor_anterior_1 = document.getElementById('inversor-anterior-1-atualizar').checked.toString();
+    let quantidade_inversor_1 = document.getElementById('quantidade-inversor-1-atualizar').value;
+    let modelo_inversor_1 = document.getElementById('modelo-inversor-1-atualizar').value;
+    let inversor_anterior_2 = document.getElementById('inversor-anterior-2-atualizar').checked.toString();
+    let quantidade_inversor_2 = document.getElementById('quantidade-inversor-2-atualizar').value;
+    let modelo_inversor_2 = document.getElementById('modelo-inversor-2-atualizar').value;
+    let inversor_anterior_3 = document.getElementById('inversor-anterior-3-atualizar').checked.toString();
+    let quantidade_inversor_3 = document.getElementById('quantidade-inversor-3-atualizar').value;
+    let modelo_inversor_3 = document.getElementById('modelo-inversor-3-atualizar').value;
+    let inversor_anterior_4 = document.getElementById('inversor-anterior-4-atualizar').checked.toString();
+    let quantidade_inversor_4 = document.getElementById('quantidade-inversor-4-atualizar').value;
+    let modelo_inversor_4 = document.getElementById('modelo-inversor-4-atualizar').value;
+
+    let dicionario = {}; // Create an empty array
+
+    let config = {
+        headers: {
+        'Authorization': 'Bearer ' + access_token
+        }
+    }
+
+    let dadosOriginais = await axios.get(
+        'http://localhost:8000/projects/' + id.toString(), config
+    ).then(
+        function (response) {
+            const dadosProjeto = response.data;
+            return dadosProjeto;
+        }
+    ).catch(
+        function (error) {
+            console.log(error);
+            return error;
+        }
+    )
+
+    if (numero_instalacao != dadosOriginais.numero_instalacao.toString()){
+        dicionario['numero_instalacao'] = numero_instalacao
+    }
+
+    if (numero_cliente != dadosOriginais.numero_cliente.toString()){
+        dicionario['numero_cliente'] = numero_cliente
+    }
+
+    if (ligacao_nova != dadosOriginais.ligacao_nova.toString()){
+        dicionario['ligacao_nova'] = ligacao_nova
+    }
+
+    if (aumento_carga != dadosOriginais.aumento_carga.toString()){
+        dicionario['aumento_carga'] = aumento_carga
+    }
+
+    if (aumento_usina != dadosOriginais.aumento_usina.toString()){
+        dicionario['aumento_usina'] = aumento_usina
+        dicionario['modulo_anterior_2'] = modulo_anterior_2
+        dicionario['quantidade_modulo_2'] = quantidade_modulo_2
+        dicionario['modelo_modulo_2'] = modelo_modulo_2
+    }
+
+    if (agrupamento != dadosOriginais.agrupamento.toString()){
+        dicionario['agrupamento'] = agrupamento
+    }
+
+    if (n_fases != dadosOriginais.n_fases.toString()){
+        dicionario['n_fases'] = n_fases
+    }
+
+    if (disjuntor != ''){
+        dicionario['disjuntor'] = disjuntor
+    }
+
+    if (novo_n_fases != ''){
+        dicionario['novo_n_fases'] = novo_n_fases
+    }
+
+    if (novo_disjuntor != ''){
+        dicionario['novo_disjuntor'] = novo_disjuntor
+    }
+    
+    if (n_fases_agrupamento != ''){
+        dicionario['n_fases_agrupamento'] = n_fases_agrupamento
+    }
+    
+    if (disjuntor_agrupamento != ''){
+        dicionario['disjuntor_agrupamento'] = disjuntor_agrupamento
+    }
+
+    if (tensao != ''){
+        dicionario['tensao'] = tensao
+    }
+
+    if (modulo_anterior_1 != ''){
+        dicionario['modulo_anterior_1'] = modulo_anterior_1
+    }
+    
+    if (quantidade_modulo_1 != '' || modelo_modulo_1 != ''){
+        dicionario['modulo_anterior_1'] = modulo_anterior_1
+        dicionario['quantidade_modulo_1'] = quantidade_modulo_1
+        dicionario['modelo_modulo_1'] = modelo_modulo_1
+    }
+    
+    if (inversor_anterior_1 != ''){
+        dicionario['modulo_anterior_2'] = modulo_anterior_2
+    }
+
+    if (quantidade_inversor_1 != ''){
+        dicionario['modulo_anterior_2'] = modulo_anterior_2
+    }
+
+    if (modelo_inversor_1 != ''){
+        dicionario['modulo_anterior_2'] = modulo_anterior_2
+    }
+    
+    if (inversor_anterior_2 != ''){
+        dicionario['modulo_anterior_2'] = modulo_anterior_2
+    }
+
+    if (quantidade_inversor_2 != ''){
+        dicionario['modulo_anterior_2'] = modulo_anterior_2
+    }
+
+    if (modelo_inversor_2 != ''){
+        dicionario['modulo_anterior_2'] = modulo_anterior_2
+    }
+
+    if (dicionario == {}){
+        containerCamposNaoPreenchidos = document.getElementsByClassName('container-campos-nao-preenchidos')
+        containerCamposNaoPreenchidos[0].style.visibility = "visible"
+        containerCamposNaoPreenchidos[0].style.display = "flex"
+    }
+
+    else {
+        url = 'http://localhost:8000/inverters/' + id
+        
+        resposta = await axios.patch(
+            url, dicionario, config
+        ).then(
+            function (response) {
+                const resposta = response.data;
+                return resposta;
+            }
+        ).catch(
+            function (error) {
+                console.log(error);
+                return error;
+            }
+        )
+        
+        if (resposta != 'Error: Request failed with status code 404' & resposta != 'Error: Request failed with status code 401') {
+            document.getElementById('container-inversor-atualizado').style.visibility = 'visible';
+            document.getElementById('container-inversor-atualizado').style.display = 'grid';
+                
+            document.getElementById('container-update-inverters-general').style.visibility = 'hidden';
+            document.getElementById('container-update-inverters-general').style.display = 'none';
+        }
+
+        else if (resposta == 'Error: Request failed with status code 401') {
+            localStorage.setItem('access_token', resposta);
+            checar_autorizacao();
+        }
+
+        else {
+            let arrayInversorInexistente = document.getElementsByClassName('container-inversor-inexistente')
+
+            for (i = 0; i < arrayInversorInexistente.length; i ++) {
+                arrayInversorInexistente[i].style.visibility = 'visible'
+                arrayInversorInexistente[i].style.display = 'flex'
+            }
         }
     }
 }

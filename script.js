@@ -2155,67 +2155,543 @@ function filtrar_inversores(nomeFuncao) {
 
 // FUNÇÕES PARA MOSTRAR CONTEÚDO DA PÁGINA DE PROJETOS
 function buscar_projeto() {
+    let divGeral = document.getElementById('container-geral');
     let divSearchProject = document.getElementById('container-search-projects');
     let divAddProject = document.getElementById('container-add-projects-general');
+    let divSearchUpdateProject = document.getElementById('container-search-to-update-projects');
     let divUpdateProject = document.getElementById('container-update-projects-general');
     let divDeleteProject = document.getElementById('container-delete-projects');
+    let divProjectFound = document.getElementById('container-projeto-encontrado');
+    let divProjectAdded = document.getElementById('container-projeto-adicionado');
+    let divProjectUpdated = document.getElementById('container-projeto-atualizado');
+    let divProjectDeleted = document.getElementById('container-projeto-deletado');
+    let arrayCamposObrigatorios = document.getElementsByClassName('campo-obrigatorio-projetos');
+    let arrayProjectInexistente = document.getElementsByClassName('container-projeto-inexistente');
+    let dropDownListSearchProject = document.getElementById('idprojeto-buscar');
+    let dropDownListUpdateProject = document.getElementById('idprojeto-buscar-atualizar');
+    let dropDownListDeleteProject = document.getElementById('idprojeto-deletar');
+    let dropDownListModelModule1 = document.getElementById('modelomodulo-1-adicionar');
+    let dropDownListModelModule2 = document.getElementById('modelomodulo-2-adicionar');
+    let dropDownListManufacturerModule1 = document.getElementById('fabricantemodulo-1-adicionar');
+    let dropDownListManufacturerModule2 = document.getElementById('fabricantemodulo-2-adicionar');
+    let dropDownListModelInverter1 = document.getElementById('modeloinversor-1-adicionar');
+    let dropDownListModelInverter2 = document.getElementById('modeloinversor-2-adicionar');
+    let dropDownListModelInverter3 = document.getElementById('modeloinversor-3-adicionar');
+    let dropDownListModelInverter4 = document.getElementById('modeloinversor-4-adicionar');
+    let dropDownListManufacturerInverter1 = document.getElementById('fabricanteinversor-1-adicionar');
+    let dropDownListManufacturerInverter2 = document.getElementById('fabricanteinversor-2-adicionar');
+    let dropDownListManufacturerInverter3 = document.getElementById('fabricanteinversor-3-adicionar');
+    let dropDownListManufacturerInverter4 = document.getElementById('fabricanteinversor-1-adicionar');
+    let dropDownListUpdateModelModule1 = document.getElementById('modelomodulo-1-atualizar');
+    let dropDownListUpdateModelModule2 = document.getElementById('modelomodulo-2-atualizar');
+    let dropDownListUpdateManufacturerModule1 = document.getElementById('fabricantemodulo-1-atualizar');
+    let dropDownListUpdateManufacturerModule2 = document.getElementById('fabricantemodulo-2-atualizar');
+    let dropDownListUpdateModelInverter1 = document.getElementById('modeloinversor-1-atualizar');
+    let dropDownListUpdateModelInverter2 = document.getElementById('modeloinversor-2-atualizar');
+    let dropDownLisUpdatetModelInverter3 = document.getElementById('modeloinversor-3-atualizar');
+    let dropDownListUpdateModelInverter4 = document.getElementById('modeloinversor-4-atualizar');
+    let dropDownListUpdateManufacturerInverter1 = document.getElementById('fabricanteinversor-1-atualizar');
+    let dropDownListUpdateManufacturerInverter2 = document.getElementById('fabricanteinversor-2-atualizar');
+    let dropDownListUpdateManufacturerInverter3 = document.getElementById('fabricanteinversor-3-atualizar');
+    let dropDownListUpdateManufacturerInverter4 = document.getElementById('fabricanteinversor-1-atualizar');
+  
+    document.getElementById('id-projeto-buscar').value = ''
     
+    divGeral.style.visibility = "hidden"
+    divGeral.style.display = "none";
     divSearchProject.style.visibility = "visible";
     divSearchProject.style.display = "grid";
     divAddProject.style.visibility = "hidden";
     divAddProject.style.display = "none";
+    divSearchUpdateProject.style.visibility = "hidden"
+    divSearchUpdateProject.style.display = "none"
     divUpdateProject.style.visibility = "hidden";
     divUpdateProject.style.display = "none";
     divDeleteProject.style.visibility = "hidden";
     divDeleteProject.style.display = "none";
+    divProjectFound.style.visibility = "hidden";
+    divProjectFound.style.display = "none";
+    divProjectAdded.style.visibility = "hidden";
+    divProjectAdded.style.display = "none";
+    divProjectUpdated.style.visibility = "hidden";
+    divProjectUpdated.style.display = "none";
+    divProjectDeleted.style.visibility = "hidden";
+    divProjectDeleted.style.display = "none";
+    dropDownListSearchProject.style.display = "none";
+    dropDownListUpdateProject.style.display = "none";
+    dropDownListDeleteProject.style.display = "none";
+    dropDownListModelModule1.style.display = "none";
+    dropDownListModelModule2.style.display = "none";
+    dropDownListManufacturerModule1.style.display = "none";
+    dropDownListManufacturerModule2.style.display = "none";
+    dropDownListModelInverter1.style.display = "none";
+    dropDownListModelInverter2.style.display = "none";
+    dropDownListModelInverter3.style.display = "none";
+    dropDownListModelInverter4.style.display = "none";
+    dropDownListManufacturerInverter1.style.display = "none";
+    dropDownListManufacturerInverter2.style.display = "none";
+    dropDownListManufacturerInverter3.style.display = "none";
+    dropDownListManufacturerInverter4.style.display = "none";
+    dropDownListUpdateModelModule1.style.display = "none";
+    dropDownListUpdateModelModule2.style.display = "none";
+    dropDownListUpdateManufacturerModule1.style.display = "none";
+    dropDownListUpdateManufacturerModule2.style.display = "none";
+    dropDownListUpdateModelInverter1.style.display = "none";
+    dropDownListUpdateModelInverter2.style.display = "none";
+    dropDownLisUpdatetModelInverter3.style.display = "none";
+    dropDownListUpdateModelInverter4.style.display = "none";
+    dropDownListUpdateManufacturerInverter1.style.display = "none";
+    dropDownListUpdateManufacturerInverter2.style.display = "none";
+    dropDownListUpdateManufacturerInverter3.style.display = "none";
+    dropDownListUpdateManufacturerInverter4.style.display = "none";
+
+    for(i = 0; i < arrayCamposObrigatorios.length; i++) {
+        arrayCamposObrigatorios[i].style.visibility = "hidden"
+        arrayCamposObrigatorios[i].style.display = "none"
+    }
+
+    for(i = 0; i < arrayProjectInexistente.length; i++) {
+        arrayProjectInexistente[i].style.visibility = "hidden"
+        arrayProjectInexistente[i].style.display = "none"
+    }
 }
 
 function adicionar_projeto() {
+    let divGeral = document.getElementById('container-geral');
     let divSearchProject = document.getElementById('container-search-projects');
     let divAddProject = document.getElementById('container-add-projects-general');
+    let divSearchUpdateProject = document.getElementById('container-search-to-update-projects');
     let divUpdateProject = document.getElementById('container-update-projects-general');
     let divDeleteProject = document.getElementById('container-delete-projects');
+    let divProjectFound = document.getElementById('container-projeto-encontrado');
+    let divProjectAdded = document.getElementById('container-projeto-adicionado');
+    let divProjectUpdated = document.getElementById('container-projeto-atualizado');
+    let divProjectDeleted = document.getElementById('container-projeto-deletado');
+    let arrayCamposObrigatorios = document.getElementsByClassName('campo-obrigatorio-projetos');
+    let arrayProjectInexistente = document.getElementsByClassName('container-projeto-inexistente');
+    let dropDownListSearchProject = document.getElementById('idprojeto-buscar');
+    let dropDownListUpdateProject = document.getElementById('idprojeto-buscar-atualizar');
+    let dropDownListDeleteProject = document.getElementById('idprojeto-deletar');
+    let dropDownListModelModule1 = document.getElementById('modelomodulo-1-adicionar');
+    let dropDownListModelModule2 = document.getElementById('modelomodulo-2-adicionar');
+    let dropDownListManufacturerModule1 = document.getElementById('fabricantemodulo-1-adicionar');
+    let dropDownListManufacturerModule2 = document.getElementById('fabricantemodulo-2-adicionar');
+    let dropDownListModelInverter1 = document.getElementById('modeloinversor-1-adicionar');
+    let dropDownListModelInverter2 = document.getElementById('modeloinversor-2-adicionar');
+    let dropDownListModelInverter3 = document.getElementById('modeloinversor-3-adicionar');
+    let dropDownListModelInverter4 = document.getElementById('modeloinversor-4-adicionar');
+    let dropDownListManufacturerInverter1 = document.getElementById('fabricanteinversor-1-adicionar');
+    let dropDownListManufacturerInverter2 = document.getElementById('fabricanteinversor-2-adicionar');
+    let dropDownListManufacturerInverter3 = document.getElementById('fabricanteinversor-3-adicionar');
+    let dropDownListManufacturerInverter4 = document.getElementById('fabricanteinversor-1-adicionar');
+    let dropDownListUpdateModelModule1 = document.getElementById('modelomodulo-1-atualizar');
+    let dropDownListUpdateModelModule2 = document.getElementById('modelomodulo-2-atualizar');
+    let dropDownListUpdateManufacturerModule1 = document.getElementById('fabricantemodulo-1-atualizar');
+    let dropDownListUpdateManufacturerModule2 = document.getElementById('fabricantemodulo-2-atualizar');
+    let dropDownListUpdateModelInverter1 = document.getElementById('modeloinversor-1-atualizar');
+    let dropDownListUpdateModelInverter2 = document.getElementById('modeloinversor-2-atualizar');
+    let dropDownLisUpdatetModelInverter3 = document.getElementById('modeloinversor-3-atualizar');
+    let dropDownListUpdateModelInverter4 = document.getElementById('modeloinversor-4-atualizar');
+    let dropDownListUpdateManufacturerInverter1 = document.getElementById('fabricanteinversor-1-atualizar');
+    let dropDownListUpdateManufacturerInverter2 = document.getElementById('fabricanteinversor-2-atualizar');
+    let dropDownListUpdateManufacturerInverter3 = document.getElementById('fabricanteinversor-3-atualizar');
+    let dropDownListUpdateManufacturerInverter4 = document.getElementById('fabricanteinversor-1-atualizar');
     
+    document.getElementById('número-instalação-adicionar').value = ''
+    document.getElementById('número-cliente-adicionar').value = ''
+    document.getElementById('n-fases-adicionar').value = ''
+    document.getElementById('disjuntor-adicionar').value = ''
+    document.getElementById('novo-n-fases-adicionar').value = ''
+    document.getElementById('novo-disjuntor-adicionar').value = ''
+    document.getElementById('n-fases-agrupamento-adicionar').value = ''
+    document.getElementById('disjuntor-agrupamento-adicionar').value = ''
+    document.getElementById('quantidade-módulo-1-adicionar').value = ''
+    document.getElementById('fabricante-módulo-1-adicionar').value = ''
+    document.getElementById('modelo-módulo-1-adicionar').value = ''
+    document.getElementById('quantidade-módulo-2-adicionar').value = ''
+    document.getElementById('fabricante-módulo-2-adicionar').value = ''
+    document.getElementById('modelo-módulo-2-adicionar').value = ''
+    document.getElementById('quantidade-inversor-1-adicionar').value = ''
+    document.getElementById('fabricante-inversor-1-adicionar').value = ''
+    document.getElementById('modelo-inversor-1-adicionar').value = ''
+    document.getElementById('quantidade-inversor-2-adicionar').value = ''
+    document.getElementById('fabricante-inversor-2-adicionar').value = ''
+    document.getElementById('modelo-inversor-2-adicionar').value = ''
+    document.getElementById('quantidade-inversor-3-adicionar').value = ''
+    document.getElementById('fabricante-inversor-3-adicionar').value = ''
+    document.getElementById('modelo-inversor-3-adicionar').value = ''
+    document.getElementById('quantidade-inversor-4-adicionar').value = ''
+    document.getElementById('fabricante-inversor-4-adicionar').value = ''
+    document.getElementById('modelo-inversor-4-adicionar').value = ''
+
+    divGeral.style.visibility = "hidden"
+    divGeral.style.display = "none";
     divSearchProject.style.visibility = "hidden";
     divSearchProject.style.display = "none";
     divAddProject.style.visibility = "visible";
     divAddProject.style.display = "grid";
+    divSearchUpdateProject.style.visibility = "hidden"
+    divSearchUpdateProject.style.display = "none"
     divUpdateProject.style.visibility = "hidden";
     divUpdateProject.style.display = "none";
     divDeleteProject.style.visibility = "hidden";
     divDeleteProject.style.display = "none";
+    divProjectFound.style.visibility = "hidden";
+    divProjectFound.style.display = "none";
+    divProjectAdded.style.visibility = "hidden";
+    divProjectAdded.style.display = "none";
+    divProjectUpdated.style.visibility = "hidden";
+    divProjectUpdated.style.display = "none";
+    divProjectDeleted.style.visibility = "hidden";
+    divProjectDeleted.style.display = "none";
+    dropDownListSearchProject.style.display = "none";
+    dropDownListUpdateProject.style.display = "none";
+    dropDownListDeleteProject.style.display = "none";
+    dropDownListModelModule1.style.display = "none";
+    dropDownListModelModule2.style.display = "none";
+    dropDownListManufacturerModule1.style.display = "none";
+    dropDownListManufacturerModule2.style.display = "none";
+    dropDownListModelInverter1.style.display = "none";
+    dropDownListModelInverter2.style.display = "none";
+    dropDownListModelInverter3.style.display = "none";
+    dropDownListModelInverter4.style.display = "none";
+    dropDownListManufacturerInverter1.style.display = "none";
+    dropDownListManufacturerInverter2.style.display = "none";
+    dropDownListManufacturerInverter3.style.display = "none";
+    dropDownListManufacturerInverter4.style.display = "none";
+    dropDownListUpdateModelModule1.style.display = "none";
+    dropDownListUpdateModelModule2.style.display = "none";
+    dropDownListUpdateManufacturerModule1.style.display = "none";
+    dropDownListUpdateManufacturerModule2.style.display = "none";
+    dropDownListUpdateModelInverter1.style.display = "none";
+    dropDownListUpdateModelInverter2.style.display = "none";
+    dropDownLisUpdatetModelInverter3.style.display = "none";
+    dropDownListUpdateModelInverter4.style.display = "none";
+    dropDownListUpdateManufacturerInverter1.style.display = "none";
+    dropDownListUpdateManufacturerInverter2.style.display = "none";
+    dropDownListUpdateManufacturerInverter3.style.display = "none";
+    dropDownListUpdateManufacturerInverter4.style.display = "none";
+
+    for(i = 0; i < arrayCamposObrigatorios.length; i++) {
+        arrayCamposObrigatorios[i].style.visibility = "hidden"
+        arrayCamposObrigatorios[i].style.display = "none"
+    }
+
+    for(i = 0; i < arrayProjectInexistente.length; i++) {
+        arrayProjectInexistente[i].style.visibility = "hidden"
+        arrayProjectInexistente[i].style.display = "none"
+    }
 }
 
 function atualizar_projeto() {
+    let divGeral = document.getElementById('container-geral');
     let divSearchProject = document.getElementById('container-search-projects');
     let divAddProject = document.getElementById('container-add-projects-general');
+    let divSearchUpdateProject = document.getElementById('container-search-to-update-projects');
     let divUpdateProject = document.getElementById('container-update-projects-general');
     let divDeleteProject = document.getElementById('container-delete-projects');
+    let divProjectFound = document.getElementById('container-projeto-encontrado');
+    let divProjectAdded = document.getElementById('container-projeto-adicionado');
+    let divProjectUpdated = document.getElementById('container-projeto-atualizado');
+    let divProjectDeleted = document.getElementById('container-projeto-deletado');
+    let arrayCamposObrigatorios = document.getElementsByClassName('campo-obrigatorio-projetos');
+    let arrayProjectInexistente = document.getElementsByClassName('container-projeto-inexistente');
+    let dropDownListSearchProject = document.getElementById('idprojeto-buscar');
+    let dropDownListUpdateProject = document.getElementById('idprojeto-buscar-atualizar');
+    let dropDownListDeleteProject = document.getElementById('idprojeto-deletar');
+    let dropDownListModelModule1 = document.getElementById('modelomodulo-1-adicionar');
+    let dropDownListModelModule2 = document.getElementById('modelomodulo-2-adicionar');
+    let dropDownListManufacturerModule1 = document.getElementById('fabricantemodulo-1-adicionar');
+    let dropDownListManufacturerModule2 = document.getElementById('fabricantemodulo-2-adicionar');
+    let dropDownListModelInverter1 = document.getElementById('modeloinversor-1-adicionar');
+    let dropDownListModelInverter2 = document.getElementById('modeloinversor-2-adicionar');
+    let dropDownListModelInverter3 = document.getElementById('modeloinversor-3-adicionar');
+    let dropDownListModelInverter4 = document.getElementById('modeloinversor-4-adicionar');
+    let dropDownListManufacturerInverter1 = document.getElementById('fabricanteinversor-1-adicionar');
+    let dropDownListManufacturerInverter2 = document.getElementById('fabricanteinversor-2-adicionar');
+    let dropDownListManufacturerInverter3 = document.getElementById('fabricanteinversor-3-adicionar');
+    let dropDownListManufacturerInverter4 = document.getElementById('fabricanteinversor-1-adicionar');
+    let dropDownListUpdateModelModule1 = document.getElementById('modelomodulo-1-atualizar');
+    let dropDownListUpdateModelModule2 = document.getElementById('modelomodulo-2-atualizar');
+    let dropDownListUpdateManufacturerModule1 = document.getElementById('fabricantemodulo-1-atualizar');
+    let dropDownListUpdateManufacturerModule2 = document.getElementById('fabricantemodulo-2-atualizar');
+    let dropDownListUpdateModelInverter1 = document.getElementById('modeloinversor-1-atualizar');
+    let dropDownListUpdateModelInverter2 = document.getElementById('modeloinversor-2-atualizar');
+    let dropDownLisUpdatetModelInverter3 = document.getElementById('modeloinversor-3-atualizar');
+    let dropDownListUpdateModelInverter4 = document.getElementById('modeloinversor-4-atualizar');
+    let dropDownListUpdateManufacturerInverter1 = document.getElementById('fabricanteinversor-1-atualizar');
+    let dropDownListUpdateManufacturerInverter2 = document.getElementById('fabricanteinversor-2-atualizar');
+    let dropDownListUpdateManufacturerInverter3 = document.getElementById('fabricanteinversor-3-atualizar');
+    let dropDownListUpdateManufacturerInverter4 = document.getElementById('fabricanteinversor-1-atualizar');
     
+    document.getElementById('id-projeto-buscar-atualizar').value = ''
+
+    divGeral.style.visibility = "hidden"
+    divGeral.style.display = "none";
     divSearchProject.style.visibility = "hidden";
     divSearchProject.style.display = "none";
     divAddProject.style.visibility = "hidden";
     divAddProject.style.display = "none";
-    divUpdateProject.style.visibility = "visible";
-    divUpdateProject.style.display = "grid";
+    divSearchUpdateProject.style.visibility = "visible"
+    divSearchUpdateProject.style.display = "grid"
+    divUpdateProject.style.visibility = "hidden";
+    divUpdateProject.style.display = "none";
     divDeleteProject.style.visibility = "hidden";
     divDeleteProject.style.display = "none";
+    divProjectFound.style.visibility = "hidden";
+    divProjectFound.style.display = "none";
+    divProjectAdded.style.visibility = "hidden";
+    divProjectAdded.style.display = "none";
+    divProjectUpdated.style.visibility = "hidden";
+    divProjectUpdated.style.display = "none";
+    divProjectDeleted.style.visibility = "hidden";
+    divProjectDeleted.style.display = "none";
+    dropDownListSearchProject.style.display = "none";
+    dropDownListUpdateProject.style.display = "none";
+    dropDownListDeleteProject.style.display = "none";
+    dropDownListModelModule1.style.display = "none";
+    dropDownListModelModule2.style.display = "none";
+    dropDownListManufacturerModule1.style.display = "none";
+    dropDownListManufacturerModule2.style.display = "none";
+    dropDownListModelInverter1.style.display = "none";
+    dropDownListModelInverter2.style.display = "none";
+    dropDownListModelInverter3.style.display = "none";
+    dropDownListModelInverter4.style.display = "none";
+    dropDownListManufacturerInverter1.style.display = "none";
+    dropDownListManufacturerInverter2.style.display = "none";
+    dropDownListManufacturerInverter3.style.display = "none";
+    dropDownListManufacturerInverter4.style.display = "none";
+    dropDownListUpdateModelModule1.style.display = "none";
+    dropDownListUpdateModelModule2.style.display = "none";
+    dropDownListUpdateManufacturerModule1.style.display = "none";
+    dropDownListUpdateManufacturerModule2.style.display = "none";
+    dropDownListUpdateModelInverter1.style.display = "none";
+    dropDownListUpdateModelInverter2.style.display = "none";
+    dropDownLisUpdatetModelInverter3.style.display = "none";
+    dropDownListUpdateModelInverter4.style.display = "none";
+    dropDownListUpdateManufacturerInverter1.style.display = "none";
+    dropDownListUpdateManufacturerInverter2.style.display = "none";
+    dropDownListUpdateManufacturerInverter3.style.display = "none";
+    dropDownListUpdateManufacturerInverter4.style.display = "none";
+
+    for(i = 0; i < arrayCamposObrigatorios.length; i++) {
+        arrayCamposObrigatorios[i].style.visibility = "hidden"
+        arrayCamposObrigatorios[i].style.display = "none"
+    }
+
+    for(i = 0; i < arrayProjectInexistente.length; i++) {
+        arrayProjectInexistente[i].style.visibility = "hidden"
+        arrayProjectInexistente[i].style.display = "none"
+    }
+}
+
+async function mostrar_campos_atualizar_projetos() {
+    let divSearchUpdateProject = document.getElementById('container-search-to-update-projects');
+    let divUpdateProject = document.getElementById('container-update-projects-general');
+    let dropDownListSearchProject = document.getElementById('idprojeto-buscar');
+    let dropDownListUpdateProject = document.getElementById('idprojeto-buscar-atualizar');
+    let dropDownListDeleteProject = document.getElementById('idprojeto-deletar');
+    
+    let arrayCamposObrigatorios = document.getElementsByClassName('campo-obrigatorio-projetos');
+    let arrayProjectInexistente = document.getElementsByClassName('container-projeto-inexistente');
+
+    let idProjeto = document.getElementById('id-projeto-buscar-atualizar').value;
+    
+    if (idProjeto != '') {
+        let config = {
+            headers: {
+            'Authorization': 'Bearer ' + access_token
+            }
+        }
+
+        let dadosOriginais = await axios.get(
+            'http://localhost:8000/projects/' + idProjeto.toString(), config
+        ).then(
+            function (response) {
+                const dadosOriginais = response.data;
+                return dadosOriginais;
+            }
+        ).catch(
+            function (error) {
+                console.log(error);
+                return error;
+            }
+        )
+        
+        if (dadosOriginais != 'Error: Request failed with status code 404' & dadosOriginais != 'Error: Request failed with status code 401') {
+            divSearchUpdateProject.style.visibility = "hidden"
+            divSearchUpdateProject.style.display = "none"
+            dropDownListSearchProject.style.display = "none";
+            dropDownListUpdateProject.style.display = "none";
+            dropDownListDeleteProject.style.display = "none";
+            divUpdateProject.style.visibility = "visible"
+            divUpdateProject.style.display = "grid"
+            
+            document.getElementById('número-instalação-atualizar').value = dadosOriginais.numero_instalacao
+            document.getElementById('número-cliente-atualizar').value = dadosOriginais.numero_cliente
+            document.getElementById('checkbox-ligacao-2').checked = dadosOriginais.ligacao_nova
+            document.getElementById('checkbox-aumento-carga-2').checked = dadosOriginais.aumento_carga
+            document.getElementById('checkbox-aumento-usina-2').checked = dadosOriginais.aumento_usina
+            document.getElementById('checkbox-agrupamento-2').checked = dadosOriginais.agrupamento
+            document.getElementById('n-fases-atualizar').value = dadosOriginais.n_fases
+            document.getElementById('disjuntor-atualizar').value = dadosOriginais.disjuntor
+            document.getElementById('novo-n-fases-atualizar').value = dadosOriginais.novo_n_fases
+            document.getElementById('novo-disjuntor-atualizar').value = dadosOriginais.novo_disjuntor
+            document.getElementById('n-fases-agrupamento-atualizar').value = dadosOriginais.n_fases_agrupamento
+            document.getElementById('disjuntor-agrupamento-atualizar').value = dadosOriginais.disjuntor_agrupamento
+            document.getElementById('tensão-adicionar').value = dadosOriginais.tensao
+            document.getElementById('quantidade-módulo-1-atualizar').value = dadosOriginais.quantidade_modulo_1
+            document.getElementById('modulo-anterior-1-atualizar').checked = dadosOriginais.modulo_anterior_1
+            document.getElementById('modelo-módulo-1-atualizar').value = dadosOriginais.modelo_modulo_1
+            document.getElementById('quantidade-módulo-2-atualizar').value = dadosOriginais.quantidade_modulo_2
+            document.getElementById('modulo-anterior-2-atualizar').checked = dadosOriginais.modulo_anterior_2
+            document.getElementById('modelo-módulo-2-atualizar').value = dadosOriginais.modelo_modulo_2
+            document.getElementById('quantidade-inversor-1-atualizar').value = dadosOriginais.quantidade_inversor_1
+            document.getElementById('inversor-anterior-1-atualizar').checked = dadosOriginais.inversor_anterior_1
+            document.getElementById('modelo-inversor-1-atualizar').value = dadosOriginais.modelo_inversor_1
+            document.getElementById('quantidade-inversor-2-atualizar').value = dadosOriginais.quantidade_inversor_2
+            document.getElementById('inversor-anterior-2-atualizar').checked = dadosOriginais.inversor_anterior_2
+            document.getElementById('modelo-inversor-2-atualizar').value = dadosOriginais.modelo_inversor_2
+            document.getElementById('quantidade-inversor-3-atualizar').value = dadosOriginais.quantidade_inversor_3
+            document.getElementById('inversor-anterior-3-atualizar').checked = dadosOriginais.inversor_anterior_3
+            document.getElementById('modelo-inversor-3-atualizar').value = dadosOriginais.modelo_inversor_3
+            document.getElementById('quantidade-inversor-4-atualizar').value = dadosOriginais.quantidade_inversor_4
+            document.getElementById('inversor-anterior-4-atualizar').checked = dadosOriginais.inversor_anterior_4
+            document.getElementById('modelo-inversor-4-atualizar').value = dadosOriginais.modelo_inversor_4
+            
+            for(i = 0; i < arrayCamposObrigatorios.length; i++) {
+                arrayCamposObrigatorios[i].style.visibility = "hidden"
+                arrayCamposObrigatorios[i].style.display = "none"
+            }
+
+            for(i = 0; i < arrayProjectInexistente.length; i++) {
+                arrayProjectInexistente[i].style.visibility = "hidden"
+                arrayProjectInexistente[i].style.display = "hidden"
+            }
+        }  
+
+        else if (dadosOriginais == 'Error: Request failed with status code 404') {
+            console.log(dadosOriginais)
+            for(i = 0; i < arrayProjectInexistente.length; i++) {
+                arrayProjectInexistente[i].style.visibility = "visible"
+                arrayProjectInexistente[i].style.display = "flex"
+            }
+        }
+
+        else {
+            localStorage.setItem('access_token', dadosOriginais);
+            checar_autorizacao();
+        }
+    }
+
+    else {
+        for(i = 0; i < arrayCamposObrigatorios.length; i++) {
+            arrayCamposObrigatorios[i].style.visibility = "visible"
+            arrayCamposObrigatorios[i].style.display = "grid"
+        }
+    }
 }
 
 function deletar_projeto() {
+    let divGeral = document.getElementById('container-geral');
     let divSearchProject = document.getElementById('container-search-projects');
     let divAddProject = document.getElementById('container-add-projects-general');
+    let divSearchUpdateProject = document.getElementById('container-search-to-update-projects');
     let divUpdateProject = document.getElementById('container-update-projects-general');
     let divDeleteProject = document.getElementById('container-delete-projects');
+    let divProjectFound = document.getElementById('container-projeto-encontrado');
+    let divProjectAdded = document.getElementById('container-projeto-adicionado');
+    let divProjectUpdated = document.getElementById('container-projeto-atualizado');
+    let divProjectDeleted = document.getElementById('container-projeto-deletado');
+    let arrayCamposObrigatorios = document.getElementsByClassName('campo-obrigatorio-projetos');
+    let arrayProjectInexistente = document.getElementsByClassName('container-projeto-inexistente');
+    let dropDownListSearchProject = document.getElementById('idprojeto-buscar');
+    let dropDownListUpdateProject = document.getElementById('idprojeto-buscar-atualizar');
+    let dropDownListDeleteProject = document.getElementById('idprojeto-deletar');
+    let dropDownListModelModule1 = document.getElementById('modelomodulo-1-adicionar');
+    let dropDownListModelModule2 = document.getElementById('modelomodulo-2-adicionar');
+    let dropDownListManufacturerModule1 = document.getElementById('fabricantemodulo-1-adicionar');
+    let dropDownListManufacturerModule2 = document.getElementById('fabricantemodulo-2-adicionar');
+    let dropDownListModelInverter1 = document.getElementById('modeloinversor-1-adicionar');
+    let dropDownListModelInverter2 = document.getElementById('modeloinversor-2-adicionar');
+    let dropDownListModelInverter3 = document.getElementById('modeloinversor-3-adicionar');
+    let dropDownListModelInverter4 = document.getElementById('modeloinversor-4-adicionar');
+    let dropDownListManufacturerInverter1 = document.getElementById('fabricanteinversor-1-adicionar');
+    let dropDownListManufacturerInverter2 = document.getElementById('fabricanteinversor-2-adicionar');
+    let dropDownListManufacturerInverter3 = document.getElementById('fabricanteinversor-3-adicionar');
+    let dropDownListManufacturerInverter4 = document.getElementById('fabricanteinversor-1-adicionar');
+    let dropDownListUpdateModelModule1 = document.getElementById('modelomodulo-1-atualizar');
+    let dropDownListUpdateModelModule2 = document.getElementById('modelomodulo-2-atualizar');
+    let dropDownListUpdateManufacturerModule1 = document.getElementById('fabricantemodulo-1-atualizar');
+    let dropDownListUpdateManufacturerModule2 = document.getElementById('fabricantemodulo-2-atualizar');
+    let dropDownListUpdateModelInverter1 = document.getElementById('modeloinversor-1-atualizar');
+    let dropDownListUpdateModelInverter2 = document.getElementById('modeloinversor-2-atualizar');
+    let dropDownLisUpdatetModelInverter3 = document.getElementById('modeloinversor-3-atualizar');
+    let dropDownListUpdateModelInverter4 = document.getElementById('modeloinversor-4-atualizar');
+    let dropDownListUpdateManufacturerInverter1 = document.getElementById('fabricanteinversor-1-atualizar');
+    let dropDownListUpdateManufacturerInverter2 = document.getElementById('fabricanteinversor-2-atualizar');
+    let dropDownListUpdateManufacturerInverter3 = document.getElementById('fabricanteinversor-3-atualizar');
+    let dropDownListUpdateManufacturerInverter4 = document.getElementById('fabricanteinversor-1-atualizar');
+  
+    document.getElementById('id-projeto-deletar').value = ''
     
+    divGeral.style.visibility = "hidden"
+    divGeral.style.display = "none";
     divSearchProject.style.visibility = "hidden";
     divSearchProject.style.display = "none";
     divAddProject.style.visibility = "hidden";
     divAddProject.style.display = "none";
+    divSearchUpdateProject.style.visibility = "hidden"
+    divSearchUpdateProject.style.display = "none"
     divUpdateProject.style.visibility = "hidden";
     divUpdateProject.style.display = "none";
     divDeleteProject.style.visibility = "visible";
     divDeleteProject.style.display = "grid";
+    divProjectFound.style.visibility = "hidden";
+    divProjectFound.style.display = "none";
+    divProjectAdded.style.visibility = "hidden";
+    divProjectAdded.style.display = "none";
+    divProjectUpdated.style.visibility = "hidden";
+    divProjectUpdated.style.display = "none";
+    divProjectDeleted.style.visibility = "hidden";
+    divProjectDeleted.style.display = "none";
+    dropDownListSearchProject.style.display = "none";
+    dropDownListUpdateProject.style.display = "none";
+    dropDownListDeleteProject.style.display = "none";
+    dropDownListModelModule1.style.display = "none";
+    dropDownListModelModule2.style.display = "none";
+    dropDownListManufacturerModule1.style.display = "none";
+    dropDownListManufacturerModule2.style.display = "none";
+    dropDownListModelInverter1.style.display = "none";
+    dropDownListModelInverter2.style.display = "none";
+    dropDownListModelInverter3.style.display = "none";
+    dropDownListModelInverter4.style.display = "none";
+    dropDownListManufacturerInverter1.style.display = "none";
+    dropDownListManufacturerInverter2.style.display = "none";
+    dropDownListManufacturerInverter3.style.display = "none";
+    dropDownListManufacturerInverter4.style.display = "none";
+    dropDownListUpdateModelModule1.style.display = "none";
+    dropDownListUpdateModelModule2.style.display = "none";
+    dropDownListUpdateManufacturerModule1.style.display = "none";
+    dropDownListUpdateManufacturerModule2.style.display = "none";
+    dropDownListUpdateModelInverter1.style.display = "none";
+    dropDownListUpdateModelInverter2.style.display = "none";
+    dropDownLisUpdatetModelInverter3.style.display = "none";
+    dropDownListUpdateModelInverter4.style.display = "none";
+    dropDownListUpdateManufacturerInverter1.style.display = "none";
+    dropDownListUpdateManufacturerInverter2.style.display = "none";
+    dropDownListUpdateManufacturerInverter3.style.display = "none";
+    dropDownListUpdateManufacturerInverter4.style.display = "none";
+
+    for(i = 0; i < arrayCamposObrigatorios.length; i++) {
+        arrayCamposObrigatorios[i].style.visibility = "hidden"
+        arrayCamposObrigatorios[i].style.display = "none"
+    }
+
+    for(i = 0; i < arrayProjectInexistente.length; i++) {
+        arrayProjectInexistente[i].style.visibility = "hidden"
+        arrayProjectInexistente[i].style.display = "none"
+    }
 }
 
 // FUNÇÕES PARA A PÁGINA DE PROJETOS
