@@ -2884,6 +2884,393 @@ async function delete_inverter() {
 }
 
 //FUNÇÕES PARA A PÁGINA DE PROJETOS
+async function get_all_projects() {
+    let access_token = localStorage.getItem('access_token');
+
+    if (access_token != 'Error: Request failed with status code 401' & access_token != 'Error: Request failed with status code 403' & access_token != 'Error: Request failed with status code 422' & access_token != 'Error: Network Error' & access_token != null) {
+        localStorage.setItem('paginaAtualProjetos', 0);
+
+        let config = {
+            headers: {
+              'Authorization': 'Bearer ' + access_token
+            }
+        }
+
+        let dadosTodosProjetos = await axios.get(
+            'http://localhost:8000/projects/', config
+        ).then(
+            function (response) {
+                const dadosTodosProjetos = response.data;
+                return dadosTodosProjetos;
+            }
+        ).catch(
+            function (error) {
+                console.log(error);
+                return error;
+            }
+        )
+        
+        if (dadosTodosProjetos != 'Error: Request failed with status code 401' & dadosTodosProjetos != 'Error: Request failed with status code 404') {
+            let arrayTD = document.getElementsByTagName('td')
+            
+            for (i = 0; i < 10; i++) {
+                if (i < dadosTodosProjetos.length) {
+                    cliente = await axios.get(
+                            'http://localhost:8000/clients/' + dadosTodosProjetos[i].numero_cliente, config
+                    ).then(
+                        function (response) {
+                            const cliente = response.data;
+                            return cliente;
+                        }
+                    ).catch(
+                        function (error) {
+                            console.log(error);
+                            return error;
+                        }
+                    )
+
+                    arrayTD[9 * i].innerHTML = cliente.nome
+                    arrayTD[9 * i].style.visibility = 'visible'
+                    arrayTD[9 * i].style.display = 'table-cell'
+                    
+                    if (dadosTodosProjetos[i].ligacao_nova == true) {
+                        iconeCheckmark = document.createElement('i')
+                        iconeCheckmark.setAttribute('class', 'uil uil-check')
+                        arrayTD[9 * i + 1].innerHTML = ''
+                        arrayTD[9 * i + 1].appendChild(iconeCheckmark);
+                    }
+                    
+                    arrayTD[9 * i + 1].style.visibility = 'visible'
+                    arrayTD[9 * i + 1].style.display = 'table-cell'
+
+                    if (dadosTodosProjetos[i].aumento_carga == true) {
+                        iconeCheckmark = document.createElement('i')
+                        iconeCheckmark.setAttribute('class', 'uil uil-check')
+                        arrayTD[9 * i + 2].innerHTML = ''
+                        arrayTD[9 * i + 2].appendChild(iconeCheckmark);
+                    }
+
+                    arrayTD[9 * i + 2].style.visibility = 'visible'
+                    arrayTD[9 * i + 2].style.display = 'table-cell'
+
+                    if (dadosTodosProjetos[i].aumento_usina == true) {
+                        iconeCheckmark = document.createElement('i')
+                        iconeCheckmark.setAttribute('class', 'uil uil-check')
+                        arrayTD[9 * i + 3].innerHTML = ''
+                        arrayTD[9 * i + 3].appendChild(iconeCheckmark);
+                    }
+
+                    arrayTD[9 * i + 3].style.visibility = 'visible'
+                    arrayTD[9 * i + 3].style.display = 'table-cell'
+                    
+                    if (dadosTodosProjetos[i].agrupamento == true) {
+                        iconeCheckmark = document.createElement('i')
+                        iconeCheckmark.setAttribute('class', 'uil uil-check')
+                        arrayTD[9 * i + 4].innerHTML = ''
+                        arrayTD[9 * i + 4].appendChild(iconeCheckmark);
+                    }
+
+                    arrayTD[9 * i + 4].style.visibility = 'visible'
+                    arrayTD[9 * i + 4].style.display = 'table-cell'
+                    
+                    textoQuantidadeModulo = dadosTodosProjetos[i].quantidade_modulo_1
+
+                    if (dadosTodosProjetos[i].quantidade_modulo_2 != '') {
+                        textoQuantidadeModulo = textoQuantidadeModulo + '<br>' + dadosTodosProjetos[i].quantidade_modulo_2
+                    }
+
+                    arrayTD[9 * i + 5].innerHTML = textoQuantidadeModulo
+                    arrayTD[9 * i + 5].style.visibility = 'visible'
+                    arrayTD[9 * i + 5].style.display = 'table-cell'
+                   
+                    textoModeloModulo = dadosTodosProjetos[i].modelo_modulo_1
+
+                    if (dadosTodosProjetos[i].quantidade_modulo_2 != '') {
+                        textoModeloModulo = textoModeloModulo + '<br>' + textoModeloModulo[i].modelo_modulo_2
+                    }
+
+                    arrayTD[9 * i + 6].innerHTML = textoModeloModulo
+                    arrayTD[9 * i + 6].style.visibility = 'visible'
+                    arrayTD[9 * i + 6].style.display = 'table-cell'
+                    
+                    textoQuantidadeInversor = dadosTodosProjetos[i].quantidade_inversor_1
+
+                    if (dadosTodosProjetos[i].quantidade_inversor_2 != '') {
+                        textoQuantidadeInversor = textoQuantidadeInversor + '<br>' + dadosTodosProjetos[i].quantidade_inversor_2
+                    }
+
+                    if (dadosTodosProjetos[i].quantidade_inversor_3 != '') {
+                        textoQuantidadeInversor = textoQuantidadeInversor + '<br>' + dadosTodosProjetos[i].quantidade_inversor_3
+                    }
+
+                    if (dadosTodosProjetos[i].quantidade_inversor_4 != '') {
+                        textoQuantidadeInversor = textoQuantidadeInversor + '<br>' + dadosTodosProjetos[i].quantidade_inversor_4
+                    }
+
+                    arrayTD[9 * i + 7].innerHTML = textoQuantidadeInversor
+                    arrayTD[9 * i + 7].style.visibility = 'visible'
+                    arrayTD[9 * i + 7].style.display = 'table-cell'
+                    
+                    textoModeloInversor = dadosTodosProjetos[i].modelo_inversor_1
+
+                    if (dadosTodosProjetos[i].modelo_inversor_2 != '') {
+                        textoModeloInversor = textoModeloInversor + '<br>' + dadosTodosProjetos[i].modelo_inversor_2
+                    }
+
+                    if (dadosTodosProjetos[i].modelo_inversor_3 != '') {
+                        textoModeloInversor = textoModeloInversor + '<br>' + dadosTodosProjetos[i].modelo_inversor_3
+                    }
+
+                    if (dadosTodosProjetos[i].modelo_inversor_4 != '') {
+                        textoModeloInversor = textoModeloInversor + '<br>' + dadosTodosProjetos[i].modelo_inversor_4
+                    }
+
+                    arrayTD[9 * i + 8].innerHTML = textoModeloInversor
+                    arrayTD[9 * i + 8].style.visibility = 'visible'
+                    arrayTD[9 * i + 8].style.display = 'table-cell'
+                    
+                    if (i == (dadosTodosProjetos.length - 1)) {
+                        arrayTD[9 * i].style.borderBottom = 0;
+                        arrayTD[9 * i + 1].style.borderBottom = 0;
+                        arrayTD[9 * i + 2].style.borderBottom = 0;
+                        arrayTD[9 * i + 3].style.borderBottom = 0;
+                        arrayTD[9 * i + 4].style.borderBottom = 0;
+                        arrayTD[9 * i + 5].style.borderBottom = 0;
+                        arrayTD[9 * i + 6].style.borderBottom = 0;
+                        arrayTD[9 * i + 7].style.borderBottom = 0;
+                        arrayTD[9 * i + 8].style.borderBottom = 0;
+                    }
+                }
+
+                else {
+                    arrayTD[9 * i].style.visibility = 'hidden'
+                    arrayTD[9 * i].style.display = 'none'
+                    arrayTD[9 * i + 1].style.visibility = 'hidden'
+                    arrayTD[9 * i + 1].style.display = 'none'
+                    arrayTD[9 * i + 2].style.visibility = 'hidden'
+                    arrayTD[9 * i + 2].style.display = 'none'
+                    arrayTD[9 * i + 3].style.visibility = 'hidden'
+                    arrayTD[9 * i + 3].style.display = 'none'
+                    arrayTD[9 * i + 4].style.visibility = 'hidden'
+                    arrayTD[9 * i + 4].style.display = 'none'
+                    arrayTD[9 * i + 5].style.visibility = 'hidden'
+                    arrayTD[9 * i + 5].style.display = 'none'
+                    arrayTD[9 * i + 6].style.visibility = 'hidden'
+                    arrayTD[9 * i + 6].style.display = 'none'
+                    arrayTD[9 * i + 7].style.visibility = 'hidden'
+                    arrayTD[9 * i + 7].style.display = 'none'
+                    arrayTD[9 * i + 8].style.visibility = 'hidden'
+                    arrayTD[9 * i + 8].style.display = 'none'
+                }
+            }
+        }
+
+        else if (dadosTodosProjetos == 'Error: Request failed with status code 401') {
+            localStorage.setItem('access_token', dadosTodosProjetos);
+            checar_autorizacao();
+        }
+    }
+}
+
+async function get_all_projects_skip(alterar) {
+    let access_token = localStorage.getItem('access_token');
+
+    if (access_token != 'Error: Request failed with status code 401' & access_token != 'Error: Request failed with status code 403' & access_token != 'Error: Request failed with status code 422' & access_token != 'Error: Network Error' & access_token != null) {
+        
+        let pagina = parseInt(localStorage.getItem('paginaAtualProjetos')) + parseInt(alterar);
+
+        if (pagina < 0) {
+            pagina = 0
+        }
+
+        let config = {
+            headers: {
+              'Authorization': 'Bearer ' + access_token
+            }
+        }
+
+        let dadosTodosProjetos = await axios.get(
+            'http://localhost:8000/projects/?pular=' + pagina, config
+        ).then(
+            function (response) {
+                const dadosTodosProjetos = response.data;
+                return dadosTodosProjetos;
+            }
+        ).catch(
+            function (error) {
+                console.log(error);
+                return error;
+            }
+        )
+        
+        if (dadosTodosProjetos != 'Error: Request failed with status code 401' & dadosTodosProjetos != 'Error: Request failed with status code 404') {
+            let arrayTD = document.getElementsByTagName('td')
+            
+            if (pagina > dadosTodosProjetos.length) {
+                pagina = parseInt(dadosTodosProjetos.length - dadosTodosProjetos.length % 10)
+            }
+            
+            localStorage.setItem('paginaAtualProjetos', pagina);
+            
+            for (i = 0; i < 10; i++) {
+                if (i < dadosTodosProjetos.length) {
+                    cliente = await axios.get(
+                            'http://localhost:8000/clients/' + dadosTodosProjetos[i].numero_cliente, config
+                    ).then(
+                        function (response) {
+                            const cliente = response.data;
+                            return cliente;
+                        }
+                    ).catch(
+                        function (error) {
+                            console.log(error);
+                            return error;
+                        }
+                    )
+
+                    arrayTD[9 * i].innerHTML = cliente.nome
+                    arrayTD[9 * i].style.visibility = 'visible'
+                    arrayTD[9 * i].style.display = 'table-cell'
+                    
+                    if (dadosTodosProjetos[i].ligacao_nova == true) {
+                        iconeCheckmark = document.createElement('i')
+                        iconeCheckmark.setAttribute('class', 'uil uil-check')
+                        arrayTD[9 * i + 1].innerHTML = ''
+                        arrayTD[9 * i + 1].appendChild(iconeCheckmark);
+                    }
+                    
+                    arrayTD[9 * i + 1].style.visibility = 'visible'
+                    arrayTD[9 * i + 1].style.display = 'table-cell'
+
+                    if (dadosTodosProjetos[i].aumento_carga == true) {
+                        iconeCheckmark = document.createElement('i')
+                        iconeCheckmark.setAttribute('class', 'uil uil-check')
+                        arrayTD[9 * i + 2].innerHTML = ''
+                        arrayTD[9 * i + 2].appendChild(iconeCheckmark);
+                    }
+
+                    arrayTD[9 * i + 2].style.visibility = 'visible'
+                    arrayTD[9 * i + 2].style.display = 'table-cell'
+
+                    if (dadosTodosProjetos[i].aumento_usina == true) {
+                        iconeCheckmark = document.createElement('i')
+                        iconeCheckmark.setAttribute('class', 'uil uil-check')
+                        arrayTD[9 * i + 3].innerHTML = ''
+                        arrayTD[9 * i + 3].appendChild(iconeCheckmark);
+                    }
+
+                    arrayTD[9 * i + 3].style.visibility = 'visible'
+                    arrayTD[9 * i + 3].style.display = 'table-cell'
+                    
+                    if (dadosTodosProjetos[i].agrupamento == true) {
+                        iconeCheckmark = document.createElement('i')
+                        iconeCheckmark.setAttribute('class', 'uil uil-check')
+                        arrayTD[9 * i + 4].innerHTML = ''
+                        arrayTD[9 * i + 4].appendChild(iconeCheckmark);
+                    }
+
+                    arrayTD[9 * i + 4].style.visibility = 'visible'
+                    arrayTD[9 * i + 4].style.display = 'table-cell'
+                    
+                    textoQuantidadeModulo = dadosTodosProjetos[i].quantidade_modulo_1
+
+                    if (dadosTodosProjetos[i].quantidade_modulo_2 != '') {
+                        textoQuantidadeModulo = textoQuantidadeModulo + '<br>' + dadosTodosProjetos[i].quantidade_modulo_2
+                    }
+
+                    arrayTD[9 * i + 5].innerHTML = textoQuantidadeModulo
+                    arrayTD[9 * i + 5].style.visibility = 'visible'
+                    arrayTD[9 * i + 5].style.display = 'table-cell'
+                   
+                    textoModeloModulo = dadosTodosProjetos[i].modelo_modulo_1
+
+                    if (dadosTodosProjetos[i].quantidade_modulo_2 != '') {
+                        textoModeloModulo = textoModeloModulo + '<br>' + textoModeloModulo[i].modelo_modulo_2
+                    }
+
+                    arrayTD[9 * i + 6].innerHTML = textoModeloModulo
+                    arrayTD[9 * i + 6].style.visibility = 'visible'
+                    arrayTD[9 * i + 6].style.display = 'table-cell'
+                    
+                    textoQuantidadeInversor = dadosTodosProjetos[i].quantidade_inversor_1
+
+                    if (dadosTodosProjetos[i].quantidade_inversor_2 != '') {
+                        textoQuantidadeInversor = textoQuantidadeInversor + '<br>' + dadosTodosProjetos[i].quantidade_inversor_2
+                    }
+
+                    if (dadosTodosProjetos[i].quantidade_inversor_3 != '') {
+                        textoQuantidadeInversor = textoQuantidadeInversor + '<br>' + dadosTodosProjetos[i].quantidade_inversor_3
+                    }
+
+                    if (dadosTodosProjetos[i].quantidade_inversor_4 != '') {
+                        textoQuantidadeInversor = textoQuantidadeInversor + '<br>' + dadosTodosProjetos[i].quantidade_inversor_4
+                    }
+
+                    arrayTD[9 * i + 7].innerHTML = textoQuantidadeInversor
+                    arrayTD[9 * i + 7].style.visibility = 'visible'
+                    arrayTD[9 * i + 7].style.display = 'table-cell'
+                    
+                    textoModeloInversor = dadosTodosProjetos[i].modelo_inversor_1
+
+                    if (dadosTodosProjetos[i].modelo_inversor_2 != '') {
+                        textoModeloInversor = textoModeloInversor + '<br>' + dadosTodosProjetos[i].modelo_inversor_2
+                    }
+
+                    if (dadosTodosProjetos[i].modelo_inversor_3 != '') {
+                        textoModeloInversor = textoModeloInversor + '<br>' + dadosTodosProjetos[i].modelo_inversor_3
+                    }
+
+                    if (dadosTodosProjetos[i].modelo_inversor_4 != '') {
+                        textoModeloInversor = textoModeloInversor + '<br>' + dadosTodosProjetos[i].modelo_inversor_4
+                    }
+
+                    arrayTD[9 * i + 8].innerHTML = textoModeloInversor
+                    arrayTD[9 * i + 8].style.visibility = 'visible'
+                    arrayTD[9 * i + 8].style.display = 'table-cell'
+                    
+                    if (i == (dadosTodosProjetos.length - 1)) {
+                        arrayTD[9 * i].style.borderBottom = 0;
+                        arrayTD[9 * i + 1].style.borderBottom = 0;
+                        arrayTD[9 * i + 2].style.borderBottom = 0;
+                        arrayTD[9 * i + 3].style.borderBottom = 0;
+                        arrayTD[9 * i + 4].style.borderBottom = 0;
+                        arrayTD[9 * i + 5].style.borderBottom = 0;
+                        arrayTD[9 * i + 6].style.borderBottom = 0;
+                        arrayTD[9 * i + 7].style.borderBottom = 0;
+                        arrayTD[9 * i + 8].style.borderBottom = 0;
+                    }
+                }
+
+                else {
+                    arrayTD[9 * i].style.visibility = 'hidden'
+                    arrayTD[9 * i].style.display = 'none'
+                    arrayTD[9 * i + 1].style.visibility = 'hidden'
+                    arrayTD[9 * i + 1].style.display = 'none'
+                    arrayTD[9 * i + 2].style.visibility = 'hidden'
+                    arrayTD[9 * i + 2].style.display = 'none'
+                    arrayTD[9 * i + 3].style.visibility = 'hidden'
+                    arrayTD[9 * i + 3].style.display = 'none'
+                    arrayTD[9 * i + 4].style.visibility = 'hidden'
+                    arrayTD[9 * i + 4].style.display = 'none'
+                    arrayTD[9 * i + 5].style.visibility = 'hidden'
+                    arrayTD[9 * i + 5].style.display = 'none'
+                    arrayTD[9 * i + 6].style.visibility = 'hidden'
+                    arrayTD[9 * i + 6].style.display = 'none'
+                    arrayTD[9 * i + 7].style.visibility = 'hidden'
+                    arrayTD[9 * i + 7].style.display = 'none'
+                    arrayTD[9 * i + 8].style.visibility = 'hidden'
+                    arrayTD[9 * i + 8].style.display = 'none'
+                }
+            }
+        }
+
+        else if (dadosTodosProjetos == 'Error: Request failed with status code 401') {
+            localStorage.setItem('access_token', dadosTodosProjetos);
+            checar_autorizacao();
+        }
+    }
+}
+
 async function get_project() {
     let access_token = localStorage.getItem('access_token');
 
