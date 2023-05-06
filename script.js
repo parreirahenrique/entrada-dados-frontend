@@ -2194,6 +2194,12 @@ function buscar_projeto() {
     let dropDownListUpdateManufacturerInverter2 = document.getElementById('fabricanteinversor-2-atualizar');
     let dropDownListUpdateManufacturerInverter3 = document.getElementById('fabricanteinversor-3-atualizar');
     let dropDownListUpdateManufacturerInverter4 = document.getElementById('fabricanteinversor-1-atualizar');
+    let dropDownListNPhasesAdd = document.getElementById('n-fases-adicionar');
+    let dropDownListNewNPhasesAdd = document.getElementById('novo-n-fases-adicionar');
+    let dropDownListGroupingNPhasesAdd = document.getElementById('n-fases-agrupamento-adicionar');
+    let dropDownListNPhasesUpdate = document.getElementById('n-fases-atualizar');
+    let dropDownListNewNPhasesUpdate = document.getElementById('novo-n-fases-atualizar');
+    let dropDownListGroupingNPhasesUpdate = document.getElementById('n-fases-agrupamento-atualizar');
   
     document.getElementById('id-projeto-buscar').value = ''
     
@@ -2244,6 +2250,12 @@ function buscar_projeto() {
     dropDownListUpdateManufacturerInverter2.style.display = "none";
     dropDownListUpdateManufacturerInverter3.style.display = "none";
     dropDownListUpdateManufacturerInverter4.style.display = "none";
+    dropDownListNPhasesAdd.style.display = "none";
+    dropDownListNewNPhasesAdd.style.display = "none";
+    dropDownListGroupingNPhasesAdd.style.display = "none";
+    dropDownListNPhasesUpdate.style.display = "none";
+    dropDownListNewNPhasesUpdate.style.display = "none";
+    dropDownListGroupingNPhasesUpdate.style.display = "none";
 
     for(i = 0; i < arrayCamposObrigatorios.length; i++) {
         arrayCamposObrigatorios[i].style.visibility = "hidden"
@@ -2296,6 +2308,12 @@ function adicionar_projeto() {
     let dropDownListUpdateManufacturerInverter2 = document.getElementById('fabricanteinversor-2-atualizar');
     let dropDownListUpdateManufacturerInverter3 = document.getElementById('fabricanteinversor-3-atualizar');
     let dropDownListUpdateManufacturerInverter4 = document.getElementById('fabricanteinversor-1-atualizar');
+    let dropDownListNPhasesAdd = document.getElementById('n-fases-adicionar');
+    let dropDownListNewNPhasesAdd = document.getElementById('novo-n-fases-adicionar');
+    let dropDownListGroupingNPhasesAdd = document.getElementById('n-fases-agrupamento-adicionar');
+    let dropDownListNPhasesUpdate = document.getElementById('n-fases-atualizar');
+    let dropDownListNewNPhasesUpdate = document.getElementById('novo-n-fases-atualizar');
+    let dropDownListGroupingNPhasesUpdate = document.getElementById('n-fases-agrupamento-atualizar');
     
     document.getElementById('número-instalação-adicionar').value = ''
     document.getElementById('número-cliente-adicionar').value = ''
@@ -2371,6 +2389,12 @@ function adicionar_projeto() {
     dropDownListUpdateManufacturerInverter2.style.display = "none";
     dropDownListUpdateManufacturerInverter3.style.display = "none";
     dropDownListUpdateManufacturerInverter4.style.display = "none";
+    dropDownListNPhasesAdd.style.display = "none";
+    dropDownListNewNPhasesAdd.style.display = "none";
+    dropDownListGroupingNPhasesAdd.style.display = "none";
+    dropDownListNPhasesUpdate.style.display = "none";
+    dropDownListNewNPhasesUpdate.style.display = "none";
+    dropDownListGroupingNPhasesUpdate.style.display = "none";
 
     for(i = 0; i < arrayCamposObrigatorios.length; i++) {
         arrayCamposObrigatorios[i].style.visibility = "hidden"
@@ -2423,6 +2447,12 @@ function atualizar_projeto() {
     let dropDownListUpdateManufacturerInverter2 = document.getElementById('fabricanteinversor-2-atualizar');
     let dropDownListUpdateManufacturerInverter3 = document.getElementById('fabricanteinversor-3-atualizar');
     let dropDownListUpdateManufacturerInverter4 = document.getElementById('fabricanteinversor-1-atualizar');
+    let dropDownListNPhasesAdd = document.getElementById('n-fases-adicionar');
+    let dropDownListNewNPhasesAdd = document.getElementById('novo-n-fases-adicionar');
+    let dropDownListGroupingNPhasesAdd = document.getElementById('n-fases-agrupamento-adicionar');
+    let dropDownListNPhasesUpdate = document.getElementById('n-fases-atualizar');
+    let dropDownListNewNPhasesUpdate = document.getElementById('novo-n-fases-atualizar');
+    let dropDownListGroupingNPhasesUpdate = document.getElementById('n-fases-agrupamento-atualizar');
     
     document.getElementById('id-projeto-buscar-atualizar').value = ''
 
@@ -2473,6 +2503,12 @@ function atualizar_projeto() {
     dropDownListUpdateManufacturerInverter2.style.display = "none";
     dropDownListUpdateManufacturerInverter3.style.display = "none";
     dropDownListUpdateManufacturerInverter4.style.display = "none";
+    dropDownListNPhasesAdd.style.display = "none";
+    dropDownListNewNPhasesAdd.style.display = "none";
+    dropDownListGroupingNPhasesAdd.style.display = "none";
+    dropDownListNPhasesUpdate.style.display = "none";
+    dropDownListNewNPhasesUpdate.style.display = "none";
+    dropDownListGroupingNPhasesUpdate.style.display = "none";
 
     for(i = 0; i < arrayCamposObrigatorios.length; i++) {
         arrayCamposObrigatorios[i].style.visibility = "hidden"
@@ -2491,6 +2527,12 @@ async function mostrar_campos_atualizar_projetos() {
     let dropDownListSearchProject = document.getElementById('idprojeto-buscar');
     let dropDownListUpdateProject = document.getElementById('idprojeto-buscar-atualizar');
     let dropDownListDeleteProject = document.getElementById('idprojeto-deletar');
+    let dropDownListNPhasesAdd = document.getElementById('n-fases-adicionar');
+    let dropDownListNewNPhasesAdd = document.getElementById('novo-n-fases-adicionar');
+    let dropDownListGroupingNPhasesAdd = document.getElementById('n-fases-agrupamento-adicionar');
+    let dropDownListNPhasesUpdate = document.getElementById('n-fases-atualizar');
+    let dropDownListNewNPhasesUpdate = document.getElementById('novo-n-fases-atualizar');
+    let dropDownListGroupingNPhasesUpdate = document.getElementById('n-fases-agrupamento-atualizar');
     
     let arrayCamposObrigatorios = document.getElementsByClassName('campo-obrigatorio-projetos');
     let arrayProjectInexistente = document.getElementsByClassName('container-projeto-inexistente');
@@ -2639,6 +2681,12 @@ async function mostrar_campos_atualizar_projetos() {
             dropDownListSearchProject.style.display = "none";
             dropDownListUpdateProject.style.display = "none";
             dropDownListDeleteProject.style.display = "none";
+            dropDownListNPhasesAdd.style.display = "none";
+            dropDownListNewNPhasesAdd.style.display = "none";
+            dropDownListGroupingNPhasesAdd.style.display = "none";
+            dropDownListNPhasesUpdate.style.display = "none";
+            dropDownListNewNPhasesUpdate.style.display = "none";
+            dropDownListGroupingNPhasesUpdate.style.display = "none";
             divUpdateProject.style.visibility = "visible"
             divUpdateProject.style.display = "grid"
 
@@ -2758,6 +2806,12 @@ function deletar_projeto() {
     let dropDownListUpdateManufacturerInverter2 = document.getElementById('fabricanteinversor-2-atualizar');
     let dropDownListUpdateManufacturerInverter3 = document.getElementById('fabricanteinversor-3-atualizar');
     let dropDownListUpdateManufacturerInverter4 = document.getElementById('fabricanteinversor-1-atualizar');
+    let dropDownListNPhasesAdd = document.getElementById('n-fases-adicionar');
+    let dropDownListNewNPhasesAdd = document.getElementById('novo-n-fases-adicionar');
+    let dropDownListGroupingNPhasesAdd = document.getElementById('n-fases-agrupamento-adicionar');
+    let dropDownListNPhasesUpdate = document.getElementById('n-fases-atualizar');
+    let dropDownListNewNPhasesUpdate = document.getElementById('novo-n-fases-atualizar');
+    let dropDownListGroupingNPhasesUpdate = document.getElementById('n-fases-agrupamento-atualizar');
   
     document.getElementById('id-projeto-deletar').value = ''
     
@@ -2808,6 +2862,12 @@ function deletar_projeto() {
     dropDownListUpdateManufacturerInverter2.style.display = "none";
     dropDownListUpdateManufacturerInverter3.style.display = "none";
     dropDownListUpdateManufacturerInverter4.style.display = "none";
+    dropDownListNPhasesAdd.style.display = "none";
+    dropDownListNewNPhasesAdd.style.display = "none";
+    dropDownListGroupingNPhasesAdd.style.display = "none";
+    dropDownListNPhasesUpdate.style.display = "none";
+    dropDownListNewNPhasesUpdate.style.display = "none";
+    dropDownListGroupingNPhasesUpdate.style.display = "none";
 
     for(i = 0; i < arrayCamposObrigatorios.length; i++) {
         arrayCamposObrigatorios[i].style.visibility = "hidden"
@@ -3121,6 +3181,562 @@ function remover_inversor2() {
                 document.getElementById('container-inversor-22').style.visibility = "hidden"
                 document.getElementById('container-inversor-22').style.display = "none"
             }
+        }
+    }
+}
+
+async function mostrar_projetos(nomeFuncao) {
+    let input = document.getElementById('id-projeto-' + nomeFuncao)
+    let lista = document.getElementById('idprojeto-' + nomeFuncao)
+
+    let id = []
+    let cliente = []
+    let endereco = []
+    
+    while (lista.options.length > 0) {
+        lista.children[0].remove()
+    }
+
+    let access_token = localStorage.getItem('access_token')
+
+    if (access_token != 'Error: Request failed with status code 401' & access_token != 'Error: Request failed with status code 403' & access_token != 'Error: Request failed with status code 422' & access_token != 'Error: Network Error' & access_token != null) {
+        let config = {
+            headers: {
+              'Authorization': 'Bearer ' + access_token
+            }
+        }
+
+        let dadosTodosProjetos = await axios.get(
+            'http://localhost:8000/all-projects', config
+        ).then(
+            function (response) {
+                const dadosTodosProjetos = response.data;
+                return dadosTodosProjetos;
+            }
+        ).catch(
+            function (error) {
+                console.log(error);
+                return error;
+            }
+        )
+
+        if (dadosTodosProjetos != 'Error: Request failed with status code 401' & dadosTodosProjetos != 'Error: Request failed with status code 404') {
+            for (i = 0; i < dadosTodosProjetos.length; i++) {
+                id[i] = String(dadosTodosProjetos[i].id);
+                cliente[i] = await axios.get(
+                    'http://localhost:8000/clients/' + dadosTodosProjetos[i].numero_cliente, config
+                ).then(
+                    function (response) {
+                        const dadosTodosProjetos = response.data.nome;
+                        return dadosTodosProjetos;
+                    }
+                ).catch(
+                    function (error) {
+                        console.log(error);
+                        return error;
+                    }
+                )
+
+                endereco[i] = await axios.get(
+                    'http://localhost:8000/instalations/' + dadosTodosProjetos[i].numero_instalacao, config
+                ).then(
+                    function (response) {
+                        const dadosTodosProjetos = response.data.logradouro + ', ' + response.data.numero_predial + ' ' + response.data.complemento + ', ' + response.data.bairro + ', ' + response.data.cidade + ' - MG ';
+                        return dadosTodosProjetos;
+                    }
+                ).catch(
+                    function (error) {
+                        console.log(error);
+                        return error;
+                    }
+                )
+                
+                let opcao_atual = document.createElement('option');
+                let texto = document.createTextNode(id[i] + ' - ' + cliente[i] + ' - ' + endereco[i])
+                
+                opcao_atual.value = 'ID #' + id[i] + ' - ' + cliente[i] + ' - ' + endereco[i]
+                opcao_atual.appendChild(texto)
+                lista.appendChild(opcao_atual)
+            }
+        }
+
+        else if (dadosTodosProjetos == 'Error: Request failed with status code 401') {
+            localStorage.setItem('access_token', dadosTodosProjetos);
+            checar_autorizacao();
+        }
+    }
+
+    localStorage.setItem('id_projeto', id)
+    localStorage.setItem('cliente_projeto', cliente)
+    localStorage.setItem('endereco_projeto', endereco.join('///'))
+    
+    lista.style.display = 'grid';
+
+    for (let opcao of lista.options) {
+        opcao.onclick = function () {
+            input.value = opcao.value.split(' ')[1].split('#')[1];
+            lista.style.display = 'none';
+        }
+    }
+}
+
+function filtrar_projetos(nomeFuncao) {
+    let input = document.getElementById('id-projeto-' + nomeFuncao);
+    let lista = document.getElementById('idprojeto-' + nomeFuncao);
+    
+    let id = localStorage.getItem('id_projeto').split(',')
+    let cliente = localStorage.getItem('cliente_projeto').split(',')
+    let endereco = localStorage.getItem('endereco_projeto').split('///')
+
+    while (lista.options.length > 0) {
+        lista.children[0].remove()
+    }
+
+    for (i = 0; i < id.length; i++) {
+        let opcao_atual = document.createElement('option');
+        let texto = document.createTextNode('ID #' + id[i] + ' - ' + cliente[i] + ' - ' + endereco[i])
+        
+        opcao_atual.value = 'ID #' + id[i] + ' - ' + cliente[i] + ' - ' + endereco[i]
+        opcao_atual.appendChild(texto)
+        lista.appendChild(opcao_atual)
+    }
+
+    let idProjeto = input.value.toUpperCase();
+    let nOpcoes = lista.options.length - 1;
+
+    for (i = nOpcoes; i >= 0; i--) {
+        if (lista.options[i].value.includes(idProjeto) == false) {
+            lista.children[i].remove()
+        }
+    }
+}
+
+function mostrar_fases(nomeInput) {
+    let input = document.getElementById(nomeInput)
+    let lista = document.getElementById(nomeInput.split('-').join(''))
+
+    lista.style.display = 'block';
+
+    for (let opcao of lista.options) {
+        opcao.onclick = function () {
+            input.value = opcao.value;
+            lista.style.display = 'none';
+        }
+    }
+}
+
+async function mostrar_fabricantes_modulos(nomeFuncao) {
+    let input = document.getElementById('fabricante-módulo-' + nomeFuncao)
+    let lista = document.getElementById('fabricantemodulo-' + nomeFuncao)
+
+    let fabricante = []
+    let fabricanteUnico = []
+    
+    document.getElementById('modelo-módulo-' + nomeFuncao).value = ''
+
+    while (lista.options.length > 0) {
+        lista.children[0].remove()
+    }
+
+    let access_token = localStorage.getItem('access_token')
+
+    if (access_token != 'Error: Request failed with status code 401' & access_token != 'Error: Request failed with status code 403' & access_token != 'Error: Request failed with status code 422' & access_token != 'Error: Network Error' & access_token != null) {
+        let config = {
+            headers: {
+              'Authorization': 'Bearer ' + access_token
+            }
+        }
+
+        fabricante = await axios.get(
+            'http://localhost:8000/all-modules', config
+        ).then(
+            function (response) {
+                const fabricante = response.data;
+                return fabricante;
+            }
+        ).catch(
+            function (error) {
+                console.log(error);
+                return error;
+            }
+        )
+
+        if (fabricante != 'Error: Request failed with status code 401' & fabricante != 'Error: Request failed with status code 404') {
+            contadorFabricantes = 0;
+            
+            for (i = 0; i < fabricante.length; i++) {
+                let adicionado = false
+                let fabricanteAtual = fabricante[i].fabricante
+                
+                for (j = 0; j < fabricanteUnico.length; j++) {
+                    if (fabricanteAtual == fabricanteUnico[j]) {
+                        adicionado = true;
+                    }
+                }
+
+                if (adicionado == false) {
+                    fabricanteUnico[contadorFabricantes] = fabricanteAtual
+                    contadorFabricantes += 1
+                }
+            }
+
+            fabricanteUnico.sort()
+
+            for(i = 0; i < fabricanteUnico.length; i++) {
+                let opcao_atual = document.createElement('option');
+                let texto = document.createTextNode(fabricanteUnico[i])
+                
+                opcao_atual.value = fabricanteUnico[i]
+                opcao_atual.appendChild(texto)
+                lista.appendChild(opcao_atual)
+            }
+        }
+
+        else if (fabricante == 'Error: Request failed with status code 401') {
+            localStorage.setItem('access_token', fabricante);
+            checar_autorizacao();
+        }
+    }
+
+    localStorage.setItem('fabricante_modulos', fabricanteUnico)
+    
+    lista.style.display = 'grid';
+
+    for (let opcao of lista.options) {
+        opcao.onclick = function () {
+            input.value = opcao.value;
+            lista.style.display = 'none';
+        }
+    }
+}
+
+function filtrar_fabricantes_modulos(nomeFuncao) {
+    let input = document.getElementById('fabricante-módulo-' + nomeFuncao)
+    let lista = document.getElementById('fabricantemodulo-' + nomeFuncao)
+
+    let fabricante = localStorage.getItem('fabricante_modulos').split(',')
+
+    while (lista.options.length > 0) {
+        lista.children[0].remove()
+    }
+
+    for (i = 0; i < fabricante.length; i++) {
+        let opcao_atual = document.createElement('option');
+        let texto = document.createTextNode(fabricante[i])
+        
+        opcao_atual.value = fabricante[i]
+        opcao_atual.appendChild(texto)
+        lista.appendChild(opcao_atual)
+    }
+
+    let fabricanteEscolhido = input.value.toUpperCase();
+    let nOpcoes = lista.options.length - 1;
+
+    for (i = nOpcoes; i >= 0; i--) {
+        if (lista.options[i].value.includes(fabricanteEscolhido) == false) {
+            lista.children[i].remove()
+        }
+    }
+}
+
+
+async function mostrar_modelos_modulos(nomeFuncao) {
+    let fabricante = document.getElementById('fabricante-módulo-' + nomeFuncao).value
+    let input = document.getElementById('modelo-módulo-' + nomeFuncao)
+    let lista = document.getElementById('modelomodulo-' + nomeFuncao)
+
+    let modelos = []
+    
+    while (lista.options.length > 0) {
+        lista.children[0].remove()
+    }
+
+    let access_token = localStorage.getItem('access_token')
+
+    if (fabricante != '' & access_token != 'Error: Request failed with status code 401' & access_token != 'Error: Request failed with status code 403' & access_token != 'Error: Request failed with status code 422' & access_token != 'Error: Network Error' & access_token != null) {
+        let config = {
+            headers: {
+              'Authorization': 'Bearer ' + access_token
+            }
+        }
+
+        dadosTodosModulos = await axios.get(
+            'http://localhost:8000/modules-' + fabricante, config
+        ).then(
+            function (response) {
+                const dadosTodosModulos = response.data;
+                return dadosTodosModulos;
+            }
+        ).catch(
+            function (error) {
+                console.log(error);
+                return error;
+            }
+        )
+
+        if (dadosTodosModulos != 'Error: Request failed with status code 401' & dadosTodosModulos != 'Error: Request failed with status code 404') {
+            for (i = 0; i < dadosTodosModulos.length; i++) {
+                modelos[i] = dadosTodosModulos[i].modelo
+                let opcao_atual = document.createElement('option');
+                let texto = document.createTextNode(modelos[i])
+                
+                opcao_atual.value = modelos[i]
+                opcao_atual.appendChild(texto)
+                lista.appendChild(opcao_atual)
+            }
+        }
+
+        else if (modelos == 'Error: Request failed with status code 401') {
+            localStorage.setItem('access_token', dadosTodosModulos);
+            checar_autorizacao();
+        }
+    }
+
+    localStorage.setItem('modelo_modulos', modelos)
+    
+    lista.style.display = 'grid';
+
+    for (let opcao of lista.options) {
+        opcao.onclick = function () {
+            input.value = opcao.value;
+            lista.style.display = 'none';
+        }
+    }
+}
+
+function filtrar_modelos_modulos(nomeFuncao) {
+    let input = document.getElementById('modelo-módulo-' + nomeFuncao)
+    let lista = document.getElementById('modelomodulo-' + nomeFuncao)
+
+    let modelo = localStorage.getItem('modelo_modulos').split(',')
+
+    while (lista.options.length > 0) {
+        lista.children[0].remove()
+    }
+
+    for (i = 0; i < modelo.length; i++) {
+        let opcao_atual = document.createElement('option');
+        let texto = document.createTextNode(modelo[i])
+        
+        opcao_atual.value = modelo[i]
+        opcao_atual.appendChild(texto)
+        lista.appendChild(opcao_atual)
+    }
+
+    let modeloEscolhido = input.value.toUpperCase();
+    let nOpcoes = lista.options.length - 1;
+
+    for (i = nOpcoes; i >= 0; i--) {
+        if (lista.options[i].value.includes(modeloEscolhido) == false) {
+            lista.children[i].remove()
+        }
+    }
+}
+
+async function mostrar_fabricantes_inversores(nomeFuncao) {
+    let input = document.getElementById('fabricante-inversor-' + nomeFuncao)
+    let lista = document.getElementById('fabricanteinversor-' + nomeFuncao)
+
+    let fabricante = []
+    let fabricanteUnico = []
+    
+    document.getElementById('modelo-inversor-' + nomeFuncao).value = ''
+
+    while (lista.options.length > 0) {
+        lista.children[0].remove()
+    }
+
+    let access_token = localStorage.getItem('access_token')
+
+    if (access_token != 'Error: Request failed with status code 401' & access_token != 'Error: Request failed with status code 403' & access_token != 'Error: Request failed with status code 422' & access_token != 'Error: Network Error' & access_token != null) {
+        let config = {
+            headers: {
+              'Authorization': 'Bearer ' + access_token
+            }
+        }
+
+        fabricante = await axios.get(
+            'http://localhost:8000/all-inverters', config
+        ).then(
+            function (response) {
+                const fabricante = response.data;
+                return fabricante;
+            }
+        ).catch(
+            function (error) {
+                console.log(error);
+                return error;
+            }
+        )
+
+        if (fabricante != 'Error: Request failed with status code 401' & fabricante != 'Error: Request failed with status code 404') {
+            contadorFabricantes = 0;
+            
+            for (i = 0; i < fabricante.length; i++) {
+                let adicionado = false
+                let fabricanteAtual = fabricante[i].fabricante
+                
+                for (j = 0; j < fabricanteUnico.length; j++) {
+                    if (fabricanteAtual == fabricanteUnico[j]) {
+                        adicionado = true;
+                    }
+                }
+
+                if (adicionado == false) {
+                    fabricanteUnico[contadorFabricantes] = fabricanteAtual
+                    contadorFabricantes += 1
+                }
+            }
+
+            fabricanteUnico.sort()
+
+            for(i = 0; i < fabricanteUnico.length; i++) {
+                let opcao_atual = document.createElement('option');
+                let texto = document.createTextNode(fabricanteUnico[i])
+                
+                opcao_atual.value = fabricanteUnico[i]
+                opcao_atual.appendChild(texto)
+                lista.appendChild(opcao_atual)
+            }
+        }
+
+        else if (fabricante == 'Error: Request failed with status code 401') {
+            localStorage.setItem('access_token', fabricante);
+            checar_autorizacao();
+        }
+    }
+
+    localStorage.setItem('fabricante_inversores', fabricanteUnico)
+    
+    lista.style.display = 'grid';
+
+    for (let opcao of lista.options) {
+        opcao.onclick = function () {
+            input.value = opcao.value;
+            lista.style.display = 'none';
+        }
+    }
+}
+
+function filtrar_fabricantes_modulos(nomeFuncao) {
+    let input = document.getElementById('fabricante-inversor-' + nomeFuncao)
+    let lista = document.getElementById('fabricanteinversor-' + nomeFuncao)
+
+    let fabricante = localStorage.getItem('fabricante_inversores').split(',')
+
+    while (lista.options.length > 0) {
+        lista.children[0].remove()
+    }
+
+    for (i = 0; i < fabricante.length; i++) {
+        let opcao_atual = document.createElement('option');
+        let texto = document.createTextNode(fabricante[i])
+        
+        opcao_atual.value = fabricante[i]
+        opcao_atual.appendChild(texto)
+        lista.appendChild(opcao_atual)
+    }
+
+    let fabricanteEscolhido = input.value.toUpperCase();
+    let nOpcoes = lista.options.length - 1;
+
+    for (i = nOpcoes; i >= 0; i--) {
+        if (lista.options[i].value.includes(fabricanteEscolhido) == false) {
+            lista.children[i].remove()
+        }
+    }
+}
+
+
+async function mostrar_modelos_inversores(nomeFuncao) {
+    let fabricante = document.getElementById('fabricante-inversor-' + nomeFuncao).value
+    let input = document.getElementById('modelo-inversor-' + nomeFuncao)
+    let lista = document.getElementById('modeloinversor-' + nomeFuncao)
+
+    let modelos = []
+    
+    while (lista.options.length > 0) {
+        lista.children[0].remove()
+    }
+
+    let access_token = localStorage.getItem('access_token')
+
+    if (fabricante != '' & access_token != 'Error: Request failed with status code 401' & access_token != 'Error: Request failed with status code 403' & access_token != 'Error: Request failed with status code 422' & access_token != 'Error: Network Error' & access_token != null) {
+        let config = {
+            headers: {
+              'Authorization': 'Bearer ' + access_token
+            }
+        }
+
+        dadosTodosInversores = await axios.get(
+            'http://localhost:8000/inverters-' + fabricante, config
+        ).then(
+            function (response) {
+                const dadosTodosInversores = response.data;
+                return dadosTodosInversores;
+            }
+        ).catch(
+            function (error) {
+                console.log(error);
+                return error;
+            }
+        )
+
+        if (dadosTodosInversores != 'Error: Request failed with status code 401' & dadosTodosInversores != 'Error: Request failed with status code 404') {
+            for (i = 0; i < dadosTodosInversores.length; i++) {
+                modelos[i] = dadosTodosInversores[i].modelo
+                let opcao_atual = document.createElement('option');
+                let texto = document.createTextNode(modelos[i])
+                
+                opcao_atual.value = modelos[i]
+                opcao_atual.appendChild(texto)
+                lista.appendChild(opcao_atual)
+            }
+        }
+
+        else if (modelos == 'Error: Request failed with status code 401') {
+            localStorage.setItem('access_token', dadosTodosInversores);
+            checar_autorizacao();
+        }
+    }
+
+    localStorage.setItem('modelo_inversores', modelos)
+    
+    lista.style.display = 'grid';
+
+    for (let opcao of lista.options) {
+        opcao.onclick = function () {
+            input.value = opcao.value;
+            lista.style.display = 'none';
+        }
+    }
+}
+
+function filtrar_modelos_inversores(nomeFuncao) {
+    let input = document.getElementById('modelo-inversor-' + nomeFuncao)
+    let lista = document.getElementById('modeloinversor-' + nomeFuncao)
+
+    let modelo = localStorage.getItem('modelo_inversores').split(',')
+
+    while (lista.options.length > 0) {
+        lista.children[0].remove()
+    }
+
+    for (i = 0; i < modelo.length; i++) {
+        let opcao_atual = document.createElement('option');
+        let texto = document.createTextNode(modelo[i])
+        
+        opcao_atual.value = modelo[i]
+        opcao_atual.appendChild(texto)
+        lista.appendChild(opcao_atual)
+    }
+
+    let modeloEscolhido = input.value.toUpperCase();
+    let nOpcoes = lista.options.length - 1;
+
+    for (i = nOpcoes; i >= 0; i--) {
+        if (lista.options[i].value.includes(modeloEscolhido) == false) {
+            lista.children[i].remove()
         }
     }
 }

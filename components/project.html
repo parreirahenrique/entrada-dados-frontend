@@ -181,7 +181,7 @@
             </div>
             <div class="container-form">
                 <form>
-                    <input type="text" id="id-projeto-buscar" list="" autocomplete="off" onmousedown="value = '';" onclick="mostrar_projetos('buscar')" oninput="filtrar_projetos('buscar')" required>
+                    <input type="text" id="id-projeto-buscar" list="" autocomplete="off" onclick="mostrar_projetos('buscar')" oninput="filtrar_projetos('buscar')" required>
                     <label for="name">ID do projeto*:</label>    
                         <datalist id="idprojeto-buscar">
                         </datalist>
@@ -310,8 +310,13 @@
                 </div>
                 <div class="container-form">
                     <form>
-                        <input type="text" id="n-fases-adicionar" required>
-                        <label for="name">Número de fases atual*:</label>
+                        <input type="text" id="n-fases-adicionar" list="" autocomplete="off" onclick="mostrar_fases('n-fases-adicionar')" oninput="filtrar_fabricantes_modulos('n-fases-adicionar')" required>
+                        <label for="name">Número de fases atual*:</label>    
+                        <datalist id="nfasesadicionar">
+                            <option value="Monopolar">Monopolar</option>
+                            <option value="Bipolar">Bipolar</option>
+                            <option value="Tripolar">Tripolar</option>
+                        </datalist>
                     </form>
                     <span class="campo-obrigatorio-projetos">Esse é um campo obrigatório.</span>
                 </div>
@@ -325,8 +330,14 @@
                 <div class="container-aumento-carga" id="container-aumento-carga-1">
                     <div class="container-form">
                         <form>
-                            <input type="text" id="novo-n-fases-adicionar" required>
-                            <label for="name">Número de fases solicitado*:</label>
+                            
+                            <input type="text" id="novo-n-fases-adicionar" list="" autocomplete="off" onclick="mostrar_fases('novo-n-fases-adicionar')" oninput="filtrar_fabricantes_modulos('novo-n-fases-adicionar')" required>
+                            <label for="name">Número de fases solicitado*:</label>    
+                            <datalist id="novonfasesadicionar">
+                                <option value="Monopolar">Monopolar</option>
+                                <option value="Bipolar">Bipolar</option>
+                                <option value="Tripolar">Tripolar</option>
+                            </datalist>
                         </form>
                         <span class="campo-obrigatorio-projetos">Esse é um campo obrigatório.</span>
                     </div>
@@ -341,8 +352,13 @@
                 <div class="container-agrupamento" id="container-agrupamento-1">
                     <div class="container-form">
                         <form>
-                            <input type="text" id="n-fases-agrupamento-adicionar" required>
-                            <label for="name">Número de fases do agrupamento*:</label>
+                            <input type="text" id="n-fases-agrupamento-adicionar" list="" autocomplete="off" onclick="mostrar_fases('n-fases-agrupamento-adicionar')" oninput="filtrar_fabricantes_modulos('n-fases-agrupamento-adicionar')" required>
+                            <label for="name">Número de fases do agrupamento*:</label>    
+                            <datalist id="nfasesagrupamentoadicionar">
+                                <option value="Monopolar">Monopolar</option>
+                                <option value="Bipolar">Bipolar</option>
+                                <option value="Tripolar">Tripolar</option>
+                            </datalist>
                         </form>
                         <span class="campo-obrigatorio-projetos">Esse é um campo obrigatório.</span>
                     </div>
@@ -374,7 +390,7 @@
                     </div>
                     <div class="container-form">
                         <form>
-                            <input type="text" id="fabricante-módulo-1-adicionar" list="" autocomplete="off" onmousedown="value = '';" onclick="mostrar_fabricantes_modulos('1-adicionar')" oninput="filtrar_fabricantes_modulos('1-adicionar')" required>
+                            <input type="text" id="fabricante-módulo-1-adicionar" list="" autocomplete="off" onclick="mostrar_fabricantes_modulos('1-adicionar')" oninput="filtrar_fabricantes_modulos('1-adicionar')" required>
                             <label for="name">Fabricante do módulo 1*:</label>    
                                 <datalist id="fabricantemodulo-1-adicionar">
                                 </datalist>
@@ -383,7 +399,7 @@
                     </div>
                     <div class="container-form">
                         <form>
-                            <input type="text" id="modelo-módulo-1-adicionar" list="" autocomplete="off" onmousedown="value = '';" onclick="mostrar_modelos_modulos('1-adicionar')" oninput="filtrar_modelos_modulos('1-adicionar')" required>
+                            <input type="text" id="modelo-módulo-1-adicionar" list="" autocomplete="off" onclick="mostrar_modelos_modulos('1-adicionar')" oninput="filtrar_modelos_modulos('1-adicionar')" required>
                             <label for="name">Modelo do módulo 1*:</label>    
                                 <datalist id="modelomodulo-1-adicionar">
                                 </datalist>
@@ -405,7 +421,7 @@
                     </div>
                     <div class="container-form">
                         <form>
-                            <input type="text" id="fabricante-módulo-2-adicionar" list="" autocomplete="off" onmousedown="value = '';" onclick="mostrar_fabricantes_modulos('2-adicionar')" oninput="filtrar_fabricantes_modulos('2-adicionar')" required>
+                            <input type="text" id="fabricante-módulo-2-adicionar" list="" autocomplete="off" onclick="mostrar_fabricantes_modulos('2-adicionar')" oninput="filtrar_fabricantes_modulos('2-adicionar')" required>
                             <label for="name">Fabricante do módulo 2*:</label>    
                                 <datalist id="fabricantemodulo-2-adicionar">
                                 </datalist>
@@ -414,7 +430,7 @@
                     </div>
                     <div class="container-form">
                         <form>
-                            <input type="text" id="modelo-módulo-2-adicionar" list="" autocomplete="off" onmousedown="value = '';" onclick="mostrar_modelos_modulos('2-adicionar')" oninput="filtrar_modelos_modulos('2-adicionar')" required>
+                            <input type="text" id="modelo-módulo-2-adicionar" list="" autocomplete="off" onclick="mostrar_modelos_modulos('2-adicionar')" oninput="filtrar_modelos_modulos('2-adicionar')" required>
                             <label for="name">Modelo do módulo 2*:</label>    
                                 <datalist id="modelomodulo-2-adicionar">
                                 </datalist>
@@ -439,7 +455,7 @@
                     </div>
                     <div class="container-form">
                         <form>
-                            <input type="text" id="fabricante-inversor-1-adicionar" list="" autocomplete="off" onmousedown="value = '';" onclick="mostrar_fabricantes_inversores('1-adicionar')" oninput="filtrar_fabricantes_inversores('1-adicionar')" required>
+                            <input type="text" id="fabricante-inversor-1-adicionar" list="" autocomplete="off" onclick="mostrar_fabricantes_inversores('1-adicionar')" oninput="filtrar_fabricantes_inversores('1-adicionar')" required>
                             <label for="name">Fabricante do inversor 1*:</label>    
                                 <datalist id="fabricanteinversor-1-adicionar">
                                 </datalist>
@@ -448,7 +464,7 @@
                     </div>
                     <div class="container-form">
                         <form>
-                            <input type="text" id="modelo-inversor-1-adicionar" list="" autocomplete="off" onmousedown="value = '';" onclick="mostrar_modelos_inversores('1-adicionar')" oninput="filtrar_modelos_inversores('1-adicionar')" required>
+                            <input type="text" id="modelo-inversor-1-adicionar" list="" autocomplete="off" onclick="mostrar_modelos_inversores('1-adicionar')" oninput="filtrar_modelos_inversores('1-adicionar')" required>
                             <label for="name">Modelo do inversor 1*:</label>    
                                 <datalist id="modeloinversor-1-adicionar">
                                 </datalist>
@@ -470,7 +486,7 @@
                     </div>
                     <div class="container-form">
                         <form>
-                            <input type="text" id="fabricante-inversor-2-adicionar" list="" autocomplete="off" onmousedown="value = '';" onclick="mostrar_fabricantes_inversores('2-adicionar')" oninput="filtrar_fabricantes_inversores('2-adicionar')" required>
+                            <input type="text" id="fabricante-inversor-2-adicionar" list="" autocomplete="off" onclick="mostrar_fabricantes_inversores('2-adicionar')" oninput="filtrar_fabricantes_inversores('2-adicionar')" required>
                             <label for="name">Fabricante do inversor 2*:</label>    
                                 <datalist id="fabricanteinversor-2-adicionar">
                                 </datalist>
@@ -479,7 +495,7 @@
                     </div>
                     <div class="container-form">
                         <form>
-                            <input type="text" id="modelo-inversor-2-adicionar" list="" autocomplete="off" onmousedown="value = '';" onclick="mostrar_modelos_inversores('2-adicionar')" oninput="filtrar_modelos_inversores('2-adicionar')" required>
+                            <input type="text" id="modelo-inversor-2-adicionar" list="" autocomplete="off" onclick="mostrar_modelos_inversores('2-adicionar')" oninput="filtrar_modelos_inversores('2-adicionar')" required>
                             <label for="name">Modelo do inversor 2*:</label>    
                                 <datalist id="modeloinversor-2-adicionar">
                                 </datalist>
@@ -501,7 +517,7 @@
                     </div>
                     <div class="container-form">
                         <form>
-                            <input type="text" id="fabricante-inversor-3-adicionar" list="" autocomplete="off" onmousedown="value = '';" onclick="mostrar_fabricantes_inversores('3-adicionar')" oninput="filtrar_fabricantes_inversores('3-adicionar')" required>
+                            <input type="text" id="fabricante-inversor-3-adicionar" list="" autocomplete="off" onclick="mostrar_fabricantes_inversores('3-adicionar')" oninput="filtrar_fabricantes_inversores('3-adicionar')" required>
                             <label for="name">Fabricante do inversor 3*:</label>    
                                 <datalist id="fabricanteinversor-3-adicionar">
                                 </datalist>
@@ -510,7 +526,7 @@
                     </div>
                     <div class="container-form">
                         <form>
-                            <input type="text" id="modelo-inversor-3-adicionar" list="" autocomplete="off" onmousedown="value = '';" onclick="mostrar_modelos_inversores('3-adicionar')" oninput="filtrar_modelos_inversores('3-adicionar')" required>
+                            <input type="text" id="modelo-inversor-3-adicionar" list="" autocomplete="off" onclick="mostrar_modelos_inversores('3-adicionar')" oninput="filtrar_modelos_inversores('3-adicionar')" required>
                             <label for="name">Modelo do inversor 3*:</label>    
                                 <datalist id="modeloinversor-3-adicionar">
                                 </datalist>
@@ -532,7 +548,7 @@
                     </div>
                     <div class="container-form">
                         <form>
-                            <input type="text" id="fabricante-inversor-4-adicionar" list="" autocomplete="off" onmousedown="value = '';" onclick="mostrar_fabricantes_inversores('4-adicionar')" oninput="filtrar_fabricantes_inversores('4-adicionar')" required>
+                            <input type="text" id="fabricante-inversor-4-adicionar" list="" autocomplete="off" onclick="mostrar_fabricantes_inversores('4-adicionar')" oninput="filtrar_fabricantes_inversores('4-adicionar')" required>
                             <label for="name">Fabricante do inversor 4*:</label>    
                                 <datalist id="fabricanteinversor-4-adicionar">
                                 </datalist>
@@ -541,7 +557,7 @@
                     </div>
                     <div class="container-form">
                         <form>
-                            <input type="text" id="modelo-inversor-4-adicionar" list="" autocomplete="off" onmousedown="value = '';" onclick="mostrar_modelos_inversores('4-adicionar')" oninput="filtrar_modelos_inversores('4-adicionar')" required>
+                            <input type="text" id="modelo-inversor-4-adicionar" list="" autocomplete="off" onclick="mostrar_modelos_inversores('4-adicionar')" oninput="filtrar_modelos_inversores('4-adicionar')" required>
                             <label for="name">Modelo do inversor 4*:</label>    
                                 <datalist id="modeloinversor-4-adicionar">
                                 </datalist>
@@ -568,7 +584,7 @@
             </div>
             <div class="container-form">
                 <form>
-                    <input type="text" id="id-projeto-buscar-atualizar" list="" autocomplete="off" onmousedown="value = '';" onclick="mostrar_clientes('buscar-atualizar')" oninput="filtrar_clientes('buscar-atualizar')" placeholder="Ex.: 7000000000" required>
+                    <input type="text" id="id-projeto-buscar-atualizar" list="" autocomplete="off" onclick="mostrar_projetos('buscar-atualizar')" oninput="filtrar_projetos('buscar-atualizar')" placeholder="Ex.: 7000000000" required>
                     <label for="name">ID do projeto*:</label>    
                         <datalist id="idprojeto-buscar-atualizar">
                         </datalist>
@@ -619,8 +635,13 @@
                 </div>
                 <div class="container-form">
                     <form>
-                        <input type="text" id="n-fases-atualizar" required>
-                        <label for="name">Número de fases atual:</label>
+                        <input type="text" id="n-fases-atualizar" list="" autocomplete="off" onclick="mostrar_fases('n-fases-atualizar')" oninput="filtrar_fabricantes_modulos('n-fases-atualizar')" required>
+                        <label for="name">Número de fases atual:</label>    
+                        <datalist id="nfasesatualizar">
+                            <option value="Monopolar">Monopolar</option>
+                            <option value="Bipolar">Bipolar</option>
+                            <option value="Tripolar">Tripolar</option>
+                        </datalist>
                     </form>
                 </div>
                 <div class="container-form">
@@ -632,8 +653,13 @@
                 <div class="container-aumento-carga" id="container-aumento-carga-2">
                     <div class="container-form">
                         <form>
-                            <input type="text" id="novo-n-fases-atualizar" required>
-                            <label for="name">Número de fases solicitado:</label>
+                            <input type="text" id="novo-n-fases-atualizar" list="" autocomplete="off" onclick="mostrar_fases('novo-n-fases-atualizar')" oninput="filtrar_fabricantes_modulos('novo-n-fases-atualizar')" required>
+                            <label for="name">Número de fases solicitado:</label>    
+                            <datalist id="novonfasesatualizar">
+                                <option value="Monopolar">Monopolar</option>
+                                <option value="Bipolar">Bipolar</option>
+                                <option value="Tripolar">Tripolar</option>
+                            </datalist>
                         </form>
                     </div>
                     <div class="container-form">
@@ -646,8 +672,13 @@
                 <div class="container-agrupamento" id="container-agrupamento-2">
                     <div class="container-form">
                         <form>
-                            <input type="text" id="n-fases-agrupamento-atualizar" required>
-                            <label for="name">Número de fases do agrupamento:</label>
+                            <input type="text" id="n-fases-agrupamento-atualizar" list="" autocomplete="off" onclick="mostrar_fases('n-fases-agrupamento-atualizar')" oninput="filtrar_fabricantes_modulos('n-fases-agrupamento-atualizar')" required>
+                            <label for="name">Número de fases do agrupamento:</label>    
+                            <datalist id="nfasesagrupamentoatualizar">
+                                <option value="Monopolar">Monopolar</option>
+                                <option value="Bipolar">Bipolar</option>
+                                <option value="Tripolar">Tripolar</option>
+                            </datalist>
                         </form>
                     </div>
                     <div class="container-form">
@@ -676,7 +707,7 @@
                     </div>
                     <div class="container-form">
                         <form>
-                            <input type="text" id="fabricante-módulo-1-atualizar" list="" autocomplete="off" onmousedown="value = '';" onclick="mostrar_fabricantes_modulos('1-atualizar')" oninput="filtrar_fabricantes_modulos('1-atualizar')" required>
+                            <input type="text" id="fabricante-módulo-1-atualizar" list="" autocomplete="off" onclick="mostrar_fabricantes_modulos('1-atualizar')" oninput="filtrar_fabricantes_modulos('1-atualizar')" required>
                             <label for="name">Fabricante do módulo 1:</label>    
                                 <datalist id="fabricantemodulo-1-atualizar">
                                 </datalist>
@@ -684,7 +715,7 @@
                     </div>
                     <div class="container-form">
                         <form>
-                            <input type="text" id="modelo-módulo-1-atualizar" list="" autocomplete="off" onmousedown="value = '';" onclick="mostrar_fabricantes_modulos('1-atualizar')" oninput="filtrar_fabricantes_modulos('1-atualizar')" required>
+                            <input type="text" id="modelo-módulo-1-atualizar" list="" autocomplete="off" onclick="mostrar_modelos_modulos('1-atualizar')" oninput="filtrar_modelos_modulos('1-atualizar')" required>
                             <label for="name">Fabricante do módulo 1:</label>    
                                 <datalist id="modelomodulo-1-atualizar">
                                 </datalist>
@@ -704,7 +735,7 @@
                     </div>
                     <div class="container-form">
                         <form>
-                            <input type="text" id="fabricante-módulo-2-atualizar" list="" autocomplete="off" onmousedown="value = '';" onclick="mostrar_fabricantes_modulos('2-atualizar')" oninput="filtrar_fabricantes_modulos('2-atualizar')" required>
+                            <input type="text" id="fabricante-módulo-2-atualizar" list="" autocomplete="off" onclick="mostrar_fabricantes_modulos('2-atualizar')" oninput="filtrar_fabricantes_modulos('2-atualizar')" required>
                             <label for="name">Fabricante do módulo 2:</label>    
                                 <datalist id="fabricantemodulo-2-atualizar">
                                 </datalist>
@@ -712,7 +743,7 @@
                     </div>
                     <div class="container-form">
                         <form>
-                            <input type="text" id="modelo-módulo-2-atualizar" list="" autocomplete="off" onmousedown="value = '';" onclick="mostrar_modelos_modulos('2-atualizar')" oninput="filtrar_modelos_modulos('2-atualizar')" required>
+                            <input type="text" id="modelo-módulo-2-atualizar" list="" autocomplete="off" onclick="mostrar_modelos_modulos('2-atualizar')" oninput="filtrar_modelos_modulos('2-atualizar')" required>
                             <label for="name">Modelo do módulo 2:</label>    
                                 <datalist id="modelomodulo-2-atualizar">
                                 </datalist>
@@ -735,7 +766,7 @@
                     </div>
                     <div class="container-form">
                         <form>
-                            <input type="text" id="fabricante-inversor-1-atualizar" list="" autocomplete="off" onmousedown="value = '';" onclick="mostrar_fabricantes_inversores('1-atualizar')" oninput="filtrar_fabricantes_inversores('1-atualizar')" required>
+                            <input type="text" id="fabricante-inversor-1-atualizar" list="" autocomplete="off" onclick="mostrar_fabricantes_inversores('1-atualizar')" oninput="filtrar_fabricantes_inversores('1-atualizar')" required>
                             <label for="name">Fabricante do inversor 1:</label>    
                                 <datalist id="fabricanteinversor-1-atualizar">
                                 </datalist>
@@ -743,7 +774,7 @@
                     </div>
                     <div class="container-form">
                         <form>
-                            <input type="text" id="modelo-inversor-1-atualizar" list="" autocomplete="off" onmousedown="value = '';" onclick="mostrar_modelos_inversores('1-atualizar')" oninput="filtrar_modelos_inversores('1-atualizar')" required>
+                            <input type="text" id="modelo-inversor-1-atualizar" list="" autocomplete="off" onclick="mostrar_modelos_inversores('1-atualizar')" oninput="filtrar_modelos_inversores('1-atualizar')" required>
                             <label for="name">Modelo do inversor 1:</label>    
                                 <datalist id="modeloinversor-1-atualizar">
                                 </datalist>
@@ -763,7 +794,7 @@
                     </div>
                     <div class="container-form">
                         <form>
-                            <input type="text" id="fabricante-inversor-2-atualizar" list="" autocomplete="off" onmousedown="value = '';" onclick="mostrar_fabricantes_inversores('2-atualizar')" oninput="filtrar_fabricantes_inversores('2-atualizar')" required>
+                            <input type="text" id="fabricante-inversor-2-atualizar" list="" autocomplete="off" onclick="mostrar_fabricantes_inversores('2-atualizar')" oninput="filtrar_fabricantes_inversores('2-atualizar')" required>
                             <label for="name">Fabricante do inversor 2:</label>    
                                 <datalist id="fabricanteinversor-2-atualizar">
                                 </datalist>
@@ -771,7 +802,7 @@
                     </div>
                     <div class="container-form">
                         <form>
-                            <input type="text" id="modelo-inversor-2-atualizar" list="" autocomplete="off" onmousedown="value = '';" onclick="mostrar_modelos_inversores('2-atualizar')" oninput="filtrar_modelos_inversores('2-atualizar')" required>
+                            <input type="text" id="modelo-inversor-2-atualizar" list="" autocomplete="off" onclick="mostrar_modelos_inversores('2-atualizar')" oninput="filtrar_modelos_inversores('2-atualizar')" required>
                             <label for="name">Modelo do inversor 2:</label>    
                                 <datalist id="modeloinversor-2-atualizar">
                                 </datalist>
@@ -791,7 +822,7 @@
                     </div>
                     <div class="container-form">
                         <form>
-                            <input type="text" id="fabricante-inversor-3-atualizar" list="" autocomplete="off" onmousedown="value = '';" onclick="mostrar_fabricantes_inversores('3-atualizar')" oninput="filtrar_fabricantes_inversores('3-atualizar')" required>
+                            <input type="text" id="fabricante-inversor-3-atualizar" list="" autocomplete="off" onclick="mostrar_fabricantes_inversores('3-atualizar')" oninput="filtrar_fabricantes_inversores('3-atualizar')" required>
                             <label for="name">Fabricante do inversor 3:</label>    
                                 <datalist id="fabricanteinversor-3-atualizar">
                                 </datalist>
@@ -799,7 +830,7 @@
                     </div>
                     <div class="container-form">
                         <form>
-                            <input type="text" id="modelo-inversor-3-atualizar" list="" autocomplete="off" onmousedown="value = '';" onclick="mostrar_modelos_inversores('3-atualizar')" oninput="filtrar_modelos_inversores('3-atualizar')" required>
+                            <input type="text" id="modelo-inversor-3-atualizar" list="" autocomplete="off" onclick="mostrar_modelos_inversores('3-atualizar')" oninput="filtrar_modelos_inversores('3-atualizar')" required>
                             <label for="name">Modelo do inversor 3:</label>    
                                 <datalist id="modeloinversor-3-atualizar">
                                 </datalist>
@@ -819,7 +850,7 @@
                     </div>
                     <div class="container-form">
                         <form>
-                            <input type="text" id="fabricante-inversor-4-atualizar" list="" autocomplete="off" onmousedown="value = '';" onclick="mostrar_fabricantes_inversores('4-atualizar')" oninput="filtrar_fabricantes_inversores('4-atualizar')" required>
+                            <input type="text" id="fabricante-inversor-4-atualizar" list="" autocomplete="off" onclick="mostrar_fabricantes_inversores('4-atualizar')" oninput="filtrar_fabricantes_inversores('4-atualizar')" required>
                             <label for="name">Fabricante do inversor 4:</label>    
                                 <datalist id="fabricanteinversor-4-atualizar">
                                 </datalist>
@@ -827,7 +858,7 @@
                     </div>
                     <div class="container-form">
                         <form>
-                            <input type="text" id="modelo-inversor-4-atualizar" list="" autocomplete="off" onmousedown="value = '';" onclick="mostrar_modelos_inversores('4-atualizar')" oninput="filtrar_modelos_inversores('4-atualizar')" required>
+                            <input type="text" id="modelo-inversor-4-atualizar" list="" autocomplete="off" onclick="mostrar_modelos_inversores('4-atualizar')" oninput="filtrar_modelos_inversores('4-atualizar')" required>
                             <label for="name">Modelo do inversor 4:</label>    
                                 <datalist id="modeloinversor-4-atualizar">
                                 </datalist>
@@ -853,7 +884,7 @@
             </div>
             <div class="container-form">
                 <form>
-                    <input type="text" id="id-projeto-deletar" list="" autocomplete="off" onmousedown="value = '';" onclick="mostrar_projetos('deletar')" oninput="filtrar_projetos('deletar')" required>
+                    <input type="text" id="id-projeto-deletar" list="" autocomplete="off" onclick="mostrar_projetos('deletar')" oninput="filtrar_projetos('deletar')" required>
                     <label for="name">ID do projeto*:</label>    
                         <datalist id="idprojeto-deletar">
                         </datalist>
