@@ -2989,8 +2989,8 @@ async function get_all_projects() {
                    
                     textoModeloModulo = dadosTodosProjetos[i].modelo_modulo_1
 
-                    if (dadosTodosProjetos[i].quantidade_modulo_2 != '') {
-                        textoModeloModulo = textoModeloModulo + '<br>' + textoModeloModulo[i].modelo_modulo_2
+                    if (dadosTodosProjetos[i].modelo_modulo_2 != '') {
+                        textoModeloModulo = textoModeloModulo + '<br>' + dadosTodosProjetos[i].modelo_modulo_2
                     }
 
                     arrayTD[9 * i + 6].innerHTML = textoModeloModulo
@@ -3714,6 +3714,8 @@ async function post_project() {
             
             document.getElementById('container-add-projects-general').style.visibility = 'hidden';
             document.getElementById('container-add-projects-general').style.display = 'none';
+
+            localStorage.setItem('projeto_atual', dicionario.id)
         }
 
         else if (resposta == 'Error: Request failed with status code 401') {
@@ -3970,6 +3972,8 @@ async function patch_project() {
                 
             document.getElementById('container-update-projects-general').style.visibility = 'hidden';
             document.getElementById('container-update-projects-general').style.display = 'none';
+
+            localStorage.setItem('projeto_atual', dicionario.id)
         }
 
         else if (resposta == 'Error: Request failed with status code 401') {
@@ -4046,4 +4050,32 @@ async function delete_project() {
             arrayCampos[i].style.display = "grid";
         }
     }
+}
+
+async function print_project() {
+    let idProjeto = localStorage.getItem('projeto_atual')
+
+    let access_token = localStorage.getItem('access_token');
+
+    let config = {
+        headers: {
+          'Authorization': 'Bearer ' + access_token
+        }
+    }
+
+    let resposta = await axios.get(
+            'http://localhost:8000/projects/' + idProjeto + '/print', config
+        ).then(
+            function (response) {
+                const resposta = response;
+                return resposta;
+            }
+        ).catch(
+            function (error) {
+                console.log(error);
+                return error;
+            }
+        )
+
+        console.log(resposta)
 }

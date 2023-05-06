@@ -2194,12 +2194,12 @@ function buscar_projeto() {
     let dropDownListUpdateManufacturerInverter2 = document.getElementById('fabricanteinversor-2-atualizar');
     let dropDownListUpdateManufacturerInverter3 = document.getElementById('fabricanteinversor-3-atualizar');
     let dropDownListUpdateManufacturerInverter4 = document.getElementById('fabricanteinversor-1-atualizar');
-    let dropDownListNPhasesAdd = document.getElementById('n-fases-adicionar');
-    let dropDownListNewNPhasesAdd = document.getElementById('novo-n-fases-adicionar');
-    let dropDownListGroupingNPhasesAdd = document.getElementById('n-fases-agrupamento-adicionar');
-    let dropDownListNPhasesUpdate = document.getElementById('n-fases-atualizar');
-    let dropDownListNewNPhasesUpdate = document.getElementById('novo-n-fases-atualizar');
-    let dropDownListGroupingNPhasesUpdate = document.getElementById('n-fases-agrupamento-atualizar');
+    let dropDownListNPhasesAdd = document.getElementById('nfasesadicionar');
+    let dropDownListNewNPhasesAdd = document.getElementById('novonfasesadicionar');
+    let dropDownListGroupingNPhasesAdd = document.getElementById('nfasesagrupamento-adicionar');
+    let dropDownListNPhasesUpdate = document.getElementById('nfasesatualizar');
+    let dropDownListNewNPhasesUpdate = document.getElementById('novonfasesatualizar');
+    let dropDownListGroupingNPhasesUpdate = document.getElementById('nfasesagrupamento-atualizar');
   
     document.getElementById('id-projeto-buscar').value = ''
     
@@ -2308,12 +2308,12 @@ function adicionar_projeto() {
     let dropDownListUpdateManufacturerInverter2 = document.getElementById('fabricanteinversor-2-atualizar');
     let dropDownListUpdateManufacturerInverter3 = document.getElementById('fabricanteinversor-3-atualizar');
     let dropDownListUpdateManufacturerInverter4 = document.getElementById('fabricanteinversor-1-atualizar');
-    let dropDownListNPhasesAdd = document.getElementById('n-fases-adicionar');
-    let dropDownListNewNPhasesAdd = document.getElementById('novo-n-fases-adicionar');
-    let dropDownListGroupingNPhasesAdd = document.getElementById('n-fases-agrupamento-adicionar');
-    let dropDownListNPhasesUpdate = document.getElementById('n-fases-atualizar');
-    let dropDownListNewNPhasesUpdate = document.getElementById('novo-n-fases-atualizar');
-    let dropDownListGroupingNPhasesUpdate = document.getElementById('n-fases-agrupamento-atualizar');
+    let dropDownListNPhasesAdd = document.getElementById('nfasesadicionar');
+    let dropDownListNewNPhasesAdd = document.getElementById('novonfasesadicionar');
+    let dropDownListGroupingNPhasesAdd = document.getElementById('nfasesagrupamento-adicionar');
+    let dropDownListNPhasesUpdate = document.getElementById('nfasesatualizar');
+    let dropDownListNewNPhasesUpdate = document.getElementById('novonfasesatualizar');
+    let dropDownListGroupingNPhasesUpdate = document.getElementById('nfasesagrupamento-atualizar');
     
     document.getElementById('número-instalação-adicionar').value = ''
     document.getElementById('número-cliente-adicionar').value = ''
@@ -2447,12 +2447,12 @@ function atualizar_projeto() {
     let dropDownListUpdateManufacturerInverter2 = document.getElementById('fabricanteinversor-2-atualizar');
     let dropDownListUpdateManufacturerInverter3 = document.getElementById('fabricanteinversor-3-atualizar');
     let dropDownListUpdateManufacturerInverter4 = document.getElementById('fabricanteinversor-1-atualizar');
-    let dropDownListNPhasesAdd = document.getElementById('n-fases-adicionar');
-    let dropDownListNewNPhasesAdd = document.getElementById('novo-n-fases-adicionar');
-    let dropDownListGroupingNPhasesAdd = document.getElementById('n-fases-agrupamento-adicionar');
-    let dropDownListNPhasesUpdate = document.getElementById('n-fases-atualizar');
-    let dropDownListNewNPhasesUpdate = document.getElementById('novo-n-fases-atualizar');
-    let dropDownListGroupingNPhasesUpdate = document.getElementById('n-fases-agrupamento-atualizar');
+    let dropDownListNPhasesAdd = document.getElementById('nfasesadicionar');
+    let dropDownListNewNPhasesAdd = document.getElementById('novonfasesadicionar');
+    let dropDownListGroupingNPhasesAdd = document.getElementById('nfasesagrupamento-adicionar');
+    let dropDownListNPhasesUpdate = document.getElementById('nfasesatualizar');
+    let dropDownListNewNPhasesUpdate = document.getElementById('novonfasesatualizar');
+    let dropDownListGroupingNPhasesUpdate = document.getElementById('nfasesagrupamento-atualizar');
     
     document.getElementById('id-projeto-buscar-atualizar').value = ''
 
@@ -2527,12 +2527,12 @@ async function mostrar_campos_atualizar_projetos() {
     let dropDownListSearchProject = document.getElementById('idprojeto-buscar');
     let dropDownListUpdateProject = document.getElementById('idprojeto-buscar-atualizar');
     let dropDownListDeleteProject = document.getElementById('idprojeto-deletar');
-    let dropDownListNPhasesAdd = document.getElementById('n-fases-adicionar');
-    let dropDownListNewNPhasesAdd = document.getElementById('novo-n-fases-adicionar');
-    let dropDownListGroupingNPhasesAdd = document.getElementById('n-fases-agrupamento-adicionar');
-    let dropDownListNPhasesUpdate = document.getElementById('n-fases-atualizar');
-    let dropDownListNewNPhasesUpdate = document.getElementById('novo-n-fases-atualizar');
-    let dropDownListGroupingNPhasesUpdate = document.getElementById('n-fases-agrupamento-atualizar');
+    let dropDownListNPhasesAdd = document.getElementById('nfasesadicionar');
+    let dropDownListNewNPhasesAdd = document.getElementById('novonfasesadicionar');
+    let dropDownListGroupingNPhasesAdd = document.getElementById('nfasesagrupamento-adicionar');
+    let dropDownListNPhasesUpdate = document.getElementById('nfasesatualizar');
+    let dropDownListNewNPhasesUpdate = document.getElementById('novonfasesatualizar');
+    let dropDownListGroupingNPhasesUpdate = document.getElementById('nfasesagrupamento-atualizar');
     
     let arrayCamposObrigatorios = document.getElementsByClassName('campo-obrigatorio-projetos');
     let arrayProjectInexistente = document.getElementsByClassName('container-projeto-inexistente');
@@ -2806,12 +2806,12 @@ function deletar_projeto() {
     let dropDownListUpdateManufacturerInverter2 = document.getElementById('fabricanteinversor-2-atualizar');
     let dropDownListUpdateManufacturerInverter3 = document.getElementById('fabricanteinversor-3-atualizar');
     let dropDownListUpdateManufacturerInverter4 = document.getElementById('fabricanteinversor-1-atualizar');
-    let dropDownListNPhasesAdd = document.getElementById('n-fases-adicionar');
-    let dropDownListNewNPhasesAdd = document.getElementById('novo-n-fases-adicionar');
-    let dropDownListGroupingNPhasesAdd = document.getElementById('n-fases-agrupamento-adicionar');
-    let dropDownListNPhasesUpdate = document.getElementById('n-fases-atualizar');
-    let dropDownListNewNPhasesUpdate = document.getElementById('novo-n-fases-atualizar');
-    let dropDownListGroupingNPhasesUpdate = document.getElementById('n-fases-agrupamento-atualizar');
+    let dropDownListNPhasesAdd = document.getElementById('nfasesadicionar');
+    let dropDownListNewNPhasesAdd = document.getElementById('novonfasesadicionar');
+    let dropDownListGroupingNPhasesAdd = document.getElementById('nfasesagrupamento-adicionar');
+    let dropDownListNPhasesUpdate = document.getElementById('nfasesatualizar');
+    let dropDownListNewNPhasesUpdate = document.getElementById('novonfasesatualizar');
+    let dropDownListGroupingNPhasesUpdate = document.getElementById('nfasesagrupamento-atualizar');
   
     document.getElementById('id-projeto-deletar').value = ''
     
