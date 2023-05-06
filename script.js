@@ -2519,6 +2519,121 @@ async function mostrar_campos_atualizar_projetos() {
         )
         
         if (dadosOriginais != 'Error: Request failed with status code 404' & dadosOriginais != 'Error: Request failed with status code 401') {
+            let fabricante_modulo_1 = '';
+            let fabricante_modulo_2 = '';
+            let fabricante_inversor_1 = '';
+            let fabricante_inversor_2 = '';
+            let fabricante_inversor_3 = '';
+            let fabricante_inversor_4 = '';
+
+            if (dadosOriginais.modelo_modulo_1 != '') {
+                let dadosModulo1 = await axios.get(
+                    'http://localhost:8000/modules?buscar=' + dadosOriginais.modelo_modulo_1, config
+                ).then(
+                    function (response) {
+                        const dadosModulo1 = response.data;
+                        return dadosModulo1;
+                    }
+                ).catch(
+                    function (error) {
+                        console.log(error);
+                        return error;
+                    }
+                )
+
+                fabricante_modulo_1 = dadosModulo1[0]['fabricante']
+            }
+
+            if (dadosOriginais.modelo_modulo_2 != '') {
+                let dadosModulo2 = await axios.get(
+                    'http://localhost:8000/modules?buscar=' + dadosOriginais.modelo_modulo_2, config
+                ).then(
+                    function (response) {
+                        const dadosModulo2 = response.data;
+                        return dadosModulo2;
+                    }
+                ).catch(
+                    function (error) {
+                        console.log(error);
+                        return error;
+                    }
+                )
+
+                fabricante_modulo_2 = dadosModulo2[0]['fabricante']
+            }
+
+            if (dadosOriginais.modelo_inversor_1 != '') {
+                let dadosInversor1 = await axios.get(
+                    'http://localhost:8000/inverters?buscar=' + dadosOriginais.modelo_inversor_1, config
+                ).then(
+                    function (response) {
+                        const dadosInversor1 = response.data;
+                        return dadosInversor1;
+                    }
+                ).catch(
+                    function (error) {
+                        console.log(error);
+                        return error;
+                    }
+                )
+
+                fabricante_inversor_1 = dadosInversor1[0]['fabricante']
+            }
+
+            if (dadosOriginais.modelo_inversor_2 != '') {
+                let dadosInversor2 = await axios.get(
+                    'http://localhost:8000/inverters?buscar=' + dadosOriginais.modelo_inversor_2, config
+                ).then(
+                    function (response) {
+                        const dadosInversor2 = response.data;
+                        return dadosInversor2;
+                    }
+                ).catch(
+                    function (error) {
+                        console.log(error);
+                        return error;
+                    }
+                )
+
+                fabricante_inversor_2 = dadosInversor2[0]['fabricante']
+            }
+
+            if (dadosOriginais.modelo_inversor_3 != '') {
+                let dadosInversor3 = await axios.get(
+                    'http://localhost:8000/inverters?buscar=' + dadosOriginais.modelo_inversor_3, config
+                ).then(
+                    function (response) {
+                        const dadosInversor3 = response.data;
+                        return dadosInversor3;
+                    }
+                ).catch(
+                    function (error) {
+                        console.log(error);
+                        return error;
+                    }
+                )
+
+                fabricante_inversor_3 = dadosInversor3[0]['fabricante']
+            }
+
+            if (dadosOriginais.modelo_inversor_4 != '') {
+                let dadosInversor4 = await axios.get(
+                    'http://localhost:8000/inverters?buscar=' + dadosOriginais.modelo_inversor_4, config
+                ).then(
+                    function (response) {
+                        const dadosInversor4 = response.data;
+                        return dadosInversor4;
+                    }
+                ).catch(
+                    function (error) {
+                        console.log(error);
+                        return error;
+                    }
+                )
+
+                fabricante_inversor_4 = dadosInversor4[0]['fabricante']
+            }
+
             divSearchUpdateProject.style.visibility = "hidden"
             divSearchUpdateProject.style.display = "none"
             dropDownListSearchProject.style.display = "none";
@@ -2526,7 +2641,7 @@ async function mostrar_campos_atualizar_projetos() {
             dropDownListDeleteProject.style.display = "none";
             divUpdateProject.style.visibility = "visible"
             divUpdateProject.style.display = "grid"
-            
+
             document.getElementById('número-instalação-atualizar').value = dadosOriginais.numero_instalacao
             document.getElementById('número-cliente-atualizar').value = dadosOriginais.numero_cliente
             document.getElementById('checkbox-ligacao-2').checked = dadosOriginais.ligacao_nova
@@ -2539,26 +2654,37 @@ async function mostrar_campos_atualizar_projetos() {
             document.getElementById('novo-disjuntor-atualizar').value = dadosOriginais.novo_disjuntor
             document.getElementById('n-fases-agrupamento-atualizar').value = dadosOriginais.n_fases_agrupamento
             document.getElementById('disjuntor-agrupamento-atualizar').value = dadosOriginais.disjuntor_agrupamento
-            document.getElementById('tensão-adicionar').value = dadosOriginais.tensao
+            document.getElementById('tensão-atualizar').value = dadosOriginais.tensao
             document.getElementById('quantidade-módulo-1-atualizar').value = dadosOriginais.quantidade_modulo_1
             document.getElementById('modulo-anterior-1-atualizar').checked = dadosOriginais.modulo_anterior_1
+            document.getElementById('fabricante-módulo-1-atualizar').value = fabricante_modulo_1
             document.getElementById('modelo-módulo-1-atualizar').value = dadosOriginais.modelo_modulo_1
             document.getElementById('quantidade-módulo-2-atualizar').value = dadosOriginais.quantidade_modulo_2
             document.getElementById('modulo-anterior-2-atualizar').checked = dadosOriginais.modulo_anterior_2
+            document.getElementById('fabricante-módulo-2-atualizar').value = fabricante_modulo_2
             document.getElementById('modelo-módulo-2-atualizar').value = dadosOriginais.modelo_modulo_2
             document.getElementById('quantidade-inversor-1-atualizar').value = dadosOriginais.quantidade_inversor_1
             document.getElementById('inversor-anterior-1-atualizar').checked = dadosOriginais.inversor_anterior_1
+            document.getElementById('fabricante-inversor-1-atualizar').value = fabricante_inversor_1
             document.getElementById('modelo-inversor-1-atualizar').value = dadosOriginais.modelo_inversor_1
             document.getElementById('quantidade-inversor-2-atualizar').value = dadosOriginais.quantidade_inversor_2
             document.getElementById('inversor-anterior-2-atualizar').checked = dadosOriginais.inversor_anterior_2
+            document.getElementById('fabricante-inversor-2-atualizar').value = fabricante_inversor_2
             document.getElementById('modelo-inversor-2-atualizar').value = dadosOriginais.modelo_inversor_2
             document.getElementById('quantidade-inversor-3-atualizar').value = dadosOriginais.quantidade_inversor_3
             document.getElementById('inversor-anterior-3-atualizar').checked = dadosOriginais.inversor_anterior_3
+            document.getElementById('fabricante-inversor-3-atualizar').value = fabricante_inversor_3
             document.getElementById('modelo-inversor-3-atualizar').value = dadosOriginais.modelo_inversor_3
             document.getElementById('quantidade-inversor-4-atualizar').value = dadosOriginais.quantidade_inversor_4
             document.getElementById('inversor-anterior-4-atualizar').checked = dadosOriginais.inversor_anterior_4
+            document.getElementById('fabricante-inversor-4-atualizar').value = fabricante_inversor_4
             document.getElementById('modelo-inversor-4-atualizar').value = dadosOriginais.modelo_inversor_4
             
+            ligacao_nova2();
+            aumento_carga2();
+            aumento_usina2();
+            agrupamento2();
+
             for(i = 0; i < arrayCamposObrigatorios.length; i++) {
                 arrayCamposObrigatorios[i].style.visibility = "hidden"
                 arrayCamposObrigatorios[i].style.display = "none"
@@ -2704,6 +2830,8 @@ function ligacao_nova1() {
         document.getElementById('checkbox-aumento-carga-1').checked = false;
         document.getElementById('checkbox-aumento-usina-1').checked = false;
 
+        document.getElementById('número-instalação-adicionar').value = ''
+
         document.getElementById('container-numero-instalacao-1').style.visibility = "hidden";
         document.getElementById('container-numero-instalacao-1').style.display = "none";
         document.getElementById('container-aumento-carga-1').style.visibility = "hidden";
@@ -2733,6 +2861,8 @@ function ligacao_nova2() {
     if (estadoLigacao2 == true) {
         document.getElementById('checkbox-aumento-carga-2').checked = false;
         document.getElementById('checkbox-aumento-usina-2').checked = false;
+
+        document.getElementById('número-instalação-atualizar').value = 0
 
         document.getElementById('container-numero-instalacao-2').style.visibility = "hidden";
         document.getElementById('container-numero-instalacao-2').style.display = "none";
@@ -2815,6 +2945,10 @@ function aumento_usina1() {
     }
 
     else if(estadoAumentoUsina1 == false) {
+        document.getElementById('quantidade-módulo-2-adicionar').value = ''
+        document.getElementById('fabricante-módulo-2-adicionar').value = ''
+        document.getElementById('modelo-módulo-2-adicionar').value = ''
+        
         for (let i = 0; i < arrayCheckbox.length; i++) {
             arrayCheckbox[i].style.visibility = "hidden";
         }
@@ -2848,6 +2982,10 @@ function aumento_usina2() {
     }
 
     else if(estadoAumentoUsina2 == false) {
+        document.getElementById('quantidade-módulo-2-atualizar').value = ''
+        document.getElementById('fabricante-módulo-2-atualizar').value = ''
+        document.getElementById('modelo-módulo-2-atualizar').value = ''
+                
         for (let i = 0; i < arrayCheckbox.length; i++) {
             arrayCheckbox[i].style.visibility = "hidden";
         }

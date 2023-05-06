@@ -3217,8 +3217,8 @@ async function post_project() {
     let disjuntor = document.getElementById('disjuntor-adicionar').value;
     let novo_n_fases = document.getElementById('novo-n-fases-adicionar').value;
     let novo_disjuntor = document.getElementById('novo-disjuntor-adicionar').value;
-    let n_fases_agrupamento = document.getElementById('disjuntor-agrupamento-adicionar').value;
-    let disjuntor_agrupamento = document.getElementById('n-fases-agrupamento-adicionar').value;
+    let n_fases_agrupamento = document.getElementById('n-fases-agrupamento-adicionar').value;
+    let disjuntor_agrupamento = document.getElementById('disjuntor-agrupamento-adicionar').value;
     let tensao = document.getElementById('tensão-adicionar').value;
     let modulo_anterior_1 = document.getElementById('modulo-anterior-1-adicionar').checked.toString();
     let quantidade_modulo_1 = document.getElementById('quantidade-módulo-1-adicionar').value;
@@ -3327,7 +3327,7 @@ async function post_project() {
         }
 
         else {
-            divExistentProject = document.getElementsByClassName('container-inversor-existente')
+            divExistentProject = document.getElementsByClassName('container-projeto-existente')
             divExistentProject[0].style.visibility = 'visible';
             divExistentProject[0].style.display = 'flex';
         }
@@ -3343,7 +3343,7 @@ async function post_project() {
     }
 }
 
-async function patch_inverter() {
+async function patch_project() {
     let access_token = localStorage.getItem('access_token');
 
     let id = document.getElementById('id-projeto-buscar-atualizar').value;
@@ -3358,26 +3358,46 @@ async function patch_inverter() {
     let disjuntor = document.getElementById('disjuntor-atualizar').value;
     let novo_n_fases = document.getElementById('novo-n-fases-atualizar').value;
     let novo_disjuntor = document.getElementById('novo-disjuntor-atualizar').value;
-    let n_fases_agrupamento = document.getElementById('disjuntor-agrupamento-atualizar').value;
-    let disjuntor_agrupamento = document.getElementById('n-fases-agrupamento-atualizar').value;
+    let n_fases_agrupamento = document.getElementById('n-fases-agrupamento-atualizar').value;
+    let disjuntor_agrupamento = document.getElementById('disjuntor-agrupamento-atualizar').value;
     let tensao = document.getElementById('tensão-atualizar').value;
     let modulo_anterior_1 = document.getElementById('modulo-anterior-1-atualizar').checked.toString();
     let quantidade_modulo_1 = document.getElementById('quantidade-módulo-1-atualizar').value;
     let modelo_modulo_1 = document.getElementById('modelo-módulo-1-atualizar').value;
     let modulo_anterior_2 = document.getElementById('modulo-anterior-2-atualizar').checked.toString();
     let quantidade_modulo_2 = document.getElementById('quantidade-módulo-2-atualizar').value;
+
+    if (quantidade_modulo_2 == '') {
+        quantidade_modulo_2 = '0'
+    }
+
     let modelo_modulo_2 = document.getElementById('modelo-módulo-2-atualizar').value;
     let inversor_anterior_1 = document.getElementById('inversor-anterior-1-atualizar').checked.toString();
     let quantidade_inversor_1 = document.getElementById('quantidade-inversor-1-atualizar').value;
     let modelo_inversor_1 = document.getElementById('modelo-inversor-1-atualizar').value;
     let inversor_anterior_2 = document.getElementById('inversor-anterior-2-atualizar').checked.toString();
     let quantidade_inversor_2 = document.getElementById('quantidade-inversor-2-atualizar').value;
+    
+    if (quantidade_inversor_2 == '') {
+        quantidade_inversor_2 == '0'
+    }
+
     let modelo_inversor_2 = document.getElementById('modelo-inversor-2-atualizar').value;
     let inversor_anterior_3 = document.getElementById('inversor-anterior-3-atualizar').checked.toString();
     let quantidade_inversor_3 = document.getElementById('quantidade-inversor-3-atualizar').value;
+    
+    if (quantidade_inversor_2 == '') {
+        quantidade_inversor_2 == '0'
+    }
+
     let modelo_inversor_3 = document.getElementById('modelo-inversor-3-atualizar').value;
     let inversor_anterior_4 = document.getElementById('inversor-anterior-4-atualizar').checked.toString();
     let quantidade_inversor_4 = document.getElementById('quantidade-inversor-4-atualizar').value;
+    
+    if (quantidade_inversor_2 == '') {
+        quantidade_inversor_2 == '0'
+    }
+
     let modelo_inversor_4 = document.getElementById('modelo-inversor-4-atualizar').value;
 
     let dicionario = {}; // Create an empty array
@@ -3420,9 +3440,6 @@ async function patch_inverter() {
 
     if (aumento_usina != dadosOriginais.aumento_usina.toString()){
         dicionario['aumento_usina'] = aumento_usina
-        dicionario['modulo_anterior_2'] = modulo_anterior_2
-        dicionario['quantidade_modulo_2'] = quantidade_modulo_2
-        dicionario['modelo_modulo_2'] = modelo_modulo_2
     }
 
     if (agrupamento != dadosOriginais.agrupamento.toString()){
@@ -3433,73 +3450,111 @@ async function patch_inverter() {
         dicionario['n_fases'] = n_fases
     }
 
-    if (disjuntor != ''){
+    if (disjuntor != dadosOriginais.disjuntor.toString()){
         dicionario['disjuntor'] = disjuntor
     }
 
-    if (novo_n_fases != ''){
+    if (novo_n_fases != dadosOriginais.novo_n_fases.toString()){
         dicionario['novo_n_fases'] = novo_n_fases
     }
 
-    if (novo_disjuntor != ''){
+    if (novo_disjuntor != dadosOriginais.novo_disjuntor.toString()){
         dicionario['novo_disjuntor'] = novo_disjuntor
     }
     
-    if (n_fases_agrupamento != ''){
+    if (n_fases_agrupamento != dadosOriginais.n_fases_agrupamento.toString()){
         dicionario['n_fases_agrupamento'] = n_fases_agrupamento
     }
     
-    if (disjuntor_agrupamento != ''){
+    if (disjuntor_agrupamento != dadosOriginais.disjuntor_agrupamento.toString()){
         dicionario['disjuntor_agrupamento'] = disjuntor_agrupamento
     }
 
-    if (tensao != ''){
+    if (tensao != dadosOriginais.tensao.toString()){
         dicionario['tensao'] = tensao
     }
 
-    if (modulo_anterior_1 != ''){
+    if (modulo_anterior_1 != dadosOriginais.modulo_anterior_1.toString()){
         dicionario['modulo_anterior_1'] = modulo_anterior_1
     }
     
-    if (quantidade_modulo_1 != '' || modelo_modulo_1 != ''){
-        dicionario['modulo_anterior_1'] = modulo_anterior_1
+    if (quantidade_modulo_1 != dadosOriginais.quantidade_modulo_1.toString()){
         dicionario['quantidade_modulo_1'] = quantidade_modulo_1
+    }
+    
+    if (modelo_modulo_1 != dadosOriginais.modelo_modulo_1.toString()){
         dicionario['modelo_modulo_1'] = modelo_modulo_1
     }
-    
-    if (inversor_anterior_1 != ''){
+
+    if (modulo_anterior_2 != dadosOriginais.modulo_anterior_2.toString()){
         dicionario['modulo_anterior_2'] = modulo_anterior_2
     }
 
-    if (quantidade_inversor_1 != ''){
-        dicionario['modulo_anterior_2'] = modulo_anterior_2
-    }
-
-    if (modelo_inversor_1 != ''){
-        dicionario['modulo_anterior_2'] = modulo_anterior_2
+    if (quantidade_modulo_2 != dadosOriginais.quantidade_modulo_2.toString()){
+        dicionario['quantidade_modulo_2'] = quantidade_modulo_2
     }
     
-    if (inversor_anterior_2 != ''){
-        dicionario['modulo_anterior_2'] = modulo_anterior_2
+    if (modelo_modulo_2 != dadosOriginais.modelo_modulo_2.toString()){
+        dicionario['modelo_modulo_2'] = modelo_modulo_2
     }
 
-    if (quantidade_inversor_2 != ''){
-        dicionario['modulo_anterior_2'] = modulo_anterior_2
+    if (inversor_anterior_1 != dadosOriginais.inversor_anterior_1.toString()){
+        dicionario['inversor_anterior_1'] = inversor_anterior_1
     }
 
-    if (modelo_inversor_2 != ''){
-        dicionario['modulo_anterior_2'] = modulo_anterior_2
+    if (quantidade_inversor_1 != dadosOriginais.quantidade_inversor_1.toString()){
+        dicionario['quantidade_inversor_1'] = quantidade_inversor_1
     }
 
-    if (dicionario == {}){
+    if (modelo_inversor_1 != dadosOriginais.modelo_inversor_1.toString()){
+        dicionario['modelo_inversor_1'] = modelo_inversor_1
+    }
+
+    if (inversor_anterior_2 != dadosOriginais.inversor_anterior_2.toString()){
+        dicionario['inversor_anterior_2'] = inversor_anterior_2
+    }
+
+    if (quantidade_inversor_2 != dadosOriginais.quantidade_inversor_2.toString()){
+        dicionario['quantidade_inversor_2'] = quantidade_inversor_2
+    }
+
+    if (modelo_inversor_2 != dadosOriginais.modelo_inversor_2.toString()){
+        dicionario['modelo_inversor_2'] = modelo_inversor_2
+    }
+
+    if (inversor_anterior_3 != dadosOriginais.inversor_anterior_3.toString()){
+        dicionario['inversor_anterior_3'] = inversor_anterior_3
+    }
+
+    if (quantidade_inversor_3 != dadosOriginais.quantidade_inversor_3.toString()){
+        dicionario['quantidade_inversor_3'] = quantidade_inversor_3
+    }
+
+    if (modelo_inversor_3 != dadosOriginais.modelo_inversor_3.toString()){
+        dicionario['modelo_inversor_3'] = modelo_inversor_3
+    }
+
+    if (inversor_anterior_4 != dadosOriginais.inversor_anterior_4.toString()){
+        dicionario['inversor_anterior_4'] = inversor_anterior_4
+    }
+
+    if (quantidade_inversor_4 != dadosOriginais.quantidade_inversor_4.toString()){
+        dicionario['quantidade_inversor_4'] = quantidade_inversor_4
+    }
+
+    if (modelo_inversor_4 != dadosOriginais.modelo_inversor_4.toString()){
+        dicionario['modelo_inversor_4'] = modelo_inversor_4
+    }
+
+    if (Object.keys(dicionario).length == 0){
         containerCamposNaoPreenchidos = document.getElementsByClassName('container-campos-nao-preenchidos')
         containerCamposNaoPreenchidos[0].style.visibility = "visible"
         containerCamposNaoPreenchidos[0].style.display = "flex"
     }
 
     else {
-        url = 'http://localhost:8000/inverters/' + id
-        
+        url = 'http://localhost:8000/projects/' + id.toString()
+        console.log(dicionario)
         resposta = await axios.patch(
             url, dicionario, config
         ).then(
@@ -3515,11 +3570,11 @@ async function patch_inverter() {
         )
         
         if (resposta != 'Error: Request failed with status code 404' & resposta != 'Error: Request failed with status code 401') {
-            document.getElementById('container-inversor-atualizado').style.visibility = 'visible';
-            document.getElementById('container-inversor-atualizado').style.display = 'grid';
+            document.getElementById('container-projeto-atualizado').style.visibility = 'visible';
+            document.getElementById('container-projeto-atualizado').style.display = 'grid';
                 
-            document.getElementById('container-update-inverters-general').style.visibility = 'hidden';
-            document.getElementById('container-update-inverters-general').style.display = 'none';
+            document.getElementById('container-update-projects-general').style.visibility = 'hidden';
+            document.getElementById('container-update-projects-general').style.display = 'none';
         }
 
         else if (resposta == 'Error: Request failed with status code 401') {
@@ -3534,6 +3589,66 @@ async function patch_inverter() {
                 arrayInversorInexistente[i].style.visibility = 'visible'
                 arrayInversorInexistente[i].style.display = 'flex'
             }
+        }
+    }
+}
+
+async function delete_project() {
+    let access_token = localStorage.getItem('access_token');
+    let id = document.getElementById('id-projeto-deletar').value;
+
+    if (id != '') {
+
+        let config = {
+            headers: {
+              'Authorization': 'Bearer ' + access_token
+            }
+        }
+
+        let resposta = await axios.delete(
+            'http://localhost:8000/projects/' + id, config
+        ).then(
+            function (response) {
+                const resposta = response.data;
+                return resposta;
+            }
+        ).catch(
+            function (error) {
+                console.log(error);
+                return error;
+            }
+        )
+        
+        if (resposta == '') {
+            document.getElementById('container-projeto-deletado').style.visibility = 'visible';
+            document.getElementById('container-projeto-deletado').style.display = 'grid';
+
+            document.getElementById('container-delete-projects').style.visibility = 'hidden';
+            document.getElementById('container-delete-projects').style.display = 'none';
+        }
+
+        else if (resposta == 'Error: Request failed with status code 401') {
+            localStorage.setItem('access_token', resposta);
+            checar_autorizacao();
+        }
+
+        else if (resposta == 'Error: Request failed with status code 404') {
+            let arrayInversorInexistente = document.getElementsByClassName('container-projeto-inexistente');
+
+            for (i = 0; i < arrayInversorInexistente.length; i ++) {
+                arrayInversorInexistente[i].style.visibility = 'visible';
+                arrayInversorInexistente[i].style.display = 'flex';
+            }
+        }
+
+    }
+    
+    else {
+        let arrayCampos = document.getElementsByClassName('campo-obrigatorio-projetos');
+
+        for (i = 0; i < arrayCampos.length; i ++) {
+            arrayCampos[i].style.visibility = "visible";
+            arrayCampos[i].style.display = "grid";
         }
     }
 }

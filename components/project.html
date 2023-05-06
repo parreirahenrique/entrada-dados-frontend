@@ -580,6 +580,10 @@
             </div>
         </div>
         <div class="container" id="container-update-projects-general">
+            <div class="container-campos-nao-preenchidos">
+                <img src="../img/falha.png" class="falha-projeto">
+                <span class="campo-nao-preenchido">Não há nenhuma alteração do projeto original.</span>
+            </div>
             <div id="container-update-projects">
                 <div class="container-checkbox">
                     <form class="form-checkbox">
@@ -854,6 +858,7 @@
                         <datalist id="idprojeto-deletar">
                         </datalist>
                 </form>
+                <span class="campo-obrigatorio-projetos">Esse é um campo obrigatório.</span>
             </div>
             <div class="container-buttons-projects">
                 <button onclick="delete_project()">Deletar</button> <a href=""><button>Cancelar</button></a>
