@@ -1084,6 +1084,11 @@ td {
     display: none;
 }
 
+#container-projeto-impresso {
+    visibility: hidden;
+    display: none;
+}
+
 #container-projeto-deletado {
     visibility: hidden;
     display: none;
@@ -1148,6 +1153,11 @@ span {
 }
 
 #container-update-projects-general {
+    visibility: hidden;
+    display: none;
+}
+
+#container-print-projects {
     visibility: hidden;
     display: none;
 }

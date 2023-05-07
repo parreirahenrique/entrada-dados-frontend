@@ -40,6 +40,7 @@
             <button onclick="buscar_projeto()"><i class="uil uil-search"></i> Buscar por projeto</button>
             <button onclick="adicionar_projeto()"><i class="uil uil-plus"></i> Adicionar novo projeto</button>
             <button onclick="atualizar_projeto()"><i class="uil uil-refresh"></i> Atualizar um projeto</button>
+            <button onclick="imprimir_projeto()"><i class="uil uil-print"></i> Imprimir um projeto</button>
             <button onclick="deletar_projeto()"><i class="uil uil-trash"></i> Deletar um projeto</button>
         </div>
         <div class="container" id="container-geral">
@@ -295,22 +296,26 @@
                 <div id="container-numero-instalacao-1">
                     <div class="container-form">
                         <form>
-                            <input type="text" id="número-instalação-adicionar" oninput="apenas_numeros(this)" required>
+                            <input type="text" id="número-instalação-adicionar" onclick="mostrar_instalacoes('adicionar')" oninput="filtrar_instalacoes('adicionar')"  required>
                             <label for="name">Número de instalação*:</label>
+                            <datalist id="numeroinstalacao-adicionar">
+                            </datalist>
                         </form>
                         <span class="campo-obrigatorio-projetos">Esse é um campo obrigatório.</span>
                     </div>
                 </div>
                 <div class="container-form">
                     <form>
-                        <input type="text" id="número-cliente-adicionar" oninput="apenas_numeros(this)" required>
+                        <input type="text" id="número-cliente-adicionar" onclick="mostrar_clientes('adicionar')" oninput="filtrar_clientes('adicionar')" required>
                         <label for="name">Número do cliente*:</label>
+                        <datalist id="numerocliente-adicionar">
+                        </datalist>
                     </form>
                     <span class="campo-obrigatorio-projetos">Esse é um campo obrigatório.</span>
                 </div>
                 <div class="container-form">
                     <form>
-                        <input type="text" id="n-fases-adicionar" list="" autocomplete="off" onclick="mostrar_fases('n-fases-adicionar')" oninput="filtrar_fabricantes_modulos('n-fases-adicionar')" required>
+                        <input type="text" id="n-fases-adicionar" list="" autocomplete="off" onclick="mostrar_fases('n-fases-adicionar')" required>
                         <label for="name">Número de fases atual*:</label>    
                         <datalist id="nfasesadicionar">
                             <option value="Monopolar">Monopolar</option>
@@ -331,7 +336,7 @@
                     <div class="container-form">
                         <form>
                             
-                            <input type="text" id="novo-n-fases-adicionar" list="" autocomplete="off" onclick="mostrar_fases('novo-n-fases-adicionar')" oninput="filtrar_fabricantes_modulos('novo-n-fases-adicionar')" required>
+                            <input type="text" id="novo-n-fases-adicionar" list="" autocomplete="off" onclick="mostrar_fases('novo-n-fases-adicionar')" required>
                             <label for="name">Número de fases solicitado*:</label>    
                             <datalist id="novonfasesadicionar">
                                 <option value="Monopolar">Monopolar</option>
@@ -352,7 +357,7 @@
                 <div class="container-agrupamento" id="container-agrupamento-1">
                     <div class="container-form">
                         <form>
-                            <input type="text" id="n-fases-agrupamento-adicionar" list="" autocomplete="off" onclick="mostrar_fases('n-fases-agrupamento-adicionar')" oninput="filtrar_fabricantes_modulos('n-fases-agrupamento-adicionar')" required>
+                            <input type="text" id="n-fases-agrupamento-adicionar" list="" autocomplete="off" onclick="mostrar_fases('n-fases-agrupamento-adicionar')" required>
                             <label for="name">Número de fases do agrupamento*:</label>    
                             <datalist id="nfasesagrupamentoadicionar">
                                 <option value="Monopolar">Monopolar</option>
@@ -622,25 +627,28 @@
                 <div id="container-numero-instalacao-2">
                     <div class="container-form">
                         <form>
-                            <input type="text" id="número-instalação-atualizar" oninput="apenas_numeros(this)" required>
+                            <input type="text" id="número-instalação-atualizar" onclick="mostrar_instalacoes('atualizar')" oninput="filtrar_instalacoes('atualizar')" required>
                             <label for="name">Número de instalação:</label>
+                            <datalist id="numeroinstalacao-atualizar">
+                            </datalist>
                         </form>
                     </div>
                 </div>
                 <div class="container-form">
                     <form>
-                        <input type="text" id="número-cliente-atualizar" oninput="apenas_numeros(this)" required>
+                        <input type="text" id="número-cliente-atualizar" onclick="mostrar_clientes('atualizar')" oninput="filtrar_clientes('atualizar')" required>
                         <label for="name">Número do cliente:</label>
+                        <datalist id="numerocliente-atualizar">
+                        </datalist>
                     </form>
                 </div>
                 <div class="container-form">
                     <form>
-                        <input type="text" id="n-fases-atualizar" list="" autocomplete="off" onclick="mostrar_fases('n-fases-atualizar')" oninput="filtrar_fabricantes_modulos('n-fases-atualizar')" required>
+                        <input type="text" id="n-fases-atualizar" list="" autocomplete="off" onclick="mostrar_fases('n-fases-atualizar')" required>
                         <label for="name">Número de fases atual:</label>    
                         <datalist id="nfasesatualizar">
                             <option value="Monopolar">Monopolar</option>
                             <option value="Bipolar">Bipolar</option>
-                            <option value="Tripolar">Tripolar</option>
                         </datalist>
                     </form>
                 </div>
@@ -653,7 +661,7 @@
                 <div class="container-aumento-carga" id="container-aumento-carga-2">
                     <div class="container-form">
                         <form>
-                            <input type="text" id="novo-n-fases-atualizar" list="" autocomplete="off" onclick="mostrar_fases('novo-n-fases-atualizar')" oninput="filtrar_fabricantes_modulos('novo-n-fases-atualizar')" required>
+                            <input type="text" id="novo-n-fases-atualizar" list="" autocomplete="off" onclick="mostrar_fases('novo-n-fases-atualizar')" required>
                             <label for="name">Número de fases solicitado:</label>    
                             <datalist id="novonfasesatualizar">
                                 <option value="Monopolar">Monopolar</option>
@@ -672,7 +680,7 @@
                 <div class="container-agrupamento" id="container-agrupamento-2">
                     <div class="container-form">
                         <form>
-                            <input type="text" id="n-fases-agrupamento-atualizar" list="" autocomplete="off" onclick="mostrar_fases('n-fases-agrupamento-atualizar')" oninput="filtrar_fabricantes_modulos('n-fases-agrupamento-atualizar')" required>
+                            <input type="text" id="n-fases-agrupamento-atualizar" list="" autocomplete="off" onclick="mostrar_fases('n-fases-agrupamento-atualizar')" required>
                             <label for="name">Número de fases do agrupamento:</label>    
                             <datalist id="nfasesagrupamentoatualizar">
                                 <option value="Monopolar">Monopolar</option>
@@ -875,6 +883,31 @@
             <h1>Projeto atualizado com sucesso!</h1>
             <div class="container-buttons-projects">
                 <button onclick="print_project()">Imprimir projeto</button> <a href=""><button>Voltar</button></a>
+            </div>
+        </div>
+        <div class="container" id="container-print-projects">
+            <div class="container-projeto-inexistente">
+                <img src="../img/falha.png" class="falha-projeto">
+                <span class="campo-projeto-inexistente">Projeto inexistente.</span>
+            </div>
+            <div class="container-form">
+                <form>
+                    <input type="text" id="id-projeto-imprimir" list="" autocomplete="off" onclick="mostrar_projetos('imprimir')" oninput="filtrar_projetos('imprimir')" required>
+                    <label for="name">ID do projeto*:</label>    
+                        <datalist id="idprojeto-imprimir">
+                        </datalist>
+                </form>
+                <span class="campo-obrigatorio-projetos">Esse é um campo obrigatório.</span>
+            </div>
+            <div class="container-buttons-projects">
+                <button onclick="print_project()">Imprimir</button> <a href=""><button>Cancelar</button></a>
+            </div>
+        </div>
+        <div class="container" id="container-projeto-impresso">
+            <img src="../img/sucesso.png" class="sucesso">
+            <h1>Projeto impresso com sucesso!</h1>
+            <div class="container-buttons-projects">
+                <a href=""><button>Voltar</button></a>
             </div>
         </div>
         <div class="container" id="container-delete-projects">

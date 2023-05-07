@@ -2160,15 +2160,18 @@ function buscar_projeto() {
     let divAddProject = document.getElementById('container-add-projects-general');
     let divSearchUpdateProject = document.getElementById('container-search-to-update-projects');
     let divUpdateProject = document.getElementById('container-update-projects-general');
+    let divPrintProject = document.getElementById('container-print-projects');
     let divDeleteProject = document.getElementById('container-delete-projects');
     let divProjectFound = document.getElementById('container-projeto-encontrado');
     let divProjectAdded = document.getElementById('container-projeto-adicionado');
     let divProjectUpdated = document.getElementById('container-projeto-atualizado');
+    let divProjectPrinted = document.getElementById('container-projeto-impresso');
     let divProjectDeleted = document.getElementById('container-projeto-deletado');
     let arrayCamposObrigatorios = document.getElementsByClassName('campo-obrigatorio-projetos');
     let arrayProjectInexistente = document.getElementsByClassName('container-projeto-inexistente');
     let dropDownListSearchProject = document.getElementById('idprojeto-buscar');
     let dropDownListUpdateProject = document.getElementById('idprojeto-buscar-atualizar');
+    let dropDownListPrintProject = document.getElementById('idprojeto-imprimir');
     let dropDownListDeleteProject = document.getElementById('idprojeto-deletar');
     let dropDownListModelModule1 = document.getElementById('modelomodulo-1-adicionar');
     let dropDownListModelModule2 = document.getElementById('modelomodulo-2-adicionar');
@@ -2196,10 +2199,14 @@ function buscar_projeto() {
     let dropDownListUpdateManufacturerInverter4 = document.getElementById('fabricanteinversor-1-atualizar');
     let dropDownListNPhasesAdd = document.getElementById('nfasesadicionar');
     let dropDownListNewNPhasesAdd = document.getElementById('novonfasesadicionar');
-    let dropDownListGroupingNPhasesAdd = document.getElementById('nfasesagrupamento-adicionar');
+    let dropDownListGroupingNPhasesAdd = document.getElementById('nfasesagrupamentoadicionar');
     let dropDownListNPhasesUpdate = document.getElementById('nfasesatualizar');
     let dropDownListNewNPhasesUpdate = document.getElementById('novonfasesatualizar');
-    let dropDownListGroupingNPhasesUpdate = document.getElementById('nfasesagrupamento-atualizar');
+    let dropDownListGroupingNPhasesUpdate = document.getElementById('nfasesagrupamentoatualizar');
+    let dropDownListClientAdd = document.getElementById('numerocliente-adicionar')
+    let dropDownListInstalationAdd = document.getElementById('numeroinstalacao-adicionar')
+    let dropDownListClientUpdate = document.getElementById('numerocliente-atualizar')
+    let dropDownListInstalationUpdate = document.getElementById('numeroinstalacao-atualizar')
   
     document.getElementById('id-projeto-buscar').value = ''
     
@@ -2213,6 +2220,8 @@ function buscar_projeto() {
     divSearchUpdateProject.style.display = "none"
     divUpdateProject.style.visibility = "hidden";
     divUpdateProject.style.display = "none";
+    divPrintProject.style.visibility = "hidden";
+    divPrintProject.style.display = "none";
     divDeleteProject.style.visibility = "hidden";
     divDeleteProject.style.display = "none";
     divProjectFound.style.visibility = "hidden";
@@ -2221,10 +2230,13 @@ function buscar_projeto() {
     divProjectAdded.style.display = "none";
     divProjectUpdated.style.visibility = "hidden";
     divProjectUpdated.style.display = "none";
+    divProjectPrinted.style.visibility = "hidden";
+    divProjectPrinted.style.display = "none";
     divProjectDeleted.style.visibility = "hidden";
     divProjectDeleted.style.display = "none";
     dropDownListSearchProject.style.display = "none";
     dropDownListUpdateProject.style.display = "none";
+    dropDownListPrintProject.style.display = "none";
     dropDownListDeleteProject.style.display = "none";
     dropDownListModelModule1.style.display = "none";
     dropDownListModelModule2.style.display = "none";
@@ -2256,6 +2268,10 @@ function buscar_projeto() {
     dropDownListNPhasesUpdate.style.display = "none";
     dropDownListNewNPhasesUpdate.style.display = "none";
     dropDownListGroupingNPhasesUpdate.style.display = "none";
+    dropDownListClientAdd.style.display = "none";
+    dropDownListInstalationAdd.style.display = "none";
+    dropDownListClientUpdate.style.display = "none";
+    dropDownListInstalationUpdate.style.display = "none";
 
     for(i = 0; i < arrayCamposObrigatorios.length; i++) {
         arrayCamposObrigatorios[i].style.visibility = "hidden"
@@ -2274,15 +2290,18 @@ function adicionar_projeto() {
     let divAddProject = document.getElementById('container-add-projects-general');
     let divSearchUpdateProject = document.getElementById('container-search-to-update-projects');
     let divUpdateProject = document.getElementById('container-update-projects-general');
+    let divPrintProject = document.getElementById('container-print-projects');
     let divDeleteProject = document.getElementById('container-delete-projects');
     let divProjectFound = document.getElementById('container-projeto-encontrado');
     let divProjectAdded = document.getElementById('container-projeto-adicionado');
     let divProjectUpdated = document.getElementById('container-projeto-atualizado');
+    let divProjectPrinted = document.getElementById('container-projeto-impresso');
     let divProjectDeleted = document.getElementById('container-projeto-deletado');
     let arrayCamposObrigatorios = document.getElementsByClassName('campo-obrigatorio-projetos');
     let arrayProjectInexistente = document.getElementsByClassName('container-projeto-inexistente');
     let dropDownListSearchProject = document.getElementById('idprojeto-buscar');
     let dropDownListUpdateProject = document.getElementById('idprojeto-buscar-atualizar');
+    let dropDownListPrintProject = document.getElementById('idprojeto-imprimir');
     let dropDownListDeleteProject = document.getElementById('idprojeto-deletar');
     let dropDownListModelModule1 = document.getElementById('modelomodulo-1-adicionar');
     let dropDownListModelModule2 = document.getElementById('modelomodulo-2-adicionar');
@@ -2310,10 +2329,14 @@ function adicionar_projeto() {
     let dropDownListUpdateManufacturerInverter4 = document.getElementById('fabricanteinversor-1-atualizar');
     let dropDownListNPhasesAdd = document.getElementById('nfasesadicionar');
     let dropDownListNewNPhasesAdd = document.getElementById('novonfasesadicionar');
-    let dropDownListGroupingNPhasesAdd = document.getElementById('nfasesagrupamento-adicionar');
+    let dropDownListGroupingNPhasesAdd = document.getElementById('nfasesagrupamentoadicionar');
     let dropDownListNPhasesUpdate = document.getElementById('nfasesatualizar');
     let dropDownListNewNPhasesUpdate = document.getElementById('novonfasesatualizar');
-    let dropDownListGroupingNPhasesUpdate = document.getElementById('nfasesagrupamento-atualizar');
+    let dropDownListGroupingNPhasesUpdate = document.getElementById('nfasesagrupamentoatualizar');
+    let dropDownListClientAdd = document.getElementById('numerocliente-adicionar')
+    let dropDownListInstalationAdd = document.getElementById('numeroinstalacao-adicionar')
+    let dropDownListClientUpdate = document.getElementById('numerocliente-atualizar')
+    let dropDownListInstalationUpdate = document.getElementById('numeroinstalacao-atualizar')
     
     document.getElementById('número-instalação-adicionar').value = ''
     document.getElementById('número-cliente-adicionar').value = ''
@@ -2352,6 +2375,8 @@ function adicionar_projeto() {
     divSearchUpdateProject.style.display = "none"
     divUpdateProject.style.visibility = "hidden";
     divUpdateProject.style.display = "none";
+    divPrintProject.style.visibility = "hidden";
+    divPrintProject.style.display = "none";
     divDeleteProject.style.visibility = "hidden";
     divDeleteProject.style.display = "none";
     divProjectFound.style.visibility = "hidden";
@@ -2360,10 +2385,13 @@ function adicionar_projeto() {
     divProjectAdded.style.display = "none";
     divProjectUpdated.style.visibility = "hidden";
     divProjectUpdated.style.display = "none";
+    divProjectPrinted.style.visibility = "hidden";
+    divProjectPrinted.style.display = "none";
     divProjectDeleted.style.visibility = "hidden";
     divProjectDeleted.style.display = "none";
     dropDownListSearchProject.style.display = "none";
     dropDownListUpdateProject.style.display = "none";
+    dropDownListPrintProject.style.display = "none";
     dropDownListDeleteProject.style.display = "none";
     dropDownListModelModule1.style.display = "none";
     dropDownListModelModule2.style.display = "none";
@@ -2395,6 +2423,10 @@ function adicionar_projeto() {
     dropDownListNPhasesUpdate.style.display = "none";
     dropDownListNewNPhasesUpdate.style.display = "none";
     dropDownListGroupingNPhasesUpdate.style.display = "none";
+    dropDownListClientAdd.style.display = "none";
+    dropDownListInstalationAdd.style.display = "none";
+    dropDownListClientUpdate.style.display = "none";
+    dropDownListInstalationUpdate.style.display = "none";
 
     for(i = 0; i < arrayCamposObrigatorios.length; i++) {
         arrayCamposObrigatorios[i].style.visibility = "hidden"
@@ -2413,15 +2445,18 @@ function atualizar_projeto() {
     let divAddProject = document.getElementById('container-add-projects-general');
     let divSearchUpdateProject = document.getElementById('container-search-to-update-projects');
     let divUpdateProject = document.getElementById('container-update-projects-general');
+    let divPrintProject = document.getElementById('container-print-projects');
     let divDeleteProject = document.getElementById('container-delete-projects');
     let divProjectFound = document.getElementById('container-projeto-encontrado');
     let divProjectAdded = document.getElementById('container-projeto-adicionado');
     let divProjectUpdated = document.getElementById('container-projeto-atualizado');
+    let divProjectPrinted = document.getElementById('container-projeto-impresso');
     let divProjectDeleted = document.getElementById('container-projeto-deletado');
     let arrayCamposObrigatorios = document.getElementsByClassName('campo-obrigatorio-projetos');
     let arrayProjectInexistente = document.getElementsByClassName('container-projeto-inexistente');
     let dropDownListSearchProject = document.getElementById('idprojeto-buscar');
     let dropDownListUpdateProject = document.getElementById('idprojeto-buscar-atualizar');
+    let dropDownListPrintProject = document.getElementById('idprojeto-imprimir');
     let dropDownListDeleteProject = document.getElementById('idprojeto-deletar');
     let dropDownListModelModule1 = document.getElementById('modelomodulo-1-adicionar');
     let dropDownListModelModule2 = document.getElementById('modelomodulo-2-adicionar');
@@ -2449,10 +2484,14 @@ function atualizar_projeto() {
     let dropDownListUpdateManufacturerInverter4 = document.getElementById('fabricanteinversor-1-atualizar');
     let dropDownListNPhasesAdd = document.getElementById('nfasesadicionar');
     let dropDownListNewNPhasesAdd = document.getElementById('novonfasesadicionar');
-    let dropDownListGroupingNPhasesAdd = document.getElementById('nfasesagrupamento-adicionar');
+    let dropDownListGroupingNPhasesAdd = document.getElementById('nfasesagrupamentoadicionar');
     let dropDownListNPhasesUpdate = document.getElementById('nfasesatualizar');
     let dropDownListNewNPhasesUpdate = document.getElementById('novonfasesatualizar');
-    let dropDownListGroupingNPhasesUpdate = document.getElementById('nfasesagrupamento-atualizar');
+    let dropDownListGroupingNPhasesUpdate = document.getElementById('nfasesagrupamentoatualizar');
+    let dropDownListClientAdd = document.getElementById('numerocliente-adicionar')
+    let dropDownListInstalationAdd = document.getElementById('numeroinstalacao-adicionar')
+    let dropDownListClientUpdate = document.getElementById('numerocliente-atualizar')
+    let dropDownListInstalationUpdate = document.getElementById('numeroinstalacao-atualizar')
     
     document.getElementById('id-projeto-buscar-atualizar').value = ''
 
@@ -2466,6 +2505,8 @@ function atualizar_projeto() {
     divSearchUpdateProject.style.display = "grid"
     divUpdateProject.style.visibility = "hidden";
     divUpdateProject.style.display = "none";
+    divPrintProject.style.visibility = "hidden";
+    divPrintProject.style.display = "none";
     divDeleteProject.style.visibility = "hidden";
     divDeleteProject.style.display = "none";
     divProjectFound.style.visibility = "hidden";
@@ -2474,10 +2515,13 @@ function atualizar_projeto() {
     divProjectAdded.style.display = "none";
     divProjectUpdated.style.visibility = "hidden";
     divProjectUpdated.style.display = "none";
+    divProjectPrinted.style.visibility = "hidden";
+    divProjectPrinted.style.display = "none";
     divProjectDeleted.style.visibility = "hidden";
     divProjectDeleted.style.display = "none";
     dropDownListSearchProject.style.display = "none";
     dropDownListUpdateProject.style.display = "none";
+    dropDownListPrintProject.style.display = "none";
     dropDownListDeleteProject.style.display = "none";
     dropDownListModelModule1.style.display = "none";
     dropDownListModelModule2.style.display = "none";
@@ -2509,6 +2553,10 @@ function atualizar_projeto() {
     dropDownListNPhasesUpdate.style.display = "none";
     dropDownListNewNPhasesUpdate.style.display = "none";
     dropDownListGroupingNPhasesUpdate.style.display = "none";
+    dropDownListClientAdd.style.display = "none";
+    dropDownListInstalationAdd.style.display = "none";
+    dropDownListClientUpdate.style.display = "none";
+    dropDownListInstalationUpdate.style.display = "none";
 
     for(i = 0; i < arrayCamposObrigatorios.length; i++) {
         arrayCamposObrigatorios[i].style.visibility = "hidden"
@@ -2524,15 +2572,23 @@ function atualizar_projeto() {
 async function mostrar_campos_atualizar_projetos() {
     let divSearchUpdateProject = document.getElementById('container-search-to-update-projects');
     let divUpdateProject = document.getElementById('container-update-projects-general');
+    let divInverter2 = document.getElementById('container-inversor-22');
+    let divInverter3 = document.getElementById('container-inversor-32');
+    let divInverter4 = document.getElementById('container-inversor-42');
     let dropDownListSearchProject = document.getElementById('idprojeto-buscar');
     let dropDownListUpdateProject = document.getElementById('idprojeto-buscar-atualizar');
+    let dropDownListPrintProject = document.getElementById('idprojeto-imprimir');
     let dropDownListDeleteProject = document.getElementById('idprojeto-deletar');
     let dropDownListNPhasesAdd = document.getElementById('nfasesadicionar');
     let dropDownListNewNPhasesAdd = document.getElementById('novonfasesadicionar');
-    let dropDownListGroupingNPhasesAdd = document.getElementById('nfasesagrupamento-adicionar');
+    let dropDownListGroupingNPhasesAdd = document.getElementById('nfasesagrupamentoadicionar');
     let dropDownListNPhasesUpdate = document.getElementById('nfasesatualizar');
     let dropDownListNewNPhasesUpdate = document.getElementById('novonfasesatualizar');
-    let dropDownListGroupingNPhasesUpdate = document.getElementById('nfasesagrupamento-atualizar');
+    let dropDownListGroupingNPhasesUpdate = document.getElementById('nfasesagrupamentoatualizar');
+    let dropDownListClientAdd = document.getElementById('numerocliente-adicionar')
+    let dropDownListInstalationAdd = document.getElementById('numeroinstalacao-adicionar')
+    let dropDownListClientUpdate = document.getElementById('numerocliente-atualizar')
+    let dropDownListInstalationUpdate = document.getElementById('numeroinstalacao-atualizar')
     
     let arrayCamposObrigatorios = document.getElementsByClassName('campo-obrigatorio-projetos');
     let arrayProjectInexistente = document.getElementsByClassName('container-projeto-inexistente');
@@ -2638,6 +2694,9 @@ async function mostrar_campos_atualizar_projetos() {
                 )
 
                 fabricante_inversor_2 = dadosInversor2[0]['fabricante']
+
+                divInverter2.style.visibility = "visible"
+                divInverter2.style.display = "grid"
             }
 
             if (dadosOriginais.modelo_inversor_3 != '') {
@@ -2656,6 +2715,9 @@ async function mostrar_campos_atualizar_projetos() {
                 )
 
                 fabricante_inversor_3 = dadosInversor3[0]['fabricante']
+
+                divInverter3.style.visibility = "visible"
+                divInverter3.style.display = "grid"
             }
 
             if (dadosOriginais.modelo_inversor_4 != '') {
@@ -2672,14 +2734,18 @@ async function mostrar_campos_atualizar_projetos() {
                         return error;
                     }
                 )
-
+                
                 fabricante_inversor_4 = dadosInversor4[0]['fabricante']
+
+                divInverter4.style.visibility = "visible"
+                divInverter4.style.display = "grid"
             }
 
             divSearchUpdateProject.style.visibility = "hidden"
             divSearchUpdateProject.style.display = "none"
             dropDownListSearchProject.style.display = "none";
             dropDownListUpdateProject.style.display = "none";
+            dropDownListPrintProject.style.display = "none";
             dropDownListDeleteProject.style.display = "none";
             dropDownListNPhasesAdd.style.display = "none";
             dropDownListNewNPhasesAdd.style.display = "none";
@@ -2687,6 +2753,10 @@ async function mostrar_campos_atualizar_projetos() {
             dropDownListNPhasesUpdate.style.display = "none";
             dropDownListNewNPhasesUpdate.style.display = "none";
             dropDownListGroupingNPhasesUpdate.style.display = "none";
+            dropDownListClientAdd.style.display = "none";
+            dropDownListInstalationAdd.style.display = "none";
+            dropDownListClientUpdate.style.display = "none";
+            dropDownListInstalationUpdate.style.display = "none";
             divUpdateProject.style.visibility = "visible"
             divUpdateProject.style.display = "grid"
 
@@ -2766,21 +2836,24 @@ async function mostrar_campos_atualizar_projetos() {
     }
 }
 
-function deletar_projeto() {
+function imprimir_projeto() {
     let divGeral = document.getElementById('container-geral');
     let divSearchProject = document.getElementById('container-search-projects');
     let divAddProject = document.getElementById('container-add-projects-general');
     let divSearchUpdateProject = document.getElementById('container-search-to-update-projects');
     let divUpdateProject = document.getElementById('container-update-projects-general');
+    let divPrintProject = document.getElementById('container-print-projects');
     let divDeleteProject = document.getElementById('container-delete-projects');
     let divProjectFound = document.getElementById('container-projeto-encontrado');
     let divProjectAdded = document.getElementById('container-projeto-adicionado');
     let divProjectUpdated = document.getElementById('container-projeto-atualizado');
+    let divProjectPrinted = document.getElementById('container-projeto-impresso');
     let divProjectDeleted = document.getElementById('container-projeto-deletado');
     let arrayCamposObrigatorios = document.getElementsByClassName('campo-obrigatorio-projetos');
     let arrayProjectInexistente = document.getElementsByClassName('container-projeto-inexistente');
     let dropDownListSearchProject = document.getElementById('idprojeto-buscar');
     let dropDownListUpdateProject = document.getElementById('idprojeto-buscar-atualizar');
+    let dropDownListPrintProject = document.getElementById('idprojeto-imprimir');
     let dropDownListDeleteProject = document.getElementById('idprojeto-deletar');
     let dropDownListModelModule1 = document.getElementById('modelomodulo-1-adicionar');
     let dropDownListModelModule2 = document.getElementById('modelomodulo-2-adicionar');
@@ -2808,10 +2881,14 @@ function deletar_projeto() {
     let dropDownListUpdateManufacturerInverter4 = document.getElementById('fabricanteinversor-1-atualizar');
     let dropDownListNPhasesAdd = document.getElementById('nfasesadicionar');
     let dropDownListNewNPhasesAdd = document.getElementById('novonfasesadicionar');
-    let dropDownListGroupingNPhasesAdd = document.getElementById('nfasesagrupamento-adicionar');
+    let dropDownListGroupingNPhasesAdd = document.getElementById('nfasesagrupamentoadicionar');
     let dropDownListNPhasesUpdate = document.getElementById('nfasesatualizar');
     let dropDownListNewNPhasesUpdate = document.getElementById('novonfasesatualizar');
-    let dropDownListGroupingNPhasesUpdate = document.getElementById('nfasesagrupamento-atualizar');
+    let dropDownListGroupingNPhasesUpdate = document.getElementById('nfasesagrupamentoatualizar');
+    let dropDownListClientAdd = document.getElementById('numerocliente-adicionar')
+    let dropDownListInstalationAdd = document.getElementById('numeroinstalacao-adicionar')
+    let dropDownListClientUpdate = document.getElementById('numerocliente-atualizar')
+    let dropDownListInstalationUpdate = document.getElementById('numeroinstalacao-atualizar')
   
     document.getElementById('id-projeto-deletar').value = ''
     
@@ -2825,18 +2902,23 @@ function deletar_projeto() {
     divSearchUpdateProject.style.display = "none"
     divUpdateProject.style.visibility = "hidden";
     divUpdateProject.style.display = "none";
-    divDeleteProject.style.visibility = "visible";
-    divDeleteProject.style.display = "grid";
+    divPrintProject.style.visibility = "visible";
+    divPrintProject.style.display = "grid";
+    divDeleteProject.style.visibility = "hidden";
+    divDeleteProject.style.display = "none";
     divProjectFound.style.visibility = "hidden";
     divProjectFound.style.display = "none";
     divProjectAdded.style.visibility = "hidden";
     divProjectAdded.style.display = "none";
     divProjectUpdated.style.visibility = "hidden";
     divProjectUpdated.style.display = "none";
+    divProjectPrinted.style.visibility = "hidden";
+    divProjectPrinted.style.display = "none";
     divProjectDeleted.style.visibility = "hidden";
     divProjectDeleted.style.display = "none";
     dropDownListSearchProject.style.display = "none";
     dropDownListUpdateProject.style.display = "none";
+    dropDownListPrintProject.style.display = "none";
     dropDownListDeleteProject.style.display = "none";
     dropDownListModelModule1.style.display = "none";
     dropDownListModelModule2.style.display = "none";
@@ -2868,6 +2950,140 @@ function deletar_projeto() {
     dropDownListNPhasesUpdate.style.display = "none";
     dropDownListNewNPhasesUpdate.style.display = "none";
     dropDownListGroupingNPhasesUpdate.style.display = "none";
+    dropDownListClientAdd.style.display = "none";
+    dropDownListInstalationAdd.style.display = "none";
+    dropDownListClientUpdate.style.display = "none";
+    dropDownListInstalationUpdate.style.display = "none";
+
+    for(i = 0; i < arrayCamposObrigatorios.length; i++) {
+        arrayCamposObrigatorios[i].style.visibility = "hidden"
+        arrayCamposObrigatorios[i].style.display = "none"
+    }
+
+    for(i = 0; i < arrayProjectInexistente.length; i++) {
+        arrayProjectInexistente[i].style.visibility = "hidden"
+        arrayProjectInexistente[i].style.display = "none"
+    }
+}
+
+function deletar_projeto() {
+    let divGeral = document.getElementById('container-geral');
+    let divSearchProject = document.getElementById('container-search-projects');
+    let divAddProject = document.getElementById('container-add-projects-general');
+    let divSearchUpdateProject = document.getElementById('container-search-to-update-projects');
+    let divUpdateProject = document.getElementById('container-update-projects-general');
+    let divPrintProject = document.getElementById('container-print-projects');
+    let divDeleteProject = document.getElementById('container-delete-projects');
+    let divProjectFound = document.getElementById('container-projeto-encontrado');
+    let divProjectAdded = document.getElementById('container-projeto-adicionado');
+    let divProjectUpdated = document.getElementById('container-projeto-atualizado');
+    let divProjectPrinted = document.getElementById('container-projeto-impresso');
+    let divProjectDeleted = document.getElementById('container-projeto-deletado');
+    let arrayCamposObrigatorios = document.getElementsByClassName('campo-obrigatorio-projetos');
+    let arrayProjectInexistente = document.getElementsByClassName('container-projeto-inexistente');
+    let dropDownListSearchProject = document.getElementById('idprojeto-buscar');
+    let dropDownListUpdateProject = document.getElementById('idprojeto-buscar-atualizar');
+    let dropDownListPrintProject = document.getElementById('idprojeto-imprimir');
+    let dropDownListDeleteProject = document.getElementById('idprojeto-deletar');
+    let dropDownListModelModule1 = document.getElementById('modelomodulo-1-adicionar');
+    let dropDownListModelModule2 = document.getElementById('modelomodulo-2-adicionar');
+    let dropDownListManufacturerModule1 = document.getElementById('fabricantemodulo-1-adicionar');
+    let dropDownListManufacturerModule2 = document.getElementById('fabricantemodulo-2-adicionar');
+    let dropDownListModelInverter1 = document.getElementById('modeloinversor-1-adicionar');
+    let dropDownListModelInverter2 = document.getElementById('modeloinversor-2-adicionar');
+    let dropDownListModelInverter3 = document.getElementById('modeloinversor-3-adicionar');
+    let dropDownListModelInverter4 = document.getElementById('modeloinversor-4-adicionar');
+    let dropDownListManufacturerInverter1 = document.getElementById('fabricanteinversor-1-adicionar');
+    let dropDownListManufacturerInverter2 = document.getElementById('fabricanteinversor-2-adicionar');
+    let dropDownListManufacturerInverter3 = document.getElementById('fabricanteinversor-3-adicionar');
+    let dropDownListManufacturerInverter4 = document.getElementById('fabricanteinversor-1-adicionar');
+    let dropDownListUpdateModelModule1 = document.getElementById('modelomodulo-1-atualizar');
+    let dropDownListUpdateModelModule2 = document.getElementById('modelomodulo-2-atualizar');
+    let dropDownListUpdateManufacturerModule1 = document.getElementById('fabricantemodulo-1-atualizar');
+    let dropDownListUpdateManufacturerModule2 = document.getElementById('fabricantemodulo-2-atualizar');
+    let dropDownListUpdateModelInverter1 = document.getElementById('modeloinversor-1-atualizar');
+    let dropDownListUpdateModelInverter2 = document.getElementById('modeloinversor-2-atualizar');
+    let dropDownLisUpdatetModelInverter3 = document.getElementById('modeloinversor-3-atualizar');
+    let dropDownListUpdateModelInverter4 = document.getElementById('modeloinversor-4-atualizar');
+    let dropDownListUpdateManufacturerInverter1 = document.getElementById('fabricanteinversor-1-atualizar');
+    let dropDownListUpdateManufacturerInverter2 = document.getElementById('fabricanteinversor-2-atualizar');
+    let dropDownListUpdateManufacturerInverter3 = document.getElementById('fabricanteinversor-3-atualizar');
+    let dropDownListUpdateManufacturerInverter4 = document.getElementById('fabricanteinversor-1-atualizar');
+    let dropDownListNPhasesAdd = document.getElementById('nfasesadicionar');
+    let dropDownListNewNPhasesAdd = document.getElementById('novonfasesadicionar');
+    let dropDownListGroupingNPhasesAdd = document.getElementById('nfasesagrupamentoadicionar');
+    let dropDownListNPhasesUpdate = document.getElementById('nfasesatualizar');
+    let dropDownListNewNPhasesUpdate = document.getElementById('novonfasesatualizar');
+    let dropDownListGroupingNPhasesUpdate = document.getElementById('nfasesagrupamentoatualizar');
+    let dropDownListClientAdd = document.getElementById('numerocliente-adicionar')
+    let dropDownListInstalationAdd = document.getElementById('numeroinstalacao-adicionar')
+    let dropDownListClientUpdate = document.getElementById('numerocliente-atualizar')
+    let dropDownListInstalationUpdate = document.getElementById('numeroinstalacao-atualizar')
+  
+    document.getElementById('id-projeto-deletar').value = ''
+    
+    divGeral.style.visibility = "hidden"
+    divGeral.style.display = "none";
+    divSearchProject.style.visibility = "hidden";
+    divSearchProject.style.display = "none";
+    divAddProject.style.visibility = "hidden";
+    divAddProject.style.display = "none";
+    divSearchUpdateProject.style.visibility = "hidden"
+    divSearchUpdateProject.style.display = "none"
+    divUpdateProject.style.visibility = "hidden";
+    divUpdateProject.style.display = "none";
+    divPrintProject.style.visibility = "hidden";
+    divPrintProject.style.display = "none";
+    divDeleteProject.style.visibility = "visible";
+    divDeleteProject.style.display = "grid";
+    divProjectFound.style.visibility = "hidden";
+    divProjectFound.style.display = "none";
+    divProjectAdded.style.visibility = "hidden";
+    divProjectAdded.style.display = "none";
+    divProjectUpdated.style.visibility = "hidden";
+    divProjectUpdated.style.display = "none";
+    divProjectPrinted.style.visibility = "hidden";
+    divProjectPrinted.style.display = "none";
+    divProjectDeleted.style.visibility = "hidden";
+    divProjectDeleted.style.display = "none";
+    dropDownListSearchProject.style.display = "none";
+    dropDownListUpdateProject.style.display = "none";
+    dropDownListPrintProject.style.display = "none";
+    dropDownListDeleteProject.style.display = "none";
+    dropDownListModelModule1.style.display = "none";
+    dropDownListModelModule2.style.display = "none";
+    dropDownListManufacturerModule1.style.display = "none";
+    dropDownListManufacturerModule2.style.display = "none";
+    dropDownListModelInverter1.style.display = "none";
+    dropDownListModelInverter2.style.display = "none";
+    dropDownListModelInverter3.style.display = "none";
+    dropDownListModelInverter4.style.display = "none";
+    dropDownListManufacturerInverter1.style.display = "none";
+    dropDownListManufacturerInverter2.style.display = "none";
+    dropDownListManufacturerInverter3.style.display = "none";
+    dropDownListManufacturerInverter4.style.display = "none";
+    dropDownListUpdateModelModule1.style.display = "none";
+    dropDownListUpdateModelModule2.style.display = "none";
+    dropDownListUpdateManufacturerModule1.style.display = "none";
+    dropDownListUpdateManufacturerModule2.style.display = "none";
+    dropDownListUpdateModelInverter1.style.display = "none";
+    dropDownListUpdateModelInverter2.style.display = "none";
+    dropDownLisUpdatetModelInverter3.style.display = "none";
+    dropDownListUpdateModelInverter4.style.display = "none";
+    dropDownListUpdateManufacturerInverter1.style.display = "none";
+    dropDownListUpdateManufacturerInverter2.style.display = "none";
+    dropDownListUpdateManufacturerInverter3.style.display = "none";
+    dropDownListUpdateManufacturerInverter4.style.display = "none";
+    dropDownListNPhasesAdd.style.display = "none";
+    dropDownListNewNPhasesAdd.style.display = "none";
+    dropDownListGroupingNPhasesAdd.style.display = "none";
+    dropDownListNPhasesUpdate.style.display = "none";
+    dropDownListNewNPhasesUpdate.style.display = "none";
+    dropDownListGroupingNPhasesUpdate.style.display = "none";
+    dropDownListClientAdd.style.display = "none";
+    dropDownListInstalationAdd.style.display = "none";
+    dropDownListClientUpdate.style.display = "none";
+    dropDownListInstalationUpdate.style.display = "none";
 
     for(i = 0; i < arrayCamposObrigatorios.length; i++) {
         arrayCamposObrigatorios[i].style.visibility = "hidden"
@@ -3252,7 +3468,7 @@ async function mostrar_projetos(nomeFuncao) {
                 )
                 
                 let opcao_atual = document.createElement('option');
-                let texto = document.createTextNode(id[i] + ' - ' + cliente[i] + ' - ' + endereco[i])
+                let texto = document.createTextNode('ID #' + id[i] + ' - ' + cliente[i] + ' - ' + endereco[i])
                 
                 opcao_atual.value = 'ID #' + id[i] + ' - ' + cliente[i] + ' - ' + endereco[i]
                 opcao_atual.appendChild(texto)
@@ -3618,7 +3834,7 @@ async function mostrar_fabricantes_inversores(nomeFuncao) {
     }
 }
 
-function filtrar_fabricantes_modulos(nomeFuncao) {
+function filtrar_fabricantes_inversores(nomeFuncao) {
     let input = document.getElementById('fabricante-inversor-' + nomeFuncao)
     let lista = document.getElementById('fabricanteinversor-' + nomeFuncao)
 

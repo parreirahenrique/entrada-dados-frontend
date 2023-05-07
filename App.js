@@ -3715,7 +3715,7 @@ async function post_project() {
             document.getElementById('container-add-projects-general').style.visibility = 'hidden';
             document.getElementById('container-add-projects-general').style.display = 'none';
 
-            localStorage.setItem('projeto_atual', dicionario.id)
+            localStorage.setItem('projeto_atual', resposta.id)
         }
 
         else if (resposta == 'Error: Request failed with status code 401') {
@@ -3973,7 +3973,7 @@ async function patch_project() {
             document.getElementById('container-update-projects-general').style.visibility = 'hidden';
             document.getElementById('container-update-projects-general').style.display = 'none';
 
-            localStorage.setItem('projeto_atual', dicionario.id)
+            localStorage.setItem('projeto_atual', id)
         }
 
         else if (resposta == 'Error: Request failed with status code 401') {
@@ -4053,29 +4053,72 @@ async function delete_project() {
 }
 
 async function print_project() {
-    let idProjeto = localStorage.getItem('projeto_atual')
+    let divPrintProjects = document.getElementById('container-print-projects')
+    let visibilidade = window.getComputedStyle(divPrintProjects).visibility
+
+    let idProjeto;
+
+    if (visibilidade == "hidden") {
+        idProjeto = localStorage.getItem('projeto_atual')
+    }
+
+    else {
+        idProjeto = document.getElementById('id-projeto-imprimir').value
+    }
 
     let access_token = localStorage.getItem('access_token');
 
-    let config = {
-        headers: {
-          'Authorization': 'Bearer ' + access_token
+    if (idProjeto != '') {
+        let config = {
+            headers: {
+            'Authorization': 'Bearer ' + access_token
+            }
+        }
+
+        let resposta = await axios.get(
+                'http://localhost:8000/projects/' + idProjeto + '/print', config
+            ).then(
+                function (response) {
+                    const resposta = response;
+                    return resposta;
+                }
+            ).catch(
+                function (error) {
+                    console.log(error);
+                    return error;
+                }
+            )
+
+        if (resposta != 'Error: Request failed with status code 404' & resposta != 'Error: Request failed with status code 401') {
+            document.getElementById('container-projeto-impresso').style.visibility = 'visible';
+            document.getElementById('container-projeto-impresso').style.display = 'grid';
+                
+            document.getElementById('container-print-projects').style.visibility = 'hidden';
+            document.getElementById('container-print-projects').style.display = 'none';
+        }
+
+        else if (resposta == 'Error: Request failed with status code 401') {
+            localStorage.setItem('access_token', resposta);
+            checar_autorizacao();
+        }
+
+        else {
+            let arrayProjetoInexistente = document.getElementsByClassName('container-projeto-inexistente')
+
+            for (i = 0; i < arrayProjetoInexistente.length; i ++) {
+                arrayProjetoInexistente[i].style.visibility = 'visible'
+                arrayProjetoInexistente[i].style.display = 'flex'
+            }
         }
     }
+    
+    else {
+        let arrayCampos = document.getElementsByClassName('campo-obrigatorio-projetos');
 
-    let resposta = await axios.get(
-            'http://localhost:8000/projects/' + idProjeto + '/print', config
-        ).then(
-            function (response) {
-                const resposta = response;
-                return resposta;
-            }
-        ).catch(
-            function (error) {
-                console.log(error);
-                return error;
-            }
-        )
-
-        console.log(resposta)
+        for (i = 0; i < arrayCampos.length; i ++) {
+            arrayCampos[i].style.visibility = "visible";
+            arrayCampos[i].style.display = "grid";
+        }
+    }
+        
 }
