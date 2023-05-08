@@ -212,6 +212,10 @@
             </div>
         </div>
         <div class="container" id="container-search-to-update-instalations">
+            <div class="container-instalacao-inexistente">
+                <img src="../img/falha.png" class="falha-instalacao">
+                <span class="campo-cliente-inexistente">Instalação inexistente.</span>
+            </div>
             <div class="container-form">
                 <form>
                     <input type="text" id="número-instalação-buscar-atualizar" list="" autocomplete="off" onclick="mostrar_instalacoes('buscar-atualizar')" oninput="filtrar_instalacoes('buscar-atualizar')" placeholder="Ex.: 3000000000" required>
@@ -232,11 +236,7 @@
         <div class="container" id="container-update-instalations">
             <div class="container-campos-nao-preenchidos">
                 <img src="../img/falha.png" class="falha-instalacao">
-                <span class="campo-nao-preenchido">Preencha pelo menos um dos campos.</span>
-            </div>
-            <div class="container-instalacao-inexistente">
-                <img src="../img/falha.png" class="falha-instalacao">
-                <span class="campo-cliente-inexistente">Instalação inexistente.</span>
+                <span class="campo-nao-preenchido">Não há nenhuma alteração dos dados originais.</span>
             </div>
             <form class="form-checkbox" id="form-checkbox-ligacao-atualizar">
                 <input type="checkbox" class="checkbox" id="checkbox-ligacao-atualizar" required onchange="ligacao_nova('atualizar')">

@@ -714,43 +714,57 @@ async function patch_client() {
     let nome_pais = document.getElementById('nome-pais-atualizar').value.toUpperCase();
     let dicionario = {}; // Create an empty array
 
-    if (numero_cliente == '' & nome == '' & cpf == '' & rg == '' & nascimento == '' & nome_pais == '') {
+    let config = {
+        headers: {
+        'Authorization': 'Bearer ' + access_token
+        }
+    }
+
+    let dadosOriginais = await axios.get(
+        'http://localhost:8000/clients/' + numero_cliente_buscar.toString(), config
+    ).then(
+        function (response) {
+            const dadosProjeto = response.data;
+            return dadosProjeto;
+        }
+    ).catch(
+        function (error) {
+            console.log(error);
+            return error;
+        }
+    )
+    
+    if (numero_cliente != dadosOriginais.numero_cliente.toString()){
+        dicionario['numero_cliente'] = numero_cliente
+    }
+
+    if (nome != dadosOriginais.nome.toString()){
+        dicionario['nome'] = nome
+    }
+
+    if (cpf != dadosOriginais.cpf.toString()){
+        dicionario['cpf'] = cpf
+    }
+
+    if (rg != dadosOriginais.rg.toString()){
+        dicionario['rg'] = rg
+    }
+
+    if (nascimento != dadosOriginais.nascimento.toString()){
+        dicionario['nascimento'] = nascimento
+    }
+
+    if (nome_pais != dadosOriginais.nome_pais.toString()){
+        dicionario['nome_pais'] = nome_pais
+    }
+
+    if (Object.keys(dicionario).length == 0) {
         containerCamposNaoPreenchidos = document.getElementsByClassName('container-campos-nao-preenchidos')
         containerCamposNaoPreenchidos[0].style.visibility = "visible"
         containerCamposNaoPreenchidos[0].style.display = "flex"
     }
 
     else {
-        if (numero_cliente != ''){
-            dicionario['numero_cliente'] = numero_cliente
-        }
-
-        if (nome != ''){
-            dicionario['nome'] = nome
-        }
-
-        if (cpf != ''){
-            dicionario['cpf'] = cpf
-        }
-
-        if (rg != ''){
-            dicionario['rg'] = rg
-        }
-
-        if (nascimento != ''){
-            dicionario['nascimento'] = nascimento
-        }
-
-        if (nome_pais != ''){
-            dicionario['nome_pais'] = nome_pais
-        }
-
-        let config = {
-            headers: {
-            'Authorization': 'Bearer ' + access_token
-            }
-        }
-        
         url = 'http://localhost:8000/clients/' + numero_cliente_buscar
         
         resposta = await axios.patch(
@@ -1171,61 +1185,74 @@ async function patch_instalation() {
     if (checkboxLigacao == true) {
         numero_instalacao = '0';
     }
+
+    let config = {
+        headers: {
+        'Authorization': 'Bearer ' + access_token
+        }
+    }
+
+    let dadosOriginais = await axios.get(
+        'http://localhost:8000/instalations/' + numero_instalacao_buscar.toString(), config
+    ).then(
+        function (response) {
+            const dadosProjeto = response.data;
+            return dadosProjeto;
+        }
+    ).catch(
+        function (error) {
+            console.log(error);
+            return error;
+        }
+    )
+
+    if (numero_instalacao != dadosOriginais.numero_instalacao.toString()){
+        dicionario['numero_instalacao'] = numero_instalacao;
+    }
+
+    if (numero_cliente != dadosOriginais.numero_cliente.toString()){
+        dicionario['numero_cliente'] = numero_cliente;
+    }
+
+    if (logradouro != dadosOriginais.logradouro.toString()){
+        dicionario['logradouro'] = logradouro;
+    }
+
+    if (numero_predial != dadosOriginais.numero_predial.toString()){
+        dicionario['numero_predial'] = numero_predial;
+    }
+
+    if (complemento != dadosOriginais.complemento.toString()){
+        dicionario['complemento'] = complemento;
+    }
+
+    if (cep != dadosOriginais.cep.toString()){
+        dicionario['cep'] = cep;
+    }
+
+    if (classificacao != dadosOriginais.classificacao.toString()){
+        dicionario['classificacao'] = classificacao;
+    }
     
-    if (numero_instalacao == '' & numero_cliente == '' & logradouro == '' & numero_predial == '' & complemento == '' & bairro == '' & cidade == '' & cep == '' & classificacao == '' & latitude == '' & cep == '' & coordenadas_decimais == ''){
+    if (latitude != dadosOriginais.latitude.toString()){
+        dicionario['latitude'] = latitude;
+    }
+    
+    if (longitude != dadosOriginais.longitude.toString()){
+        dicionario['longitude'] = longitude;
+    }
+
+    if (coordenadas_decimais != dadosOriginais.coordenadas_decimais.toString()){
+        dicionario['coordenadas_decimais'] = coordenadas_decimais;
+    }
+
+    if (Object.keys(dicionario).length == 0){
         containerCamposNaoPreenchidos = document.getElementsByClassName('container-campos-nao-preenchidos');
         containerCamposNaoPreenchidos[0].style.visibility = "visible";
         containerCamposNaoPreenchidos[0].style.display = "flex";
     }
 
     else {
-        if (numero_instalacao != ''){
-            dicionario['numero_instalacao'] = numero_instalacao;
-        }
-
-        if (numero_cliente != ''){
-            dicionario['numero_cliente'] = numero_cliente;
-        }
-
-        if (logradouro != ''){
-            dicionario['logradouro'] = logradouro;
-        }
-
-        if (numero_predial != ''){
-            dicionario['numero_predial'] = numero_predial;
-        }
-
-        if (complemento != ''){
-            dicionario['complemento'] = complemento;
-        }
-
-        if (cep != ''){
-            dicionario['cep'] = cep;
-        }
-
-        if (classificacao != ''){
-            dicionario['classificacao'] = classificacao;
-        }
-        
-        if (latitude != ''){
-            dicionario['latitude'] = latitude;
-        }
-        
-        if (longitude != ''){
-            dicionario['longitude'] = longitude;
-        }
-
-        if (coordenadas_decimais != ''){
-            dicionario['coordenadas_decimais'] = coordenadas_decimais;
-        }
-
-        let config = {
-            headers: {
-            'Authorization': 'Bearer ' + access_token
-            }
-        }
-        
-        
         url = 'http://localhost:8000/instalations/' + numero_instalacao_buscar;
         
         resposta = await axios.patch(
