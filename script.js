@@ -927,6 +927,7 @@ function filtrar_clientes(nomeFuncao) {
 
 // FUNÇÕES PARA MOSTRAR CONTEÚDO DA PÁGINA DE INSTALAÇÕES
 function buscar_instalacao() {
+    let divGeral = document.getElementById('container-geral');
     let divSearchInstalation = document.getElementById('container-search-instalations');
     let divAddInstalation = document.getElementById('container-add-instalations');
     let divSearchUpdateInstalation = document.getElementById('container-search-to-update-instalations');
@@ -948,6 +949,8 @@ function buscar_instalacao() {
     
     document.getElementById('número-instalação-buscar').value = ''
 
+    divGeral.style.visibility = "hidden"
+    divGeral.style.display = "none";
     divSearchInstalation.style.visibility = "visible";
     divSearchInstalation.style.display = "grid";
     divAddInstalation.style.visibility = "hidden";
@@ -986,6 +989,7 @@ function buscar_instalacao() {
 }
 
 function adicionar_instalacao() {
+    let divGeral = document.getElementById('container-geral');
     let divSearchInstalation = document.getElementById('container-search-instalations');
     let divAddInstalation = document.getElementById('container-add-instalations');
     let divSearchUpdateInstalation = document.getElementById('container-search-to-update-instalations');
@@ -1018,6 +1022,8 @@ function adicionar_instalacao() {
     document.getElementById('longitude-adicionar').value = ''
     document.getElementById('coordenadas-decimais-adicionar').value = ''
     
+    divGeral.style.visibility = "hidden"
+    divGeral.style.display = "none";
     divSearchInstalation.style.visibility = "hidden";
     divSearchInstalation.style.display = "none";
     divAddInstalation.style.visibility = "visible";
@@ -1171,6 +1177,7 @@ async function mostrar_campos_atualizar_instalacoes() {
 }
 
 function atualizar_instalacao() {
+    let divGeral = document.getElementById('container-geral');
     let divSearchInstalation = document.getElementById('container-search-instalations');
     let divAddInstalation = document.getElementById('container-add-instalations');
     let divSearchUpdateInstalation = document.getElementById('container-search-to-update-instalations');
@@ -1192,6 +1199,8 @@ function atualizar_instalacao() {
 
     document.getElementById('número-instalação-buscar-atualizar').value = ''
 
+    divGeral.style.visibility = "hidden"
+    divGeral.style.display = "none";
     divSearchInstalation.style.visibility = "hidden";
     divSearchInstalation.style.display = "none";
     divAddInstalation.style.visibility = "hidden";
@@ -1230,6 +1239,7 @@ function atualizar_instalacao() {
 }
 
 function deletar_instalacao() {
+    let divGeral = document.getElementById('container-geral');
     let divSearchInstalation = document.getElementById('container-search-instalations');
     let divAddInstalation = document.getElementById('container-add-instalations');
     let divSearchUpdateInstalation = document.getElementById('container-search-to-update-instalations');
@@ -1251,6 +1261,8 @@ function deletar_instalacao() {
 
     document.getElementById('número-instalação-deletar').value = ''
 
+    divGeral.style.visibility = "hidden"
+    divGeral.style.display = "none";
     divSearchInstalation.style.visibility = "hidden";
     divSearchInstalation.style.display = "none";
     divAddInstalation.style.visibility = "hidden";
