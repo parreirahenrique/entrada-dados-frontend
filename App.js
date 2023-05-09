@@ -1907,6 +1907,7 @@ async function patch_module() {
     let access_token = localStorage.getItem('access_token');
 
     let id = document.getElementById('modelo-módulo-buscar-atualizar').value;
+
     let modelo = document.getElementById('modelo-módulo-atualizar').value
     let fabricante = document.getElementById('fabricante-módulo-atualizar').value.toUpperCase()
     let potencia = document.getElementById('potência-módulo-atualizar').value
@@ -1953,75 +1954,89 @@ async function patch_module() {
 
     let dicionario = {}; // Create an empty array
 
-    if (modelo == '' & fabricante == '' & potencia == '' & imp == '' & isc == '' & vmp == '' & voc == '' & comprimento == '' & largura == '' & espessura == '' & eficiencia == '' & temperatura_nominal == '' & tipo != '' & coeficiente_temperatura == ''){
+    let config = {
+        headers: {
+        'Authorization': 'Bearer ' + access_token
+        }
+    }
+
+    let dadosOriginais = await axios.get(
+        'http://localhost:8000/modules/' + id.toString(), config
+    ).then(
+        function (response) {
+            const dadosProjeto = response.data;
+            return dadosProjeto;
+        }
+    ).catch(
+        function (error) {
+            console.log(error);
+            return error;
+        }
+    )
+    
+    if (modelo != dadosOriginais.modelo.toString()){
+        dicionario['modelo'] = modelo
+    }
+
+    if (fabricante != dadosOriginais.fabricante.toString()){
+        dicionario['fabricante'] = fabricante
+    }
+
+    if (potencia != dadosOriginais.potencia.toString()){
+        dicionario['potencia'] = potencia
+    }
+
+    if (imp != dadosOriginais.imp.toString()){
+        dicionario['imp'] = imp
+    }
+
+    if (isc != dadosOriginais.isc.toString()){
+        dicionario['isc'] = isc
+    }
+
+    if (vmp != dadosOriginais.vmp.toString()){
+        dicionario['vmp'] = vmp
+    }
+
+    if (voc != dadosOriginais.voc.toString()){
+        dicionario['voc'] = voc
+    }
+    
+    if (comprimento != dadosOriginais.comprimento.toString()){
+        dicionario['comprimento'] = comprimento
+    }
+    
+    if (largura != dadosOriginais.largura.toString()){
+        dicionario['largura'] = largura
+    }
+    
+    if (espessura != dadosOriginais.espessura.toString()){
+        dicionario['espessura'] = espessura
+    }
+    
+    if (eficiencia != dadosOriginais.eficiencia.toString()){
+        dicionario['eficiencia'] = eficiencia
+    }
+
+    if (temperatura_nominal != dadosOriginais.temperatura_nominal.toString()){
+        dicionario['temperatura_nominal'] = temperatura_nominal
+    }
+
+    if (tipo != dadosOriginais.tipo.toString()){
+        dicionario['tipo'] = tipo
+    }
+    
+    if (coeficiente_temperatura != dadosOriginais.coeficiente_temperatura.toString()){
+        dicionario['coeficiente_temperatura'] = coeficiente_temperatura
+    }
+
+    if (Object.keys(dicionario).length == 0){
         containerCamposNaoPreenchidos = document.getElementsByClassName('container-campos-nao-preenchidos')
         containerCamposNaoPreenchidos[0].style.visibility = "visible"
         containerCamposNaoPreenchidos[0].style.display = "flex"
     }
 
     else {
-        if (modelo != ''){
-            dicionario['modelo'] = modelo
-        }
-
-        if (fabricante != ''){
-            dicionario['fabricante'] = fabricante
-        }
-
-        if (potencia != ''){
-            dicionario['potencia'] = potencia
-        }
-
-        if (imp != ''){
-            dicionario['imp'] = imp
-        }
-
-        if (isc != ''){
-            dicionario['isc'] = isc
-        }
-
-        if (vmp != ''){
-            dicionario['vmp'] = vmp
-        }
-
-        if (voc != ''){
-            dicionario['voc'] = voc
-        }
-        
-        if (comprimento != ''){
-            dicionario['comprimento'] = comprimento
-        }
-        
-        if (largura != ''){
-            dicionario['largura'] = largura
-        }
-        
-        if (espessura != ''){
-            dicionario['espessura'] = espessura
-        }
-        
-        if (eficiencia != ''){
-            dicionario['eficiencia'] = eficiencia
-        }
-
-        if (temperatura_nominal != ''){
-            dicionario['temperatura_nominal'] = temperatura_nominal
-        }
-
-        if (tipo != ''){
-            dicionario['tipo'] = tipo
-        }
-        
-        if (coeficiente_temperatura != ''){
-            dicionario['coeficiente_temperatura'] = coeficiente_temperatura
-        }
-        
-        let config = {
-            headers: {
-            'Authorization': 'Bearer ' + access_token
-            }
-        }
-        
         url = 'http://localhost:8000/modules/' + id
         
         resposta = await axios.patch(
@@ -2729,87 +2744,101 @@ async function patch_inverter() {
 
     let dicionario = {}; // Create an empty array
 
-    if (modelo == '' & fabricante == '' & potencia == '' & overload == '' & imp == '' & isc == '' & v_min_mppt == '' & v_max_mppt == '' & v_max == '' & n_mppt == '' & n_entrada == '' & v_saida == '' & i_saida == '' & comprimento == '' & largura == '' & espessura == '' & eficiencia == ''){
+    let config = {
+        headers: {
+        'Authorization': 'Bearer ' + access_token
+        }
+    }
+
+    let dadosOriginais = await axios.get(
+        'http://localhost:8000/inverters/' + id.toString(), config
+    ).then(
+        function (response) {
+            const dadosProjeto = response.data;
+            return dadosProjeto;
+        }
+    ).catch(
+        function (error) {
+            console.log(error);
+            return error;
+        }
+    )
+    
+    if (modelo != dadosOriginais.modelo.toString()){
+        dicionario['modelo'] = modelo
+    }
+
+    if (fabricante != dadosOriginais.fabricante.toString()){
+        dicionario['fabricante'] = fabricante
+    }
+
+    if (potencia != dadosOriginais.potencia.toString()){
+        dicionario['potencia'] = potencia
+    }
+
+    if (overload != dadosOriginais.overload.toString()){
+        dicionario['overload'] = overload
+    }
+
+    if (imp != dadosOriginais.imp.toString()){
+        dicionario['imp'] = imp
+    }
+
+    if (isc != dadosOriginais.isc.toString()){
+        dicionario['isc'] = isc
+    }
+
+    if (v_min_mppt != dadosOriginais.v_min_mppt.toString()){
+        dicionario['v_min_mppt'] = v_min_mppt
+    }
+
+    if (v_max_mppt != dadosOriginais.v_max_mppt.toString()){
+        dicionario['v_max_mppt'] = v_max_mppt
+    }
+
+    if (v_max != dadosOriginais.v_max.toString()){
+        dicionario['v_max'] = v_max
+    }
+
+    if (n_mppt != dadosOriginais.n_mppt.toString()){
+        dicionario['n_mppt'] = n_mppt
+    }
+    
+    if (n_entrada != dadosOriginais.n_entrada.toString()){
+        dicionario['n_entrada'] = n_entrada
+    }
+    
+    if (i_saida != dadosOriginais.i_saida.toString()){
+        dicionario['i_saida'] = i_saida
+    }
+
+    if (v_saida != dadosOriginais.v_saida.toString()){
+        dicionario['v_saida'] = v_saida
+    }
+
+    if (comprimento != dadosOriginais.comprimento.toString()){
+        dicionario['comprimento'] = comprimento
+    }
+    
+    if (largura != dadosOriginais.largura.toString()){
+        dicionario['largura'] = largura
+    }
+    
+    if (espessura != dadosOriginais.espessura.toString()){
+        dicionario['espessura'] = espessura
+    }
+    
+    if (eficiencia != dadosOriginais.eficiencia.toString()){
+        dicionario['eficiencia'] = eficiencia
+    }
+
+    if (Object.keys(dicionario).length == 0){
         containerCamposNaoPreenchidos = document.getElementsByClassName('container-campos-nao-preenchidos')
         containerCamposNaoPreenchidos[0].style.visibility = "visible"
         containerCamposNaoPreenchidos[0].style.display = "flex"
     }
 
     else {
-        if (modelo != ''){
-            dicionario['modelo'] = modelo
-        }
-
-        if (fabricante != ''){
-            dicionario['fabricante'] = fabricante
-        }
-
-        if (potencia != ''){
-            dicionario['potencia'] = potencia
-        }
-
-        if (overload != ''){
-            dicionario['overload'] = overload
-        }
-
-        if (imp != ''){
-            dicionario['imp'] = imp
-        }
-
-        if (isc != ''){
-            dicionario['isc'] = isc
-        }
-
-        if (v_min_mppt != ''){
-            dicionario['v_min_mppt'] = v_min_mppt
-        }
-
-        if (v_max_mppt != ''){
-            dicionario['v_max_mppt'] = v_max_mppt
-        }
-
-        if (v_max != ''){
-            dicionario['v_max'] = v_max
-        }
-
-        if (n_mppt != ''){
-            dicionario['n_mppt'] = n_mppt
-        }
-        
-        if (n_entrada != ''){
-            dicionario['n_entrada'] = n_entrada
-        }
-        
-        if (i_saida != ''){
-            dicionario['i_saida'] = i_saida
-        }
-
-        if (v_saida != ''){
-            dicionario['v_saida'] = v_saida
-        }
-
-        if (comprimento != ''){
-            dicionario['comprimento'] = comprimento
-        }
-        
-        if (largura != ''){
-            dicionario['largura'] = largura
-        }
-        
-        if (espessura != ''){
-            dicionario['espessura'] = espessura
-        }
-        
-        if (eficiencia != ''){
-            dicionario['eficiencia'] = eficiencia
-        }
-
-        let config = {
-            headers: {
-            'Authorization': 'Bearer ' + access_token
-            }
-        }
-        
         url = 'http://localhost:8000/inverters/' + id
         
         resposta = await axios.patch(

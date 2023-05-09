@@ -408,6 +408,10 @@
             </div>
         </div>
         <div class="container" id="container-search-to-update-inverters">
+            <div class="container-inversor-inexistente">
+                <img src="../img/falha.png" class="falha-inversor">
+                <span class="campo-inversor-inexistente">Inversor inexistente.</span>
+            </div>
             <div class="container-form">
                 <form>
                     <input type="text" id="modelo-inversor-buscar-atualizar" list="" autocomplete="off" onclick="mostrar_inversores('buscar-atualizar')" oninput="filtrar_inversores('buscar-atualizar')" required>
@@ -424,11 +428,7 @@
         <div class="container" id="container-update-inverters-general">
             <div class="container-campos-nao-preenchidos">
                 <img src="../img/falha.png" class="falha-inversor">
-                <span class="campo-nao-preenchido">Preencha pelo menos um dos campos.</span>
-            </div>
-            <div class="container-inversor-inexistente">
-                <img src="../img/falha.png" class="falha-inversor">
-                <span class="campo-inversor-inexistente">Inversor inexistente.</span>
+                <span class="campo-nao-preenchido">Não há nenhuma alteração dos dados originais.</span>
             </div>
             <div id="container-update-inverters">
                 <div class="container-form" id="container-form-modelo-inversor">

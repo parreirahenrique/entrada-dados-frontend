@@ -488,6 +488,13 @@ function filtrar_usuarios(nomeFuncao) {
             lista.children[i].remove()
         }
     }
+    
+    for (let opcao of lista.options) {
+        opcao.onclick = function () {
+            input.value = opcao.value.split(' - ')[1];
+            lista.style.display = 'none';
+        }
+    }
 }
 
 // FUNÇÕES PARA MOSTRAR CONTEÚDO DA PÁGINA DE CLIENTES
@@ -903,6 +910,13 @@ function filtrar_clientes(nomeFuncao) {
         }
     }
 
+    for (let opcao of lista.options) {
+        opcao.onclick = function () {
+            input.value = opcao.value.split(' - ')[0];
+            lista.style.display = 'none';
+        }
+    }
+    
     for (let opcao of lista.options) {
         opcao.onclick = function () {
             input.value = opcao.value.split(' - ')[0];
@@ -1382,6 +1396,13 @@ function filtrar_instalacoes(nomeFuncao) {
             lista.children[i].remove()
         }
     }
+    
+    for (let opcao of lista.options) {
+        opcao.onclick = function () {
+            input.value = opcao.value.split(' - ')[0];
+            lista.style.display = 'none';
+        }
+    }
 }
 
 function mostrar_classificacoes(nomeFuncao) {
@@ -1602,7 +1623,7 @@ function atualizar_modulo() {
     }
 }
 
-function mostrar_campos_atualizar_modulos() {
+async function mostrar_campos_atualizar_modulos() {
     let divSearchUpdateModule = document.getElementById('container-search-to-update-modules');
     let divUpdateModule = document.getElementById('container-update-modules-general');
     let dropDownListSearchModule = document.getElementById('modelomodulo-buscar');
@@ -1616,40 +1637,74 @@ function mostrar_campos_atualizar_modulos() {
 
     let modelo = document.getElementById('modelo-módulo-buscar-atualizar').value;
     
-    document.getElementById('modelo-módulo-atualizar').value = ''
-    document.getElementById('fabricante-módulo-atualizar').value = ''
-    document.getElementById('potência-módulo-atualizar').value = ''
-    document.getElementById('imp-módulo-atualizar').value = ''
-    document.getElementById('isc-módulo-atualizar').value = ''
-    document.getElementById('vmp-módulo-atualizar').value = ''
-    document.getElementById('voc-módulo-atualizar').value = ''
-    document.getElementById('comprimento-módulo-atualizar').value = ''
-    document.getElementById('largura-módulo-atualizar').value = ''
-    document.getElementById('espessura-módulo-atualizar').value = ''
-    document.getElementById('eficiência-módulo-atualizar').value = ''
-    document.getElementById('temperatura-módulo-atualizar').value = ''
-    document.getElementById('tipo-módulo-atualizar').value = ''
-    document.getElementById('coeficiente-módulo-atualizar').value = ''
-    
     if (modelo != '') {
-        divSearchUpdateModule.style.visibility = "hidden"
-        divSearchUpdateModule.style.display = "none"
-        dropDownListSearchModule.style.display = "none";
-        dropDownListUpdateModule.style.display = "none";
-        dropDownListDeleteModule.style.display = "none";
-        dropDownListAddType.style.display = "none";
-        dropDownListUpdateType.style.display = "none";
-        divUpdateModule.style.visibility = "visible"
-        divUpdateModule.style.display = "grid"
-
-        for(i = 0; i < arrayCamposObrigatorios.length; i++) {
-            arrayCamposObrigatorios[i].style.visibility = "hidden"
-            arrayCamposObrigatorios[i].style.display = "none"
+        let config = {
+            headers: {
+            'Authorization': 'Bearer ' + access_token
+            }
         }
 
-        for(i = 0; i < arrayModuloInexistente.length; i++) {
-            arrayModuloInexistente[i].style.visibility = "hidden"
-            arrayModuloInexistente[i].style.display = "none"
+        let dadosOriginais = await axios.get(
+            'http://localhost:8000/modules/' + modelo.toString(), config
+        ).then(
+            function (response) {
+                const dadosOriginais = response.data;
+                return dadosOriginais;
+            }
+        ).catch(
+            function (error) {
+                console.log(error);
+                return error;
+            }
+        )
+        
+        if (dadosOriginais != 'Error: Request failed with status code 404' & dadosOriginais != 'Error: Request failed with status code 401') {
+            divSearchUpdateModule.style.visibility = "hidden"
+            divSearchUpdateModule.style.display = "none"
+            dropDownListSearchModule.style.display = "none";
+            dropDownListUpdateModule.style.display = "none";
+            dropDownListDeleteModule.style.display = "none";
+            dropDownListAddType.style.display = "none";
+            dropDownListUpdateType.style.display = "none";
+            divUpdateModule.style.visibility = "visible"
+            divUpdateModule.style.display = "grid"
+
+            document.getElementById('modelo-módulo-atualizar').value = dadosOriginais.modelo
+            document.getElementById('fabricante-módulo-atualizar').value = dadosOriginais.fabricante
+            document.getElementById('potência-módulo-atualizar').value = dadosOriginais.potencia
+            document.getElementById('imp-módulo-atualizar').value = dadosOriginais.imp.toString().replace('.', ',')
+            document.getElementById('isc-módulo-atualizar').value = dadosOriginais.isc.toString().replace('.', ',')
+            document.getElementById('vmp-módulo-atualizar').value = dadosOriginais.vmp.toString().replace('.', ',')
+            document.getElementById('voc-módulo-atualizar').value = dadosOriginais.voc.toString().replace('.', ',')
+            document.getElementById('comprimento-módulo-atualizar').value = dadosOriginais.comprimento
+            document.getElementById('largura-módulo-atualizar').value = dadosOriginais.largura
+            document.getElementById('espessura-módulo-atualizar').value = dadosOriginais.espessura
+            document.getElementById('eficiência-módulo-atualizar').value = dadosOriginais.eficiencia.toString().replace('.', ',')
+            document.getElementById('temperatura-módulo-atualizar').value = dadosOriginais.temperatura_nominal
+            document.getElementById('tipo-módulo-atualizar').value = dadosOriginais.tipo
+            document.getElementById('coeficiente-módulo-atualizar').value = dadosOriginais.coeficiente_temperatura.toString().replace('.', ',')
+
+            for(i = 0; i < arrayCamposObrigatorios.length; i++) {
+                arrayCamposObrigatorios[i].style.visibility = "hidden"
+                arrayCamposObrigatorios[i].style.display = "none"
+            }
+
+            for(i = 0; i < arrayModuloInexistente.length; i++) {
+                arrayModuloInexistente[i].style.visibility = "hidden"
+                arrayModuloInexistente[i].style.display = "none"
+            }
+        }
+
+        else if (dadosOriginais == 'Error: Request failed with status code 404') {
+            for(i = 0; i < arrayModuloInexistente.length; i++) {
+                arrayModuloInexistente[i].style.visibility = "visible"
+                arrayModuloInexistente[i].style.display = "flex"
+            }
+        }
+
+        else {
+            localStorage.setItem('access_token', dadosOriginais);
+            checar_autorizacao();
         }
     }
 
@@ -1820,6 +1875,13 @@ function filtrar_modulos(nomeFuncao) {
             lista.children[i].remove()
         }
     }
+    
+    for (let opcao of lista.options) {
+        opcao.onclick = function () {
+            input.value = opcao.value.split('ID #')[1].split(' - ')[0];
+            lista.style.display = 'none';
+        }
+    }
 }
 
 function mostrar_tipos(nomeFuncao) {
@@ -1961,7 +2023,7 @@ function adicionar_inversor() {
     }
 }
 
-function mostrar_campos_atualizar_inversores() {
+async function mostrar_campos_atualizar_inversores() {
     let divSearchUpdateInverter = document.getElementById('container-search-to-update-inverters');
     let divUpdateInverter = document.getElementById('container-update-inverters-general');
     let dropDownListSearchInverter = document.getElementById('modeloinversor-buscar');
@@ -1973,41 +2035,75 @@ function mostrar_campos_atualizar_inversores() {
 
     let modelo = document.getElementById('modelo-inversor-buscar-atualizar').value;
     
-    document.getElementById('modelo-inversor-atualizar').value = ''
-    document.getElementById('fabricante-inversor-atualizar').value = ''
-    document.getElementById('potência-inversor-atualizar').value = ''
-    document.getElementById('overload-inversor-atualizar').value = ''
-    document.getElementById('imp-inversor-atualizar').value = ''
-    document.getElementById('isc-inversor-atualizar').value = ''
-    document.getElementById('vmin-mppt-inversor-atualizar').value = ''
-    document.getElementById('vmax-mppt-inversor-atualizar').value = ''
-    document.getElementById('voc-inversor-atualizar').value = ''
-    document.getElementById('n-mppt-inversor-atualizar').value = ''
-    document.getElementById('n-entrada-inversor-atualizar').value = ''
-    document.getElementById('v-saída-inversor-atualizar').value = ''
-    document.getElementById('i-saída-inversor-atualizar').value = ''
-    document.getElementById('comprimento-inversor-atualizar').value = ''
-    document.getElementById('largura-inversor-atualizar').value = ''
-    document.getElementById('espessura-inversor-atualizar').value = ''
-    document.getElementById('eficiência-inversor-atualizar').value = ''
-    
     if (modelo != '') {
-        divSearchUpdateInverter.style.visibility = "hidden"
-        divSearchUpdateInverter.style.display = "none"
-        dropDownListSearchInverter.style.display = "none";
-        dropDownListUpdateInverter.style.display = "none";
-        dropDownListDeleteInverter.style.display = "none";
-        divUpdateInverter.style.visibility = "visible"
-        divUpdateInverter.style.display = "grid"
-
-        for(i = 0; i < arrayCamposObrigatorios.length; i++) {
-            arrayCamposObrigatorios[i].style.visibility = "hidden"
-            arrayCamposObrigatorios[i].style.display = "none"
+        let config = {
+            headers: {
+            'Authorization': 'Bearer ' + access_token
+            }
         }
 
-        for(i = 0; i < arrayInversorInexistente.length; i++) {
-            arrayInversorInexistente[i].style.visibility = "hidden"
-            arrayInversorInexistente[i].style.display = "none"
+        let dadosOriginais = await axios.get(
+            'http://localhost:8000/inverters/' + modelo.toString(), config
+        ).then(
+            function (response) {
+                const dadosOriginais = response.data;
+                return dadosOriginais;
+            }
+        ).catch(
+            function (error) {
+                console.log(error);
+                return error;
+            }
+        )
+        
+        if (dadosOriginais != 'Error: Request failed with status code 404' & dadosOriginais != 'Error: Request failed with status code 401') {
+            divSearchUpdateInverter.style.visibility = "hidden"
+            divSearchUpdateInverter.style.display = "none"
+            dropDownListSearchInverter.style.display = "none";
+            dropDownListUpdateInverter.style.display = "none";
+            dropDownListDeleteInverter.style.display = "none";
+            divUpdateInverter.style.visibility = "visible"
+            divUpdateInverter.style.display = "grid"
+
+            document.getElementById('modelo-inversor-atualizar').value = dadosOriginais.modelo
+            document.getElementById('fabricante-inversor-atualizar').value = dadosOriginais.fabricante
+            document.getElementById('potência-inversor-atualizar').value = dadosOriginais.potencia
+            document.getElementById('overload-inversor-atualizar').value = dadosOriginais.overload
+            document.getElementById('imp-inversor-atualizar').value = dadosOriginais.imp.toString().replace('.', ',')
+            document.getElementById('isc-inversor-atualizar').value = dadosOriginais.isc.toString().replace('.', ',')
+            document.getElementById('vmin-mppt-inversor-atualizar').value = dadosOriginais.v_min_mppt
+            document.getElementById('vmax-mppt-inversor-atualizar').value = dadosOriginais.v_max_mppt
+            document.getElementById('voc-inversor-atualizar').value = dadosOriginais.v_max
+            document.getElementById('n-mppt-inversor-atualizar').value = dadosOriginais.n_mppt
+            document.getElementById('n-entrada-inversor-atualizar').value = dadosOriginais.n_entrada
+            document.getElementById('v-saída-inversor-atualizar').value = dadosOriginais.v_saida
+            document.getElementById('i-saída-inversor-atualizar').value = dadosOriginais.i_saida.toString().replace('.', ',')
+            document.getElementById('comprimento-inversor-atualizar').value = dadosOriginais.comprimento
+            document.getElementById('largura-inversor-atualizar').value = dadosOriginais.largura
+            document.getElementById('espessura-inversor-atualizar').value = dadosOriginais.espessura
+            document.getElementById('eficiência-inversor-atualizar').value = dadosOriginais.eficiencia.toString().replace('.', ',')
+
+            for(i = 0; i < arrayCamposObrigatorios.length; i++) {
+                arrayCamposObrigatorios[i].style.visibility = "hidden"
+                arrayCamposObrigatorios[i].style.display = "none"
+            }
+
+            for(i = 0; i < arrayInversorInexistente.length; i++) {
+                arrayInversorInexistente[i].style.visibility = "hidden"
+                arrayInversorInexistente[i].style.display = "none"
+            }
+        }
+
+        else if (dadosOriginais == 'Error: Request failed with status code 404') {
+            for(i = 0; i < arrayInversorInexistente.length; i++) {
+                arrayInversorInexistente[i].style.visibility = "visible"
+                arrayInversorInexistente[i].style.display = "flex"
+            }
+        }
+
+        else {
+            localStorage.setItem('access_token', dadosOriginais);
+            checar_autorizacao();
         }
     }
 
@@ -2226,6 +2322,13 @@ function filtrar_inversores(nomeFuncao) {
     for (i = nOpcoes; i >= 0; i--) {
         if (lista.options[i].value.includes(idInversor) == false) {
             lista.children[i].remove()
+        }
+    }
+    
+    for (let opcao of lista.options) {
+        opcao.onclick = function () {
+            input.value = opcao.value.split('ID #')[1].split(' - ')[0];
+            lista.style.display = 'none';
         }
     }
 }
@@ -3601,6 +3704,13 @@ function filtrar_projetos(nomeFuncao) {
             lista.children[i].remove()
         }
     }
+    
+    for (let opcao of lista.options) {
+        opcao.onclick = function () {
+            input.value = opcao.value.split(' ')[1].split('#')[1];
+            lista.style.display = 'none';
+        }
+    }
 }
 
 function mostrar_fases(nomeInput) {
@@ -3729,6 +3839,13 @@ function filtrar_fabricantes_modulos(nomeFuncao) {
             lista.children[i].remove()
         }
     }
+    
+    for (let opcao of lista.options) {
+        opcao.onclick = function () {
+            input.value = opcao.value;
+            lista.style.display = 'none';
+        }
+    }
 }
 
 
@@ -3821,6 +3938,13 @@ function filtrar_modelos_modulos(nomeFuncao) {
     for (i = nOpcoes; i >= 0; i--) {
         if (lista.options[i].value.includes(modeloEscolhido) == false) {
             lista.children[i].remove()
+        }
+    }
+    
+    for (let opcao of lista.options) {
+        opcao.onclick = function () {
+            input.value = opcao.value;
+            lista.style.display = 'none';
         }
     }
 }
@@ -3937,6 +4061,13 @@ function filtrar_fabricantes_inversores(nomeFuncao) {
             lista.children[i].remove()
         }
     }
+    
+    for (let opcao of lista.options) {
+        opcao.onclick = function () {
+            input.value = opcao.value;
+            lista.style.display = 'none';
+        }
+    }
 }
 
 
@@ -4029,6 +4160,13 @@ function filtrar_modelos_inversores(nomeFuncao) {
     for (i = nOpcoes; i >= 0; i--) {
         if (lista.options[i].value.includes(modeloEscolhido) == false) {
             lista.children[i].remove()
+        }
+    }
+    
+    for (let opcao of lista.options) {
+        opcao.onclick = function () {
+            input.value = opcao.value;
+            lista.style.display = 'none';
         }
     }
 }
