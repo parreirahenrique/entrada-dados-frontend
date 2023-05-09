@@ -866,6 +866,214 @@ async function delete_client() {
 }
 
 // FUNÇÕES PARA A PÁGINA DE INSTALAÇÕES
+async function get_all_instalations() {
+    let access_token = localStorage.getItem('access_token');
+
+    if (access_token != 'Error: Request failed with status code 401' & access_token != 'Error: Request failed with status code 403' & access_token != 'Error: Request failed with status code 422' & access_token != 'Error: Network Error' & access_token != null) {
+        localStorage.setItem('paginaAtualInstalacoes', 0);
+
+        let config = {
+            headers: {
+              'Authorization': 'Bearer ' + access_token
+            }
+        }
+
+        let dadosTodasInstalacoes = await axios.get(
+            'http://localhost:8000/all-instalations', config
+        ).then(
+            function (response) {
+                const dadosTodasInstalacoes = response.data;
+                return dadosTodasInstalacoes;
+            }
+        ).catch(
+            function (error) {
+                console.log(error);
+                return error;
+            }
+        )
+        
+        if (dadosTodasInstalacoes != 'Error: Request failed with status code 401' & dadosTodasInstalacoes != 'Error: Request failed with status code 404') {
+            let arrayTD = document.getElementsByTagName('td')
+            
+            for (i = 0; i < 10; i++) {
+                if (i < dadosTodasInstalacoes.length) {
+                    arrayTD[6 * i].innerHTML = dadosTodasInstalacoes[i].numero_cliente
+                    arrayTD[6 * i].style.visibility = 'visible'
+                    arrayTD[6 * i].style.display = 'table-cell'
+
+                    cliente = await axios.get(
+                            'http://localhost:8000/clients/' + dadosTodasInstalacoes[i].numero_cliente, config
+                    ).then(
+                        function (response) {
+                            const cliente = response.data;
+                            return cliente;
+                        }
+                    ).catch(
+                        function (error) {
+                            console.log(error);
+                            return error;
+                        }
+                    )
+
+                    arrayTD[6 * i + 1].innerHTML = cliente.nome
+                    arrayTD[6 * i + 1].style.visibility = 'visible'
+                    arrayTD[6 * i + 1].style.display = 'table-cell'
+                    arrayTD[6 * i + 2].innerHTML = dadosTodasInstalacoes[i].numero_instalacao
+                    arrayTD[6 * i + 2].style.visibility = 'visible'
+                    arrayTD[6 * i + 2].style.display = 'table-cell'
+                    arrayTD[6 * i + 3].innerHTML = dadosTodasInstalacoes[i].logradouro + ', ' + dadosTodasInstalacoes[i].numero_predial + ' ' + dadosTodasInstalacoes[i].complemento + ', ' + dadosTodasInstalacoes[i].bairro + ', ' + dadosTodasInstalacoes[i].cidade + ' - MG'
+                    arrayTD[6 * i + 3].style.visibility = 'visible'
+                    arrayTD[6 * i + 3].style.display = 'table-cell'
+                    arrayTD[6 * i + 4].innerHTML = dadosTodasInstalacoes[i].latitude
+                    arrayTD[6 * i + 4].style.visibility = 'visible'
+                    arrayTD[6 * i + 4].style.display = 'table-cell'
+                    arrayTD[6 * i + 5].innerHTML = dadosTodasInstalacoes[i].longitude
+                    arrayTD[6 * i + 5].style.visibility = 'visible'
+                    arrayTD[6 * i + 5].style.display = 'table-cell'
+                    
+                    if (i == (dadosTodasInstalacoes.length - 1)) {
+                        arrayTD[6 * i].style.borderBottom = 0;
+                        arrayTD[6 * i + 1].style.borderBottom = 0;
+                        arrayTD[6 * i + 2].style.borderBottom = 0;
+                        arrayTD[6 * i + 3].style.borderBottom = 0;
+                        arrayTD[6 * i + 4].style.borderBottom = 0;
+                        arrayTD[6 * i + 5].style.borderBottom = 0;
+                    }
+                }
+
+                else {
+                    arrayTD[6 * i].style.visibility = 'hidden'
+                    arrayTD[6 * i].style.display = 'none'
+                    arrayTD[6 * i + 1].style.visibility = 'hidden'
+                    arrayTD[6 * i + 1].style.display = 'none'
+                    arrayTD[6 * i + 2].style.visibility = 'hidden'
+                    arrayTD[6 * i + 2].style.display = 'none'
+                    arrayTD[6 * i + 3].style.visibility = 'hidden'
+                    arrayTD[6 * i + 3].style.display = 'none'
+                    arrayTD[6 * i + 4].style.visibility = 'hidden'
+                    arrayTD[6 * i + 4].style.display = 'none'
+                    arrayTD[6 * i + 5].style.visibility = 'hidden'
+                    arrayTD[6 * i + 5].style.display = 'none'
+                }
+            }
+        }
+
+        else if (dadosTodasInstalacoes == 'Error: Request failed with status code 401') {
+            localStorage.setItem('access_token', dadosTodasInstalacoes);
+            checar_autorizacao();
+        }
+    }
+}
+
+async function get_all_instalations_skip(alterar) {
+    let access_token = localStorage.getItem('access_token');
+
+    if (access_token != 'Error: Request failed with status code 401' & access_token != 'Error: Request failed with status code 403' & access_token != 'Error: Request failed with status code 422' & access_token != 'Error: Network Error' & access_token != null) {
+        let pagina = parseInt(localStorage.getItem('paginaAtualInstalacoes')) + parseInt(alterar);
+
+        if (pagina < 0) {
+            pagina = 0
+        }
+
+        let config = {
+            headers: {
+              'Authorization': 'Bearer ' + access_token
+            }
+        }
+
+        let dadosTodasInstalacoes = await axios.get(
+            'http://localhost:8000/instalations/?pular=' + pagina, config
+        ).then(
+            function (response) {
+                const dadosTodasInstalacoes = response.data;
+                return dadosTodasInstalacoes;
+            }
+        ).catch(
+            function (error) {
+                console.log(error);
+                return error;
+            }
+        )
+        
+        if (dadosTodasInstalacoes != 'Error: Request failed with status code 401' & dadosTodasInstalacoes != 'Error: Request failed with status code 404') {
+            let arrayTD = document.getElementsByTagName('td')
+            
+            if (pagina > dadosTodasInstalacoes.length) {
+                pagina = parseInt(dadosTodasInstalacoes.length - dadosTodasInstalacoes.length % 10)
+            }
+            
+            localStorage.setItem('paginaAtualInstalacoes', pagina);
+            
+            for (i = 0; i < 10; i++) {
+                if (i < dadosTodasInstalacoes.length) {
+                    arrayTD[6 * i].innerHTML = dadosTodasInstalacoes[i].numero_cliente
+                    arrayTD[6 * i].style.visibility = 'visible'
+                    arrayTD[6 * i].style.display = 'table-cell'
+
+                    cliente = await axios.get(
+                            'http://localhost:8000/clients/' + dadosTodasInstalacoes[i].numero_cliente, config
+                    ).then(
+                        function (response) {
+                            const cliente = response.data;
+                            return cliente;
+                        }
+                    ).catch(
+                        function (error) {
+                            console.log(error);
+                            return error;
+                        }
+                    )
+
+                    arrayTD[6 * i + 1].innerHTML = cliente.nome
+                    arrayTD[6 * i + 1].style.visibility = 'visible'
+                    arrayTD[6 * i + 1].style.display = 'table-cell'
+                    arrayTD[6 * i + 2].innerHTML = dadosTodasInstalacoes[i].numero_instalacao
+                    arrayTD[6 * i + 2].style.visibility = 'visible'
+                    arrayTD[6 * i + 2].style.display = 'table-cell'
+                    arrayTD[6 * i + 3].innerHTML = dadosTodasInstalacoes[i].logradouro + ', ' + dadosTodasInstalacoes[i].numero_predial + ' ' + dadosTodasInstalacoes[i].complemento + ', ' + dadosTodasInstalacoes[i].bairro + ', ' + dadosTodasInstalacoes[i].cidade + ' - MG'
+                    arrayTD[6 * i + 3].style.visibility = 'visible'
+                    arrayTD[6 * i + 3].style.display = 'table-cell'
+                    arrayTD[6 * i + 4].innerHTML = dadosTodasInstalacoes[i].latitude
+                    arrayTD[6 * i + 4].style.visibility = 'visible'
+                    arrayTD[6 * i + 4].style.display = 'table-cell'
+                    arrayTD[6 * i + 5].innerHTML = dadosTodasInstalacoes[i].longitude
+                    arrayTD[6 * i + 5].style.visibility = 'visible'
+                    arrayTD[6 * i + 5].style.display = 'table-cell'
+                    
+                    if (i == (dadosTodasInstalacoes.length - 1)) {
+                        arrayTD[6 * i].style.borderBottom = 0;
+                        arrayTD[6 * i + 1].style.borderBottom = 0;
+                        arrayTD[6 * i + 2].style.borderBottom = 0;
+                        arrayTD[6 * i + 3].style.borderBottom = 0;
+                        arrayTD[6 * i + 4].style.borderBottom = 0;
+                        arrayTD[6 * i + 5].style.borderBottom = 0;
+                    }
+                }
+
+                else {
+                    arrayTD[6 * i].style.visibility = 'hidden'
+                    arrayTD[6 * i].style.display = 'none'
+                    arrayTD[6 * i + 1].style.visibility = 'hidden'
+                    arrayTD[6 * i + 1].style.display = 'none'
+                    arrayTD[6 * i + 2].style.visibility = 'hidden'
+                    arrayTD[6 * i + 2].style.display = 'none'
+                    arrayTD[6 * i + 3].style.visibility = 'hidden'
+                    arrayTD[6 * i + 3].style.display = 'none'
+                    arrayTD[6 * i + 4].style.visibility = 'hidden'
+                    arrayTD[6 * i + 4].style.display = 'none'
+                    arrayTD[6 * i + 5].style.visibility = 'hidden'
+                    arrayTD[6 * i + 5].style.display = 'none'
+                }
+            }
+        }
+
+        else if (dadosTodasInstalacoes == 'Error: Request failed with status code 401') {
+            localStorage.setItem('access_token', dadosTodasInstalacoes);
+            checar_autorizacao();
+        }
+    }
+}
+
 async function get_instalation() {
     let access_token = localStorage.getItem('access_token');
 
@@ -3136,7 +3344,6 @@ async function get_all_projects_skip(alterar) {
     let access_token = localStorage.getItem('access_token');
 
     if (access_token != 'Error: Request failed with status code 401' & access_token != 'Error: Request failed with status code 403' & access_token != 'Error: Request failed with status code 422' & access_token != 'Error: Network Error' & access_token != null) {
-        
         let pagina = parseInt(localStorage.getItem('paginaAtualProjetos')) + parseInt(alterar);
 
         if (pagina < 0) {
