@@ -1036,6 +1036,33 @@ td {
     color: red;
 }
 
+.container-erro-inversor {
+    align-items: center;
+    visibility: hidden;
+    display: none;
+    flex-direction: row;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 20px;
+    font-size: large;
+    font-weight: bolder;
+    color: red;
+}
+
+.campo-inversor-incompativel {
+    margin-left: 5px;
+    font-size: large;
+    font-weight: bolder;
+    color: red;
+}
+
+.campo-superou-overload {
+    margin-left: 5px;
+    font-size: large;
+    font-weight: bolder;
+    color: red;
+}
+
 .falha-projeto {
     margin-right: 5px;
     height: 20px;

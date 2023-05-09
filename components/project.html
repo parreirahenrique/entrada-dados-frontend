@@ -39,7 +39,7 @@
         <div class="container" id="container-options">
             <button onclick="buscar_projeto()"><i class="uil uil-search"></i> Buscar por projeto</button>
             <button onclick="adicionar_projeto()"><i class="uil uil-plus"></i> Adicionar novo projeto</button>
-            <button onclick="atualizar_projeto()"><i class="uil uil-refresh"></i> Atualizar um projeto</button>
+            <button onclick="atualizar_projeto()"><i class="uil uil-redo"></i> Atualizar um projeto</button>
             <button onclick="imprimir_projeto()"><i class="uil uil-print"></i> Imprimir um projeto</button>
             <button onclick="deletar_projeto()"><i class="uil uil-trash"></i> Deletar um projeto</button>
         </div>
@@ -383,7 +383,7 @@
                 </div>
                 <div class="container-modulo-1">
                     <form class="form-checkbox-aumento-usina">
-                        <input type="checkbox" class="checkbox" id="modulo-anterior-1-adicionar" required>
+                        <input type="checkbox" class="checkbox" id="modulo-anterior-1-adicionar" onchange="modulo_antigo('1-adicionar')" required>
                         <span>Módulo da usina anterior?</span>
                     </form>
                     <div class="container-form">
@@ -414,7 +414,7 @@
                 </div>
                 <div class="container-modulo-2">
                     <form class="form-checkbox-aumento-usina">
-                        <input type="checkbox" class="checkbox" id="modulo-anterior-2-adicionar" required>
+                        <input type="checkbox" class="checkbox" id="modulo-anterior-2-adicionar" onchange="modulo_antigo('2-adicionar')" required>
                         <span>Módulo da usina anterior?</span>
                     </form>
                     <div class="container-form">
@@ -469,12 +469,20 @@
                     </div>
                     <div class="container-form">
                         <form>
-                            <input type="text" id="modelo-inversor-1-adicionar" list="" autocomplete="off" onclick="mostrar_modelos_inversores('1-adicionar')" oninput="filtrar_modelos_inversores('1-adicionar')" required>
+                            <input type="text" id="modelo-inversor-1-adicionar" list="" autocomplete="off" onclick="mostrar_modelos_inversores('1-adicionar')" oninput="filtrar_modelos_inversores('1-adicionar')" onended="modulos_por_inversor(this)" required>
                             <label for="name">Modelo do inversor 1*:</label>    
                                 <datalist id="modeloinversor-1-adicionar">
                                 </datalist>
                         </form>
                         <span class="campo-obrigatorio-projetos">Esse é um campo obrigatório.</span>
+                    </div>
+                    <div class="container-erro-inversor" id="container-inversor-incompativel-1-adicionar">
+                        <img src="../img/falha.png" class="falha-projeto">
+                        <span class="campo-inversor-incompativel">Esse inversor não suporta o módulo selecionado.</span>
+                    </div>
+                    <div class="container-erro-inversor" id="container-superou-overload-1-adicionar">
+                        <img src="../img/falha.png" class="falha-projeto">
+                        <span class="campo-superou-overload">Número de módulos supera o overload do inversor.</span>
                     </div>
                 </div>
                 <div class="container-inversor-2" id="container-inversor-21">
@@ -507,6 +515,14 @@
                         </form>
                         <span class="campo-obrigatorio-projetos">Esse é um campo obrigatório.</span>
                     </div>
+                    <div class="container-erro-inversor" id="container-inversor-incompativel-2-adicionar">
+                        <img src="../img/falha.png" class="falha-projeto">
+                        <span class="campo-inversor-incompativel">Esse inversor não suporta o módulo selecionado.</span>
+                    </div>
+                    <div class="container-erro-inversor" id="container-superou-overload-2-adicionar">
+                        <img src="../img/falha.png" class="falha-projeto">
+                        <span class="campo-superou-overload">Número de módulos supera o overload do inversor.</span>
+                    </div>
                 </div>
                 <div class="container-inversor-3" id="container-inversor-31">
                     <form class="form-checkbox-aumento-usina">
@@ -537,6 +553,14 @@
                                 </datalist>
                         </form>
                         <span class="campo-obrigatorio-projetos">Esse é um campo obrigatório.</span>
+                    </div>
+                    <div class="container-erro-inversor" id="container-inversor-incompativel-3-adicionar">
+                        <img src="../img/falha.png" class="falha-projeto">
+                        <span class="campo-inversor-incompativel">Esse inversor não suporta o módulo selecionado.</span>
+                    </div>
+                    <div class="container-erro-inversor" id="container-superou-overload-3-adicionar">
+                        <img src="../img/falha.png" class="falha-projeto">
+                        <span class="campo-superou-overload">Número de módulos supera o overload do inversor.</span>
                     </div>
                 </div>
                 <div class="container-inversor-4" id="container-inversor-41">
@@ -569,6 +593,14 @@
                         </form>
                         <span class="campo-obrigatorio-projetos">Esse é um campo obrigatório.</span>
                     </div>
+                </div>
+                <div class="container-erro-inversor" id="container-inversor-incompativel-4-adicionar">
+                    <img src="../img/falha.png" class="falha-projeto">
+                    <span class="campo-inversor-incompativel">Esse inversor não suporta o módulo selecionado.</span>
+                </div>
+                <div class="container-erro-inversor" id="container-superou-overload-4-adicionar">
+                    <img src="../img/falha.png" class="falha-projeto">
+                    <span class="campo-superou-overload">Número de módulos supera o overload do inversor.</span>
                 </div>
             </div>
             <div class="container-buttons-projects">
@@ -704,7 +736,7 @@
                 </div>
                 <div class="container-modulo-1">
                     <form class="form-checkbox-aumento-usina">
-                        <input type="checkbox" class="checkbox" id="modulo-anterior-1-atualizar"  required>
+                        <input type="checkbox" class="checkbox" id="modulo-anterior-1-atualizar" onchange="modulo_antigo('1-atualizar')" required>
                         <span>Módulo da usina anterior?</span>
                     </form>
                     <div class="container-form">
@@ -732,7 +764,7 @@
                 </div>
                 <div class="container-modulo-2">
                     <form class="form-checkbox-aumento-usina">
-                        <input type="checkbox" class="checkbox" id="modulo-anterior-2-atualizar" required>
+                        <input type="checkbox" class="checkbox" id="modulo-anterior-2-atualizar" onchange="modulo_antigo('2-atualizar')" required>
                         <span>Módulo da usina anterior?</span>
                     </form>
                     <div class="container-form">

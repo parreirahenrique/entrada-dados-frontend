@@ -3394,12 +3394,24 @@ function aumento_usina1() {
     let estadoAumentoUsina1 = document.getElementById('checkbox-aumento-usina-1').checked;
     let arrayCheckbox = document.getElementsByClassName('form-checkbox-aumento-usina');
     let arrayContainer = document.getElementsByClassName('container-modulo-2');
+    let checkboxModulo1 = document.getElementById('modulo-anterior-1-adicionar');
+    let checkboxModulo2 = document.getElementById('modulo-anterior-2-adicionar');
+    let checkboxInversor1 = document.getElementById('inversor-anterior-1-adicionar');
+    let checkboxInversor2 = document.getElementById('inversor-anterior-2-adicionar');
+    let checkboxInversor3 = document.getElementById('inversor-anterior-3-adicionar');
+    let checkboxInversor4 = document.getElementById('inversor-anterior-4-adicionar');
+    let containerInversor2 = document.getElementById('container-inversor-21');
 
     if (estadoAumentoUsina1 == true) {
         document.getElementById('checkbox-ligacao-1').checked = false;
 
         document.getElementById('container-numero-instalacao-1').style.visibility = "visible";
         document.getElementById('container-numero-instalacao-1').style.display = "grid";
+
+        checkboxModulo1.checked = true;
+        checkboxInversor1.checked = true;
+        containerInversor2.style.visibility = "visible";
+        containerInversor2.style.display = "grid";
         
         for (let i = 0; i < arrayCheckbox.length; i++) {
             arrayCheckbox[i].style.visibility = "visible";
@@ -3412,10 +3424,19 @@ function aumento_usina1() {
     }
 
     else if(estadoAumentoUsina1 == false) {
-        document.getElementById('quantidade-módulo-2-adicionar').value = ''
-        document.getElementById('fabricante-módulo-2-adicionar').value = ''
-        document.getElementById('modelo-módulo-2-adicionar').value = ''
+        document.getElementById('quantidade-módulo-2-adicionar').value = '';
+        document.getElementById('fabricante-módulo-2-adicionar').value = '';
+        document.getElementById('modelo-módulo-2-adicionar').value = '';
         
+        checkboxModulo1.checked = false;
+        checkboxModulo2.checked = false;
+        checkboxInversor1.checked = false;
+        checkboxInversor2.checked = false;
+        checkboxInversor3.checked = false;
+        checkboxInversor4.checked = false;
+        containerInversor2.style.visibility = "hidden";
+        containerInversor2.style.display = "none";
+
         for (let i = 0; i < arrayCheckbox.length; i++) {
             arrayCheckbox[i].style.visibility = "hidden";
         }
@@ -3431,6 +3452,13 @@ function aumento_usina2() {
     let estadoAumentoUsina2 = document.getElementById('checkbox-aumento-usina-2').checked;
     let arrayCheckbox = document.getElementsByClassName('form-checkbox-aumento-usina');
     let arrayContainer = document.getElementsByClassName('container-modulo-2');
+    let checkboxModulo1 = document.getElementById('modulo-anterior-1-atualizar');
+    let checkboxModulo2 = document.getElementById('modulo-anterior-2-atualizar');
+    let checkboxInversor1 = document.getElementById('inversor-anterior-1-atualizar');
+    let checkboxInversor2 = document.getElementById('inversor-anterior-2-atualizar');
+    let checkboxInversor3 = document.getElementById('inversor-anterior-3-atualizar');
+    let checkboxInversor4 = document.getElementById('inversor-anterior-4-atualizar');
+    let containerInversor2 = document.getElementById('container-inversor-22');
 
     if (estadoAumentoUsina2 == true) {
         document.getElementById('checkbox-ligacao-2').checked = false;
@@ -3438,6 +3466,11 @@ function aumento_usina2() {
         document.getElementById('container-numero-instalacao-2').style.visibility = "visible";
         document.getElementById('container-numero-instalacao-2').style.display = "grid";
         
+        checkboxModulo1.checked = true;
+        checkboxInversor1.checked = true;
+        containerInversor2.style.visibility = "visible";
+        containerInversor2.style.display = "grid";
+
         for (let i = 0; i < arrayCheckbox.length; i++) {
             arrayCheckbox[i].style.visibility = "visible";
         }
@@ -3452,7 +3485,16 @@ function aumento_usina2() {
         document.getElementById('quantidade-módulo-2-atualizar').value = ''
         document.getElementById('fabricante-módulo-2-atualizar').value = ''
         document.getElementById('modelo-módulo-2-atualizar').value = ''
-                
+        
+        checkboxModulo1.checked = false;
+        checkboxModulo2.checked = false;
+        checkboxInversor1.checked = false;
+        checkboxInversor2.checked = false;
+        checkboxInversor3.checked = false;
+        checkboxInversor4.checked = false;
+        containerInversor2.style.visibility = "hidden";
+        containerInversor2.style.display = "none";
+
         for (let i = 0; i < arrayCheckbox.length; i++) {
             arrayCheckbox[i].style.visibility = "hidden";
         }
@@ -3489,6 +3531,24 @@ function agrupamento2() {
     else if (estadoAgrupamento2 == false) {
         document.getElementById('container-agrupamento-2').style.visibility = "hidden";
         document.getElementById('container-agrupamento-2').style.display = "none";
+    }
+}
+
+function modulo_antigo(descricao) {
+    let checkboxModuloAntigo = document.getElementById('modulo-anterior-' + descricao);
+
+    let arrayDescricao = descricao.split('-');
+
+    if (arrayDescricao[0] == '1') {
+        checkboxModuloAtual = document.getElementById('modulo-anterior-2-' + arrayDescricao[1])
+    }
+
+    else {
+        checkboxModuloAtual = document.getElementById('modulo-anterior-1-' + arrayDescricao[1])
+    }
+
+    if (checkboxModuloAntigo.checked == true) {
+        checkboxModuloAtual.checked = false
     }
 }
 
@@ -3860,7 +3920,6 @@ function filtrar_fabricantes_modulos(nomeFuncao) {
     }
 }
 
-
 async function mostrar_modelos_modulos(nomeFuncao) {
     let fabricante = document.getElementById('fabricante-módulo-' + nomeFuncao).value
     let input = document.getElementById('modelo-módulo-' + nomeFuncao)
@@ -4082,7 +4141,6 @@ function filtrar_fabricantes_inversores(nomeFuncao) {
     }
 }
 
-
 async function mostrar_modelos_inversores(nomeFuncao) {
     let fabricante = document.getElementById('fabricante-inversor-' + nomeFuncao).value
     let input = document.getElementById('modelo-inversor-' + nomeFuncao)
@@ -4179,6 +4237,183 @@ function filtrar_modelos_inversores(nomeFuncao) {
         opcao.onclick = function () {
             input.value = opcao.value;
             lista.style.display = 'none';
+        }
+    }
+}
+
+async function modulos_por_inversor(input) {
+    let modeloInversor = document.getElementById('modelo-inversor-' + input.id.split('-')[2] + '-' + input.id.split('-')[3]).value;
+    let descricao = input.id.split('-')[3];
+    
+    let checkboxModulo1 = document.getElementById('modulo-anterior-1-' + descricao);
+    let modeloModulo = '';
+
+    if (checkboxModulo1.checked == false) {
+        modeloModulo = document.getElementById('modelo-módulo-1-' + descricao).value;
+        numeroEntrada = document.getElementById('quantidade-módulo-1-' + descricao).value;
+    }
+
+    else {
+        modeloModulo = document.getElementById('modelo-módulo-2-' + descricao).value;
+        numeroEntrada = document.getElementById('quantidade-módulo-2-' + descricao).value;
+    }
+
+    let access_token = localStorage.getItem('access_token')
+
+    if (access_token != 'Error: Request failed with status code 403' & access_token != null & access_token != 'Error: Request failed with status code 422') {
+        let config = {
+            headers: {
+              'Authorization': 'Bearer ' + access_token
+            }
+        }
+        
+        let dadosInversor = await axios.get(
+            'http://localhost:8000/inverters?buscar=' + modeloInversor, config
+        ).then(
+            function (response) {
+                const dadosInversor = response.data;
+                return dadosInversor;
+            }
+        ).catch(
+            function (error) {
+                console.log(error);
+                return error;
+            }
+        )
+
+        let dadosModulo = await axios.get(
+            'http://localhost:8000/modules?buscar=' + modeloModulo, config
+        ).then(
+            function (response) {
+                const dadosModulo = response.data;
+                return dadosModulo;
+            }
+        ).catch(
+            function (error) {
+                console.log(error);
+                return error;
+            }
+        )
+        if (dadosInversor != 'Error: Request failed with status code 404' & dadosInversor != 'Error: Request failed with status code 401' & dadosModulo != 'Error: Request failed with status code 404' & dadosModulo != 'Error: Request failed with status code 401') {
+            let imp_i = parseFloat(dadosInversor[0].imp)
+            let isc_i = parseFloat(dadosInversor[0].isc)
+            let vmp_i = parseFloat(dadosInversor[0].v_max_mppt)
+            let voc_i = parseFloat(dadosInversor[0].v_max)
+            let overload = parseFloat(dadosInversor[0].overload)
+            let n_entrada = parseFloat(dadosInversor[0].n_entrada)
+            let n_mppt = parseFloat(dadosInversor[0].n_mppt)
+            
+            let arrayEntradas = []
+            
+            let restoEntradas = n_entrada % n_mppt
+            let entradaPorMPPT = (n_entrada - restoEntradas) / n_mppt
+            
+            let imp_m = parseFloat(dadosModulo[0].imp)
+            let isc_m = parseFloat(dadosModulo[0].isc)
+            let vmp_m = parseFloat(dadosModulo[0].vmp)
+            let voc_m = parseFloat(dadosModulo[0].voc)
+            let potencia_m = parseFloat(dadosModulo[0].potencia)
+
+            let entradasUsaveis = 0;
+            
+            console.log(modeloModulo)
+            console.log(dadosInversor[0].modelo)
+            console.log(imp_i)
+            console.log(isc_i)
+            console.log(vmp_i)
+            console.log(voc_i)
+            console.log(overload)
+            console.log(n_entrada)
+            console.log(n_mppt)
+            console.log(imp_m)
+            console.log(isc_m)
+            console.log(vmp_m)
+            console.log(voc_m)
+            console.log(potencia_m)
+            console.log(entradaPorMPPT)
+
+            if (((imp_i / entradaPorMPPT) / imp_m) >= 0.95) {
+                entradasUsaveis = entradaPorMPPT
+            }
+
+            else { 
+                if ((imp_i / imp_m) < (isc_i / isc_m)) {
+                    entradasUsaveis = Math.floor(imp_i / imp_m)
+                }
+
+                else {
+                    entradasUsaveis = Math.floor(isc_i / isc_m)
+                }
+            }
+
+            let modulosSerie = 0;
+            
+            if ((vmp_i / vmp_m) < (voc_i / voc_m)) {
+                modulosSerie = Math.floor(vmp_i / vmp_m)
+            }
+
+            else {
+                modulosSerie = Math.floor(voc_i / voc_m)
+            }
+
+            let totalEntradas = 0;
+
+            if (entradasUsaveis < entradaPorMPPT) {
+                for (i = 0; i < n_mppt; i++) {
+                    arrayEntradas[i] = entradasUsaveis
+
+                    if(i >= restoEntradas) {
+                        arrayEntradas[i] -= 1
+                    }
+                }
+
+                totalEntradas += arrayEntradas[i]
+            }
+
+            else {
+                for (i = 0; i < n_mppt; i++) {
+                    arrayEntradas[i] = entradaPorMPPT
+
+                    if(i >= restoEntradas) {
+                        arrayEntradas[i] -= 1
+                    }
+                }
+
+                totalEntradas += arrayEntradas[i]
+            }
+
+            numeroModVI = totalEntradas * modulosSerie
+            numeroModP = Math.floor(overload / potencia_m)
+                
+            let numeroCalculado = 0;
+
+            if (numeroModVI < numeroModP) {
+                numeroCalculado = numeroModVI
+            }
+
+            else {
+                numeroCalculado = numeroModP
+            }
+
+            let containerErro1 = document.getElementById('container-superou-overload-' + input.id.split('-')[2] + '-' + input.id.split('-')[3])
+            let containerErro2 = document.getElementById('container-inversor-incompativel-' + input.id.split('-')[2] + '-' + input.id.split('-')[3])
+            
+            if (numeroModVI == 0) {
+                containerErro1.style.visibility = "visible"
+                containerErro1.style.display = "flex"
+            }
+
+            else if (numeroEntrada < numeroCalculado) {
+                containerErro2.style.visibility = "visible"
+                containerErro2.style.display = "flex"
+            }
+
+            else {
+                containerErro1.style.visibility = "hidden"
+                containerErro1.style.display = "none"
+                containerErro2.style.visibility = "hidden"
+                containerErro2.style.display = "none"
+            }
         }
     }
 }
