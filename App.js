@@ -3200,7 +3200,15 @@ async function get_all_projects() {
                     if (dadosTodosProjetos[i].ligacao_nova == true) {
                         iconeCheckmark = document.createElement('i')
                         iconeCheckmark.style.fontSize = '25px'
-                        iconeCheckmark.setAttribute('class', 'uil uil-check')
+                        iconeCheckmark.setAttribute('class', 'uil uil-check-square')
+                        arrayTD[9 * i + 1].innerHTML = ''
+                        arrayTD[9 * i + 1].appendChild(iconeCheckmark);
+                    }
+
+                    else {
+                        iconeCheckmark = document.createElement('i')
+                        iconeCheckmark.style.fontSize = '25px'
+                        iconeCheckmark.setAttribute('class', 'uil uil-square')
                         arrayTD[9 * i + 1].innerHTML = ''
                         arrayTD[9 * i + 1].appendChild(iconeCheckmark);
                     }
@@ -3211,7 +3219,15 @@ async function get_all_projects() {
                     if (dadosTodosProjetos[i].aumento_carga == true) {
                         iconeCheckmark = document.createElement('i')
                         iconeCheckmark.style.fontSize = '25px'
-                        iconeCheckmark.setAttribute('class', 'uil uil-check')
+                        iconeCheckmark.setAttribute('class', 'uil uil-check-square')
+                        arrayTD[9 * i + 2].innerHTML = ''
+                        arrayTD[9 * i + 2].appendChild(iconeCheckmark);
+                    }
+
+                    else {
+                        iconeCheckmark = document.createElement('i')
+                        iconeCheckmark.style.fontSize = '25px'
+                        iconeCheckmark.setAttribute('class', 'uil uil-square')
                         arrayTD[9 * i + 2].innerHTML = ''
                         arrayTD[9 * i + 2].appendChild(iconeCheckmark);
                     }
@@ -3222,7 +3238,15 @@ async function get_all_projects() {
                     if (dadosTodosProjetos[i].aumento_usina == true) {
                         iconeCheckmark = document.createElement('i')
                         iconeCheckmark.style.fontSize = '25px'
-                        iconeCheckmark.setAttribute('class', 'uil uil-check')
+                        iconeCheckmark.setAttribute('class', 'uil uil-check-square')
+                        arrayTD[9 * i + 3].innerHTML = ''
+                        arrayTD[9 * i + 3].appendChild(iconeCheckmark);
+                    }
+
+                    else {
+                        iconeCheckmark = document.createElement('i')
+                        iconeCheckmark.style.fontSize = '25px'
+                        iconeCheckmark.setAttribute('class', 'uil uil-square')
                         arrayTD[9 * i + 3].innerHTML = ''
                         arrayTD[9 * i + 3].appendChild(iconeCheckmark);
                     }
@@ -3233,7 +3257,15 @@ async function get_all_projects() {
                     if (dadosTodosProjetos[i].agrupamento == true) {
                         iconeCheckmark = document.createElement('i')
                         iconeCheckmark.style.fontSize = '25px'
-                        iconeCheckmark.setAttribute('class', 'uil uil-check')
+                        iconeCheckmark.setAttribute('class', 'uil uil-check-square')
+                        arrayTD[9 * i + 4].innerHTML = ''
+                        arrayTD[9 * i + 4].appendChild(iconeCheckmark);
+                    }
+
+                    else {
+                        iconeCheckmark = document.createElement('i')
+                        iconeCheckmark.style.fontSize = '25px'
+                        iconeCheckmark.setAttribute('class', 'uil uil-square')
                         arrayTD[9 * i + 4].innerHTML = ''
                         arrayTD[9 * i + 4].appendChild(iconeCheckmark);
                     }
@@ -3402,7 +3434,15 @@ async function get_all_projects_skip(alterar) {
                     if (dadosTodosProjetos[i].ligacao_nova == true) {
                         iconeCheckmark = document.createElement('i')
                         iconeCheckmark.style.fontSize = '25px'
-                        iconeCheckmark.setAttribute('class', 'uil uil-check')
+                        iconeCheckmark.setAttribute('class', 'uil uil-check-square')
+                        arrayTD[9 * i + 1].innerHTML = ''
+                        arrayTD[9 * i + 1].appendChild(iconeCheckmark);
+                    }
+
+                    else {
+                        iconeCheckmark = document.createElement('i')
+                        iconeCheckmark.style.fontSize = '25px'
+                        iconeCheckmark.setAttribute('class', 'uil uil-square')
                         arrayTD[9 * i + 1].innerHTML = ''
                         arrayTD[9 * i + 1].appendChild(iconeCheckmark);
                     }
@@ -3413,7 +3453,15 @@ async function get_all_projects_skip(alterar) {
                     if (dadosTodosProjetos[i].aumento_carga == true) {
                         iconeCheckmark = document.createElement('i')
                         iconeCheckmark.style.fontSize = '25px'
-                        iconeCheckmark.setAttribute('class', 'uil uil-check')
+                        iconeCheckmark.setAttribute('class', 'uil uil-check-square')
+                        arrayTD[9 * i + 2].innerHTML = ''
+                        arrayTD[9 * i + 2].appendChild(iconeCheckmark);
+                    }
+
+                    else {
+                        iconeCheckmark = document.createElement('i')
+                        iconeCheckmark.style.fontSize = '25px'
+                        iconeCheckmark.setAttribute('class', 'uil uil-square')
                         arrayTD[9 * i + 2].innerHTML = ''
                         arrayTD[9 * i + 2].appendChild(iconeCheckmark);
                     }
@@ -3424,7 +3472,15 @@ async function get_all_projects_skip(alterar) {
                     if (dadosTodosProjetos[i].aumento_usina == true) {
                         iconeCheckmark = document.createElement('i')
                         iconeCheckmark.style.fontSize = '25px'
-                        iconeCheckmark.setAttribute('class', 'uil uil-check')
+                        iconeCheckmark.setAttribute('class', 'uil uil-check-square')
+                        arrayTD[9 * i + 3].innerHTML = ''
+                        arrayTD[9 * i + 3].appendChild(iconeCheckmark);
+                    }
+
+                    else {
+                        iconeCheckmark = document.createElement('i')
+                        iconeCheckmark.style.fontSize = '25px'
+                        iconeCheckmark.setAttribute('class', 'uil uil-square')
                         arrayTD[9 * i + 3].innerHTML = ''
                         arrayTD[9 * i + 3].appendChild(iconeCheckmark);
                     }
@@ -3435,7 +3491,15 @@ async function get_all_projects_skip(alterar) {
                     if (dadosTodosProjetos[i].agrupamento == true) {
                         iconeCheckmark = document.createElement('i')
                         iconeCheckmark.style.fontSize = '25px'
-                        iconeCheckmark.setAttribute('class', 'uil uil-check')
+                        iconeCheckmark.setAttribute('class', 'uil uil-check-square')
+                        arrayTD[9 * i + 4].innerHTML = ''
+                        arrayTD[9 * i + 4].appendChild(iconeCheckmark);
+                    }
+
+                    else {
+                        iconeCheckmark = document.createElement('i')
+                        iconeCheckmark.style.fontSize = '25px'
+                        iconeCheckmark.setAttribute('class', 'uil uil-square')
                         arrayTD[9 * i + 4].innerHTML = ''
                         arrayTD[9 * i + 4].appendChild(iconeCheckmark);
                     }
