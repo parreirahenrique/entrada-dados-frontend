@@ -469,9 +469,9 @@
                     </div>
                     <div class="container-form">
                         <form>
-                            <input type="text" id="modelo-inversor-1-adicionar" list="" autocomplete="off" onclick="mostrar_modelos_inversores('1-adicionar')" oninput="filtrar_modelos_inversores('1-adicionar')" onended="modulos_por_inversor(this)" required>
+                            <input type="text" id="modelo-inversor-1-adicionar" list="" autocomplete="off" onclick="mostrar_modelos_inversores('1-adicionar')" oninput="filtrar_modelos_inversores('1-adicionar')" required>
                             <label for="name">Modelo do inversor 1*:</label>    
-                                <datalist id="modeloinversor-1-adicionar">
+                                <datalist id="modeloinversor-1-adicionar" onselect="(this)">
                                 </datalist>
                         </form>
                         <span class="campo-obrigatorio-projetos">Esse é um campo obrigatório.</span>
@@ -479,10 +479,6 @@
                     <div class="container-erro-inversor" id="container-inversor-incompativel-1-adicionar">
                         <img src="../img/falha.png" class="falha-projeto">
                         <span class="campo-inversor-incompativel">Esse inversor não suporta o módulo selecionado.</span>
-                    </div>
-                    <div class="container-erro-inversor" id="container-superou-overload-1-adicionar">
-                        <img src="../img/falha.png" class="falha-projeto">
-                        <span class="campo-superou-overload">Número de módulos supera o overload do inversor.</span>
                     </div>
                 </div>
                 <div class="container-inversor-2" id="container-inversor-21">
@@ -519,10 +515,6 @@
                         <img src="../img/falha.png" class="falha-projeto">
                         <span class="campo-inversor-incompativel">Esse inversor não suporta o módulo selecionado.</span>
                     </div>
-                    <div class="container-erro-inversor" id="container-superou-overload-2-adicionar">
-                        <img src="../img/falha.png" class="falha-projeto">
-                        <span class="campo-superou-overload">Número de módulos supera o overload do inversor.</span>
-                    </div>
                 </div>
                 <div class="container-inversor-3" id="container-inversor-31">
                     <form class="form-checkbox-aumento-usina">
@@ -557,10 +549,6 @@
                     <div class="container-erro-inversor" id="container-inversor-incompativel-3-adicionar">
                         <img src="../img/falha.png" class="falha-projeto">
                         <span class="campo-inversor-incompativel">Esse inversor não suporta o módulo selecionado.</span>
-                    </div>
-                    <div class="container-erro-inversor" id="container-superou-overload-3-adicionar">
-                        <img src="../img/falha.png" class="falha-projeto">
-                        <span class="campo-superou-overload">Número de módulos supera o overload do inversor.</span>
                     </div>
                 </div>
                 <div class="container-inversor-4" id="container-inversor-41">
@@ -598,13 +586,13 @@
                     <img src="../img/falha.png" class="falha-projeto">
                     <span class="campo-inversor-incompativel">Esse inversor não suporta o módulo selecionado.</span>
                 </div>
-                <div class="container-erro-inversor" id="container-superou-overload-4-adicionar">
-                    <img src="../img/falha.png" class="falha-projeto">
-                    <span class="campo-superou-overload">Número de módulos supera o overload do inversor.</span>
-                </div>
+            </div>
+            <div class="container-erro-inversor" id="container-superou-overload-adicionar">
+                <img src="../img/falha.png" class="falha-projeto">
+                <span class="campo-superou-overload">Número de módulos supera o overload do inversor.</span>
             </div>
             <div class="container-buttons-projects">
-                <button onclick="post_project()">Adicionar</button> <a href=""><button>Cancelar</button></a>
+                <button onmouseover="modulos_por_inversor('adicionar')" onclick="post_project()">Adicionar</button> <a href=""><button>Cancelar</button></a>
             </div>
         </div>
         <div class="container" id="container-projeto-adicionado">

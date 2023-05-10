@@ -4241,10 +4241,7 @@ function filtrar_modelos_inversores(nomeFuncao) {
     }
 }
 
-async function modulos_por_inversor(input) {
-    let modeloInversor = document.getElementById('modelo-inversor-' + input.id.split('-')[2] + '-' + input.id.split('-')[3]).value;
-    let descricao = input.id.split('-')[3];
-    
+async function modulos_por_inversor(descricao) {
     let checkboxModulo1 = document.getElementById('modulo-anterior-1-' + descricao);
     let modeloModulo = '';
 
@@ -4260,160 +4257,167 @@ async function modulos_por_inversor(input) {
 
     let access_token = localStorage.getItem('access_token')
 
-    if (access_token != 'Error: Request failed with status code 403' & access_token != null & access_token != 'Error: Request failed with status code 422') {
-        let config = {
-            headers: {
-              'Authorization': 'Bearer ' + access_token
-            }
-        }
+    let totalModulosCalculado = 0;
+
+    for (i = 0; i < 4; i++) {
+        let modeloInversor = document.getElementById('modelo-inversor-' + String(i + 1) + '-' + descricao).value;
+        let quantidadeInversor = document.getElementById('quantidade-inversor-' + String(i + 1) + '-' + descricao).value;
         
-        let dadosInversor = await axios.get(
-            'http://localhost:8000/inverters?buscar=' + modeloInversor, config
-        ).then(
-            function (response) {
-                const dadosInversor = response.data;
-                return dadosInversor;
-            }
-        ).catch(
-            function (error) {
-                console.log(error);
-                return error;
-            }
-        )
+        let numeroCalculado = 0;
 
-        let dadosModulo = await axios.get(
-            'http://localhost:8000/modules?buscar=' + modeloModulo, config
-        ).then(
-            function (response) {
-                const dadosModulo = response.data;
-                return dadosModulo;
+        if (modeloInversor != '' & modeloModulo != '' & access_token != 'Error: Request failed with status code 403' & access_token != 'Error: Request failed with status code 422' & access_token != null ) {
+            let config = {
+                headers: {
+                'Authorization': 'Bearer ' + access_token
+                }
             }
-        ).catch(
-            function (error) {
-                console.log(error);
-                return error;
-            }
-        )
-        if (dadosInversor != 'Error: Request failed with status code 404' & dadosInversor != 'Error: Request failed with status code 401' & dadosModulo != 'Error: Request failed with status code 404' & dadosModulo != 'Error: Request failed with status code 401') {
-            let imp_i = parseFloat(dadosInversor[0].imp)
-            let isc_i = parseFloat(dadosInversor[0].isc)
-            let vmp_i = parseFloat(dadosInversor[0].v_max_mppt)
-            let voc_i = parseFloat(dadosInversor[0].v_max)
-            let overload = parseFloat(dadosInversor[0].overload)
-            let n_entrada = parseFloat(dadosInversor[0].n_entrada)
-            let n_mppt = parseFloat(dadosInversor[0].n_mppt)
             
-            let arrayEntradas = []
-            
-            let restoEntradas = n_entrada % n_mppt
-            let entradaPorMPPT = (n_entrada - restoEntradas) / n_mppt
-            
-            let imp_m = parseFloat(dadosModulo[0].imp)
-            let isc_m = parseFloat(dadosModulo[0].isc)
-            let vmp_m = parseFloat(dadosModulo[0].vmp)
-            let voc_m = parseFloat(dadosModulo[0].voc)
-            let potencia_m = parseFloat(dadosModulo[0].potencia)
+            let dadosInversor = await axios.get(
+                'http://localhost:8000/inverters?buscar=' + modeloInversor, config
+            ).then(
+                function (response) {
+                    const dadosInversor = response.data;
+                    return dadosInversor;
+                }
+            ).catch(
+                function (error) {
+                    console.log(error);
+                    return error;
+                }
+            )
 
-            let entradasUsaveis = 0;
-            
-            console.log(modeloModulo)
-            console.log(dadosInversor[0].modelo)
-            console.log(imp_i)
-            console.log(isc_i)
-            console.log(vmp_i)
-            console.log(voc_i)
-            console.log(overload)
-            console.log(n_entrada)
-            console.log(n_mppt)
-            console.log(imp_m)
-            console.log(isc_m)
-            console.log(vmp_m)
-            console.log(voc_m)
-            console.log(potencia_m)
-            console.log(entradaPorMPPT)
+            let dadosModulo = await axios.get(
+                'http://localhost:8000/modules?buscar=' + modeloModulo, config
+            ).then(
+                function (response) {
+                    const dadosModulo = response.data;
+                    return dadosModulo;
+                }
+            ).catch(
+                function (error) {
+                    console.log(error);
+                    return error;
+                }
+            )
+            if (dadosInversor != 'Error: Request failed with status code 404' & dadosInversor != 'Error: Request failed with status code 401' & dadosModulo != 'Error: Request failed with status code 404' & dadosModulo != 'Error: Request failed with status code 401') {
+                let imp_i = parseFloat(dadosInversor[0].imp)
+                let isc_i = parseFloat(dadosInversor[0].isc)
+                let vmp_i = parseFloat(dadosInversor[0].v_max_mppt)
+                let voc_i = parseFloat(dadosInversor[0].v_max)
+                let overload = parseFloat(dadosInversor[0].overload)
+                let n_entrada = parseFloat(dadosInversor[0].n_entrada)
+                let n_mppt = parseFloat(dadosInversor[0].n_mppt)
+                
+                let arrayEntradas = []
+                
+                let restoEntradas = n_entrada % n_mppt
+                let entradaPorMPPT = 0
 
-            if (((imp_i / entradaPorMPPT) / imp_m) >= 0.95) {
-                entradasUsaveis = entradaPorMPPT
-            }
-
-            else { 
-                if ((imp_i / imp_m) < (isc_i / isc_m)) {
-                    entradasUsaveis = Math.floor(imp_i / imp_m)
+                if (restoEntradas == 0) {
+                    entradaPorMPPT = (n_entrada - restoEntradas) / n_mppt
                 }
 
                 else {
-                    entradasUsaveis = Math.floor(isc_i / isc_m)
+                    entradaPorMPPT = (n_entrada - restoEntradas) / n_mppt + 1
                 }
-            }
-
-            let modulosSerie = 0;
-            
-            if ((vmp_i / vmp_m) < (voc_i / voc_m)) {
-                modulosSerie = Math.floor(vmp_i / vmp_m)
-            }
-
-            else {
-                modulosSerie = Math.floor(voc_i / voc_m)
-            }
-
-            let totalEntradas = 0;
-
-            if (entradasUsaveis < entradaPorMPPT) {
-                for (i = 0; i < n_mppt; i++) {
-                    arrayEntradas[i] = entradasUsaveis
-
-                    if(i >= restoEntradas) {
-                        arrayEntradas[i] -= 1
-                    }
-                }
-
-                totalEntradas += arrayEntradas[i]
-            }
-
-            else {
-                for (i = 0; i < n_mppt; i++) {
-                    arrayEntradas[i] = entradaPorMPPT
-
-                    if(i >= restoEntradas) {
-                        arrayEntradas[i] -= 1
-                    }
-                }
-
-                totalEntradas += arrayEntradas[i]
-            }
-
-            numeroModVI = totalEntradas * modulosSerie
-            numeroModP = Math.floor(overload / potencia_m)
                 
-            let numeroCalculado = 0;
+                let imp_m = parseFloat(dadosModulo[0].imp)
+                let isc_m = parseFloat(dadosModulo[0].isc)
+                let vmp_m = parseFloat(dadosModulo[0].vmp)
+                let voc_m = parseFloat(dadosModulo[0].voc)
+                let potencia_m = parseFloat(dadosModulo[0].potencia)
 
-            if (numeroModVI < numeroModP) {
-                numeroCalculado = numeroModVI
+                let entradasUsaveis = 0;
+                
+                if (((imp_i / entradaPorMPPT) / imp_m) >= 0.95) {
+                    entradasUsaveis = entradaPorMPPT
+                }
+
+                else { 
+                    if ((imp_i / imp_m) < (isc_i / isc_m)) {
+                        entradasUsaveis = Math.floor(imp_i / imp_m)
+                    }
+
+                    else {
+                        entradasUsaveis = Math.floor(isc_i / isc_m)
+                    }
+                }
+
+                let modulosSerie = 0;
+                
+                if ((vmp_i / vmp_m) < (voc_i / voc_m)) {
+                    modulosSerie = Math.floor(vmp_i / vmp_m)
+                }
+
+                else {
+                    modulosSerie = Math.floor(voc_i / voc_m)
+                }
+
+                let totalEntradas = 0;
+
+                if (entradasUsaveis < entradaPorMPPT) {
+                    for (i = 0; i < n_mppt; i++) {
+                        arrayEntradas[i] = entradasUsaveis
+
+                        if(i >= restoEntradas & restoEntradas != 0) {
+                            arrayEntradas[i] -= 1
+                        }
+
+                        totalEntradas += arrayEntradas[i]
+                    }                
+                }
+
+                else {
+                    for (i = 0; i < n_mppt; i++) {
+                        arrayEntradas[i] = entradaPorMPPT
+
+                        if(i >= restoEntradas & restoEntradas != 0) {
+                            arrayEntradas[i] -= 1
+                        }
+
+                        totalEntradas += arrayEntradas[i]
+                    }
+                }
+
+                numeroModVI = totalEntradas * modulosSerie
+                numeroModP = Math.floor(overload / potencia_m)
+                    
+                
+                if (numeroModVI < numeroModP) {
+                    numeroCalculado = quantidadeInversor * numeroModVI
+                }
+
+                else {
+                    numeroCalculado = quantidadeInversor * numeroModP
+                }
             }
 
-            else {
-                numeroCalculado = numeroModP
-            }
-
-            let containerErro1 = document.getElementById('container-superou-overload-' + input.id.split('-')[2] + '-' + input.id.split('-')[3])
-            let containerErro2 = document.getElementById('container-inversor-incompativel-' + input.id.split('-')[2] + '-' + input.id.split('-')[3])
+            let containerErro1 = document.getElementById('container-inversor-incompativel-' + String(i + 1) + '-' + descricao)
             
             if (numeroModVI == 0) {
                 containerErro1.style.visibility = "visible"
                 containerErro1.style.display = "flex"
             }
 
-            else if (numeroEntrada < numeroCalculado) {
-                containerErro2.style.visibility = "visible"
-                containerErro2.style.display = "flex"
-            }
-
             else {
                 containerErro1.style.visibility = "hidden"
                 containerErro1.style.display = "none"
-                containerErro2.style.visibility = "hidden"
-                containerErro2.style.display = "none"
             }
         }
+
+        totalModulosCalculado += numeroCalculado
+        
+    }
+
+    let containerErro2 = document.getElementById('container-superou-overload-' + descricao)
+    
+    if (numeroEntrada > totalModulosCalculado) {
+        containerErro2.style.visibility = "visible"
+        containerErro2.style.display = "flex"
+    }
+
+    else {
+        containerErro2.style.visibility = "hidden"
+        containerErro2.style.display = "none"
     }
 }

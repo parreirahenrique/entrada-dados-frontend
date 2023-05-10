@@ -751,7 +751,7 @@ async function patch_client() {
     }
 
     if (nascimento != dadosOriginais.nascimento.toString()){
-        dicionario['nascimento'] = nascimento
+        dicionario['nascimento'] = nascimento.value.split('-').reverse().join('/')
     }
 
     if (nome_pais != dadosOriginais.nome_pais.toString()){
@@ -4020,49 +4020,60 @@ async function post_project() {
         }
     }
 
-    if (numero_instalacao != '' & numero_cliente != '' & n_fases != '' & disjuntor != '' & tensao != '' & quantidade_modulo_1 != '' & modelo_modulo_1 != '' & quantidade_inversor_1 != '' & modelo_inversor_1 != ''){
-        resposta = await axios.post(
-            'http://localhost:8000/projects', dicionario, config
-        ).then(
-            function (response) {
-                const resposta = response.data;
-                return resposta;
+    let containerErro11 = window.getComputedStyle(document.getElementById('container-inversor-incompativel-1-adicionar')).visibility;
+    let containerErro12 = window.getComputedStyle(document.getElementById('container-superou-overload-1-adicionar')).visibility;
+    let containerErro21 = window.getComputedStyle(document.getElementById('container-inversor-incompativel-2-adicionar')).visibility;
+    let containerErro22 = window.getComputedStyle(document.getElementById('container-superou-overload-2-adicionar')).visibility;
+    let containerErro31 = window.getComputedStyle(document.getElementById('container-inversor-incompativel-3-adicionar')).visibility;
+    let containerErro32 = window.getComputedStyle(document.getElementById('container-superou-overload-3-adicionar')).visibility;
+    let containerErro41 = window.getComputedStyle(document.getElementById('container-inversor-incompativel-4-adicionar')).visibility;
+    let containerErro42 = window.getComputedStyle(document.getElementById('container-superou-overload-4-adicionar')).visibility;
+    
+    if (containerErro11 != "visible" & containerErro12 != "visible" & containerErro21 != "visible" & containerErro22 != "visible" & containerErro31 != "visible" & containerErro32 != "visible" & containerErro41 != "visible" & containerErro42 != "visible") {
+        if (numero_instalacao != '' & numero_cliente != '' & n_fases != '' & disjuntor != '' & tensao != '' & quantidade_modulo_1 != '' & modelo_modulo_1 != '' & quantidade_inversor_1 != '' & modelo_inversor_1 != ''){
+            resposta = await axios.post(
+                'http://localhost:8000/projects', dicionario, config
+            ).then(
+                function (response) {
+                    const resposta = response.data;
+                    return resposta;
+                }
+            ).catch(
+                function (error) {
+                    console.log(error);
+                    return error;
+                }
+            )
+
+            if (resposta != 'Error: Network Error' & resposta != 'Error: Request failed with status code 401') {
+                document.getElementById('container-projeto-adicionado').style.visibility = 'visible';
+                document.getElementById('container-projeto-adicionado').style.display = 'grid';
+                
+                document.getElementById('container-add-projects-general').style.visibility = 'hidden';
+                document.getElementById('container-add-projects-general').style.display = 'none';
+
+                localStorage.setItem('projeto_atual', resposta.id)
             }
-        ).catch(
-            function (error) {
-                console.log(error);
-                return error;
+
+            else if (resposta == 'Error: Request failed with status code 401') {
+                localStorage.setItem('access_token', resposta);
+                checar_autorizacao();
             }
-        )
 
-        if (resposta != 'Error: Network Error' & resposta != 'Error: Request failed with status code 401') {
-            document.getElementById('container-projeto-adicionado').style.visibility = 'visible';
-            document.getElementById('container-projeto-adicionado').style.display = 'grid';
-            
-            document.getElementById('container-add-projects-general').style.visibility = 'hidden';
-            document.getElementById('container-add-projects-general').style.display = 'none';
-
-            localStorage.setItem('projeto_atual', resposta.id)
-        }
-
-        else if (resposta == 'Error: Request failed with status code 401') {
-            localStorage.setItem('access_token', resposta);
-            checar_autorizacao();
+            else {
+                divExistentProject = document.getElementsByClassName('container-projeto-existente')
+                divExistentProject[0].style.visibility = 'visible';
+                divExistentProject[0].style.display = 'flex';
+            }
         }
 
         else {
-            divExistentProject = document.getElementsByClassName('container-projeto-existente')
-            divExistentProject[0].style.visibility = 'visible';
-            divExistentProject[0].style.display = 'flex';
-        }
-    }
+            arrayCampos = document.getElementsByClassName('campo-obrigatorio-projetos')
 
-    else {
-        arrayCampos = document.getElementsByClassName('campo-obrigatorio-projetos')
-
-        for (i = 0; i < arrayCampos.length; i ++) {
-            arrayCampos[i].style.visibility = "visible";
-            arrayCampos[i].style.display = "grid";
+            for (i = 0; i < arrayCampos.length; i ++) {
+                arrayCampos[i].style.visibility = "visible";
+                arrayCampos[i].style.display = "grid";
+            }
         }
     }
 }
