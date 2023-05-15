@@ -4020,16 +4020,13 @@ async function post_project() {
         }
     }
 
-    let containerErro11 = window.getComputedStyle(document.getElementById('container-inversor-incompativel-1-adicionar')).visibility;
-    let containerErro12 = window.getComputedStyle(document.getElementById('container-superou-overload-1-adicionar')).visibility;
-    let containerErro21 = window.getComputedStyle(document.getElementById('container-inversor-incompativel-2-adicionar')).visibility;
-    let containerErro22 = window.getComputedStyle(document.getElementById('container-superou-overload-2-adicionar')).visibility;
-    let containerErro31 = window.getComputedStyle(document.getElementById('container-inversor-incompativel-3-adicionar')).visibility;
-    let containerErro32 = window.getComputedStyle(document.getElementById('container-superou-overload-3-adicionar')).visibility;
-    let containerErro41 = window.getComputedStyle(document.getElementById('container-inversor-incompativel-4-adicionar')).visibility;
-    let containerErro42 = window.getComputedStyle(document.getElementById('container-superou-overload-4-adicionar')).visibility;
+    let containerErro1 = window.getComputedStyle(document.getElementById('container-inversor-incompativel-1-adicionar')).visibility;
+    let containerErro2 = window.getComputedStyle(document.getElementById('container-inversor-incompativel-2-adicionar')).visibility;
+    let containerErro3 = window.getComputedStyle(document.getElementById('container-inversor-incompativel-3-adicionar')).visibility;
+    let containerErro4 = window.getComputedStyle(document.getElementById('container-inversor-incompativel-4-adicionar')).visibility;
+    let containerOverloadSuperado = window.getComputedStyle(document.getElementById('container-superou-overload-adicionar')).visibility;
     
-    if (containerErro11 != "visible" & containerErro12 != "visible" & containerErro21 != "visible" & containerErro22 != "visible" & containerErro31 != "visible" & containerErro32 != "visible" & containerErro41 != "visible" & containerErro42 != "visible") {
+    if (containerErro1 != "visible" & containerErro2 != "visible" & containerErro3 != "visible" & containerErro4 != "visible" & containerOverloadSuperado != "visible") {
         if (numero_instalacao != '' & numero_cliente != '' & n_fases != '' & disjuntor != '' & tensao != '' & quantidade_modulo_1 != '' & modelo_modulo_1 != '' & quantidade_inversor_1 != '' & modelo_inversor_1 != ''){
             resposta = await axios.post(
                 'http://localhost:8000/projects', dicionario, config
