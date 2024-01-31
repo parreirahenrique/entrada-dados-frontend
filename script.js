@@ -446,7 +446,7 @@ async function mostrar_usuarios(nomeFuncao) {
             }
         }
 
-        else if (dadosTodosUsuarios.message == 'Request failed with status code 401') {
+        else if (dadosTodosUsuarios.message.includes('Request failed with status code 401')) {
             localStorage.setItem('access_token', dadosTodosUsuarios.message);
             checar_autorizacao();
         }
@@ -3869,7 +3869,7 @@ async function mostrar_fabricantes_modulos(nomeFuncao) {
             }
         }
 
-        else if (fabricante.includes('Request failed with status code 401')) {
+        else if (fabricante.message.includes('Request failed with status code 401')) {
             localStorage.setItem('access_token', fabricante.message);
             checar_autorizacao();
         }

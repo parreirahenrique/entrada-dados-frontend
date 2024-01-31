@@ -27,7 +27,7 @@ async function login() {
         localStorage.setItem('username', usuario);
         localStorage.setItem('access_token', token_acesso);
         
-        if (token_acesso != 'Error: Request failed with status code 403'){
+        if (!token_acesso.message){
             let nomePagina = String(location.pathname.split("/").slice(-1))
                 
             if (nomePagina != 'index.html') {
@@ -37,12 +37,10 @@ async function login() {
             else {
                 setTimeout(window.location.reload(), 5000);
             }
-        }
-
-        else {
-            divCredenciasInvalidas = document.getElementsByClassName('container-usuario-inexistente')
-            divCredenciasInvalidas[0].style.visibility = "visible"
-            divCredenciasInvalidas[0].style.display = "flex"
+        } else if (token_acesso.message.includes('Request failed with status code 403')) {
+            divCredenciaisInvalidas = document.getElementsByClassName('container-usuario-inexistente')
+            divCredenciaisInvalidas[0].style.visibility = "visible";
+            divCredenciaisInvalidas[0].style.display = "grid";
         }
     }
 
@@ -51,7 +49,7 @@ async function login() {
 
         for (i = 0; i < arrayCampos.length; i ++) {
             arrayCampos[i].style.visibility = "visible";
-            arrayCampos[i].style.display = "grid";
+            arrayCampos[i].style.display = "flex";
         }
     }
 }
@@ -68,8 +66,9 @@ async function logout() {
         'https://entrada-dados.onrender.com/login', dicionario
     ).then(
         function (response) {
-            const token_acesso = response.data.access_token;
+            const token_acesso = response.data.message;
             return token_acesso;
+            
         }
     ).catch(
         function (error) {
@@ -87,7 +86,7 @@ async function logout() {
     else {
         setTimeout(window.location.reload(), 5000);
     }
-    
+    console.log(token_acesso)
     localStorage.setItem('username', '');
     localStorage.setItem('access_token', token_acesso);
 }
@@ -97,7 +96,7 @@ async function get_username() {
     let access_token = localStorage.getItem('access_token');
     let username = localStorage.getItem('username');
     
-    if (access_token != 'Error: Request failed with status code 403' & access_token != null & access_token != 'Error: Request failed with status code 422') {
+    if (!access_token.includes('Request failed with status code 403') & !access_token.includes('Request failed with status code 422')) {
         nomeUsuario = document.getElementsByClassName('nome-usuario')
         nomeUsuario[0].innerHTML = username
     }
@@ -209,7 +208,7 @@ async function post_user() {
                 }
             )
     
-            if (resposta != 'Error: Network Error' & resposta != 'Error: Request failed with status code 401') {
+            if (!resposta.message) {
                 document.getElementById('container-usuario-adicionado').style.visibility = 'visible';
                 document.getElementById('container-usuario-adicionado').style.display = 'grid';
                 
@@ -217,8 +216,8 @@ async function post_user() {
                 document.getElementById('container-add-users').style.display = 'none';
             }
     
-            else if (resposta == 'Error: Request failed with status code 401') {
-                localStorage.setItem('access_token', resposta);
+            else if (resposta.message.includes('Request failed with status code 401')) {
+                localStorage.setItem('access_token', resposta.message);
                 checar_autorizacao();
             }
     
@@ -296,7 +295,7 @@ async function patch_user() {
                 }
             )
             
-            if (resposta != 'Error: Request failed with status code 404' & resposta != 'Error: Request failed with status code 401') {
+            if (!resposta.message) {
                 document.getElementById('container-usuario-atualizado').style.visibility = 'visible';
                 document.getElementById('container-usuario-atualizado').style.display = 'grid';
                     
@@ -304,8 +303,8 @@ async function patch_user() {
                 document.getElementById('container-update-users').style.display = 'none';
             }
 
-            else if (resposta == 'Error: Request failed with status code 401') {
-                localStorage.setItem('access_token', resposta);
+            else if (resposta.message.includes('Request failed with status code 401')) {
+                localStorage.setItem('access_token', resposta.message);
                 checar_autorizacao();
             }
 
@@ -331,7 +330,7 @@ async function patch_user() {
 async function get_all_clients() {
     let access_token = localStorage.getItem('access_token');
 
-    if (access_token != 'Error: Request failed with status code 401' & access_token != 'Error: Request failed with status code 403' & access_token != 'Error: Request failed with status code 422' & access_token != 'Error: Network Error' & access_token != null) {
+    if (!access_token.includes('Request failed with status code 401') & !access_token.includes('Request failed with status code 403') & !access_token.includes('Request failed with status code 422') & !access_token.includes('Network Error')) {
         localStorage.setItem('paginaAtualClientes', 0);
 
         let config = {
@@ -354,7 +353,7 @@ async function get_all_clients() {
             }
         )
         
-        if (dadosTodosClientes != 'Error: Request failed with status code 401' & dadosTodosClientes != 'Error: Request failed with status code 404') {
+        if (!dadosTodosClientes.message) {
             let arrayTD = document.getElementsByTagName('td')
 
             for (i = 0; i < 10; i++) {
@@ -406,8 +405,8 @@ async function get_all_clients() {
             }
         }
 
-        else if (dadosTodosClientes == 'Error: Request failed with status code 401') {
-            localStorage.setItem('access_token', dadosTodosClientes);
+        else if (dadosTodosClientes.message.includes('Request failed with status code 401')) {
+            localStorage.setItem('access_token', dadosTodosClientes.message);
             checar_autorizacao();
         }
     }
@@ -416,7 +415,7 @@ async function get_all_clients() {
 async function get_all_clients_skip(alterar) {
     let access_token = localStorage.getItem('access_token');
 
-    if (access_token != 'Error: Request failed with status code 401' & access_token != 'Error: Request failed with status code 403' & access_token != 'Error: Request failed with status code 422' & access_token != 'Error: Network Error' & access_token != null) {
+    if (!access_token.includes('Request failed with status code 401') & !access_token.includes('Request failed with status code 403') & !access_token.includes('Request failed with status code 422') & !access_token.includes('Network Error')) {
         
         let pagina = parseInt(localStorage.getItem('paginaAtualClientes')) + parseInt(alterar);
 
@@ -444,7 +443,7 @@ async function get_all_clients_skip(alterar) {
             }
         )
         
-        if (dadosTodosClientes != 'Error: Request failed with status code 401' & dadosTodosClientes != 'Error: Request failed with status code 404') {
+        if (!dadosTodosClientes.message) {
             let arrayTD = document.getElementsByTagName('td')
             
             if (pagina > dadosTodosClientes.length) {
@@ -507,8 +506,8 @@ async function get_all_clients_skip(alterar) {
             }
         }
 
-        else if (dadosTodosClientes == 'Error: Request failed with status code 401') {
-            localStorage.setItem('access_token', dadosTodosClientes);
+        else if (dadosTodosClientes.message.includes('Error: Request failed with status code 401')) {
+            localStorage.setItem('access_token', dadosTodosClientes.message);
             checar_autorizacao();
         }
     }
@@ -542,7 +541,7 @@ async function get_client() {
             }
         )
         
-        if (dadosCliente != 'Error: Request failed with status code 401' & dadosCliente != 'Error: Request failed with status code 404') {
+        if (!dadosCliente.message) {
             divSearchClient.style.visibility = 'hidden';
             divSearchClient.style.display = 'none';
 
@@ -609,8 +608,8 @@ async function get_client() {
             }
         }
 
-        else if (dadosCliente == 'Error: Request failed with status code 401') {
-            localStorage.setItem('access_token', dadosCliente);
+        else if (dadosCliente.message.includes('Request failed with status code 401')) {
+            localStorage.setItem('access_token', dadosCliente.message);
             checar_autorizacao();
         }
 
@@ -674,7 +673,7 @@ async function post_client() {
             }
         )
 
-        if (resposta != 'Error: Network Error' & resposta != 'Error: Request failed with status code 401') {
+        if (!resposta.message) {
             document.getElementById('container-cliente-adicionado').style.visibility = 'visible';
             document.getElementById('container-cliente-adicionado').style.display = 'grid';
             
@@ -682,8 +681,8 @@ async function post_client() {
             document.getElementById('container-add-clients').style.display = 'none';
         }
 
-        else if (resposta == 'Error: Request failed with status code 401') {
-            localStorage.setItem('access_token', resposta);
+        else if (resposta.message.includes('Request failed with status code 401')) {
+            localStorage.setItem('access_token', resposta.message);
             checar_autorizacao();
         }
 
@@ -783,7 +782,7 @@ async function patch_client() {
             }
         )
         
-        if (resposta != 'Error: Request failed with status code 404' & resposta != 'Error: Request failed with status code 401') {
+        if (!resposta.message) {
             document.getElementById('container-cliente-atualizado').style.visibility = 'visible';
             document.getElementById('container-cliente-atualizado').style.display = 'grid';
                 
@@ -791,8 +790,8 @@ async function patch_client() {
             document.getElementById('container-update-clients').style.display = 'none';
         }
 
-        else if (resposta == 'Error: Request failed with status code 401') {
-            localStorage.setItem('access_token', resposta);
+        else if (resposta.message.includes('Request failed with status code 401')) {
+            localStorage.setItem('access_token', resposta.message);
             checar_autorizacao();
         }
 
@@ -832,7 +831,7 @@ async function delete_client() {
                 return error;
             }
         )
-        
+        console.log(resposta, "aqui")
         if (resposta == '') {
             document.getElementById('container-cliente-deletado').style.visibility = 'visible';
             document.getElementById('container-cliente-deletado').style.display = 'grid';
@@ -841,12 +840,12 @@ async function delete_client() {
             document.getElementById('container-delete-clients').style.display = 'none';
         }
 
-        else if (resposta == 'Error: Request failed with status code 401') {
-            localStorage.setItem('access_token', resposta);
+        else if (resposta.message.includes('Request failed with status code 401')) {
+            localStorage.setItem('access_token', resposta.message);
             checar_autorizacao();
         }
 
-        else if (resposta == 'Error: Request failed with status code 404') {
+        else if (resposta.message.includes('Request failed with status code 404')) {
             let arrayClienteInexistente = document.getElementsByClassName('container-cliente-inexistente');
 
             for (i = 0; i < arrayClienteInexistente.length; i ++) {
@@ -871,7 +870,7 @@ async function delete_client() {
 async function get_all_instalations() {
     let access_token = localStorage.getItem('access_token');
 
-    if (access_token != 'Error: Request failed with status code 401' & access_token != 'Error: Request failed with status code 403' & access_token != 'Error: Request failed with status code 422' & access_token != 'Error: Network Error' & access_token != null) {
+    if (!access_token.includes('Request failed with status code 401') & !access_token.includes('Request failed with status code 403') & !access_token.includes('Request failed with status code 422') & !access_token.includes('Network Error')) {
         localStorage.setItem('paginaAtualInstalacoes', 0);
 
         let config = {
@@ -894,7 +893,7 @@ async function get_all_instalations() {
             }
         )
         
-        if (dadosTodasInstalacoes != 'Error: Request failed with status code 401' & dadosTodasInstalacoes != 'Error: Request failed with status code 404') {
+        if (!dadosTodasInstalacoes.message) {
             let arrayTD = document.getElementsByTagName('td')
             
             for (i = 0; i < 10; i++) {
@@ -960,8 +959,8 @@ async function get_all_instalations() {
             }
         }
 
-        else if (dadosTodasInstalacoes == 'Error: Request failed with status code 401') {
-            localStorage.setItem('access_token', dadosTodasInstalacoes);
+        else if (dadosTodasInstalacoes.message.includes('Request failed with status code 401')) {
+            localStorage.setItem('access_token', dadosTodasInstalacoes.message);
             checar_autorizacao();
         }
     }
@@ -970,7 +969,7 @@ async function get_all_instalations() {
 async function get_all_instalations_skip(alterar) {
     let access_token = localStorage.getItem('access_token');
 
-    if (access_token != 'Error: Request failed with status code 401' & access_token != 'Error: Request failed with status code 403' & access_token != 'Error: Request failed with status code 422' & access_token != 'Error: Network Error' & access_token != null) {
+    if (!access_token.includes('Request failed with status code 401') & !access_token.includes('Request failed with status code 403') & !access_token.includes('Request failed with status code 422') & !access_token.includes('Network Error')) {
         let pagina = parseInt(localStorage.getItem('paginaAtualInstalacoes')) + parseInt(alterar);
 
         if (pagina < 0) {
@@ -997,7 +996,7 @@ async function get_all_instalations_skip(alterar) {
             }
         )
         
-        if (dadosTodasInstalacoes != 'Error: Request failed with status code 401' & dadosTodasInstalacoes != 'Error: Request failed with status code 404') {
+        if (!dadosTodasInstalacoes.message) {
             let arrayTD = document.getElementsByTagName('td')
             
             if (pagina > dadosTodasInstalacoes.length) {
@@ -1069,8 +1068,8 @@ async function get_all_instalations_skip(alterar) {
             }
         }
 
-        else if (dadosTodasInstalacoes == 'Error: Request failed with status code 401') {
-            localStorage.setItem('access_token', dadosTodasInstalacoes);
+        else if (dadosTodasInstalacoes.message.includes('Request failed with status code 401')) {
+            localStorage.setItem('access_token', dadosTodasInstalacoes.message);
             checar_autorizacao();
         }
     }
@@ -1104,7 +1103,7 @@ async function get_instalation() {
             }
         )
         
-        if (dadosInstalacao != 'Error: Request failed with status code 401' & dadosInstalacao != 'Error: Request failed with status code 404') {
+        if (!dadosInstalacao.message) {
             divSearchInstalation.style.visibility = 'hidden';
             divSearchInstalation.style.display = 'none';
 
@@ -1211,8 +1210,8 @@ async function get_instalation() {
             }
         }
 
-        else if (dadosInstalacao == 'Error: Request failed with status code 401') {
-            localStorage.setItem('access_token', dadosInstalacao);
+        else if (dadosInstalacao.message.includes('Request failed with status code 401')) {
+            localStorage.setItem('access_token', dadosInstalacao.message);
             checar_autorizacao();
         }
 
@@ -1295,7 +1294,7 @@ async function post_instalation() {
                 }
             )
 
-            if (resposta != 'Error: Network Error' & resposta != 'Error: Request failed with status code 401') {
+            if (!resposta.message) {
                 document.getElementById('container-instalacao-adicionada').style.visibility = 'visible';
                 document.getElementById('container-instalacao-adicionada').style.display = 'grid';
                 
@@ -1303,8 +1302,8 @@ async function post_instalation() {
                 document.getElementById('container-add-instalations').style.display = 'none';
             }
 
-            else if (resposta == 'Error: Request failed with status code 401') {
-                localStorage.setItem('access_token', resposta);
+            else if (resposta.message.includes('Request failed with status code 401')) {
+                localStorage.setItem('access_token', resposta.message);
                 checar_autorizacao();
             }
 
@@ -1341,7 +1340,7 @@ async function post_instalation() {
                 }
             )
 
-            if (resposta != 'Error: Network Error' & resposta != 'Error: Request failed with status code 401') {
+            if (!resposta.message) {
                 document.getElementById('container-instalacao-adicionada').style.visibility = 'visible';
                 document.getElementById('container-instalacao-adicionada').style.display = 'grid';
                 
@@ -1349,8 +1348,8 @@ async function post_instalation() {
                 document.getElementById('container-add-instalations').style.display = 'none';
             }
 
-            else if (resposta == 'Error: Request failed with status code 401') {
-                localStorage.setItem('access_token', resposta);
+            else if (resposta.message.includes('Request failed with status code 401')) {
+                localStorage.setItem('access_token', resposta.message);
                 checar_autorizacao();
             }
 
@@ -1479,7 +1478,7 @@ async function patch_instalation() {
             }
         )
         
-        if (resposta != 'Error: Request failed with status code 404' & resposta != 'Error: Request failed with status code 401') {
+        if (!resposta.message) {
             document.getElementById('container-instalacao-atualizada').style.visibility = 'visible';
             document.getElementById('container-instalacao-atualizada').style.display = 'grid';
                 
@@ -1487,8 +1486,8 @@ async function patch_instalation() {
             document.getElementById('container-update-instalations').style.display = 'none';
         }
 
-        else if (resposta == 'Error: Request failed with status code 401') {
-            localStorage.setItem('access_token', resposta);
+        else if (resposta.message.includes('Request failed with status code 401')) {
+            localStorage.setItem('access_token', resposta.message);
             checar_autorizacao();
         }
 
@@ -1537,12 +1536,12 @@ async function delete_instalation() {
             document.getElementById('container-delete-instalations').style.display = 'none';
         }
 
-        else if (resposta == 'Error: Request failed with status code 401') {
-            localStorage.setItem('access_token', resposta);
+        else if (resposta.message.includes('Request failed with status code 401')) {
+            localStorage.setItem('access_token', resposta.message);
             checar_autorizacao();
         }
 
-        else if (resposta == 'Error: Request failed with status code 404') {
+        else if (resposta.message.includes('Request failed with status code 404')) {
             let arrayInstalacaoInexistente = document.getElementsByClassName('container-instalacao-inexistente');
 
             for (i = 0; i < arrayInstalacaoInexistente.length; i ++) {
@@ -1566,7 +1565,7 @@ async function delete_instalation() {
 async function get_all_modules() {
     let access_token = localStorage.getItem('access_token');
 
-    if (access_token != 'Error: Request failed with status code 401' & access_token != 'Error: Request failed with status code 403' & access_token != 'Error: Request failed with status code 422' & access_token != 'Error: Network Error' & access_token != null) {
+    if (!access_token.includes('Request failed with status code 401') & !access_token.includes('Request failed with status code 403') & !access_token.includes('Request failed with status code 422') & !access_token.includes('Network Error')) {
         localStorage.setItem('paginaAtualModulos', 0);
 
         let config = {
@@ -1589,7 +1588,7 @@ async function get_all_modules() {
             }
         )
         
-        if (dadosTodosModulos != 'Error: Request failed with status code 401' & dadosTodosModulos != 'Error: Request failed with status code 404') {
+        if (!dadosTodosModulos.message) {
             let arrayTD = document.getElementsByTagName('td')
             
             for (i = 0; i < 10; i++) {
@@ -1676,8 +1675,8 @@ async function get_all_modules() {
             }
         }
 
-        else if (dadosTodosModulos == 'Error: Request failed with status code 401') {
-            localStorage.setItem('access_token', dadosTodosModulos);
+        else if (dadosTodosModulos.message.includes('Request failed with status code 401')) {
+            localStorage.setItem('access_token', dadosTodosModulos.message);
             checar_autorizacao();
         }
     }
@@ -1686,7 +1685,7 @@ async function get_all_modules() {
 async function get_all_modules_skip(alterar) {
     let access_token = localStorage.getItem('access_token');
 
-    if (access_token != 'Error: Request failed with status code 401' & access_token != 'Error: Request failed with status code 403' & access_token != 'Error: Request failed with status code 422' & access_token != 'Error: Network Error' & access_token != null) {
+    if (!access_token.includes('Request failed with status code 401') & !access_token.includes('Request failed with status code 403') & !access_token.includes('Request failed with status code 422') & !access_token.includes('Network Error')) {
         
         let pagina = parseInt(localStorage.getItem('paginaAtualModulos')) + parseInt(alterar);
 
@@ -1714,7 +1713,7 @@ async function get_all_modules_skip(alterar) {
             }
         )
         
-        if (dadosTodosModulos != 'Error: Request failed with status code 401' & dadosTodosModulos != 'Error: Request failed with status code 404') {
+        if (!dadosTodosModulos.message) {
             let arrayTD = document.getElementsByTagName('td')
             
             if (pagina > dadosTodosModulos.length) {
@@ -1807,8 +1806,8 @@ async function get_all_modules_skip(alterar) {
             }
         }
 
-        else if (dadosTodosModulos == 'Error: Request failed with status code 401') {
-            localStorage.setItem('access_token', dadosTodosModulos);
+        else if (dadosTodosModulos.message.includes('Request failed with status code 401')) {
+            localStorage.setItem('access_token', dadosTodosModulos.message);
             checar_autorizacao();
         }
     }
@@ -1842,7 +1841,7 @@ async function get_module() {
             }
         )
         
-        if (dadosModulo != 'Error: Request failed with status code 401' & dadosModulo != 'Error: Request failed with status code 404') {
+        if (!dadosModulo.message) {
             divSearchModule.style.visibility = 'hidden';
             divSearchModule.style.display = 'none';
 
@@ -1973,8 +1972,8 @@ async function get_module() {
             }
         }
 
-        else if (dadosModulo == 'Error: Request failed with status code 401') {
-            localStorage.setItem('access_token', dadosModulo);
+        else if (dadosModulo.message.includes('Request failed with status code 401')) {
+            localStorage.setItem('access_token', dadosModulo.message);
             checar_autorizacao();
         }
 
@@ -2083,7 +2082,7 @@ async function post_module() {
             }
         )
 
-        if (resposta != 'Error: Network Error' & resposta != 'Error: Request failed with status code 401') {
+        if (!resposta.message) {
             document.getElementById('container-modulo-adicionado').style.visibility = 'visible';
             document.getElementById('container-modulo-adicionado').style.display = 'grid';
             
@@ -2091,8 +2090,8 @@ async function post_module() {
             document.getElementById('container-add-modules-general').style.display = 'none';
         }
 
-        else if (resposta == 'Error: Request failed with status code 401') {
-            localStorage.setItem('access_token', resposta);
+        else if (resposta.message.includes('Request failed with status code 401')) {
+            localStorage.setItem('access_token', resposta.message);
             checar_autorizacao();
         }
 
@@ -2263,7 +2262,7 @@ async function patch_module() {
             }
         )
         
-        if (resposta != 'Error: Request failed with status code 404' & resposta != 'Error: Request failed with status code 401') {
+        if (!resposta.message) {
             document.getElementById('container-modulo-atualizado').style.visibility = 'visible';
             document.getElementById('container-modulo-atualizado').style.display = 'grid';
                 
@@ -2271,8 +2270,8 @@ async function patch_module() {
             document.getElementById('container-update-modules-general').style.display = 'none';
         }
 
-        else if (resposta == 'Error: Request failed with status code 401') {
-            localStorage.setItem('access_token', resposta);
+        else if (resposta.message.includes('Request failed with status code 401')) {
+            localStorage.setItem('access_token', resposta.message);
             checar_autorizacao();
         }
 
@@ -2321,12 +2320,12 @@ async function delete_module() {
             document.getElementById('container-delete-modules').style.display = 'none';
         }
 
-        else if (resposta == 'Error: Request failed with status code 401') {
-            localStorage.setItem('access_token', resposta);
+        else if (resposta.message.includes('Request failed with status code 401')) {
+            localStorage.setItem('access_token', resposta.message);
             checar_autorizacao();
         }
 
-        else if (resposta == 'Error: Request failed with status code 404') {
+        else if (resposta.message.includes('Request failed with status code 404')) {
             let arrayModuloInexistente = document.getElementsByClassName('container-modulo-inexistente');
 
             for (i = 0; i < arrayModuloInexistente.length; i ++) {
@@ -2351,7 +2350,7 @@ async function delete_module() {
 async function get_all_inverters() {
     let access_token = localStorage.getItem('access_token');
 
-    if (access_token != 'Error: Request failed with status code 401' & access_token != 'Error: Request failed with status code 403' & access_token != 'Error: Request failed with status code 422' & access_token != 'Error: Network Error' & access_token != null) {
+    if (!access_token.includes('Request failed with status code 401') & !access_token.includes('Request failed with status code 403') & !access_token.includes('Request failed with status code 422') & !access_token.includes('Network Error')) {
         localStorage.setItem('paginaAtualInversores', 0);
 
         let config = {
@@ -2374,7 +2373,7 @@ async function get_all_inverters() {
             }
         )
         
-        if (dadosTodosInversores != 'Error: Request failed with status code 401' & dadosTodosInversores != 'Error: Request failed with status code 404') {
+        if (!dadosTodosInversores.message) {
             let arrayTD = document.getElementsByTagName('td')
             
             for (i = 0; i < 10; i++) {
@@ -2461,8 +2460,8 @@ async function get_all_inverters() {
             }
         }
 
-        else if (dadosTodosInversores == 'Error: Request failed with status code 401') {
-            localStorage.setItem('access_token', dadosTodosInversores);
+        else if (dadosTodosInversores.message.includes('Request failed with status code 401')) {
+            localStorage.setItem('access_token', dadosTodosInversores.message);
             checar_autorizacao();
         }
     }
@@ -2471,7 +2470,7 @@ async function get_all_inverters() {
 async function get_all_inverters_skip(alterar) {
     let access_token = localStorage.getItem('access_token');
 
-    if (access_token != 'Error: Request failed with status code 401' & access_token != 'Error: Request failed with status code 403' & access_token != 'Error: Request failed with status code 422' & access_token != 'Error: Network Error' & access_token != null) {
+    if (!access_token.includes('Request failed with status code 401') & !access_token.includes('Request failed with status code 403') & !access_token.includes('Request failed with status code 422') & !access_token.includes('Network Error')) {
         
         let pagina = parseInt(localStorage.getItem('paginaAtualInversores')) + parseInt(alterar);
 
@@ -2499,7 +2498,7 @@ async function get_all_inverters_skip(alterar) {
             }
         )
         
-        if (dadosTodosInversores != 'Error: Request failed with status code 401' & dadosTodosInversores != 'Error: Request failed with status code 404') {
+        if (!dadosTodosInversores.message) {
             let arrayTD = document.getElementsByTagName('td')
             
             if (pagina > dadosTodosInversores.length) {
@@ -2592,8 +2591,8 @@ async function get_all_inverters_skip(alterar) {
             }
         }
 
-        else if (dadosTodosInversores == 'Error: Request failed with status code 401') {
-            localStorage.setItem('access_token', dadosTodosInversores);
+        else if (dadosTodosInversores.message.includes('Request failed with status code 401')) {
+            localStorage.setItem('access_token', dadosTodosInversores.message);
             checar_autorizacao();
         }
     }
@@ -2627,7 +2626,7 @@ async function get_inverter() {
             }
         )
         
-        if (dadosInversor != 'Error: Request failed with status code 401' & dadosInversor != 'Error: Request failed with status code 404') {
+        if (!dadosInversor.message) {
             divSearchInverter.style.visibility = 'hidden';
             divSearchInverter.style.display = 'none';
 
@@ -2774,8 +2773,8 @@ async function get_inverter() {
             }
         }
 
-        else if (dadosInversor == 'Error: Request failed with status code 401') {
-            localStorage.setItem('access_token', dadosInversor);
+        else if (dadosInversor.message.includes('Request failed with status code 401')) {
+            localStorage.setItem('access_token', dadosInversor.message);
             checar_autorizacao();
         }
 
@@ -2880,7 +2879,7 @@ async function post_inverter() {
             }
         )
 
-        if (resposta != 'Error: Network Error' & resposta != 'Error: Request failed with status code 401') {
+        if (!resposta.message) {
             document.getElementById('container-inversor-adicionado').style.visibility = 'visible';
             document.getElementById('container-inversor-adicionado').style.display = 'grid';
             
@@ -2888,8 +2887,8 @@ async function post_inverter() {
             document.getElementById('container-add-inverters-general').style.display = 'none';
         }
 
-        else if (resposta == 'Error: Request failed with status code 401') {
-            localStorage.setItem('access_token', resposta);
+        else if (resposta.message.includes('Request failed with status code 401')) {
+            localStorage.setItem('access_token', resposta.message);
             checar_autorizacao();
         }
 
@@ -3065,7 +3064,7 @@ async function patch_inverter() {
             }
         )
         
-        if (resposta != 'Error: Request failed with status code 404' & resposta != 'Error: Request failed with status code 401') {
+        if (!resposta.message) {
             document.getElementById('container-inversor-atualizado').style.visibility = 'visible';
             document.getElementById('container-inversor-atualizado').style.display = 'grid';
                 
@@ -3073,8 +3072,8 @@ async function patch_inverter() {
             document.getElementById('container-update-inverters-general').style.display = 'none';
         }
 
-        else if (resposta == 'Error: Request failed with status code 401') {
-            localStorage.setItem('access_token', resposta);
+        else if (resposta.message.includes('Request failed with status code 401')) {
+            localStorage.setItem('access_token', resposta.message);
             checar_autorizacao();
         }
 
@@ -3123,12 +3122,12 @@ async function delete_inverter() {
             document.getElementById('container-delete-inverters').style.display = 'none';
         }
 
-        else if (resposta == 'Error: Request failed with status code 401') {
-            localStorage.setItem('access_token', resposta);
+        else if (resposta.message.includes('Request failed with status code 401')) {
+            localStorage.setItem('access_token', resposta.message);
             checar_autorizacao();
         }
 
-        else if (resposta == 'Error: Request failed with status code 404') {
+        else if (resposta.message.includes('Request failed with status code 404')) {
             let arrayInversorInexistente = document.getElementsByClassName('container-inversor-inexistente');
 
             for (i = 0; i < arrayInversorInexistente.length; i ++) {
@@ -3153,7 +3152,7 @@ async function delete_inverter() {
 async function get_all_projects() {
     let access_token = localStorage.getItem('access_token');
 
-    if (access_token != 'Error: Request failed with status code 401' & access_token != 'Error: Request failed with status code 403' & access_token != 'Error: Request failed with status code 422' & access_token != 'Error: Network Error' & access_token != null) {
+    if (!access_token.includes('Request failed with status code 401') & !access_token.includes('Request failed with status code 403') & !access_token.includes('Request failed with status code 422') & !access_token.includes('Network Error')) {
         localStorage.setItem('paginaAtualProjetos', 0);
 
         let config = {
@@ -3176,7 +3175,7 @@ async function get_all_projects() {
             }
         )
         
-        if (dadosTodosProjetos != 'Error: Request failed with status code 401' & dadosTodosProjetos != 'Error: Request failed with status code 404') {
+        if (!dadosTodosProjetos.message) {
             let arrayTD = document.getElementsByTagName('td')
             
             for (i = 0; i < 10; i++) {
@@ -3367,8 +3366,8 @@ async function get_all_projects() {
             }
         }
 
-        else if (dadosTodosProjetos == 'Error: Request failed with status code 401') {
-            localStorage.setItem('access_token', dadosTodosProjetos);
+        else if (dadosTodosProjetos.message.includes('Request failed with status code 401')) {
+            localStorage.setItem('access_token', dadosTodosProjetos.message);
             checar_autorizacao();
         }
     }
@@ -3377,7 +3376,7 @@ async function get_all_projects() {
 async function get_all_projects_skip(alterar) {
     let access_token = localStorage.getItem('access_token');
 
-    if (access_token != 'Error: Request failed with status code 401' & access_token != 'Error: Request failed with status code 403' & access_token != 'Error: Request failed with status code 422' & access_token != 'Error: Network Error' & access_token != null) {
+    if (!access_token.includes('Request failed with status code 401') & !access_token.includes('Request failed with status code 403') & !access_token.includes('Request failed with status code 422') & !access_token.includes('Network Error')) {
         let pagina = parseInt(localStorage.getItem('paginaAtualProjetos')) + parseInt(alterar);
 
         if (pagina < 0) {
@@ -3404,7 +3403,7 @@ async function get_all_projects_skip(alterar) {
             }
         )
         
-        if (dadosTodosProjetos != 'Error: Request failed with status code 401' & dadosTodosProjetos != 'Error: Request failed with status code 404') {
+        if (!dadosTodosProjetos.message) {
             let arrayTD = document.getElementsByTagName('td')
             
             if (pagina > dadosTodosProjetos.length) {
@@ -3601,8 +3600,8 @@ async function get_all_projects_skip(alterar) {
             }
         }
 
-        else if (dadosTodosProjetos == 'Error: Request failed with status code 401') {
-            localStorage.setItem('access_token', dadosTodosProjetos);
+        else if (dadosTodosProjetos.message.includes('Request failed with status code 401')) {
+            localStorage.setItem('access_token', dadosTodosProjetos.message);
             checar_autorizacao();
         }
     }
@@ -3636,7 +3635,7 @@ async function get_project() {
             }
         )
         
-        if (dadosProjeto != 'Error: Request failed with status code 401' & dadosProjeto != 'Error: Request failed with status code 404') {
+        if (!dadosProjeto.message) {
             divSearchProject.style.visibility = 'hidden';
             divSearchProject.style.display = 'none';
 
@@ -3903,8 +3902,8 @@ async function get_project() {
             }
         }
 
-        else if (dadosInversor == 'Error: Request failed with status code 401') {
-            localStorage.setItem('access_token', dadosInversor);
+        else if (dadosInversor.message.includes('Request failed with status code 401')) {
+            localStorage.setItem('access_token', dadosInversor.message);
             checar_autorizacao();
         }
 
@@ -4044,7 +4043,7 @@ async function post_project() {
                 }
             )
 
-            if (resposta != 'Error: Network Error' & resposta != 'Error: Request failed with status code 401') {
+            if (!resposta.message) {
                 document.getElementById('container-projeto-adicionado').style.visibility = 'visible';
                 document.getElementById('container-projeto-adicionado').style.display = 'grid';
                 
@@ -4054,8 +4053,8 @@ async function post_project() {
                 localStorage.setItem('projeto_atual', resposta.id)
             }
 
-            else if (resposta == 'Error: Request failed with status code 401') {
-                localStorage.setItem('access_token', resposta);
+            else if (resposta.message.includes('Request failed with status code 401')) {
+                localStorage.setItem('access_token', resposta.message);
                 checar_autorizacao();
             }
 
@@ -4303,7 +4302,7 @@ async function patch_project() {
             }
         )
         
-        if (resposta != 'Error: Request failed with status code 404' & resposta != 'Error: Request failed with status code 401') {
+        if (!resposta.message) {
             document.getElementById('container-projeto-atualizado').style.visibility = 'visible';
             document.getElementById('container-projeto-atualizado').style.display = 'grid';
                 
@@ -4313,8 +4312,8 @@ async function patch_project() {
             localStorage.setItem('projeto_atual', id)
         }
 
-        else if (resposta == 'Error: Request failed with status code 401') {
-            localStorage.setItem('access_token', resposta);
+        else if (resposta.message.includes('Request failed with status code 401')) {
+            localStorage.setItem('access_token', resposta.message);
             checar_autorizacao();
         }
 
@@ -4363,12 +4362,12 @@ async function delete_project() {
             document.getElementById('container-delete-projects').style.display = 'none';
         }
 
-        else if (resposta == 'Error: Request failed with status code 401') {
-            localStorage.setItem('access_token', resposta);
+        else if (resposta.message.includes('Request failed with status code 401')) {
+            localStorage.setItem('access_token', resposta.message);
             checar_autorizacao();
         }
 
-        else if (resposta == 'Error: Request failed with status code 404') {
+        else if (resposta.message.includes('Request failed with status code 404')) {
             let arrayInversorInexistente = document.getElementsByClassName('container-projeto-inexistente');
 
             for (i = 0; i < arrayInversorInexistente.length; i ++) {
@@ -4426,7 +4425,7 @@ async function print_project() {
                 }
             )
 
-        if (resposta != 'Error: Request failed with status code 404' & resposta != 'Error: Request failed with status code 401') {
+        if (!resposta.message) {
             document.getElementById('container-projeto-impresso').style.visibility = 'visible';
             document.getElementById('container-projeto-impresso').style.display = 'grid';
                 
@@ -4434,8 +4433,8 @@ async function print_project() {
             document.getElementById('container-print-projects').style.display = 'none';
         }
 
-        else if (resposta == 'Error: Request failed with status code 401') {
-            localStorage.setItem('access_token', resposta);
+        else if (resposta.message.includes('Request failed with status code 401')) {
+            localStorage.setItem('access_token', resposta.message);
             checar_autorizacao();
         }
 
