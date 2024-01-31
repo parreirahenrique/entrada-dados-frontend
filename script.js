@@ -225,10 +225,10 @@ async function checar_autorizacao() {
     if (!access_token.includes('Request failed with status code 401') & !access_token.includes('Request failed with status code 403') & !access_token.includes('Request failed with status code 422') & !access_token.includes('Network Error')) {
         let nomePagina = String(location.pathname.split("/").slice(-1));
         console.log(nomePagina)
-        if (nomePagina != 'index.html') {
-            // iconeHome = document.getElementsByClassName('uil uil-home');
-            // iconeHome[0].style.visibility = 'visible';
-            // iconeHome[0].style.display = 'grid';
+        if (nomePagina != 'index.html' & nomePagina != '') {
+            iconeHome = document.getElementsByClassName('uil uil-home');
+            iconeHome[0].style.visibility = 'visible';
+            iconeHome[0].style.display = 'grid';
         }
 
         containerUsuario = document.getElementsByClassName('container-user');
@@ -247,7 +247,7 @@ async function checar_autorizacao() {
     else {
         let nomePagina = String(location.pathname.split("/").slice(-1));
         console.log(nomePagina)
-        if (nomePagina != 'https://parreirahenrique.github.io/entrada-dados-frontend/' & nomePagina != 'https://parreirahenrique.github.io/entrada-dados-frontend/index.html') {
+        if (nomePagina != 'index.html' & nomePagina != '') {
             iconeHome = document.getElementsByClassName('uil uil-home');
             iconeHome[0].style.visibility = 'hidden';
             iconeHome[0].style.display = 'none';
