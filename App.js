@@ -29,8 +29,7 @@ async function login() {
 
         if (!token_acesso.message) {
             let nomePagina = String(location.pathname.split("/").slice(-1))
-
-            console.log(nomePagina)
+            console.log(nomePagina === '')
             if (nomePagina != 'index.html' & nomePagina != '') {
                 setTimeout(window.location.replace('../entrada-dados-frontend/'), 5000);
             }
@@ -79,7 +78,7 @@ async function logout() {
     )
 
     let nomePagina = String(location.pathname.split("/").slice(-1))
-    console.log(nomePagina)
+    console.log(nomePagina === '')
     if (nomePagina != 'index.html' & nomePagina != '') {
         setTimeout(window.location.replace('../entrada-dados-frontend/'), 5000);
     }
