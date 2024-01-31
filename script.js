@@ -217,7 +217,7 @@ async function checar_autorizacao() {
             return error;
         }
     )
-
+    console.log(dadosUsuario.message)
     if (dadosUsuario.message) {
         access_token = dadosUsuario.message
     }
