@@ -9,7 +9,7 @@ function nome_usuario(input) {
             valor = valor.replace(valor[i], '')
         }
     }
-    
+
     if (valor[0] == ' ') {
         valor = valor.replace(valor[0], '')
     }
@@ -17,9 +17,9 @@ function nome_usuario(input) {
     for (i = 0; i < valor.length; i++) {
         if (i == 0) {
             valor = valor.replace(valor[i], valor[i].toUpperCase())
-            
+
         }
-        
+
         else {
             if (valor[i - 1] == ' ') {
                 valor = valor.replace(valor[i], valor[i].toUpperCase())
@@ -37,19 +37,19 @@ function nome_usuario(input) {
 
 function apenas_numeros(input) {
     let valor_numerico = input.value.toString()
-    
+
     for (i = (valor_numerico.length - 1); i >= 0; i--) {
         if (isNaN(valor_numerico[i]) == true || valor_numerico[i] == ' ') {
             valor_numerico = valor_numerico.replace(valor_numerico[i], '')
         }
     }
-    
+
     input.value = valor_numerico
 }
 
 function apenas_letras(input) {
     let valor = input.value.normalize("NFD").replace(/[\u0300-\u036f]/g, '');
-    
+
     for (i = (valor.length - 1); i >= 0; i--) {
         if (isNaN(valor[i]) == false & valor[i] != ' ') {
             valor = valor.replace(valor[i], '')
@@ -61,13 +61,13 @@ function apenas_letras(input) {
 
 function remover_caracteres_especiais(input) {
     let valor = input.value.normalize("NFD").replace(/[\u0300-\u036f]/g, '');
-    
+
     input.value = valor.toUpperCase()
 }
 
 function cpf_cnpj(input) {
     let valor_numerico = input.value.toString()
-    
+
     for (i = (valor_numerico.length - 1); i >= 0; i--) {
         if (isNaN(valor_numerico[i]) == true || valor_numerico[i] == ' ') {
             valor_numerico = valor_numerico.replace(valor_numerico[i], '')
@@ -82,12 +82,12 @@ function cpf_cnpj(input) {
         valor_numerico = valor_numerico.slice(0, 3) + '.' + valor_numerico.slice(3, 6) + '.' + valor_numerico.slice(6, 9) + '-' + valor_numerico.slice(9, 11)
         input.value = valor_numerico
     }
-    
+
     else {
         input.value = valor_numerico
 
         if (valor_numerico.length == 14) {
-            valor_numerico = valor_numerico.slice(0, 2) + '.' + valor_numerico.slice(2, 5) + '.' + valor_numerico.slice(5, 8) + '/' + valor_numerico.slice(8, 12) + '-' +  valor_numerico.slice(12, 14)
+            valor_numerico = valor_numerico.slice(0, 2) + '.' + valor_numerico.slice(2, 5) + '.' + valor_numerico.slice(5, 8) + '/' + valor_numerico.slice(8, 12) + '-' + valor_numerico.slice(12, 14)
             input.value = valor_numerico
         }
     }
@@ -95,7 +95,7 @@ function cpf_cnpj(input) {
 
 function cep(input) {
     let valor_numerico = input.value.toString()
-    
+
     for (i = (valor_numerico.length - 1); i >= 0; i--) {
         if (isNaN(valor_numerico[i]) == true || valor_numerico[i] == ' ') {
             valor_numerico = valor_numerico.replace(valor_numerico[i], '')
@@ -125,7 +125,7 @@ function numero_decimal(input) {
     for (i = 0; i < valor_numerico.length; i++) {
         digitos[i] = valor_numerico[i]
     }
-    
+
     let expoente = -2
     let valor = 0
 
@@ -145,7 +145,7 @@ function numero_decimal(input) {
 
 function temperatura_nominal(input) {
     let valor_numerico = input.value.toString()
-    
+
     for (i = (valor_numerico.length - 1); i >= 0; i--) {
         if (isNaN(valor_numerico[i]) == true || valor_numerico[i] == ' ') {
             valor_numerico = valor_numerico.replace(valor_numerico[i], '')
@@ -175,7 +175,7 @@ function coeficiente_temperatura(input) {
     for (i = 0; i < valor_numerico.length; i++) {
         digitos[i] = valor_numerico[i]
     }
-    
+
     let expoente = -2
     let valor = 0
 
@@ -197,10 +197,10 @@ function coeficiente_temperatura(input) {
 async function checar_autorizacao() {
     access_token = localStorage.getItem('access_token');
     username = localStorage.getItem('username');
-    
+
     let config = {
         headers: {
-          'Authorization': 'Bearer ' + access_token
+            'Authorization': 'Bearer ' + access_token
         }
     }
 
@@ -218,13 +218,13 @@ async function checar_autorizacao() {
         }
     )
 
-    if (dadosUsuario == 'Error: Request failed with status code 401' || dadosUsuario == 'Error: Request failed with status code 403' || dadosUsuario == 'Error: Request failed with status code 422' || dadosUsuario == 'Error: Network Error' || dadosUsuario == null) {
-        access_token = dadosUsuario
+    if (dadosUsuario.message) {
+        access_token = dadosUsuario.message
     }
 
-    if (access_token != 'Error: Request failed with status code 401' & access_token != 'Error: Request failed with status code 403' & access_token != 'Error: Request failed with status code 422' & access_token != 'Error: Network Error' & access_token != null) {
+    if (!access_token.includes('Request failed with status code 401') & !access_token.includes('Request failed with status code 403') & !access_token.includes('Request failed with status code 422') & !access_token.includes('Network Error')) {
         let nomePagina = String(location.pathname.split("/").slice(-1));
-        
+
         if (nomePagina != 'index.html') {
             iconeHome = document.getElementsByClassName('uil uil-home');
             iconeHome[0].style.visibility = 'visible';
@@ -238,7 +238,7 @@ async function checar_autorizacao() {
         autorizado = document.getElementsByClassName('container-usuario-autorizado');
         autorizado[0].style.visibility = 'visible';
         autorizado[0].style.display = 'grid';
-        
+
         naoAutorizado = document.getElementsByClassName('container-usuario-nao-autorizado');
         naoAutorizado[0].style.visibility = 'hidden';
         naoAutorizado[0].style.display = 'none';
@@ -246,7 +246,7 @@ async function checar_autorizacao() {
 
     else {
         let nomePagina = String(location.pathname.split("/").slice(-1));
-        
+
         if (nomePagina != 'index.html') {
             iconeHome = document.getElementsByClassName('uil uil-home');
             iconeHome[0].style.visibility = 'hidden';
@@ -264,7 +264,7 @@ async function checar_autorizacao() {
         naoAutorizado = document.getElementsByClassName('container-usuario-nao-autorizado');
         naoAutorizado[0].style.visibility = 'visible';
         naoAutorizado[0].style.display = 'grid';
-        }
+    }
 }
 
 // FUNÇÕES PARA MOSTRAR CONTEÚDO DA PÁGINA DE USUÁRIOS
@@ -286,17 +286,17 @@ function criar_usuario() {
     divAtualizarUsuario.style.visibility = "hidden";
     divAtualizarUsuario.style.display = "none";
 
-    for(i = 0; i < arrayCamposObrigatorios.length; i++) {
+    for (i = 0; i < arrayCamposObrigatorios.length; i++) {
         arrayCamposObrigatorios[i].style.visibility = "hidden"
         arrayCamposObrigatorios[i].style.display = "none"
     }
 
-    for(i = 0; i < arrayUsuarioInexistente.length; i++) {
+    for (i = 0; i < arrayUsuarioInexistente.length; i++) {
         arrayUsuarioInexistente[i].style.visibility = "hidden"
         arrayUsuarioInexistente[i].style.display = "none"
     }
 
-    for(i = 0; i < arraySenhasDivergentes.length; i++) {
+    for (i = 0; i < arraySenhasDivergentes.length; i++) {
         arraySenhasDivergentes[i].style.visibility = "hidden"
         arraySenhasDivergentes[i].style.display = "none"
     }
@@ -322,18 +322,18 @@ function atualizar_usuario() {
     divAtualizarUsuario.style.visibility = "hidden";
     divAtualizarUsuario.style.display = "none";
 
-    
-    for(i = 0; i < arrayCamposObrigatorios.length; i++) {
+
+    for (i = 0; i < arrayCamposObrigatorios.length; i++) {
         arrayCamposObrigatorios[i].style.visibility = "hidden"
         arrayCamposObrigatorios[i].style.display = "none"
     }
 
-    for(i = 0; i < arrayUsuarioInexistente.length; i++) {
+    for (i = 0; i < arrayUsuarioInexistente.length; i++) {
         arrayUsuarioInexistente[i].style.visibility = "hidden"
         arrayUsuarioInexistente[i].style.display = "none"
     }
 
-    for(i = 0; i < arraySenhasDivergentes.length; i++) {
+    for (i = 0; i < arraySenhasDivergentes.length; i++) {
         arraySenhasDivergentes[i].style.visibility = "hidden"
         arraySenhasDivergentes[i].style.display = "none"
     }
@@ -346,23 +346,23 @@ function mostrar_campos_atualizar_usuarios() {
     let checkboxNome = document.getElementById('checkbox-nome-usuario')
 
     let divNomeUsuario = document.getElementById('container-form-nome-usuario');
-    
+
     let arraySenhasDivergentes = document.getElementsByClassName('container-senha-divergente')
     let arrayUsuarioInexistente = document.getElementsByClassName('container-usuario-inexistente');
     let arrayCamposObrigatorios = document.getElementsByClassName('campo-obrigatorio-usuarios');
-    
-    for(i = 0; i < arrayCamposObrigatorios.length; i++) {
+
+    for (i = 0; i < arrayCamposObrigatorios.length; i++) {
         arrayCamposObrigatorios[i].style.visibility = "hidden"
         arrayCamposObrigatorios[i].style.display = "none"
     }
 
-    for(i = 0; i < arraySenhasDivergentes.length; i++) {
+    for (i = 0; i < arraySenhasDivergentes.length; i++) {
         arraySenhasDivergentes[i].style.visibility = "hidden"
         arraySenhasDivergentes[i].style.display = "none"
     }
 
     let nomeUsuario = document.getElementById('usuário-buscar-atualizar').value;
-    
+
     document.getElementById('usuário-atualizar').value = ''
     document.getElementById('senha-atualizar').value = ''
     document.getElementById('confirmar-senha-atualizar').value = ''
@@ -383,19 +383,19 @@ function mostrar_campos_atualizar_usuarios() {
             divNomeUsuario.style.display = "none"
         }
 
-        for(i = 0; i < arrayCamposObrigatorios.length; i++) {
+        for (i = 0; i < arrayCamposObrigatorios.length; i++) {
             arrayCamposObrigatorios[i].style.visibility = "hidden"
             arrayCamposObrigatorios[i].style.display = "none"
         }
 
-        for(i = 0; i < arrayUsuarioInexistente.length; i++) {
+        for (i = 0; i < arrayUsuarioInexistente.length; i++) {
             arrayUsuarioInexistente[i].style.visibility = "hidden"
             arrayUsuarioInexistente[i].style.display = "none"
         }
     }
 
     else {
-        for(i = 0; i < arrayCamposObrigatorios.length; i++) {
+        for (i = 0; i < arrayCamposObrigatorios.length; i++) {
             arrayCamposObrigatorios[i].style.visibility = "visible"
             arrayCamposObrigatorios[i].style.display = "grid"
         }
@@ -413,10 +413,10 @@ async function mostrar_usuarios(nomeFuncao) {
 
     let access_token = localStorage.getItem('access_token')
 
-    if (access_token != 'Error: Request failed with status code 401' & access_token != 'Error: Request failed with status code 403' & access_token != 'Error: Request failed with status code 422' & access_token != 'Error: Network Error' & access_token != null) {
+    if (!access_token.includes('Request failed with status code 401') & !access_token.includes('Request failed with status code 403') & !access_token.includes('Request failed with status code 422') & !access_token.includes('Network Error')) {
         let config = {
             headers: {
-              'Authorization': 'Bearer ' + access_token
+                'Authorization': 'Bearer ' + access_token
             }
         }
 
@@ -433,26 +433,27 @@ async function mostrar_usuarios(nomeFuncao) {
                 return error;
             }
         )
-        if (dadosTodosUsuarios != 'Error: Request failed with status code 401' & dadosTodosUsuarios != 'Error: Request failed with status code 404') {
+
+        if (!dadosTodosUsuarios.message) {
             for (i = 0; i < dadosTodosUsuarios.length; i++) {
                 nome[i] = dadosTodosUsuarios[i].nome;
                 let opcao_atual = document.createElement('option');
                 let texto = document.createTextNode(String(i + 1) + ' - ' + nome[i])
-                
+
                 opcao_atual.value = String(i + 1) + ' - ' + nome[i]
                 opcao_atual.appendChild(texto)
                 lista.appendChild(opcao_atual)
             }
         }
 
-        else if (dadosTodosUsuarios == 'Error: Request failed with status code 401') {
-            localStorage.setItem('access_token', dadosTodosUsuarios);
+        else if (dadosTodosUsuarios.message == 'Request failed with status code 401') {
+            localStorage.setItem('access_token', dadosTodosUsuarios.message);
             checar_autorizacao();
         }
     }
 
     localStorage.setItem('nome_usuario', nome)
-    
+
     lista.style.display = 'grid';
 
     for (let opcao of lista.options) {
@@ -466,9 +467,9 @@ async function mostrar_usuarios(nomeFuncao) {
 function filtrar_usuarios(nomeFuncao) {
     let input = document.getElementById('usuário-' + nomeFuncao);
     let lista = document.getElementById('nomeusuario-' + nomeFuncao);
-    
+
     let nome = localStorage.getItem('nome_usuario').split(',')
-    
+
     while (lista.options.length > 0) {
         lista.children[0].remove()
     }
@@ -476,7 +477,7 @@ function filtrar_usuarios(nomeFuncao) {
     for (i = 0; i < nome.length; i++) {
         let opcao_atual = document.createElement('option');
         let texto = document.createTextNode(String(i + 1) + ' - ' + nome[i])
-        
+
         opcao_atual.value = String(i + 1) + ' - ' + nome[i]
         opcao_atual.appendChild(texto)
         lista.appendChild(opcao_atual)
@@ -490,7 +491,7 @@ function filtrar_usuarios(nomeFuncao) {
             lista.children[i].remove()
         }
     }
-    
+
     for (let opcao of lista.options) {
         opcao.onclick = function () {
             input.value = opcao.value.split(' - ')[1];
@@ -516,7 +517,7 @@ function buscar_cliente() {
     let dropDownListSearchClient = document.getElementById('numerocliente-buscar');
     let dropDownListUpdateClient = document.getElementById('numerocliente-buscar-atualizar');
     let dropDownListDeleteClient = document.getElementById('numerocliente-deletar');
-    
+
     document.getElementById('número-cliente-buscar').value = ''
 
     divGeral.style.visibility = "hidden"
@@ -543,12 +544,12 @@ function buscar_cliente() {
     dropDownListUpdateClient.style.display = "none";
     dropDownListDeleteClient.style.display = "none";
 
-    for(i = 0; i < arrayCamposObrigatorios.length; i++) {
+    for (i = 0; i < arrayCamposObrigatorios.length; i++) {
         arrayCamposObrigatorios[i].style.visibility = "hidden"
         arrayCamposObrigatorios[i].style.display = "none"
     }
 
-    for(i = 0; i < arrayClienteInexistente.length; i++) {
+    for (i = 0; i < arrayClienteInexistente.length; i++) {
         arrayClienteInexistente[i].style.visibility = "hidden"
         arrayClienteInexistente[i].style.display = "none"
     }
@@ -603,12 +604,12 @@ function adicionar_cliente() {
     dropDownListUpdateClient.style.display = "none";
     dropDownListDeleteClient.style.display = "none";
 
-    for(i = 0; i < arrayCamposObrigatorios.length; i++) {
+    for (i = 0; i < arrayCamposObrigatorios.length; i++) {
         arrayCamposObrigatorios[i].style.visibility = "hidden"
         arrayCamposObrigatorios[i].style.display = "none"
     }
 
-    for(i = 0; i < arrayClienteInexistente.length; i++) {
+    for (i = 0; i < arrayClienteInexistente.length; i++) {
         arrayClienteInexistente[i].style.visibility = "hidden"
         arrayClienteInexistente[i].style.display = "none"
     }
@@ -657,12 +658,12 @@ function atualizar_cliente() {
     dropDownListUpdateClient.style.display = "none";
     dropDownListDeleteClient.style.display = "none";
 
-    for(i = 0; i < arrayCamposObrigatorios.length; i++) {
+    for (i = 0; i < arrayCamposObrigatorios.length; i++) {
         arrayCamposObrigatorios[i].style.visibility = "hidden"
         arrayCamposObrigatorios[i].style.display = "none"
     }
 
-    for(i = 0; i < arrayClienteInexistente.length; i++) {
+    for (i = 0; i < arrayClienteInexistente.length; i++) {
         arrayClienteInexistente[i].style.visibility = "hidden"
         arrayClienteInexistente[i].style.display = "none"
     }
@@ -683,13 +684,11 @@ async function mostrar_campos_atualizar_clientes() {
     let arrayClienteInexistente = document.getElementsByClassName('container-cliente-inexistente');
 
     let numeroCliente = document.getElementById('número-cliente-buscar-atualizar').value;
-    
-    
 
     if (numeroCliente != '') {
         let config = {
             headers: {
-            'Authorization': 'Bearer ' + access_token
+                'Authorization': 'Bearer ' + access_token
             }
         }
 
@@ -702,12 +701,12 @@ async function mostrar_campos_atualizar_clientes() {
             }
         ).catch(
             function (error) {
-                console.log(error);
+                // console.log(error);
                 return error;
             }
         )
-        
-        if (dadosOriginais != 'Error: Request failed with status code 404' & dadosOriginais != 'Error: Request failed with status code 401') {
+
+        if (!dadosOriginais.message) {
             divSearchUpdateClient.style.visibility = "hidden"
             divSearchUpdateClient.style.display = "none"
             dropDownListSearchClient.style.display = "none";
@@ -715,7 +714,7 @@ async function mostrar_campos_atualizar_clientes() {
             dropDownListDeleteClient.style.display = "none";
             divUpdateClient.style.visibility = "visible"
             divUpdateClient.style.display = "grid"
-            
+
             document.getElementById('número-cliente-atualizar').value = dadosOriginais.numero_cliente;
             document.getElementById('nome-cliente-atualizar').value = dadosOriginais.nome;
             document.getElementById('cpf-atualizar').value = dadosOriginais.cpf;
@@ -733,32 +732,32 @@ async function mostrar_campos_atualizar_clientes() {
                 divNumeroCliente.style.display = "none"
             }
 
-            for(i = 0; i < arrayCamposObrigatorios.length; i++) {
+            for (i = 0; i < arrayCamposObrigatorios.length; i++) {
                 arrayCamposObrigatorios[i].style.visibility = "hidden"
                 arrayCamposObrigatorios[i].style.display = "none"
             }
 
-            for(i = 0; i < arrayClienteInexistente.length; i++) {
+            for (i = 0; i < arrayClienteInexistente.length; i++) {
                 arrayClienteInexistente[i].style.visibility = "hidden"
                 arrayClienteInexistente[i].style.display = "none"
             }
         }
 
-        else if (dadosOriginais == 'Error: Request failed with status code 404') {
-            for(i = 0; i < arrayClienteInexistente.length; i++) {
+        else if (dadosOriginais.message.includes('Request failed with status code 404')) {
+            for (i = 0; i < arrayClienteInexistente.length; i++) {
                 arrayClienteInexistente[i].style.visibility = "visible"
                 arrayClienteInexistente[i].style.display = "flex"
             }
         }
 
         else {
-            localStorage.setItem('access_token', dadosOriginais);
+            localStorage.setItem('access_token', dadosOriginais.message);
             checar_autorizacao();
         }
     }
 
     else {
-        for(i = 0; i < arrayCamposObrigatorios.length; i++) {
+        for (i = 0; i < arrayCamposObrigatorios.length; i++) {
             arrayCamposObrigatorios[i].style.visibility = "visible"
             arrayCamposObrigatorios[i].style.display = "grid"
         }
@@ -808,12 +807,12 @@ function deletar_cliente() {
     dropDownListUpdateClient.style.display = "none";
     dropDownListDeleteClient.style.display = "none";
 
-    for(i = 0; i < arrayCamposObrigatorios.length; i++) {
+    for (i = 0; i < arrayCamposObrigatorios.length; i++) {
         arrayCamposObrigatorios[i].style.visibility = "hidden"
         arrayCamposObrigatorios[i].style.display = "none"
     }
 
-    for(i = 0; i < arrayClienteInexistente.length; i++) {
+    for (i = 0; i < arrayClienteInexistente.length; i++) {
         arrayClienteInexistente[i].style.visibility = "hidden"
         arrayClienteInexistente[i].style.display = "none"
     }
@@ -831,10 +830,10 @@ async function mostrar_clientes(nomeFuncao) {
 
     let access_token = localStorage.getItem('access_token')
 
-    if (access_token != 'Error: Request failed with status code 401' & access_token != 'Error: Request failed with status code 403' & access_token != 'Error: Request failed with status code 422' & access_token != 'Error: Network Error' & access_token != null) {
+    if (!access_token.includes('Request failed with status code 401') & !access_token.includes('Request failed with status code 403') & !access_token.includes('Request failed with status code 422') & !access_token.includes('Network Error')) {
         let config = {
             headers: {
-              'Authorization': 'Bearer ' + access_token
+                'Authorization': 'Bearer ' + access_token
             }
         }
 
@@ -851,28 +850,29 @@ async function mostrar_clientes(nomeFuncao) {
                 return error;
             }
         )
-        if (dadosTodosClientes != 'Error: Request failed with status code 401' & dadosTodosClientes != 'Error: Request failed with status code 404') {
+
+        if (!dadosTodosClientes.message) {
             for (i = 0; i < dadosTodosClientes.length; i++) {
                 numeroCliente[i] = String(dadosTodosClientes[i].numero_cliente);
                 nome[i] = dadosTodosClientes[i].nome.toUpperCase();
                 let opcao_atual = document.createElement('option');
                 let texto = document.createTextNode(numeroCliente[i] + ' - ' + nome[i])
-                
+
                 opcao_atual.value = numeroCliente[i] + ' - ' + nome[i]
                 opcao_atual.appendChild(texto)
                 lista.appendChild(opcao_atual)
             }
         }
 
-        else if (dadosTodosClientes == 'Error: Request failed with status code 401') {
-            localStorage.setItem('access_token', dadosTodosClientes);
+        else if (dadosTodosClientes.message.includes('Request failed with status code 401')) {
+            localStorage.setItem('access_token', dadosTodosClientes.message);
             checar_autorizacao();
         }
     }
 
     localStorage.setItem('nome_cliente', nome)
     localStorage.setItem('numero_cliente', numeroCliente)
-    
+
     lista.style.display = 'grid';
 
     for (let opcao of lista.options) {
@@ -886,7 +886,7 @@ async function mostrar_clientes(nomeFuncao) {
 function filtrar_clientes(nomeFuncao) {
     let input = document.getElementById('número-cliente-' + nomeFuncao);
     let lista = document.getElementById('numerocliente-' + nomeFuncao);
-    
+
     let nome = localStorage.getItem('nome_cliente').split(',')
     let numero_cliente = localStorage.getItem('numero_cliente').split(',')
 
@@ -897,7 +897,7 @@ function filtrar_clientes(nomeFuncao) {
     for (i = 0; i < numero_cliente.length; i++) {
         let opcao_atual = document.createElement('option');
         let texto = document.createTextNode(numero_cliente[i] + ' - ' + nome[i])
-        
+
         opcao_atual.value = numero_cliente[i] + ' - ' + nome[i]
         opcao_atual.appendChild(texto)
         lista.appendChild(opcao_atual)
@@ -918,7 +918,7 @@ function filtrar_clientes(nomeFuncao) {
             lista.style.display = 'none';
         }
     }
-    
+
     for (let opcao of lista.options) {
         opcao.onclick = function () {
             input.value = opcao.value.split(' - ')[0];
@@ -948,7 +948,7 @@ function buscar_instalacao() {
     let dropDownListUpdateClient = document.getElementById('numerocliente-atualizar');
     let dropDownListAddClassification = document.getElementById('classificacaocliente-adicionar');
     let dropDownListUpdateClassification = document.getElementById('classificacaocliente-atualizar');
-    
+
     document.getElementById('número-instalação-buscar').value = ''
 
     divGeral.style.visibility = "hidden"
@@ -979,12 +979,12 @@ function buscar_instalacao() {
     dropDownListAddClassification.style.display = "none";
     dropDownListUpdateClassification.style.display = "none";
 
-    for(i = 0; i < arrayCamposObrigatorios.length; i++) {
+    for (i = 0; i < arrayCamposObrigatorios.length; i++) {
         arrayCamposObrigatorios[i].style.visibility = "hidden"
         arrayCamposObrigatorios[i].style.display = "none"
     }
 
-    for(i = 0; i < arrayClienteInexistente.length; i++) {
+    for (i = 0; i < arrayClienteInexistente.length; i++) {
         arrayClienteInexistente[i].style.visibility = "hidden"
         arrayClienteInexistente[i].style.display = "none"
     }
@@ -1010,7 +1010,7 @@ function adicionar_instalacao() {
     let dropDownListUpdateClient = document.getElementById('numerocliente-atualizar');
     let dropDownListAddClassification = document.getElementById('classificacaocliente-adicionar');
     let dropDownListUpdateClassification = document.getElementById('classificacaocliente-atualizar');
-        
+
     document.getElementById('número-instalação-adicionar').value = ''
     document.getElementById('número-cliente-adicionar').value = ''
     document.getElementById('logradouro-adicionar').value = ''
@@ -1023,7 +1023,7 @@ function adicionar_instalacao() {
     document.getElementById('latitude-adicionar').value = ''
     document.getElementById('longitude-adicionar').value = ''
     document.getElementById('coordenadas-decimais-adicionar').value = ''
-    
+
     divGeral.style.visibility = "hidden"
     divGeral.style.display = "none";
     divSearchInstalation.style.visibility = "hidden";
@@ -1052,12 +1052,12 @@ function adicionar_instalacao() {
     dropDownListAddClassification.style.display = "none";
     dropDownListUpdateClassification.style.display = "none";
 
-    for(i = 0; i < arrayCamposObrigatorios.length; i++) {
+    for (i = 0; i < arrayCamposObrigatorios.length; i++) {
         arrayCamposObrigatorios[i].style.visibility = "hidden"
         arrayCamposObrigatorios[i].style.display = "none"
     }
 
-    for(i = 0; i < arrayClienteInexistente.length; i++) {
+    for (i = 0; i < arrayClienteInexistente.length; i++) {
         arrayClienteInexistente[i].style.visibility = "hidden"
         arrayClienteInexistente[i].style.display = "none"
     }
@@ -1083,11 +1083,11 @@ async function mostrar_campos_atualizar_instalacoes() {
     let arrayInstalacaoInexistente = document.getElementsByClassName('container-instalacao-inexistente');
 
     let numeroInstalacao = document.getElementById('número-instalação-buscar-atualizar').value;
-    
+
     if (numeroInstalacao != '') {
         let config = {
             headers: {
-            'Authorization': 'Bearer ' + access_token
+                'Authorization': 'Bearer ' + access_token
             }
         }
 
@@ -1105,7 +1105,7 @@ async function mostrar_campos_atualizar_instalacoes() {
             }
         )
 
-        if (dadosOriginais != 'Error: Request failed with status code 404' & dadosOriginais != 'Error: Request failed with status code 401') {
+        if (!dadosOriginais.message) {
             divSearchUpdateInstalation.style.visibility = "hidden"
             divSearchUpdateInstalation.style.display = "none"
             dropDownListSearchInstalation.style.display = "none";
@@ -1130,13 +1130,13 @@ async function mostrar_campos_atualizar_instalacoes() {
             document.getElementById('latitude-atualizar').value = dadosOriginais.latitude
             document.getElementById('longitude-atualizar').value = dadosOriginais.longitude
             document.getElementById('coordenadas-decimais-atualizar').value = dadosOriginais.coordenadas_decimais
-            
+
             if (checkboxNumeroInstalacao.checked == true) {
                 checkboxLigacao.style.visibility = "visible"
                 checkboxLigacao.style.display = "block"
                 divNumeroInstalacao.style.visibility = "visible"
                 divNumeroInstalacao.style.display = "grid"
-                
+
             }
 
             else {
@@ -1146,32 +1146,32 @@ async function mostrar_campos_atualizar_instalacoes() {
                 divNumeroInstalacao.style.display = "none"
             }
 
-            for(i = 0; i < arrayCamposObrigatorios.length; i++) {
+            for (i = 0; i < arrayCamposObrigatorios.length; i++) {
                 arrayCamposObrigatorios[i].style.visibility = "hidden"
                 arrayCamposObrigatorios[i].style.display = "none"
             }
 
-            for(i = 0; i < arrayInstalacaoInexistente.length; i++) {
+            for (i = 0; i < arrayInstalacaoInexistente.length; i++) {
                 arrayInstalacaoInexistente[i].style.visibility = "hidden"
                 arrayInstalacaoInexistente[i].style.display = "none"
             }
         }
 
-        else if (dadosOriginais == 'Error: Request failed with status code 404') {
-            for(i = 0; i < arrayInstalacaoInexistente.length; i++) {
+        else if (dadosOriginais.message.includes('Request failed with status code 404')) {
+            for (i = 0; i < arrayInstalacaoInexistente.length; i++) {
                 arrayInstalacaoInexistente[i].style.visibility = "visible"
                 arrayInstalacaoInexistente[i].style.display = "flex"
             }
         }
 
         else {
-            localStorage.setItem('access_token', dadosOriginais);
+            localStorage.setItem('access_token', dadosOriginais.message);
             checar_autorizacao();
         }
     }
 
     else {
-        for(i = 0; i < arrayCamposObrigatorios.length; i++) {
+        for (i = 0; i < arrayCamposObrigatorios.length; i++) {
             arrayCamposObrigatorios[i].style.visibility = "visible"
             arrayCamposObrigatorios[i].style.display = "grid"
         }
@@ -1229,12 +1229,12 @@ function atualizar_instalacao() {
     dropDownListAddClassification.style.display = "none";
     dropDownListUpdateClassification.style.display = "none";
 
-    for(i = 0; i < arrayCamposObrigatorios.length; i++) {
+    for (i = 0; i < arrayCamposObrigatorios.length; i++) {
         arrayCamposObrigatorios[i].style.visibility = "hidden"
         arrayCamposObrigatorios[i].style.display = "none"
     }
 
-    for(i = 0; i < arrayClienteInexistente.length; i++) {
+    for (i = 0; i < arrayClienteInexistente.length; i++) {
         arrayClienteInexistente[i].style.visibility = "hidden"
         arrayClienteInexistente[i].style.display = "none"
     }
@@ -1291,12 +1291,12 @@ function deletar_instalacao() {
     dropDownListAddClassification.style.display = "none";
     dropDownListUpdateClassification.style.display = "none";
 
-    for(i = 0; i < arrayCamposObrigatorios.length; i++) {
+    for (i = 0; i < arrayCamposObrigatorios.length; i++) {
         arrayCamposObrigatorios[i].style.visibility = "hidden"
         arrayCamposObrigatorios[i].style.display = "none"
     }
 
-    for(i = 0; i < arrayClienteInexistente.length; i++) {
+    for (i = 0; i < arrayClienteInexistente.length; i++) {
         arrayClienteInexistente[i].style.visibility = "hidden"
         arrayClienteInexistente[i].style.display = "none"
     }
@@ -1305,13 +1305,13 @@ function deletar_instalacao() {
 function ligacao_nova(nomeFuncao) {
     let checkboxLigacao = document.getElementById('checkbox-ligacao-' + nomeFuncao).checked;
     let divNumeroInstalacao = document.getElementById('container-form-numero-instalacao-' + nomeFuncao)
-    
+
     if (checkboxLigacao == true) {
         divNumeroInstalacao.style.visibility = "hidden";
         divNumeroInstalacao.style.display = "none";
     }
 
-    else if(checkboxLigacao == false) {
+    else if (checkboxLigacao == false) {
         divNumeroInstalacao.style.visibility = "visible";
         divNumeroInstalacao.style.display = "grid";
     }
@@ -1330,10 +1330,10 @@ async function mostrar_instalacoes(nomeFuncao) {
 
     let access_token = localStorage.getItem('access_token')
 
-    if (access_token != 'Error: Request failed with status code 401' & access_token != 'Error: Request failed with status code 403' & access_token != 'Error: Request failed with status code 422' & access_token != 'Error: Network Error' & access_token != null) {
+    if (!access_token.includes('Request failed with status code 401') & !access_token.includes('Request failed with status code 403') & !access_token.includes('Request failed with status code 422') & !access_token.includes('Network Error')) {
         let config = {
             headers: {
-              'Authorization': 'Bearer ' + access_token
+                'Authorization': 'Bearer ' + access_token
             }
         }
 
@@ -1350,28 +1350,29 @@ async function mostrar_instalacoes(nomeFuncao) {
                 return error;
             }
         )
-        if (dadosTodasInstalacoes != 'Error: Request failed with status code 401' & dadosTodasInstalacoes != 'Error: Request failed with status code 404') {
+
+        if (!dadosTodasInstalacoes.message) {
             for (i = 0; i < dadosTodasInstalacoes.length; i++) {
                 numeroInstalacao[i] = String(dadosTodasInstalacoes[i].numero_instalacao);
                 endereco[i] = dadosTodasInstalacoes[i].logradouro + ', ' + String(dadosTodasInstalacoes[i].numero_predial) + ' ' + dadosTodasInstalacoes[i].complemento + ', ' + dadosTodasInstalacoes[i].bairro + ', ' + dadosTodasInstalacoes[i].cidade;
                 let opcao_atual = document.createElement('option');
                 let texto = document.createTextNode(numeroInstalacao[i] + ' - ' + endereco[i])
-                
+
                 opcao_atual.value = numeroInstalacao[i] + ' - ' + endereco[i]
                 opcao_atual.appendChild(texto)
                 lista.appendChild(opcao_atual)
             }
         }
 
-        else if (dadosTodasInstalacoes == 'Error: Request failed with status code 401') {
-            localStorage.setItem('access_token', dadosTodasInstalacoes);
+        else if (dadosTodasInstalacoes.message.includes('Request failed with status code 401')) {
+            localStorage.setItem('access_token', dadosTodasInstalacoes.message);
             checar_autorizacao();
         }
     }
 
     localStorage.setItem('endereco', endereco.join('///'))
     localStorage.setItem('numero_instalacao', numeroInstalacao)
-    
+
     lista.style.display = 'grid';
 
     for (let opcao of lista.options) {
@@ -1385,7 +1386,7 @@ async function mostrar_instalacoes(nomeFuncao) {
 function filtrar_instalacoes(nomeFuncao) {
     let input = document.getElementById('número-instalação-' + nomeFuncao);
     let lista = document.getElementById('numeroinstalacao-' + nomeFuncao);
-    
+
     let endereco = localStorage.getItem('endereco').split('///')
     let numero_instalacao = localStorage.getItem('numero_instalacao').split(',')
 
@@ -1396,7 +1397,7 @@ function filtrar_instalacoes(nomeFuncao) {
     for (i = 0; i < numero_instalacao.length; i++) {
         let opcao_atual = document.createElement('option');
         let texto = document.createTextNode(numero_instalacao[i] + ' - ' + endereco[i])
-        
+
         opcao_atual.value = numero_instalacao[i] + ' - ' + endereco[i]
         opcao_atual.appendChild(texto)
         lista.appendChild(opcao_atual)
@@ -1410,7 +1411,7 @@ function filtrar_instalacoes(nomeFuncao) {
             lista.children[i].remove()
         }
     }
-    
+
     for (let opcao of lista.options) {
         opcao.onclick = function () {
             input.value = opcao.value.split(' - ')[0];
@@ -1453,9 +1454,9 @@ function buscar_modulo() {
     let dropDownListAddType = document.getElementById('tipomodulo-adicionar');
     let dropDownListUpdateType = document.getElementById('tipomodulo-atualizar');
 
-            
+
     document.getElementById('modelo-módulo-buscar').value = ''
-    
+
     divGeral.style.visibility = "hidden"
     divGeral.style.display = "none";
     divSearchModule.style.visibility = "visible";
@@ -1482,12 +1483,12 @@ function buscar_modulo() {
     dropDownListAddType.style.display = "none";
     dropDownListUpdateType.style.display = "none";
 
-    for(i = 0; i < arrayCamposObrigatorios.length; i++) {
+    for (i = 0; i < arrayCamposObrigatorios.length; i++) {
         arrayCamposObrigatorios[i].style.visibility = "hidden"
         arrayCamposObrigatorios[i].style.display = "none"
     }
 
-    for(i = 0; i < arrayModuloInexistente.length; i++) {
+    for (i = 0; i < arrayModuloInexistente.length; i++) {
         arrayModuloInexistente[i].style.visibility = "hidden"
         arrayModuloInexistente[i].style.display = "none"
     }
@@ -1511,7 +1512,7 @@ function adicionar_modulo() {
     let dropDownListDeleteModule = document.getElementById('modelomodulo-deletar');
     let dropDownListAddType = document.getElementById('tipomodulo-adicionar');
     let dropDownListUpdateType = document.getElementById('tipomodulo-atualizar');
-            
+
     document.getElementById('modelo-módulo-adicionar').value = ''
     document.getElementById('fabricante-módulo-adicionar').value = ''
     document.getElementById('potência-módulo-adicionar').value = ''
@@ -1526,7 +1527,7 @@ function adicionar_modulo() {
     document.getElementById('temperatura-módulo-adicionar').value = ''
     document.getElementById('tipo-módulo-adicionar').value = ''
     document.getElementById('coeficiente-módulo-adicionar').value = ''
-    
+
     divGeral.style.visibility = "hidden"
     divGeral.style.display = "none";
     divSearchModule.style.visibility = "hidden";
@@ -1553,12 +1554,12 @@ function adicionar_modulo() {
     dropDownListAddType.style.display = "none";
     dropDownListUpdateType.style.display = "none";
 
-    for(i = 0; i < arrayCamposObrigatorios.length; i++) {
+    for (i = 0; i < arrayCamposObrigatorios.length; i++) {
         arrayCamposObrigatorios[i].style.visibility = "hidden"
         arrayCamposObrigatorios[i].style.display = "none"
     }
 
-    for(i = 0; i < arrayClienteInexistente.length; i++) {
+    for (i = 0; i < arrayClienteInexistente.length; i++) {
         arrayClienteInexistente[i].style.visibility = "hidden"
         arrayClienteInexistente[i].style.display = "none"
     }
@@ -1583,7 +1584,7 @@ function atualizar_modulo() {
     let dropDownListAddType = document.getElementById('tipomodulo-adicionar');
     let dropDownListUpdateType = document.getElementById('tipomodulo-atualizar');
 
-    
+
     document.getElementById('modelo-módulo-buscar-atualizar').value = ''
     document.getElementById('modelo-módulo-atualizar').value = ''
     document.getElementById('fabricante-módulo-atualizar').value = ''
@@ -1599,7 +1600,7 @@ function atualizar_modulo() {
     document.getElementById('temperatura-módulo-atualizar').value = ''
     document.getElementById('tipo-módulo-atualizar').value = ''
     document.getElementById('coeficiente-módulo-atualizar').value = ''
-    
+
     divGeral.style.visibility = "hidden"
     divGeral.style.display = "none";
     divSearchModule.style.visibility = "hidden";
@@ -1626,12 +1627,12 @@ function atualizar_modulo() {
     dropDownListAddType.style.display = "none";
     dropDownListUpdateType.style.display = "none";
 
-    for(i = 0; i < arrayCamposObrigatorios.length; i++) {
+    for (i = 0; i < arrayCamposObrigatorios.length; i++) {
         arrayCamposObrigatorios[i].style.visibility = "hidden"
         arrayCamposObrigatorios[i].style.display = "none"
     }
 
-    for(i = 0; i < arrayClienteInexistente.length; i++) {
+    for (i = 0; i < arrayClienteInexistente.length; i++) {
         arrayClienteInexistente[i].style.visibility = "hidden"
         arrayClienteInexistente[i].style.display = "none"
     }
@@ -1650,11 +1651,11 @@ async function mostrar_campos_atualizar_modulos() {
     let arrayModuloInexistente = document.getElementsByClassName('container-modulo-inexistente');
 
     let modelo = document.getElementById('modelo-módulo-buscar-atualizar').value;
-    
+
     if (modelo != '') {
         let config = {
             headers: {
-            'Authorization': 'Bearer ' + access_token
+                'Authorization': 'Bearer ' + access_token
             }
         }
 
@@ -1671,8 +1672,8 @@ async function mostrar_campos_atualizar_modulos() {
                 return error;
             }
         )
-        
-        if (dadosOriginais != 'Error: Request failed with status code 404' & dadosOriginais != 'Error: Request failed with status code 401') {
+
+        if (!dadosOriginais.message) {
             divSearchUpdateModule.style.visibility = "hidden"
             divSearchUpdateModule.style.display = "none"
             dropDownListSearchModule.style.display = "none";
@@ -1698,32 +1699,32 @@ async function mostrar_campos_atualizar_modulos() {
             document.getElementById('tipo-módulo-atualizar').value = dadosOriginais.tipo
             document.getElementById('coeficiente-módulo-atualizar').value = dadosOriginais.coeficiente_temperatura.toString().replace('.', ',')
 
-            for(i = 0; i < arrayCamposObrigatorios.length; i++) {
+            for (i = 0; i < arrayCamposObrigatorios.length; i++) {
                 arrayCamposObrigatorios[i].style.visibility = "hidden"
                 arrayCamposObrigatorios[i].style.display = "none"
             }
 
-            for(i = 0; i < arrayModuloInexistente.length; i++) {
+            for (i = 0; i < arrayModuloInexistente.length; i++) {
                 arrayModuloInexistente[i].style.visibility = "hidden"
                 arrayModuloInexistente[i].style.display = "none"
             }
         }
 
-        else if (dadosOriginais == 'Error: Request failed with status code 404') {
-            for(i = 0; i < arrayModuloInexistente.length; i++) {
+        else if (dadosOriginais.message.includes('Request failed with status code 404')) {
+            for (i = 0; i < arrayModuloInexistente.length; i++) {
                 arrayModuloInexistente[i].style.visibility = "visible"
                 arrayModuloInexistente[i].style.display = "flex"
             }
         }
 
         else {
-            localStorage.setItem('access_token', dadosOriginais);
+            localStorage.setItem('access_token', dadosOriginais.message);
             checar_autorizacao();
         }
     }
 
     else {
-        for(i = 0; i < arrayCamposObrigatorios.length; i++) {
+        for (i = 0; i < arrayCamposObrigatorios.length; i++) {
             arrayCamposObrigatorios[i].style.visibility = "visible"
             arrayCamposObrigatorios[i].style.display = "grid"
         }
@@ -1748,7 +1749,7 @@ function deletar_modulo() {
     let dropDownListDeleteModule = document.getElementById('modelomodulo-deletar');
     let dropDownListAddType = document.getElementById('tipomodulo-adicionar');
     let dropDownListUpdateType = document.getElementById('tipomodulo-atualizar');
-       
+
     document.getElementById('modelo-módulo-deletar').value = ''
 
     divGeral.style.visibility = "hidden"
@@ -1777,12 +1778,12 @@ function deletar_modulo() {
     dropDownListAddType.style.display = "none";
     dropDownListUpdateType.style.display = "none";
 
-    for(i = 0; i < arrayCamposObrigatorios.length; i++) {
+    for (i = 0; i < arrayCamposObrigatorios.length; i++) {
         arrayCamposObrigatorios[i].style.visibility = "hidden"
         arrayCamposObrigatorios[i].style.display = "none"
     }
 
-    for(i = 0; i < arrayClienteInexistente.length; i++) {
+    for (i = 0; i < arrayClienteInexistente.length; i++) {
         arrayClienteInexistente[i].style.visibility = "hidden"
         arrayClienteInexistente[i].style.display = "none"
     }
@@ -1802,10 +1803,10 @@ async function mostrar_modulos(nomeFuncao) {
 
     let access_token = localStorage.getItem('access_token')
 
-    if (access_token != 'Error: Request failed with status code 401' & access_token != 'Error: Request failed with status code 403' & access_token != 'Error: Request failed with status code 422' & access_token != 'Error: Network Error' & access_token != null) {
+    if (!access_token.includes('Request failed with status code 401') & !access_token.includes('Request failed with status code 403') & !access_token.includes('Request failed with status code 422') & !access_token.includes('Network Error')) {
         let config = {
             headers: {
-              'Authorization': 'Bearer ' + access_token
+                'Authorization': 'Bearer ' + access_token
             }
         }
 
@@ -1822,7 +1823,7 @@ async function mostrar_modulos(nomeFuncao) {
                 return error;
             }
         )
-        if (dadosTodosModulos != 'Error: Request failed with status code 401' & dadosTodosModulos != 'Error: Request failed with status code 404') {
+        if (!dadosTodosModulos.message) {
             for (i = 0; i < dadosTodosModulos.length; i++) {
                 id[i] = String(dadosTodosModulos[i].id);
                 modelo[i] = dadosTodosModulos[i].modelo;
@@ -1831,15 +1832,15 @@ async function mostrar_modulos(nomeFuncao) {
 
                 let opcao_atual = document.createElement('option');
                 let texto = document.createTextNode('ID #' + id[i] + ' - Fabricante: ' + fabricante[i] + ' - Potência: ' + potencia[i] + ' - Modelo: ' + modelo[i])
-                
+
                 opcao_atual.value = 'ID #' + id[i] + ' - Fabricante: ' + fabricante[i] + ' - Potência: ' + potencia[i] + ' - Modelo: ' + modelo[i]
                 opcao_atual.appendChild(texto)
                 lista.appendChild(opcao_atual)
             }
         }
 
-        else if (dadosTodosModulos == 'Error: Request failed with status code 401') {
-            localStorage.setItem('access_token', dadosTodosModulos);
+        else if (dadosTodosModulos.message.includes('Request failed with status code 401')) {
+            localStorage.setItem('access_token', dadosTodosModulos.message);
             checar_autorizacao();
         }
     }
@@ -1848,7 +1849,7 @@ async function mostrar_modulos(nomeFuncao) {
     localStorage.setItem('modelo_modulo', modelo)
     localStorage.setItem('fabricante_modulo', fabricante)
     localStorage.setItem('potencia_modulo', potencia)
-    
+
     lista.style.display = 'grid';
 
     for (let opcao of lista.options) {
@@ -1862,7 +1863,7 @@ async function mostrar_modulos(nomeFuncao) {
 function filtrar_modulos(nomeFuncao) {
     let input = document.getElementById('modelo-módulo-' + nomeFuncao);
     let lista = document.getElementById('modelomodulo-' + nomeFuncao);
-    
+
     let id = localStorage.getItem('id_modulo').split(',')
     let modelo = localStorage.getItem('modelo_modulo').split(',')
     let fabricante = localStorage.getItem('fabricante_modulo').split(',')
@@ -1875,7 +1876,7 @@ function filtrar_modulos(nomeFuncao) {
     for (i = 0; i < id.length; i++) {
         let opcao_atual = document.createElement('option');
         let texto = document.createTextNode('ID #' + id[i] + ' - Fabricante: ' + fabricante[i] + ' - Potência: ' + potencia[i] + ' - Modelo: ' + modelo[i])
-        
+
         opcao_atual.value = 'ID #' + id[i] + ' - Fabricante: ' + fabricante[i] + ' - Potência: ' + potencia[i] + ' - Modelo: ' + modelo[i]
         opcao_atual.appendChild(texto)
         lista.appendChild(opcao_atual)
@@ -1889,7 +1890,7 @@ function filtrar_modulos(nomeFuncao) {
             lista.children[i].remove()
         }
     }
-    
+
     for (let opcao of lista.options) {
         opcao.onclick = function () {
             input.value = opcao.value.split('ID #')[1].split(' - ')[0];
@@ -1929,9 +1930,9 @@ function buscar_inversor() {
     let dropDownListSearchInverter = document.getElementById('modeloinversor-buscar');
     let dropDownListUpdateInverter = document.getElementById('modeloinversor-buscar-atualizar');
     let dropDownListDeleteInverter = document.getElementById('modeloinversor-deletar');
-  
+
     document.getElementById('modelo-inversor-buscar').value = ''
-    
+
     divGeral.style.visibility = "hidden"
     divGeral.style.display = "none";
     divSearchInverter.style.visibility = "visible";
@@ -1956,12 +1957,12 @@ function buscar_inversor() {
     dropDownListUpdateInverter.style.display = "none";
     dropDownListDeleteInverter.style.display = "none";
 
-    for(i = 0; i < arrayCamposObrigatorios.length; i++) {
+    for (i = 0; i < arrayCamposObrigatorios.length; i++) {
         arrayCamposObrigatorios[i].style.visibility = "hidden"
         arrayCamposObrigatorios[i].style.display = "none"
     }
 
-    for(i = 0; i < arrayInversorInexistente.length; i++) {
+    for (i = 0; i < arrayInversorInexistente.length; i++) {
         arrayInversorInexistente[i].style.visibility = "hidden"
         arrayInversorInexistente[i].style.display = "none"
     }
@@ -1983,7 +1984,7 @@ function adicionar_inversor() {
     let dropDownListSearchInverter = document.getElementById('modeloinversor-buscar');
     let dropDownListUpdateInverter = document.getElementById('modeloinversor-buscar-atualizar');
     let dropDownListDeleteInverter = document.getElementById('modeloinversor-deletar');
-    
+
     document.getElementById('modelo-inversor-adicionar').value = ''
     document.getElementById('fabricante-inversor-adicionar').value = ''
     document.getElementById('potência-inversor-adicionar').value = ''
@@ -2026,12 +2027,12 @@ function adicionar_inversor() {
     dropDownListUpdateInverter.style.display = "none";
     dropDownListDeleteInverter.style.display = "none";
 
-    for(i = 0; i < arrayCamposObrigatorios.length; i++) {
+    for (i = 0; i < arrayCamposObrigatorios.length; i++) {
         arrayCamposObrigatorios[i].style.visibility = "hidden"
         arrayCamposObrigatorios[i].style.display = "none"
     }
 
-    for(i = 0; i < arrayInversorInexistente.length; i++) {
+    for (i = 0; i < arrayInversorInexistente.length; i++) {
         arrayInversorInexistente[i].style.visibility = "hidden"
         arrayInversorInexistente[i].style.display = "none"
     }
@@ -2043,16 +2044,16 @@ async function mostrar_campos_atualizar_inversores() {
     let dropDownListSearchInverter = document.getElementById('modeloinversor-buscar');
     let dropDownListUpdateInverter = document.getElementById('modeloinversor-buscar-atualizar');
     let dropDownListDeleteInverter = document.getElementById('modeloinversor-deletar');
-  
+
     let arrayCamposObrigatorios = document.getElementsByClassName('campo-obrigatorio-inversores');
     let arrayInversorInexistente = document.getElementsByClassName('container-inversor-inexistente');
 
     let modelo = document.getElementById('modelo-inversor-buscar-atualizar').value;
-    
+
     if (modelo != '') {
         let config = {
             headers: {
-            'Authorization': 'Bearer ' + access_token
+                'Authorization': 'Bearer ' + access_token
             }
         }
 
@@ -2069,8 +2070,8 @@ async function mostrar_campos_atualizar_inversores() {
                 return error;
             }
         )
-        
-        if (dadosOriginais != 'Error: Request failed with status code 404' & dadosOriginais != 'Error: Request failed with status code 401') {
+
+        if (!dadosOriginais.message) {
             divSearchUpdateInverter.style.visibility = "hidden"
             divSearchUpdateInverter.style.display = "none"
             dropDownListSearchInverter.style.display = "none";
@@ -2097,32 +2098,32 @@ async function mostrar_campos_atualizar_inversores() {
             document.getElementById('espessura-inversor-atualizar').value = dadosOriginais.espessura
             document.getElementById('eficiência-inversor-atualizar').value = dadosOriginais.eficiencia.toString().replace('.', ',')
 
-            for(i = 0; i < arrayCamposObrigatorios.length; i++) {
+            for (i = 0; i < arrayCamposObrigatorios.length; i++) {
                 arrayCamposObrigatorios[i].style.visibility = "hidden"
                 arrayCamposObrigatorios[i].style.display = "none"
             }
 
-            for(i = 0; i < arrayInversorInexistente.length; i++) {
+            for (i = 0; i < arrayInversorInexistente.length; i++) {
                 arrayInversorInexistente[i].style.visibility = "hidden"
                 arrayInversorInexistente[i].style.display = "none"
             }
         }
 
-        else if (dadosOriginais == 'Error: Request failed with status code 404') {
-            for(i = 0; i < arrayInversorInexistente.length; i++) {
+        else if (dadosOriginais.message.includes('Request failed with status code 404')) {
+            for (i = 0; i < arrayInversorInexistente.length; i++) {
                 arrayInversorInexistente[i].style.visibility = "visible"
                 arrayInversorInexistente[i].style.display = "flex"
             }
         }
 
         else {
-            localStorage.setItem('access_token', dadosOriginais);
+            localStorage.setItem('access_token', dadosOriginais.message);
             checar_autorizacao();
         }
     }
 
     else {
-        for(i = 0; i < arrayCamposObrigatorios.length; i++) {
+        for (i = 0; i < arrayCamposObrigatorios.length; i++) {
             arrayCamposObrigatorios[i].style.visibility = "visible"
             arrayCamposObrigatorios[i].style.display = "grid"
         }
@@ -2145,7 +2146,7 @@ function atualizar_inversor() {
     let dropDownListSearchInverter = document.getElementById('modeloinversor-buscar');
     let dropDownListUpdateInverter = document.getElementById('modeloinversor-buscar-atualizar');
     let dropDownListDeleteInverter = document.getElementById('modeloinversor-deletar');
-    
+
     document.getElementById('modelo-inversor-buscar-atualizar').value = ''
 
     divGeral.style.visibility = "hidden"
@@ -2172,12 +2173,12 @@ function atualizar_inversor() {
     dropDownListUpdateInverter.style.display = "none";
     dropDownListDeleteInverter.style.display = "none";
 
-    for(i = 0; i < arrayCamposObrigatorios.length; i++) {
+    for (i = 0; i < arrayCamposObrigatorios.length; i++) {
         arrayCamposObrigatorios[i].style.visibility = "hidden"
         arrayCamposObrigatorios[i].style.display = "none"
     }
 
-    for(i = 0; i < arrayInversorInexistente.length; i++) {
+    for (i = 0; i < arrayInversorInexistente.length; i++) {
         arrayInversorInexistente[i].style.visibility = "hidden"
         arrayInversorInexistente[i].style.display = "none"
     }
@@ -2199,7 +2200,7 @@ function deletar_inversor() {
     let dropDownListSearchInverter = document.getElementById('modeloinversor-buscar');
     let dropDownListUpdateInverter = document.getElementById('modeloinversor-buscar-atualizar');
     let dropDownListDeleteInverter = document.getElementById('modeloinversor-deletar');
-    
+
     document.getElementById('modelo-inversor-deletar').value = ''
 
     divGeral.style.visibility = "hidden"
@@ -2226,12 +2227,12 @@ function deletar_inversor() {
     dropDownListUpdateInverter.style.display = "none";
     dropDownListDeleteInverter.style.display = "none";
 
-    for(i = 0; i < arrayCamposObrigatorios.length; i++) {
+    for (i = 0; i < arrayCamposObrigatorios.length; i++) {
         arrayCamposObrigatorios[i].style.visibility = "hidden"
         arrayCamposObrigatorios[i].style.display = "none"
     }
 
-    for(i = 0; i < arrayInversorInexistente.length; i++) {
+    for (i = 0; i < arrayInversorInexistente.length; i++) {
         arrayInversorInexistente[i].style.visibility = "hidden"
         arrayInversorInexistente[i].style.display = "none"
     }
@@ -2251,10 +2252,10 @@ async function mostrar_inversores(nomeFuncao) {
 
     let access_token = localStorage.getItem('access_token')
 
-    if (access_token != 'Error: Request failed with status code 401' & access_token != 'Error: Request failed with status code 403' & access_token != 'Error: Request failed with status code 422' & access_token != 'Error: Network Error' & access_token != null) {
+    if (!access_token.includes('Request failed with status code 401') & !access_token.includes('Request failed with status code 403') & !access_token.includes('Request failed with status code 422') & !access_token.includes('Network Error')) {
         let config = {
             headers: {
-              'Authorization': 'Bearer ' + access_token
+                'Authorization': 'Bearer ' + access_token
             }
         }
 
@@ -2271,7 +2272,7 @@ async function mostrar_inversores(nomeFuncao) {
                 return error;
             }
         )
-        if (dadosTodosInversores != 'Error: Request failed with status code 401' & dadosTodosInversores != 'Error: Request failed with status code 404') {
+        if (!dadosTodosInversores.message) {
             for (i = 0; i < dadosTodosInversores.length; i++) {
                 id[i] = String(dadosTodosInversores[i].id);
                 modelo[i] = dadosTodosInversores[i].modelo;
@@ -2279,16 +2280,16 @@ async function mostrar_inversores(nomeFuncao) {
                 potencia[i] = parseFloat(dadosTodosInversores[i].potencia)
 
                 let opcao_atual = document.createElement('option');
-                let texto = document.createTextNode('ID #' + id[i] + ' - Fabricante: ' + fabricante[i] + ' - Potência: ' + (potencia[i] / 1000 ).toString().replace('.', ',') + ' kW - Modelo: ' + modelo[i])
-                
-                opcao_atual.value = 'ID #' + id[i] + ' - Fabricante: ' + fabricante[i] + ' - Potência: ' + (potencia[i] / 1000 ).toString().replace('.', ',') + ' kW - Modelo: ' + modelo[i]
+                let texto = document.createTextNode('ID #' + id[i] + ' - Fabricante: ' + fabricante[i] + ' - Potência: ' + (potencia[i] / 1000).toString().replace('.', ',') + ' kW - Modelo: ' + modelo[i])
+
+                opcao_atual.value = 'ID #' + id[i] + ' - Fabricante: ' + fabricante[i] + ' - Potência: ' + (potencia[i] / 1000).toString().replace('.', ',') + ' kW - Modelo: ' + modelo[i]
                 opcao_atual.appendChild(texto)
                 lista.appendChild(opcao_atual)
             }
         }
 
-        else if (dadosTodosInversores == 'Error: Request failed with status code 401') {
-            localStorage.setItem('access_token', dadosTodosInversores);
+        else if (dadosTodosInversores.message.includes('Request failed with status code 401')) {
+            localStorage.setItem('access_token', dadosTodosInversores.message);
             checar_autorizacao();
         }
     }
@@ -2297,7 +2298,7 @@ async function mostrar_inversores(nomeFuncao) {
     localStorage.setItem('modelo_inversor', modelo)
     localStorage.setItem('fabricante_inversor', fabricante)
     localStorage.setItem('potencia_inversor', potencia)
-    
+
     lista.style.display = 'grid';
 
     for (let opcao of lista.options) {
@@ -2311,7 +2312,7 @@ async function mostrar_inversores(nomeFuncao) {
 function filtrar_inversores(nomeFuncao) {
     let input = document.getElementById('modelo-inversor-' + nomeFuncao);
     let lista = document.getElementById('modeloinversor-' + nomeFuncao);
-    
+
     let id = localStorage.getItem('id_inversor').split(',')
     let modelo = localStorage.getItem('modelo_inversor').split(',')
     let fabricante = localStorage.getItem('fabricante_inversor').split(',')
@@ -2323,9 +2324,9 @@ function filtrar_inversores(nomeFuncao) {
 
     for (i = 0; i < id.length; i++) {
         let opcao_atual = document.createElement('option');
-        let texto = document.createTextNode('ID #' + id[i] + ' - Fabricante: ' + fabricante[i] + ' - Potência: ' + (parseFloat(potencia[i]) / 1000 ).toString().replace('.', ',') + ' kW - Modelo: ' + modelo[i])
-        
-        opcao_atual.value = 'ID #' + id[i] + ' - Fabricante: ' + fabricante[i] + ' - Potência: ' + (parseFloat(potencia[i]) / 1000 ).toString().replace('.', ',') + ' kW - Modelo: ' + modelo[i]
+        let texto = document.createTextNode('ID #' + id[i] + ' - Fabricante: ' + fabricante[i] + ' - Potência: ' + (parseFloat(potencia[i]) / 1000).toString().replace('.', ',') + ' kW - Modelo: ' + modelo[i])
+
+        opcao_atual.value = 'ID #' + id[i] + ' - Fabricante: ' + fabricante[i] + ' - Potência: ' + (parseFloat(potencia[i]) / 1000).toString().replace('.', ',') + ' kW - Modelo: ' + modelo[i]
         opcao_atual.appendChild(texto)
         lista.appendChild(opcao_atual)
     }
@@ -2338,7 +2339,7 @@ function filtrar_inversores(nomeFuncao) {
             lista.children[i].remove()
         }
     }
-    
+
     for (let opcao of lista.options) {
         opcao.onclick = function () {
             input.value = opcao.value.split('ID #')[1].split(' - ')[0];
@@ -2401,9 +2402,9 @@ function buscar_projeto() {
     let dropDownListInstalationAdd = document.getElementById('numeroinstalacao-adicionar')
     let dropDownListClientUpdate = document.getElementById('numerocliente-atualizar')
     let dropDownListInstalationUpdate = document.getElementById('numeroinstalacao-atualizar')
-  
+
     document.getElementById('id-projeto-buscar').value = ''
-    
+
     divGeral.style.visibility = "hidden"
     divGeral.style.display = "none";
     divSearchProject.style.visibility = "visible";
@@ -2467,12 +2468,12 @@ function buscar_projeto() {
     dropDownListClientUpdate.style.display = "none";
     dropDownListInstalationUpdate.style.display = "none";
 
-    for(i = 0; i < arrayCamposObrigatorios.length; i++) {
+    for (i = 0; i < arrayCamposObrigatorios.length; i++) {
         arrayCamposObrigatorios[i].style.visibility = "hidden"
         arrayCamposObrigatorios[i].style.display = "none"
     }
 
-    for(i = 0; i < arrayProjectInexistente.length; i++) {
+    for (i = 0; i < arrayProjectInexistente.length; i++) {
         arrayProjectInexistente[i].style.visibility = "hidden"
         arrayProjectInexistente[i].style.display = "none"
     }
@@ -2531,7 +2532,7 @@ function adicionar_projeto() {
     let dropDownListInstalationAdd = document.getElementById('numeroinstalacao-adicionar')
     let dropDownListClientUpdate = document.getElementById('numerocliente-atualizar')
     let dropDownListInstalationUpdate = document.getElementById('numeroinstalacao-atualizar')
-    
+
     document.getElementById('número-instalação-adicionar').value = ''
     document.getElementById('número-cliente-adicionar').value = ''
     document.getElementById('n-fases-adicionar').value = ''
@@ -2622,12 +2623,12 @@ function adicionar_projeto() {
     dropDownListClientUpdate.style.display = "none";
     dropDownListInstalationUpdate.style.display = "none";
 
-    for(i = 0; i < arrayCamposObrigatorios.length; i++) {
+    for (i = 0; i < arrayCamposObrigatorios.length; i++) {
         arrayCamposObrigatorios[i].style.visibility = "hidden"
         arrayCamposObrigatorios[i].style.display = "none"
     }
 
-    for(i = 0; i < arrayProjectInexistente.length; i++) {
+    for (i = 0; i < arrayProjectInexistente.length; i++) {
         arrayProjectInexistente[i].style.visibility = "hidden"
         arrayProjectInexistente[i].style.display = "none"
     }
@@ -2686,7 +2687,7 @@ function atualizar_projeto() {
     let dropDownListInstalationAdd = document.getElementById('numeroinstalacao-adicionar')
     let dropDownListClientUpdate = document.getElementById('numerocliente-atualizar')
     let dropDownListInstalationUpdate = document.getElementById('numeroinstalacao-atualizar')
-    
+
     document.getElementById('id-projeto-buscar-atualizar').value = ''
 
     divGeral.style.visibility = "hidden"
@@ -2752,12 +2753,12 @@ function atualizar_projeto() {
     dropDownListClientUpdate.style.display = "none";
     dropDownListInstalationUpdate.style.display = "none";
 
-    for(i = 0; i < arrayCamposObrigatorios.length; i++) {
+    for (i = 0; i < arrayCamposObrigatorios.length; i++) {
         arrayCamposObrigatorios[i].style.visibility = "hidden"
         arrayCamposObrigatorios[i].style.display = "none"
     }
 
-    for(i = 0; i < arrayProjectInexistente.length; i++) {
+    for (i = 0; i < arrayProjectInexistente.length; i++) {
         arrayProjectInexistente[i].style.visibility = "hidden"
         arrayProjectInexistente[i].style.display = "none"
     }
@@ -2783,16 +2784,16 @@ async function mostrar_campos_atualizar_projetos() {
     let dropDownListInstalationAdd = document.getElementById('numeroinstalacao-adicionar')
     let dropDownListClientUpdate = document.getElementById('numerocliente-atualizar')
     let dropDownListInstalationUpdate = document.getElementById('numeroinstalacao-atualizar')
-    
+
     let arrayCamposObrigatorios = document.getElementsByClassName('campo-obrigatorio-projetos');
     let arrayProjectInexistente = document.getElementsByClassName('container-projeto-inexistente');
 
     let idProjeto = document.getElementById('id-projeto-buscar-atualizar').value;
-    
+
     if (idProjeto != '') {
         let config = {
             headers: {
-            'Authorization': 'Bearer ' + access_token
+                'Authorization': 'Bearer ' + access_token
             }
         }
 
@@ -2809,8 +2810,8 @@ async function mostrar_campos_atualizar_projetos() {
                 return error;
             }
         )
-        
-        if (dadosOriginais != 'Error: Request failed with status code 404' & dadosOriginais != 'Error: Request failed with status code 401') {
+
+        if (!dadosOriginais.message) {
             let fabricante_modulo_1 = '';
             let fabricante_modulo_2 = '';
             let fabricante_inversor_1 = '';
@@ -2928,7 +2929,7 @@ async function mostrar_campos_atualizar_projetos() {
                         return error;
                     }
                 )
-                
+
                 fabricante_inversor_4 = dadosInversor4[0]['fabricante']
 
                 divInverter4.style.visibility = "visible"
@@ -2991,38 +2992,38 @@ async function mostrar_campos_atualizar_projetos() {
             document.getElementById('inversor-anterior-4-atualizar').checked = dadosOriginais.inversor_anterior_4
             document.getElementById('fabricante-inversor-4-atualizar').value = fabricante_inversor_4
             document.getElementById('modelo-inversor-4-atualizar').value = dadosOriginais.modelo_inversor_4
-            
+
             ligacao_nova2();
             aumento_carga2();
             aumento_usina2();
             agrupamento2();
 
-            for(i = 0; i < arrayCamposObrigatorios.length; i++) {
+            for (i = 0; i < arrayCamposObrigatorios.length; i++) {
                 arrayCamposObrigatorios[i].style.visibility = "hidden"
                 arrayCamposObrigatorios[i].style.display = "none"
             }
 
-            for(i = 0; i < arrayProjectInexistente.length; i++) {
+            for (i = 0; i < arrayProjectInexistente.length; i++) {
                 arrayProjectInexistente[i].style.visibility = "hidden"
                 arrayProjectInexistente[i].style.display = "hidden"
             }
-        }  
+        }
 
-        else if (dadosOriginais == 'Error: Request failed with status code 404') {
-            for(i = 0; i < arrayProjectInexistente.length; i++) {
+        else if (dadosOriginais.message.includes('Request failed with status code 404')) {
+            for (i = 0; i < arrayProjectInexistente.length; i++) {
                 arrayProjectInexistente[i].style.visibility = "visible"
                 arrayProjectInexistente[i].style.display = "flex"
             }
         }
 
         else {
-            localStorage.setItem('access_token', dadosOriginais);
+            localStorage.setItem('access_token', dadosOriginais.message);
             checar_autorizacao();
         }
     }
 
     else {
-        for(i = 0; i < arrayCamposObrigatorios.length; i++) {
+        for (i = 0; i < arrayCamposObrigatorios.length; i++) {
             arrayCamposObrigatorios[i].style.visibility = "visible"
             arrayCamposObrigatorios[i].style.display = "grid"
         }
@@ -3082,9 +3083,9 @@ function imprimir_projeto() {
     let dropDownListInstalationAdd = document.getElementById('numeroinstalacao-adicionar')
     let dropDownListClientUpdate = document.getElementById('numerocliente-atualizar')
     let dropDownListInstalationUpdate = document.getElementById('numeroinstalacao-atualizar')
-  
+
     document.getElementById('id-projeto-deletar').value = ''
-    
+
     divGeral.style.visibility = "hidden"
     divGeral.style.display = "none";
     divSearchProject.style.visibility = "hidden";
@@ -3148,12 +3149,12 @@ function imprimir_projeto() {
     dropDownListClientUpdate.style.display = "none";
     dropDownListInstalationUpdate.style.display = "none";
 
-    for(i = 0; i < arrayCamposObrigatorios.length; i++) {
+    for (i = 0; i < arrayCamposObrigatorios.length; i++) {
         arrayCamposObrigatorios[i].style.visibility = "hidden"
         arrayCamposObrigatorios[i].style.display = "none"
     }
 
-    for(i = 0; i < arrayProjectInexistente.length; i++) {
+    for (i = 0; i < arrayProjectInexistente.length; i++) {
         arrayProjectInexistente[i].style.visibility = "hidden"
         arrayProjectInexistente[i].style.display = "none"
     }
@@ -3212,9 +3213,9 @@ function deletar_projeto() {
     let dropDownListInstalationAdd = document.getElementById('numeroinstalacao-adicionar')
     let dropDownListClientUpdate = document.getElementById('numerocliente-atualizar')
     let dropDownListInstalationUpdate = document.getElementById('numeroinstalacao-atualizar')
-  
+
     document.getElementById('id-projeto-deletar').value = ''
-    
+
     divGeral.style.visibility = "hidden"
     divGeral.style.display = "none";
     divSearchProject.style.visibility = "hidden";
@@ -3278,12 +3279,12 @@ function deletar_projeto() {
     dropDownListClientUpdate.style.display = "none";
     dropDownListInstalationUpdate.style.display = "none";
 
-    for(i = 0; i < arrayCamposObrigatorios.length; i++) {
+    for (i = 0; i < arrayCamposObrigatorios.length; i++) {
         arrayCamposObrigatorios[i].style.visibility = "hidden"
         arrayCamposObrigatorios[i].style.display = "none"
     }
 
-    for(i = 0; i < arrayProjectInexistente.length; i++) {
+    for (i = 0; i < arrayProjectInexistente.length; i++) {
         arrayProjectInexistente[i].style.visibility = "hidden"
         arrayProjectInexistente[i].style.display = "none"
     }
@@ -3294,7 +3295,7 @@ function ligacao_nova1() {
     let estadoLigacao1 = document.getElementById('checkbox-ligacao-1').checked;
     let arrayCheckbox = document.getElementsByClassName('form-checkbox-aumento-usina');
     let arrayContainer = document.getElementsByClassName('container-modulo-2')
-    
+
     if (estadoLigacao1 == true) {
         document.getElementById('checkbox-aumento-carga-1').checked = false;
         document.getElementById('checkbox-aumento-usina-1').checked = false;
@@ -3316,7 +3317,7 @@ function ligacao_nova1() {
         }
     }
 
-    else if(estadoLigacao1 == false) {
+    else if (estadoLigacao1 == false) {
         document.getElementById('container-numero-instalacao-1').style.visibility = "visible";
         document.getElementById('container-numero-instalacao-1').style.display = "grid";
     }
@@ -3348,7 +3349,7 @@ function ligacao_nova2() {
         }
     }
 
-    else if(estadoLigacao2 == false) {
+    else if (estadoLigacao2 == false) {
         document.getElementById('container-numero-instalacao-2').style.visibility = "visible";
         document.getElementById('container-numero-instalacao-2').style.display = "grid";
     }
@@ -3356,7 +3357,7 @@ function ligacao_nova2() {
 
 function aumento_carga1() {
     let estadoAumento1 = document.getElementById('checkbox-aumento-carga-1').checked;
-    
+
     if (estadoAumento1 == true) {
         document.getElementById('checkbox-ligacao-1').checked = false;
 
@@ -3414,7 +3415,7 @@ function aumento_usina1() {
         checkboxInversor1.checked = true;
         containerInversor2.style.visibility = "visible";
         containerInversor2.style.display = "grid";
-        
+
         for (let i = 0; i < arrayCheckbox.length; i++) {
             arrayCheckbox[i].style.visibility = "visible";
         }
@@ -3425,11 +3426,11 @@ function aumento_usina1() {
         }
     }
 
-    else if(estadoAumentoUsina1 == false) {
+    else if (estadoAumentoUsina1 == false) {
         document.getElementById('quantidade-módulo-2-adicionar').value = '';
         document.getElementById('fabricante-módulo-2-adicionar').value = '';
         document.getElementById('modelo-módulo-2-adicionar').value = '';
-        
+
         checkboxModulo1.checked = false;
         checkboxModulo2.checked = false;
         checkboxInversor1.checked = false;
@@ -3467,7 +3468,7 @@ function aumento_usina2() {
 
         document.getElementById('container-numero-instalacao-2').style.visibility = "visible";
         document.getElementById('container-numero-instalacao-2').style.display = "grid";
-        
+
         checkboxModulo1.checked = true;
         checkboxInversor1.checked = true;
         containerInversor2.style.visibility = "visible";
@@ -3483,11 +3484,11 @@ function aumento_usina2() {
         }
     }
 
-    else if(estadoAumentoUsina2 == false) {
+    else if (estadoAumentoUsina2 == false) {
         document.getElementById('quantidade-módulo-2-atualizar').value = ''
         document.getElementById('fabricante-módulo-2-atualizar').value = ''
         document.getElementById('modelo-módulo-2-atualizar').value = ''
-        
+
         checkboxModulo1.checked = false;
         checkboxModulo2.checked = false;
         checkboxInversor1.checked = false;
@@ -3510,7 +3511,7 @@ function aumento_usina2() {
 
 function agrupamento1() {
     let estadoAgrupamento1 = document.getElementById('checkbox-agrupamento-1').checked;
-    
+
     if (estadoAgrupamento1 == true) {
         document.getElementById('container-agrupamento-1').style.visibility = "visible";
         document.getElementById('container-agrupamento-1').style.display = "grid";
@@ -3661,17 +3662,17 @@ async function mostrar_projetos(nomeFuncao) {
     let id = []
     let cliente = []
     let endereco = []
-    
+
     while (lista.options.length > 0) {
         lista.children[0].remove()
     }
 
     let access_token = localStorage.getItem('access_token')
 
-    if (access_token != 'Error: Request failed with status code 401' & access_token != 'Error: Request failed with status code 403' & access_token != 'Error: Request failed with status code 422' & access_token != 'Error: Network Error' & access_token != null) {
+    if (!access_token.includes('Request failed with status code 401') & !access_token.includes('Request failed with status code 403') & !access_token.includes('Request failed with status code 422') & !access_token.includes('Network Error')) {
         let config = {
             headers: {
-              'Authorization': 'Bearer ' + access_token
+                'Authorization': 'Bearer ' + access_token
             }
         }
 
@@ -3689,7 +3690,7 @@ async function mostrar_projetos(nomeFuncao) {
             }
         )
 
-        if (dadosTodosProjetos != 'Error: Request failed with status code 401' & dadosTodosProjetos != 'Error: Request failed with status code 404') {
+        if (!dadosTodosProjetos.message) {
             for (i = 0; i < dadosTodosProjetos.length; i++) {
                 id[i] = String(dadosTodosProjetos[i].id);
                 cliente[i] = await axios.get(
@@ -3719,18 +3720,18 @@ async function mostrar_projetos(nomeFuncao) {
                         return error;
                     }
                 )
-                
+
                 let opcao_atual = document.createElement('option');
                 let texto = document.createTextNode('ID #' + id[i] + ' - ' + cliente[i] + ' - ' + endereco[i])
-                
+
                 opcao_atual.value = 'ID #' + id[i] + ' - ' + cliente[i] + ' - ' + endereco[i]
                 opcao_atual.appendChild(texto)
                 lista.appendChild(opcao_atual)
             }
         }
 
-        else if (dadosTodosProjetos == 'Error: Request failed with status code 401') {
-            localStorage.setItem('access_token', dadosTodosProjetos);
+        else if (dadosTodosProjetos.message.includes('Request failed with status code 401')) {
+            localStorage.setItem('access_token', dadosTodosProjetos.message);
             checar_autorizacao();
         }
     }
@@ -3738,7 +3739,7 @@ async function mostrar_projetos(nomeFuncao) {
     localStorage.setItem('id_projeto', id)
     localStorage.setItem('cliente_projeto', cliente)
     localStorage.setItem('endereco_projeto', endereco.join('///'))
-    
+
     lista.style.display = 'grid';
 
     for (let opcao of lista.options) {
@@ -3752,7 +3753,7 @@ async function mostrar_projetos(nomeFuncao) {
 function filtrar_projetos(nomeFuncao) {
     let input = document.getElementById('id-projeto-' + nomeFuncao);
     let lista = document.getElementById('idprojeto-' + nomeFuncao);
-    
+
     let id = localStorage.getItem('id_projeto').split(',')
     let cliente = localStorage.getItem('cliente_projeto').split(',')
     let endereco = localStorage.getItem('endereco_projeto').split('///')
@@ -3764,7 +3765,7 @@ function filtrar_projetos(nomeFuncao) {
     for (i = 0; i < id.length; i++) {
         let opcao_atual = document.createElement('option');
         let texto = document.createTextNode('ID #' + id[i] + ' - ' + cliente[i] + ' - ' + endereco[i])
-        
+
         opcao_atual.value = 'ID #' + id[i] + ' - ' + cliente[i] + ' - ' + endereco[i]
         opcao_atual.appendChild(texto)
         lista.appendChild(opcao_atual)
@@ -3778,7 +3779,7 @@ function filtrar_projetos(nomeFuncao) {
             lista.children[i].remove()
         }
     }
-    
+
     for (let opcao of lista.options) {
         opcao.onclick = function () {
             input.value = opcao.value.split(' ')[1].split('#')[1];
@@ -3807,7 +3808,7 @@ async function mostrar_fabricantes_modulos(nomeFuncao) {
 
     let fabricante = []
     let fabricanteUnico = []
-    
+
     document.getElementById('modelo-módulo-' + nomeFuncao).value = ''
 
     while (lista.options.length > 0) {
@@ -3816,10 +3817,10 @@ async function mostrar_fabricantes_modulos(nomeFuncao) {
 
     let access_token = localStorage.getItem('access_token')
 
-    if (access_token != 'Error: Request failed with status code 401' & access_token != 'Error: Request failed with status code 403' & access_token != 'Error: Request failed with status code 422' & access_token != 'Error: Network Error' & access_token != null) {
+    if (!access_token.includes('Request failed with status code 401') & !access_token.includes('Request failed with status code 403') & !access_token.includes('Request failed with status code 422') & !access_token.includes('Network Error')) {
         let config = {
             headers: {
-              'Authorization': 'Bearer ' + access_token
+                'Authorization': 'Bearer ' + access_token
             }
         }
 
@@ -3837,13 +3838,13 @@ async function mostrar_fabricantes_modulos(nomeFuncao) {
             }
         )
 
-        if (fabricante != 'Error: Request failed with status code 401' & fabricante != 'Error: Request failed with status code 404') {
+        if (!fabricante.message) {
             contadorFabricantes = 0;
-            
+
             for (i = 0; i < fabricante.length; i++) {
                 let adicionado = false
                 let fabricanteAtual = fabricante[i].fabricante
-                
+
                 for (j = 0; j < fabricanteUnico.length; j++) {
                     if (fabricanteAtual == fabricanteUnico[j]) {
                         adicionado = true;
@@ -3858,24 +3859,24 @@ async function mostrar_fabricantes_modulos(nomeFuncao) {
 
             fabricanteUnico.sort()
 
-            for(i = 0; i < fabricanteUnico.length; i++) {
+            for (i = 0; i < fabricanteUnico.length; i++) {
                 let opcao_atual = document.createElement('option');
                 let texto = document.createTextNode(fabricanteUnico[i])
-                
+
                 opcao_atual.value = fabricanteUnico[i]
                 opcao_atual.appendChild(texto)
                 lista.appendChild(opcao_atual)
             }
         }
 
-        else if (fabricante == 'Error: Request failed with status code 401') {
-            localStorage.setItem('access_token', fabricante);
+        else if (fabricante.includes('Request failed with status code 401')) {
+            localStorage.setItem('access_token', fabricante.message);
             checar_autorizacao();
         }
     }
 
     localStorage.setItem('fabricante_modulos', fabricanteUnico)
-    
+
     lista.style.display = 'grid';
 
     for (let opcao of lista.options) {
@@ -3899,7 +3900,7 @@ function filtrar_fabricantes_modulos(nomeFuncao) {
     for (i = 0; i < fabricante.length; i++) {
         let opcao_atual = document.createElement('option');
         let texto = document.createTextNode(fabricante[i])
-        
+
         opcao_atual.value = fabricante[i]
         opcao_atual.appendChild(texto)
         lista.appendChild(opcao_atual)
@@ -3913,7 +3914,7 @@ function filtrar_fabricantes_modulos(nomeFuncao) {
             lista.children[i].remove()
         }
     }
-    
+
     for (let opcao of lista.options) {
         opcao.onclick = function () {
             input.value = opcao.value;
@@ -3928,17 +3929,17 @@ async function mostrar_modelos_modulos(nomeFuncao) {
     let lista = document.getElementById('modelomodulo-' + nomeFuncao)
 
     let modelos = []
-    
+
     while (lista.options.length > 0) {
         lista.children[0].remove()
     }
 
     let access_token = localStorage.getItem('access_token')
 
-    if (fabricante != '' & access_token != 'Error: Request failed with status code 401' & access_token != 'Error: Request failed with status code 403' & access_token != 'Error: Request failed with status code 422' & access_token != 'Error: Network Error' & access_token != null) {
+    if (fabricante != '' & !access_token.includes('Request failed with status code 401') & !access_token.includes('Request failed with status code 403') & !access_token.includes('Request failed with status code 422') & !access_token.includes('Network Error')) {
         let config = {
             headers: {
-              'Authorization': 'Bearer ' + access_token
+                'Authorization': 'Bearer ' + access_token
             }
         }
 
@@ -3956,26 +3957,26 @@ async function mostrar_modelos_modulos(nomeFuncao) {
             }
         )
 
-        if (dadosTodosModulos != 'Error: Request failed with status code 401' & dadosTodosModulos != 'Error: Request failed with status code 404') {
+        if (!dadosTodosModulos.message) {
             for (i = 0; i < dadosTodosModulos.length; i++) {
                 modelos[i] = dadosTodosModulos[i].modelo
                 let opcao_atual = document.createElement('option');
                 let texto = document.createTextNode(modelos[i])
-                
+
                 opcao_atual.value = modelos[i]
                 opcao_atual.appendChild(texto)
                 lista.appendChild(opcao_atual)
             }
         }
 
-        else if (modelos == 'Error: Request failed with status code 401') {
-            localStorage.setItem('access_token', dadosTodosModulos);
+        else if (dadosTodosModulos.message.includes('Request failed with status code 401')) {
+            localStorage.setItem('access_token', dadosTodosModulos.message);
             checar_autorizacao();
         }
     }
 
     localStorage.setItem('modelo_modulos', modelos)
-    
+
     lista.style.display = 'grid';
 
     for (let opcao of lista.options) {
@@ -3999,7 +4000,7 @@ function filtrar_modelos_modulos(nomeFuncao) {
     for (i = 0; i < modelo.length; i++) {
         let opcao_atual = document.createElement('option');
         let texto = document.createTextNode(modelo[i])
-        
+
         opcao_atual.value = modelo[i]
         opcao_atual.appendChild(texto)
         lista.appendChild(opcao_atual)
@@ -4013,7 +4014,7 @@ function filtrar_modelos_modulos(nomeFuncao) {
             lista.children[i].remove()
         }
     }
-    
+
     for (let opcao of lista.options) {
         opcao.onclick = function () {
             input.value = opcao.value;
@@ -4028,7 +4029,7 @@ async function mostrar_fabricantes_inversores(nomeFuncao) {
 
     let fabricante = []
     let fabricanteUnico = []
-    
+
     document.getElementById('modelo-inversor-' + nomeFuncao).value = ''
 
     while (lista.options.length > 0) {
@@ -4037,10 +4038,10 @@ async function mostrar_fabricantes_inversores(nomeFuncao) {
 
     let access_token = localStorage.getItem('access_token')
 
-    if (access_token != 'Error: Request failed with status code 401' & access_token != 'Error: Request failed with status code 403' & access_token != 'Error: Request failed with status code 422' & access_token != 'Error: Network Error' & access_token != null) {
+    if (!access_token.includes('Request failed with status code 401') & !access_token.includes('Request failed with status code 403') & !access_token.includes('Request failed with status code 422') & !access_token.includes('Network Error')) {
         let config = {
             headers: {
-              'Authorization': 'Bearer ' + access_token
+                'Authorization': 'Bearer ' + access_token
             }
         }
 
@@ -4058,13 +4059,13 @@ async function mostrar_fabricantes_inversores(nomeFuncao) {
             }
         )
 
-        if (fabricante != 'Error: Request failed with status code 401' & fabricante != 'Error: Request failed with status code 404') {
+        if (!fabricante.message) {
             contadorFabricantes = 0;
-            
+
             for (i = 0; i < fabricante.length; i++) {
                 let adicionado = false
                 let fabricanteAtual = fabricante[i].fabricante
-                
+
                 for (j = 0; j < fabricanteUnico.length; j++) {
                     if (fabricanteAtual == fabricanteUnico[j]) {
                         adicionado = true;
@@ -4079,24 +4080,24 @@ async function mostrar_fabricantes_inversores(nomeFuncao) {
 
             fabricanteUnico.sort()
 
-            for(i = 0; i < fabricanteUnico.length; i++) {
+            for (i = 0; i < fabricanteUnico.length; i++) {
                 let opcao_atual = document.createElement('option');
                 let texto = document.createTextNode(fabricanteUnico[i])
-                
+
                 opcao_atual.value = fabricanteUnico[i]
                 opcao_atual.appendChild(texto)
                 lista.appendChild(opcao_atual)
             }
         }
 
-        else if (fabricante == 'Error: Request failed with status code 401') {
-            localStorage.setItem('access_token', fabricante);
+        else if (fabricante.message.includes('Request failed with status code 401')) {
+            localStorage.setItem('access_token', fabricante.message);
             checar_autorizacao();
         }
     }
 
     localStorage.setItem('fabricante_inversores', fabricanteUnico)
-    
+
     lista.style.display = 'grid';
 
     for (let opcao of lista.options) {
@@ -4120,7 +4121,7 @@ function filtrar_fabricantes_inversores(nomeFuncao) {
     for (i = 0; i < fabricante.length; i++) {
         let opcao_atual = document.createElement('option');
         let texto = document.createTextNode(fabricante[i])
-        
+
         opcao_atual.value = fabricante[i]
         opcao_atual.appendChild(texto)
         lista.appendChild(opcao_atual)
@@ -4134,7 +4135,7 @@ function filtrar_fabricantes_inversores(nomeFuncao) {
             lista.children[i].remove()
         }
     }
-    
+
     for (let opcao of lista.options) {
         opcao.onclick = function () {
             input.value = opcao.value;
@@ -4149,17 +4150,17 @@ async function mostrar_modelos_inversores(nomeFuncao) {
     let lista = document.getElementById('modeloinversor-' + nomeFuncao)
 
     let modelos = []
-    
+
     while (lista.options.length > 0) {
         lista.children[0].remove()
     }
 
     let access_token = localStorage.getItem('access_token')
 
-    if (fabricante != '' & access_token != 'Error: Request failed with status code 401' & access_token != 'Error: Request failed with status code 403' & access_token != 'Error: Request failed with status code 422' & access_token != 'Error: Network Error' & access_token != null) {
+    if (fabricante != '' & !access_token.includes('Request failed with status code 401') & !access_token.includes('Request failed with status code 403') & !access_token.includes('Request failed with status code 422') & !access_token.includes('Network Error')) {
         let config = {
             headers: {
-              'Authorization': 'Bearer ' + access_token
+                'Authorization': 'Bearer ' + access_token
             }
         }
 
@@ -4177,26 +4178,26 @@ async function mostrar_modelos_inversores(nomeFuncao) {
             }
         )
 
-        if (dadosTodosInversores != 'Error: Request failed with status code 401' & dadosTodosInversores != 'Error: Request failed with status code 404') {
+        if (!dadosTodosInversores.message) {
             for (i = 0; i < dadosTodosInversores.length; i++) {
                 modelos[i] = dadosTodosInversores[i].modelo
                 let opcao_atual = document.createElement('option');
                 let texto = document.createTextNode(modelos[i])
-                
+
                 opcao_atual.value = modelos[i]
                 opcao_atual.appendChild(texto)
                 lista.appendChild(opcao_atual)
             }
         }
 
-        else if (modelos == 'Error: Request failed with status code 401') {
-            localStorage.setItem('access_token', dadosTodosInversores);
+        else if (dadosTodosInversores.message.includes('Request failed with status code 401')) {
+            localStorage.setItem('access_token', dadosTodosInversores.message);
             checar_autorizacao();
         }
     }
 
     localStorage.setItem('modelo_inversores', modelos)
-    
+
     lista.style.display = 'grid';
 
     for (let opcao of lista.options) {
@@ -4220,7 +4221,7 @@ function filtrar_modelos_inversores(nomeFuncao) {
     for (i = 0; i < modelo.length; i++) {
         let opcao_atual = document.createElement('option');
         let texto = document.createTextNode(modelo[i])
-        
+
         opcao_atual.value = modelo[i]
         opcao_atual.appendChild(texto)
         lista.appendChild(opcao_atual)
@@ -4234,7 +4235,7 @@ function filtrar_modelos_inversores(nomeFuncao) {
             lista.children[i].remove()
         }
     }
-    
+
     for (let opcao of lista.options) {
         opcao.onclick = function () {
             input.value = opcao.value;
@@ -4264,16 +4265,16 @@ async function modulos_por_inversor(descricao) {
     for (i = 0; i < 4; i++) {
         let modeloInversor = document.getElementById('modelo-inversor-' + String(i + 1) + '-' + descricao).value;
         let quantidadeInversor = document.getElementById('quantidade-inversor-' + String(i + 1) + '-' + descricao).value;
-        
+
         let numeroCalculado = 0;
 
-        if (modeloInversor != '' & modeloModulo != '' & access_token != 'Error: Request failed with status code 403' & access_token != 'Error: Request failed with status code 422' & access_token != null ) {
+        if (modeloInversor != '' & modeloModulo != '' & !access_token.includes('Request failed with status code 403') & !access_token.includes('Request failed with status code 422')) {
             let config = {
                 headers: {
-                'Authorization': 'Bearer ' + access_token
+                    'Authorization': 'Bearer ' + access_token
                 }
             }
-            
+
             let dadosInversor = await axios.get(
                 'https://entrada-dados.onrender.com/inverters?buscar=' + modeloInversor, config
             ).then(
@@ -4301,7 +4302,7 @@ async function modulos_por_inversor(descricao) {
                     return error;
                 }
             )
-            if (dadosInversor != 'Error: Request failed with status code 404' & dadosInversor != 'Error: Request failed with status code 401' & dadosModulo != 'Error: Request failed with status code 404' & dadosModulo != 'Error: Request failed with status code 401') {
+            if (!dadosInversor.message & !dadosModulo.message) {
                 let imp_i = parseFloat(dadosInversor[0].imp)
                 let isc_i = parseFloat(dadosInversor[0].isc)
                 let vmp_i = parseFloat(dadosInversor[0].v_max_mppt)
@@ -4309,9 +4310,9 @@ async function modulos_por_inversor(descricao) {
                 let overload = parseFloat(dadosInversor[0].overload)
                 let n_entrada = parseFloat(dadosInversor[0].n_entrada)
                 let n_mppt = parseFloat(dadosInversor[0].n_mppt)
-                
+
                 let arrayEntradas = []
-                
+
                 let restoEntradas = n_entrada % n_mppt
                 let entradaPorMPPT = 0
 
@@ -4322,7 +4323,7 @@ async function modulos_por_inversor(descricao) {
                 else {
                     entradaPorMPPT = (n_entrada - restoEntradas) / n_mppt + 1
                 }
-                
+
                 let imp_m = parseFloat(dadosModulo[0].imp)
                 let isc_m = parseFloat(dadosModulo[0].isc)
                 let vmp_m = parseFloat(dadosModulo[0].vmp)
@@ -4330,12 +4331,12 @@ async function modulos_por_inversor(descricao) {
                 let potencia_m = parseFloat(dadosModulo[0].potencia)
 
                 let entradasUsaveis = 0;
-                
+
                 if (((imp_i / entradaPorMPPT) / imp_m) >= 0.95) {
                     entradasUsaveis = entradaPorMPPT
                 }
 
-                else { 
+                else {
                     if ((imp_i / imp_m) < (isc_i / isc_m)) {
                         entradasUsaveis = Math.floor(imp_i / imp_m)
                     }
@@ -4346,7 +4347,7 @@ async function modulos_por_inversor(descricao) {
                 }
 
                 let modulosSerie = 0;
-                
+
                 if ((vmp_i / vmp_m) < (voc_i / voc_m)) {
                     modulosSerie = Math.floor(vmp_i / vmp_m)
                 }
@@ -4361,19 +4362,19 @@ async function modulos_por_inversor(descricao) {
                     for (i = 0; i < n_mppt; i++) {
                         arrayEntradas[i] = entradasUsaveis
 
-                        if(i >= restoEntradas & restoEntradas != 0) {
+                        if (i >= restoEntradas & restoEntradas != 0) {
                             arrayEntradas[i] -= 1
                         }
 
                         totalEntradas += arrayEntradas[i]
-                    }                
+                    }
                 }
 
                 else {
                     for (i = 0; i < n_mppt; i++) {
                         arrayEntradas[i] = entradaPorMPPT
 
-                        if(i >= restoEntradas & restoEntradas != 0) {
+                        if (i >= restoEntradas & restoEntradas != 0) {
                             arrayEntradas[i] -= 1
                         }
 
@@ -4383,8 +4384,8 @@ async function modulos_por_inversor(descricao) {
 
                 numeroModVI = totalEntradas * modulosSerie
                 numeroModP = Math.floor(overload / potencia_m)
-                    
-                
+
+
                 if (numeroModVI < numeroModP) {
                     numeroCalculado = quantidadeInversor * numeroModVI
                 }
@@ -4395,7 +4396,7 @@ async function modulos_por_inversor(descricao) {
             }
 
             let containerErro1 = document.getElementById('container-inversor-incompativel-' + String(i + 1) + '-' + descricao)
-            
+
             if (numeroModVI == 0) {
                 containerErro1.style.visibility = "visible"
                 containerErro1.style.display = "flex"
@@ -4408,11 +4409,11 @@ async function modulos_por_inversor(descricao) {
         }
 
         totalModulosCalculado += numeroCalculado
-        
+
     }
 
     let containerErro2 = document.getElementById('container-superou-overload-' + descricao)
-    
+
     if (numeroEntrada > totalModulosCalculado) {
         containerErro2.style.visibility = "visible"
         containerErro2.style.display = "flex"
