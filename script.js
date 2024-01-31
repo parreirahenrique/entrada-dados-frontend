@@ -224,7 +224,7 @@ async function checar_autorizacao() {
 
     if (!access_token.includes('Request failed with status code 401') & !access_token.includes('Request failed with status code 403') & !access_token.includes('Request failed with status code 422') & !access_token.includes('Network Error')) {
         let nomePagina = String(location.pathname.split("/").slice(-1));
-        console.log(nomePagina)
+        console.log(nomePagina === '')
         if (nomePagina != 'index.html' & nomePagina != '') {
             iconeHome = document.getElementsByClassName('uil uil-home');
             iconeHome[0].style.visibility = 'visible';
