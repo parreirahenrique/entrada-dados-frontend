@@ -692,7 +692,7 @@ async function mostrar_campos_atualizar_clientes() {
         }
 
         let dadosOriginais = await axios.get(
-            'http://localhost:8000/clients/' + numeroCliente.toString(), config
+            'https://entrada-dados.onrender.com/clients/' + numeroCliente.toString(), config
         ).then(
             function (response) {
                 const dadosOriginais = response.data;
@@ -1090,7 +1090,7 @@ async function mostrar_campos_atualizar_instalacoes() {
         }
 
         let dadosOriginais = await axios.get(
-            'http://localhost:8000/instalations/' + numeroInstalacao.toString(), config
+            'https://entrada-dados.onrender.com/instalations/' + numeroInstalacao.toString(), config
         ).then(
             function (response) {
                 const dadosOriginais = response.data;
@@ -1657,7 +1657,7 @@ async function mostrar_campos_atualizar_modulos() {
         }
 
         let dadosOriginais = await axios.get(
-            'http://localhost:8000/modules/' + modelo.toString(), config
+            'https://entrada-dados.onrender.com/modules/' + modelo.toString(), config
         ).then(
             function (response) {
                 const dadosOriginais = response.data;
@@ -2055,7 +2055,7 @@ async function mostrar_campos_atualizar_inversores() {
         }
 
         let dadosOriginais = await axios.get(
-            'http://localhost:8000/inverters/' + modelo.toString(), config
+            'https://entrada-dados.onrender.com/inverters/' + modelo.toString(), config
         ).then(
             function (response) {
                 const dadosOriginais = response.data;
@@ -4273,7 +4273,7 @@ async function modulos_por_inversor(descricao) {
             }
             
             let dadosInversor = await axios.get(
-                'http://localhost:8000/inverters?buscar=' + modeloInversor, config
+                'https://entrada-dados.onrender.com/inverters?buscar=' + modeloInversor, config
             ).then(
                 function (response) {
                     const dadosInversor = response.data;
@@ -4287,7 +4287,7 @@ async function modulos_por_inversor(descricao) {
             )
 
             let dadosModulo = await axios.get(
-                'http://localhost:8000/modules?buscar=' + modeloModulo, config
+                'https://entrada-dados.onrender.com/modules?buscar=' + modeloModulo, config
             ).then(
                 function (response) {
                     const dadosModulo = response.data;

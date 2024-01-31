@@ -721,7 +721,7 @@ async function patch_client() {
     }
 
     let dadosOriginais = await axios.get(
-        'http://localhost:8000/clients/' + numero_cliente_buscar.toString(), config
+        'https://entrada-dados.onrender.com/clients/' + numero_cliente_buscar.toString(), config
     ).then(
         function (response) {
             const dadosProjeto = response.data;
@@ -758,13 +758,14 @@ async function patch_client() {
         dicionario['nome_pais'] = nome_pais
     }
 
-        let config = {
-            headers: {
-            'Authorization': 'Bearer ' + access_token
-            }
-        }
-        
-        url = 'http://localhost:8000/clients/' + numero_cliente_buscar
+    if (Object.keys(dicionario).length == 0) {
+        containerCamposNaoPreenchidos = document.getElementsByClassName('container-campos-nao-preenchidos')
+        containerCamposNaoPreenchidos[0].style.visibility = "visible"
+        containerCamposNaoPreenchidos[0].style.display = "flex"
+    }
+
+    else {
+        url = 'https://entrada-dados.onrender.com/clients/' + numero_cliente_buscar
         
         resposta = await axios.patch(
             url, dicionario, config
@@ -878,7 +879,7 @@ async function get_all_instalations() {
         }
 
         let dadosTodasInstalacoes = await axios.get(
-            'http://localhost:8000/all-instalations', config
+            'https://entrada-dados.onrender.com/all-instalations', config
         ).then(
             function (response) {
                 const dadosTodasInstalacoes = response.data;
@@ -901,7 +902,7 @@ async function get_all_instalations() {
                     arrayTD[6 * i].style.display = 'table-cell'
 
                     cliente = await axios.get(
-                            'http://localhost:8000/clients/' + dadosTodasInstalacoes[i].numero_cliente, config
+                            'https://entrada-dados.onrender.com/clients/' + dadosTodasInstalacoes[i].numero_cliente, config
                     ).then(
                         function (response) {
                             const cliente = response.data;
@@ -981,7 +982,7 @@ async function get_all_instalations_skip(alterar) {
         }
 
         let dadosTodasInstalacoes = await axios.get(
-            'http://localhost:8000/instalations/?pular=' + pagina, config
+            'https://entrada-dados.onrender.com/instalations/?pular=' + pagina, config
         ).then(
             function (response) {
                 const dadosTodasInstalacoes = response.data;
@@ -1010,7 +1011,7 @@ async function get_all_instalations_skip(alterar) {
                     arrayTD[6 * i].style.display = 'table-cell'
 
                     cliente = await axios.get(
-                            'http://localhost:8000/clients/' + dadosTodasInstalacoes[i].numero_cliente, config
+                            'https://entrada-dados.onrender.com/clients/' + dadosTodasInstalacoes[i].numero_cliente, config
                     ).then(
                         function (response) {
                             const cliente = response.data;
@@ -1400,7 +1401,7 @@ async function patch_instalation() {
     }
 
     let dadosOriginais = await axios.get(
-        'http://localhost:8000/instalations/' + numero_instalacao_buscar.toString(), config
+        'https://entrada-dados.onrender.com/instalations/' + numero_instalacao_buscar.toString(), config
     ).then(
         function (response) {
             const dadosProjeto = response.data;
@@ -1453,14 +1454,14 @@ async function patch_instalation() {
         dicionario['coordenadas_decimais'] = coordenadas_decimais;
     }
 
-        let config = {
-            headers: {
-            'Authorization': 'Bearer ' + access_token
-            }
-        }
-        
-        
-        url = 'http://localhost:8000/instalations/' + numero_instalacao_buscar;
+    if (Object.keys(dicionario).length == 0){
+        containerCamposNaoPreenchidos = document.getElementsByClassName('container-campos-nao-preenchidos');
+        containerCamposNaoPreenchidos[0].style.visibility = "visible";
+        containerCamposNaoPreenchidos[0].style.display = "flex";
+    }
+
+    else {
+        url = 'https://entrada-dados.onrender.com/instalations/' + numero_instalacao_buscar;
         
         resposta = await axios.patch(
             url, dicionario, config
@@ -1713,7 +1714,7 @@ async function get_all_modules_skip(alterar) {
         
         if (dadosTodosModulos != 'Error: Request failed with status code 401' & dadosTodosModulos != 'Error: Request failed with status code 404') {
             let arrayTD = document.getElementsByTagName('td')
-            console.log(dadosTodosModulos.length)
+            
             if (pagina > dadosTodosModulos.length) {
                 pagina = parseInt(dadosTodosModulos.length - dadosTodosModulos.length % 10)
             }
@@ -2168,7 +2169,7 @@ async function patch_module() {
     }
 
     let dadosOriginais = await axios.get(
-        'http://localhost:8000/modules/' + id.toString(), config
+        'https://entrada-dados.onrender.com/modules/' + id.toString(), config
     ).then(
         function (response) {
             const dadosProjeto = response.data;
@@ -2229,21 +2230,22 @@ async function patch_module() {
         dicionario['temperatura_nominal'] = temperatura_nominal
     }
 
-        if (tipo != ''){
-            dicionario['tipo'] = tipo
-        }
-        
-        if (coeficiente_temperatura != ''){
-            dicionario['coeficiente_temperatura'] = coeficiente_temperatura
-        }
-        
-        let config = {
-            headers: {
-            'Authorization': 'Bearer ' + access_token
-            }
-        }
-        
-        url = 'http://localhost:8000/modules/' + id
+    if (tipo != dadosOriginais.tipo.toString()){
+        dicionario['tipo'] = tipo
+    }
+    
+    if (coeficiente_temperatura != dadosOriginais.coeficiente_temperatura.toString()){
+        dicionario['coeficiente_temperatura'] = coeficiente_temperatura
+    }
+
+    if (Object.keys(dicionario).length == 0){
+        containerCamposNaoPreenchidos = document.getElementsByClassName('container-campos-nao-preenchidos')
+        containerCamposNaoPreenchidos[0].style.visibility = "visible"
+        containerCamposNaoPreenchidos[0].style.display = "flex"
+    }
+
+    else {
+        url = 'https://entrada-dados.onrender.com/modules/' + id
         
         resposta = await axios.patch(
             url, dicionario, config
@@ -2957,7 +2959,7 @@ async function patch_inverter() {
     }
 
     let dadosOriginais = await axios.get(
-        'http://localhost:8000/inverters/' + id.toString(), config
+        'https://entrada-dados.onrender.com/inverters/' + id.toString(), config
     ).then(
         function (response) {
             const dadosProjeto = response.data;
@@ -3038,13 +3040,14 @@ async function patch_inverter() {
         dicionario['eficiencia'] = eficiencia
     }
 
-        let config = {
-            headers: {
-            'Authorization': 'Bearer ' + access_token
-            }
-        }
-        
-        url = 'http://localhost:8000/inverters/' + id
+    if (Object.keys(dicionario).length == 0){
+        containerCamposNaoPreenchidos = document.getElementsByClassName('container-campos-nao-preenchidos')
+        containerCamposNaoPreenchidos[0].style.visibility = "visible"
+        containerCamposNaoPreenchidos[0].style.display = "flex"
+    }
+
+    else {
+        url = 'https://entrada-dados.onrender.com/inverters/' + id
         
         resposta = await axios.patch(
             url, dicionario, config
@@ -3937,11 +3940,6 @@ async function post_project() {
     let novo_n_fases = document.getElementById('novo-n-fases-adicionar').value;
     let novo_disjuntor = document.getElementById('novo-disjuntor-adicionar').value;
     let n_fases_agrupamento = document.getElementById('n-fases-agrupamento-adicionar').value;
-
-    if(n_fases_agrupamento == "Sem disjuntor geral") {
-        n_fases_agrupamento = "Sem Disj. Geral"
-    }
-    
     let disjuntor_agrupamento = document.getElementById('disjuntor-agrupamento-adicionar').value;
     let tensao = document.getElementById('tensão-adicionar').value;
     let modulo_anterior_1 = document.getElementById('modulo-anterior-1-adicionar').checked.toString();
@@ -3989,10 +3987,7 @@ async function post_project() {
 
     if (agrupamento == 'true') {
         dicionario['n_fases_agrupamento'] = n_fases_agrupamento;
-
-        if (disjuntor_agrupamento != "") {
-            dicionario['disjuntor_agrupamento'] = disjuntor_agrupamento;
-        }
+        dicionario['disjuntor_agrupamento'] = disjuntor_agrupamento;
     }
     
     if (aumento_usina == 'true') {
@@ -4018,27 +4013,34 @@ async function post_project() {
         dicionario['quantidade_inversor_4'] = quantidade_inversor_4;
         dicionario['modelo_inversor_4'] = modelo_inversor_4;
     }
-    
+
     let config = {
         headers: {
           'Authorization': 'Bearer ' + access_token
         }
     }
 
-    if (numero_instalacao != '' & numero_cliente != '' & n_fases != '' & disjuntor != '' & tensao != '' & quantidade_modulo_1 != '' & modelo_modulo_1 != '' & quantidade_inversor_1 != '' & modelo_inversor_1 != ''){
-        resposta = await axios.post(
-            'http://localhost:8000/projects', dicionario, config
-        ).then(
-            function (response) {
-                const resposta = response.data;
-                return resposta;
-            }
-        ).catch(
-            function (error) {
-                console.log(error);
-                return error;
-            }
-        )
+    let containerErro1 = window.getComputedStyle(document.getElementById('container-inversor-incompativel-1-adicionar')).visibility;
+    let containerErro2 = window.getComputedStyle(document.getElementById('container-inversor-incompativel-2-adicionar')).visibility;
+    let containerErro3 = window.getComputedStyle(document.getElementById('container-inversor-incompativel-3-adicionar')).visibility;
+    let containerErro4 = window.getComputedStyle(document.getElementById('container-inversor-incompativel-4-adicionar')).visibility;
+    let containerOverloadSuperado = window.getComputedStyle(document.getElementById('container-superou-overload-adicionar')).visibility;
+    
+    if (containerErro1 != "visible" & containerErro2 != "visible" & containerErro3 != "visible" & containerErro4 != "visible" & containerOverloadSuperado != "visible") {
+        if (numero_instalacao != '' & numero_cliente != '' & n_fases != '' & disjuntor != '' & tensao != '' & quantidade_modulo_1 != '' & modelo_modulo_1 != '' & quantidade_inversor_1 != '' & modelo_inversor_1 != ''){
+            resposta = await axios.post(
+                'https://entrada-dados.onrender.com/projects', dicionario, config
+            ).then(
+                function (response) {
+                    const resposta = response.data;
+                    return resposta;
+                }
+            ).catch(
+                function (error) {
+                    console.log(error);
+                    return error;
+                }
+            )
 
             if (resposta != 'Error: Network Error' & resposta != 'Error: Request failed with status code 401') {
                 document.getElementById('container-projeto-adicionado').style.visibility = 'visible';
@@ -4089,11 +4091,6 @@ async function patch_project() {
     let novo_n_fases = document.getElementById('novo-n-fases-atualizar').value;
     let novo_disjuntor = document.getElementById('novo-disjuntor-atualizar').value;
     let n_fases_agrupamento = document.getElementById('n-fases-agrupamento-atualizar').value;
-
-    if(n_fases_agrupamento == "Sem disjuntor geral") {
-        n_fases_agrupamento = "Sem Disj. Geral"
-    }
-
     let disjuntor_agrupamento = document.getElementById('disjuntor-agrupamento-atualizar').value;
     let tensao = document.getElementById('tensão-atualizar').value;
     let modulo_anterior_1 = document.getElementById('modulo-anterior-1-atualizar').checked.toString();
@@ -4189,7 +4186,7 @@ async function patch_project() {
         dicionario['disjuntor'] = disjuntor
     }
 
-    if (novo_n_fases != dadosOriginais.novo_n_fases){
+    if (novo_n_fases != dadosOriginais.novo_n_fases.toString()){
         dicionario['novo_n_fases'] = novo_n_fases
     }
 
@@ -4197,7 +4194,7 @@ async function patch_project() {
         dicionario['novo_disjuntor'] = novo_disjuntor
     }
     
-    if (n_fases_agrupamento != dadosOriginais.n_fases_agrupamento){
+    if (n_fases_agrupamento != dadosOriginais.n_fases_agrupamento.toString()){
         dicionario['n_fases_agrupamento'] = n_fases_agrupamento
     }
     
