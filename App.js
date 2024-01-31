@@ -30,8 +30,8 @@ async function login() {
         if (!token_acesso.message){
             let nomePagina = String(location.pathname.split("/").slice(-1))
                 
-            if (nomePagina != 'index.html') {
-                setTimeout(window.location.replace('../index.html'), 5000);
+            if (nomePagina != 'index.html' & nomePagina != '') {
+                setTimeout(window.location.replace('../entrada-dados-frontend/'), 5000);
             }
         
             else {
@@ -79,8 +79,8 @@ async function logout() {
     
     let nomePagina = String(location.pathname.split("/").slice(-1))
         
-    if (nomePagina != 'index.html') {
-        setTimeout(window.location.replace('../index.html'), 5000);
+    if (nomePagina != 'index.html' & nomePagina != '') {
+        setTimeout(window.location.replace('../entrada-dados-frontend/'), 5000);
     }
 
     else {
