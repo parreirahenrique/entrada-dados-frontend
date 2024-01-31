@@ -5,7 +5,7 @@ async function login() {
     let usuario = document.getElementById('usuário').value;
     let senha = document.getElementById('senha').value;
     let dicionario = new FormData();
-    
+
     if (usuario != '' & senha != '') {
         dicionario.append('username', usuario);
         dicionario.append('password', senha);
@@ -23,17 +23,18 @@ async function login() {
                 return error;
             }
         )
-        
+
         localStorage.setItem('username', usuario);
         localStorage.setItem('access_token', token_acesso);
-        
-        if (!token_acesso.message){
+
+        if (!token_acesso.message) {
             let nomePagina = String(location.pathname.split("/").slice(-1))
-                
+
+            console.log(nomePagina)
             if (nomePagina != 'index.html' & nomePagina != '') {
                 setTimeout(window.location.replace('../entrada-dados-frontend/'), 5000);
             }
-        
+
             else {
                 setTimeout(window.location.reload(), 5000);
             }
@@ -47,7 +48,7 @@ async function login() {
     else {
         arrayCampos = document.getElementsByClassName('campo-obrigatorio-usuarios')
 
-        for (i = 0; i < arrayCampos.length; i ++) {
+        for (i = 0; i < arrayCampos.length; i++) {
             arrayCampos[i].style.visibility = "visible";
             arrayCampos[i].style.display = "flex";
         }
@@ -58,7 +59,7 @@ async function logout() {
     let usuario = '';
     let senha = '';
     let dicionario = new FormData();
-    
+
     dicionario.append('username', usuario);
     dicionario.append('password', senha);
 
@@ -68,7 +69,7 @@ async function logout() {
         function (response) {
             const token_acesso = response.data.message;
             return token_acesso;
-            
+
         }
     ).catch(
         function (error) {
@@ -76,9 +77,9 @@ async function logout() {
             return error;
         }
     )
-    
+
     let nomePagina = String(location.pathname.split("/").slice(-1))
-        
+    console.log(nomePagina)
     if (nomePagina != 'index.html' & nomePagina != '') {
         setTimeout(window.location.replace('../entrada-dados-frontend/'), 5000);
     }
@@ -95,7 +96,7 @@ async function logout() {
 async function get_username() {
     let access_token = localStorage.getItem('access_token');
     let username = localStorage.getItem('username');
-    
+
     if (!access_token.includes('Request failed with status code 403') & !access_token.includes('Request failed with status code 422')) {
         nomeUsuario = document.getElementsByClassName('nome-usuario')
         nomeUsuario[0].innerHTML = username
@@ -111,7 +112,7 @@ async function get_user() {
 
         let config = {
             headers: {
-              'Authorization': 'Bearer ' + access_token
+                'Authorization': 'Bearer ' + access_token
             }
         }
 
@@ -128,12 +129,12 @@ async function get_user() {
                 return error;
             }
         )
-        
+
         hora = dadosUsuario.criado_em.split('T')[1].split('.')[0];
         data = dadosUsuario.criado_em.split('-')[2].split('T')[0] + '/' + dadosUsuario.criado_em.split('-')[1] + '/' + dadosUsuario.criado_em.split('-')[0];
         document.getElementById('username').innerHTML = dadosUsuario.nome;
         document.getElementById('user-role').innerHTML = dadosUsuario.cargo;
-        document.getElementById('user-created-at').innerHTML = data  + ' às ' + hora;
+        document.getElementById('user-created-at').innerHTML = data + ' às ' + hora;
         document.getElementById('titulo-pagina').innerHTML = "Usuário";
     }
 }
@@ -146,7 +147,7 @@ async function get_user_role() {
 
         let config = {
             headers: {
-              'Authorization': 'Bearer ' + access_token
+                'Authorization': 'Bearer ' + access_token
             }
         }
 
@@ -163,7 +164,7 @@ async function get_user_role() {
                 return error;
             }
         )
-        
+
         if (dadosUsuario.cargo == 'Administrador') {
             containerAdministrador = document.getElementsByClassName('container-usuario-administrador')
             containerAdministrador[0].style.visibility = 'visible'
@@ -179,7 +180,7 @@ async function post_user() {
     let nome = document.getElementById('usuário-adicionar').value;
     let senha = document.getElementById('senha-adicionar').value;
     let confirmar_senha = document.getElementById('confirmar-senha-adicionar').value;
-    
+
     dicionario = {
         'nome': nome,
         'senha': senha,
@@ -188,12 +189,12 @@ async function post_user() {
 
     let config = {
         headers: {
-          'Authorization': 'Bearer ' + access_token
+            'Authorization': 'Bearer ' + access_token
         }
     }
 
     if (nome != '' & senha != '' & confirmar_senha != '') {
-        if(senha == confirmar_senha) {
+        if (senha == confirmar_senha) {
             resposta = await axios.post(
                 'https://entrada-dados.onrender.com/users', dicionario, config
             ).then(
@@ -207,20 +208,20 @@ async function post_user() {
                     return error;
                 }
             )
-    
+
             if (!resposta.message) {
                 document.getElementById('container-usuario-adicionado').style.visibility = 'visible';
                 document.getElementById('container-usuario-adicionado').style.display = 'grid';
-                
+
                 document.getElementById('container-add-users').style.visibility = 'hidden';
                 document.getElementById('container-add-users').style.display = 'none';
             }
-    
+
             else if (resposta.message.includes('Request failed with status code 401')) {
                 localStorage.setItem('access_token', resposta.message);
                 checar_autorizacao();
             }
-    
+
             else {
                 divExistentUser = document.getElementsByClassName('container-usuario-existente')
                 divExistentUser[0].style.visibility = 'visible';
@@ -233,13 +234,13 @@ async function post_user() {
             divDivergentPassword[0].style.visibility = 'visible';
             divDivergentPassword[0].style.display = 'flex';
         }
-        
+
     }
 
     else {
         arrayCampos = document.getElementsByClassName('campo-obrigatorio-usuarios')
 
-        for (i = 0; i < arrayCampos.length; i ++) {
+        for (i = 0; i < arrayCampos.length; i++) {
             arrayCampos[i].style.visibility = "visible";
             arrayCampos[i].style.display = "grid";
         }
@@ -265,22 +266,22 @@ async function patch_user() {
 
     else {
         if (senha == confirmar_senha) {
-            if (nome != ''){
+            if (nome != '') {
                 dicionario['nome'] = nome
             }
 
-            if (senha != ''){
+            if (senha != '') {
                 dicionario['senha'] = senha
             }
 
             let config = {
                 headers: {
-                'Authorization': 'Bearer ' + access_token
+                    'Authorization': 'Bearer ' + access_token
                 }
             }
-            
+
             url = 'https://entrada-dados.onrender.com/users/' + nome_buscar
-            
+
             resposta = await axios.patch(
                 url, dicionario, config
             ).then(
@@ -294,11 +295,11 @@ async function patch_user() {
                     return error;
                 }
             )
-            
+
             if (!resposta.message) {
                 document.getElementById('container-usuario-atualizado').style.visibility = 'visible';
                 document.getElementById('container-usuario-atualizado').style.display = 'grid';
-                    
+
                 document.getElementById('container-update-users').style.visibility = 'hidden';
                 document.getElementById('container-update-users').style.display = 'none';
             }
@@ -311,7 +312,7 @@ async function patch_user() {
             else {
                 let arrayUsarioInexistente = document.getElementsByClassName('container-usuario-inexistente')
 
-                for (i = 0; i < arrayUsarioInexistente.length; i ++) {
+                for (i = 0; i < arrayUsarioInexistente.length; i++) {
                     arrayUsarioInexistente[i].style.visibility = 'visible'
                     arrayUsarioInexistente[i].style.display = 'flex'
                 }
@@ -335,7 +336,7 @@ async function get_all_clients() {
 
         let config = {
             headers: {
-              'Authorization': 'Bearer ' + access_token
+                'Authorization': 'Bearer ' + access_token
             }
         }
 
@@ -352,7 +353,7 @@ async function get_all_clients() {
                 return error;
             }
         )
-        
+
         if (!dadosTodosClientes.message) {
             let arrayTD = document.getElementsByTagName('td')
 
@@ -416,7 +417,7 @@ async function get_all_clients_skip(alterar) {
     let access_token = localStorage.getItem('access_token');
 
     if (!access_token.includes('Request failed with status code 401') & !access_token.includes('Request failed with status code 403') & !access_token.includes('Request failed with status code 422') & !access_token.includes('Network Error')) {
-        
+
         let pagina = parseInt(localStorage.getItem('paginaAtualClientes')) + parseInt(alterar);
 
         if (pagina < 0) {
@@ -425,7 +426,7 @@ async function get_all_clients_skip(alterar) {
 
         let config = {
             headers: {
-              'Authorization': 'Bearer ' + access_token
+                'Authorization': 'Bearer ' + access_token
             }
         }
 
@@ -442,16 +443,16 @@ async function get_all_clients_skip(alterar) {
                 return error;
             }
         )
-        
+
         if (!dadosTodosClientes.message) {
             let arrayTD = document.getElementsByTagName('td')
-            
+
             if (pagina > dadosTodosClientes.length) {
                 pagina = parseInt(dadosTodosClientes.length - dadosTodosClientes.length % 10)
             }
-            
+
             localStorage.setItem('paginaAtualClientes', pagina);
-            
+
             for (i = 0; i < 10; i++) {
                 if (i < dadosTodosClientes.length) {
                     arrayTD[6 * i].innerHTML = dadosTodosClientes[i].numero_cliente
@@ -482,7 +483,7 @@ async function get_all_clients_skip(alterar) {
                         arrayTD[6 * i + 5].style.borderBottom = 0;
                     }
                 }
-                
+
                 else {
                     arrayTD[6 * i].innerHTML = ''
                     arrayTD[6 * i].style.visibility = 'hidden'
@@ -520,10 +521,10 @@ async function get_client() {
     let divSearchClient = document.getElementById('container-search-clients');
 
     if (numero_cliente != '') {
-        
+
         let config = {
             headers: {
-              'Authorization': 'Bearer ' + access_token
+                'Authorization': 'Bearer ' + access_token
             }
         }
 
@@ -540,17 +541,17 @@ async function get_client() {
                 return error;
             }
         )
-        
+
         if (!dadosCliente.message) {
             divSearchClient.style.visibility = 'hidden';
             divSearchClient.style.display = 'none';
 
             document.getElementById('container-cliente-encontrado').style.visibility = 'visible';
             document.getElementById('container-cliente-encontrado').style.display = 'grid';
-            
+
             let hora = dadosCliente.criado_em.split('T')[1].split('.')[0];
             let data = dadosCliente.criado_em.split('-')[2].split('T')[0] + '/' + dadosCliente.criado_em.split('-')[1] + '/' + dadosCliente.criado_em.split('-')[0];
-            
+
             if (dadosCliente.nome != '') {
                 document.getElementById('client-name').innerHTML = dadosCliente.nome;
                 document.getElementById('title-client-name').style.visibility = 'visible';
@@ -600,7 +601,7 @@ async function get_client() {
             }
 
             if (dadosCliente.criado_em != '') {
-                document.getElementById('client-added-in').innerHTML = data  + ' às ' + hora;
+                document.getElementById('client-added-in').innerHTML = data + ' às ' + hora;
                 document.getElementById('title-client-added-in').style.visibility = 'visible';
                 document.getElementById('title-client-added-in').style.display = 'grid';
                 document.getElementById('client-added-in').style.visibility = 'visible';
@@ -616,7 +617,7 @@ async function get_client() {
         else {
             let arrayClienteInexistente = document.getElementsByClassName('container-cliente-inexistente')
 
-            for (i = 0; i < arrayClienteInexistente.length; i ++) {
+            for (i = 0; i < arrayClienteInexistente.length; i++) {
                 arrayClienteInexistente[i].style.visibility = 'visible';
                 arrayClienteInexistente[i].style.display = 'flex';
             }
@@ -626,7 +627,7 @@ async function get_client() {
     else {
         arrayCampos = document.getElementsByClassName('campo-obrigatorio-clientes')
 
-        for (i = 0; i < arrayCampos.length; i ++) {
+        for (i = 0; i < arrayCampos.length; i++) {
             arrayCampos[i].style.visibility = "visible";
             arrayCampos[i].style.display = "grid";
         }
@@ -654,11 +655,11 @@ async function post_client() {
 
     let config = {
         headers: {
-          'Authorization': 'Bearer ' + access_token
+            'Authorization': 'Bearer ' + access_token
         }
     }
 
-    if (numero_cliente != '' & nome != '' & cpf != ''){
+    if (numero_cliente != '' & nome != '' & cpf != '') {
         resposta = await axios.post(
             'https://entrada-dados.onrender.com/clients', dicionario, config
         ).then(
@@ -676,7 +677,7 @@ async function post_client() {
         if (!resposta.message) {
             document.getElementById('container-cliente-adicionado').style.visibility = 'visible';
             document.getElementById('container-cliente-adicionado').style.display = 'grid';
-            
+
             document.getElementById('container-add-clients').style.visibility = 'hidden';
             document.getElementById('container-add-clients').style.display = 'none';
         }
@@ -696,7 +697,7 @@ async function post_client() {
     else {
         arrayCampos = document.getElementsByClassName('campo-obrigatorio-clientes')
 
-        for (i = 0; i < arrayCampos.length; i ++) {
+        for (i = 0; i < arrayCampos.length; i++) {
             arrayCampos[i].style.visibility = "visible";
             arrayCampos[i].style.display = "grid";
         }
@@ -717,7 +718,7 @@ async function patch_client() {
 
     let config = {
         headers: {
-        'Authorization': 'Bearer ' + access_token
+            'Authorization': 'Bearer ' + access_token
         }
     }
 
@@ -734,28 +735,28 @@ async function patch_client() {
             return error;
         }
     )
-    
-    if (numero_cliente != dadosOriginais.numero_cliente.toString()){
+
+    if (numero_cliente != dadosOriginais.numero_cliente.toString()) {
         dicionario['numero_cliente'] = numero_cliente
     }
 
-    if (nome != dadosOriginais.nome.toString()){
+    if (nome != dadosOriginais.nome.toString()) {
         dicionario['nome'] = nome
     }
 
-    if (cpf != dadosOriginais.cpf.toString()){
+    if (cpf != dadosOriginais.cpf.toString()) {
         dicionario['cpf'] = cpf
     }
 
-    if (rg != dadosOriginais.rg.toString()){
+    if (rg != dadosOriginais.rg.toString()) {
         dicionario['rg'] = rg
     }
 
-    if (nascimento != dadosOriginais.nascimento.toString()){
+    if (nascimento != dadosOriginais.nascimento.toString()) {
         dicionario['nascimento'] = nascimento.value.split('-').reverse().join('/')
     }
 
-    if (nome_pais != dadosOriginais.nome_pais.toString()){
+    if (nome_pais != dadosOriginais.nome_pais.toString()) {
         dicionario['nome_pais'] = nome_pais
     }
 
@@ -767,7 +768,7 @@ async function patch_client() {
 
     else {
         url = 'https://entrada-dados.onrender.com/clients/' + numero_cliente_buscar
-        
+
         resposta = await axios.patch(
             url, dicionario, config
         ).then(
@@ -781,11 +782,11 @@ async function patch_client() {
                 return error;
             }
         )
-        
+
         if (!resposta.message) {
             document.getElementById('container-cliente-atualizado').style.visibility = 'visible';
             document.getElementById('container-cliente-atualizado').style.display = 'grid';
-                
+
             document.getElementById('container-update-clients').style.visibility = 'hidden';
             document.getElementById('container-update-clients').style.display = 'none';
         }
@@ -798,7 +799,7 @@ async function patch_client() {
         else {
             let arrayClienteInexistente = document.getElementsByClassName('container-cliente-inexistente')
 
-            for (i = 0; i < arrayClienteInexistente.length; i ++) {
+            for (i = 0; i < arrayClienteInexistente.length; i++) {
                 arrayClienteInexistente[i].style.visibility = 'visible'
                 arrayClienteInexistente[i].style.display = 'flex'
             }
@@ -814,7 +815,7 @@ async function delete_client() {
 
         let config = {
             headers: {
-              'Authorization': 'Bearer ' + access_token
+                'Authorization': 'Bearer ' + access_token
             }
         }
 
@@ -848,18 +849,18 @@ async function delete_client() {
         else if (resposta.message.includes('Request failed with status code 404')) {
             let arrayClienteInexistente = document.getElementsByClassName('container-cliente-inexistente');
 
-            for (i = 0; i < arrayClienteInexistente.length; i ++) {
+            for (i = 0; i < arrayClienteInexistente.length; i++) {
                 arrayClienteInexistente[i].style.visibility = 'visible';
                 arrayClienteInexistente[i].style.display = 'flex';
             }
         }
 
     }
-    
+
     else {
         let arrayCampos = document.getElementsByClassName('campo-obrigatorio-clientes');
 
-        for (i = 0; i < arrayCampos.length; i ++) {
+        for (i = 0; i < arrayCampos.length; i++) {
             arrayCampos[i].style.visibility = "visible";
             arrayCampos[i].style.display = "grid";
         }
@@ -875,7 +876,7 @@ async function get_all_instalations() {
 
         let config = {
             headers: {
-              'Authorization': 'Bearer ' + access_token
+                'Authorization': 'Bearer ' + access_token
             }
         }
 
@@ -892,10 +893,10 @@ async function get_all_instalations() {
                 return error;
             }
         )
-        
+
         if (!dadosTodasInstalacoes.message) {
             let arrayTD = document.getElementsByTagName('td')
-            
+
             for (i = 0; i < 10; i++) {
                 if (i < dadosTodasInstalacoes.length) {
                     arrayTD[6 * i].innerHTML = dadosTodasInstalacoes[i].numero_cliente
@@ -903,7 +904,7 @@ async function get_all_instalations() {
                     arrayTD[6 * i].style.display = 'table-cell'
 
                     cliente = await axios.get(
-                            'https://entrada-dados.onrender.com/clients/' + dadosTodasInstalacoes[i].numero_cliente, config
+                        'https://entrada-dados.onrender.com/clients/' + dadosTodasInstalacoes[i].numero_cliente, config
                     ).then(
                         function (response) {
                             const cliente = response.data;
@@ -931,7 +932,7 @@ async function get_all_instalations() {
                     arrayTD[6 * i + 5].innerHTML = dadosTodasInstalacoes[i].longitude
                     arrayTD[6 * i + 5].style.visibility = 'visible'
                     arrayTD[6 * i + 5].style.display = 'table-cell'
-                    
+
                     if (i == (dadosTodasInstalacoes.length - 1)) {
                         arrayTD[6 * i].style.borderBottom = 0;
                         arrayTD[6 * i + 1].style.borderBottom = 0;
@@ -978,7 +979,7 @@ async function get_all_instalations_skip(alterar) {
 
         let config = {
             headers: {
-              'Authorization': 'Bearer ' + access_token
+                'Authorization': 'Bearer ' + access_token
             }
         }
 
@@ -995,16 +996,16 @@ async function get_all_instalations_skip(alterar) {
                 return error;
             }
         )
-        
+
         if (!dadosTodasInstalacoes.message) {
             let arrayTD = document.getElementsByTagName('td')
-            
+
             if (pagina > dadosTodasInstalacoes.length) {
                 pagina = parseInt(dadosTodasInstalacoes.length - dadosTodasInstalacoes.length % 10)
             }
-            
+
             localStorage.setItem('paginaAtualInstalacoes', pagina);
-            
+
             for (i = 0; i < 10; i++) {
                 if (i < dadosTodasInstalacoes.length) {
                     arrayTD[6 * i].innerHTML = dadosTodasInstalacoes[i].numero_cliente
@@ -1012,7 +1013,7 @@ async function get_all_instalations_skip(alterar) {
                     arrayTD[6 * i].style.display = 'table-cell'
 
                     cliente = await axios.get(
-                            'https://entrada-dados.onrender.com/clients/' + dadosTodasInstalacoes[i].numero_cliente, config
+                        'https://entrada-dados.onrender.com/clients/' + dadosTodasInstalacoes[i].numero_cliente, config
                     ).then(
                         function (response) {
                             const cliente = response.data;
@@ -1040,7 +1041,7 @@ async function get_all_instalations_skip(alterar) {
                     arrayTD[6 * i + 5].innerHTML = dadosTodasInstalacoes[i].longitude
                     arrayTD[6 * i + 5].style.visibility = 'visible'
                     arrayTD[6 * i + 5].style.display = 'table-cell'
-                    
+
                     if (i == (dadosTodasInstalacoes.length - 1)) {
                         arrayTD[6 * i].style.borderBottom = 0;
                         arrayTD[6 * i + 1].style.borderBottom = 0;
@@ -1082,10 +1083,10 @@ async function get_instalation() {
     let divSearchInstalation = document.getElementById('container-search-instalations');
 
     if (numero_instalacao != '') {
-        
+
         let config = {
             headers: {
-              'Authorization': 'Bearer ' + access_token
+                'Authorization': 'Bearer ' + access_token
             }
         }
 
@@ -1102,17 +1103,17 @@ async function get_instalation() {
                 return error;
             }
         )
-        
+
         if (!dadosInstalacao.message) {
             divSearchInstalation.style.visibility = 'hidden';
             divSearchInstalation.style.display = 'none';
 
             document.getElementById('container-instalacao-encontrada').style.visibility = 'visible';
             document.getElementById('container-instalacao-encontrada').style.display = 'grid';
-            
+
             let hora = dadosInstalacao.criado_em.split('T')[1].split('.')[0];
             let data = dadosInstalacao.criado_em.split('-')[2].split('T')[0] + '/' + dadosInstalacao.criado_em.split('-')[1] + '/' + dadosInstalacao.criado_em.split('-')[0];
-            
+
             if (dadosInstalacao.numero_instalacao != '') {
                 document.getElementById('instalation-number').innerHTML = dadosInstalacao.numero_instalacao;
                 document.getElementById('title-instalation-number').style.visibility = 'visible';
@@ -1120,7 +1121,7 @@ async function get_instalation() {
                 document.getElementById('instalation-number').style.visibility = 'visible';
                 document.getElementById('instalation-number').style.display = 'grid';
             }
-            
+
             if (dadosInstalacao.numero_cliente != '') {
                 document.getElementById('instalation-client-number').innerHTML = dadosInstalacao.numero_cliente;
                 document.getElementById('title-instalation-client-number').style.visibility = 'visible';
@@ -1136,7 +1137,7 @@ async function get_instalation() {
                 document.getElementById('instalation-street').style.visibility = 'visible';
                 document.getElementById('instalation-street').style.display = 'grid';
             }
-            
+
             if (dadosInstalacao.numero_predial != '') {
                 document.getElementById('instalation-street-number').innerHTML = dadosInstalacao.numero_predial;
                 document.getElementById('title-instalation-street-number').style.visibility = 'visible';
@@ -1144,7 +1145,7 @@ async function get_instalation() {
                 document.getElementById('instalation-street-number').style.visibility = 'visible';
                 document.getElementById('instalation-street-number').style.display = 'grid';
             }
-            
+
             if (dadosInstalacao.complemento != '') {
                 document.getElementById('instalation-complement').innerHTML = dadosInstalacao.complemento;
                 document.getElementById('title-instalation-complement').style.visibility = 'visible';
@@ -1152,7 +1153,7 @@ async function get_instalation() {
                 document.getElementById('instalation-complement').style.visibility = 'visible';
                 document.getElementById('instalation-complement').style.display = 'grid';
             }
-            
+
             if (dadosInstalacao.bairro != '') {
                 document.getElementById('instalation-district').innerHTML = dadosInstalacao.bairro;
                 document.getElementById('title-instalation-district').style.visibility = 'visible';
@@ -1168,7 +1169,7 @@ async function get_instalation() {
                 document.getElementById('instalation-city').style.visibility = 'visible';
                 document.getElementById('instalation-city').style.display = 'grid';
             }
-            
+
             if (dadosInstalacao.cep != '') {
                 document.getElementById('instalation-cep').innerHTML = dadosInstalacao.cep;
                 document.getElementById('title-instalation-cep').style.visibility = 'visible';
@@ -1176,7 +1177,7 @@ async function get_instalation() {
                 document.getElementById('instalation-cep').style.visibility = 'visible';
                 document.getElementById('instalation-cep').style.display = 'grid';
             }
-            
+
             if (dadosInstalacao.latitude != '') {
                 document.getElementById('instalation-latitude').innerHTML = dadosInstalacao.latitude;
                 document.getElementById('title-instalation-latitude').style.visibility = 'visible';
@@ -1184,7 +1185,7 @@ async function get_instalation() {
                 document.getElementById('instalation-latitude').style.visibility = 'visible';
                 document.getElementById('instalation-latitude').style.display = 'grid';
             }
-            
+
             if (dadosInstalacao.longitude != '') {
                 document.getElementById('instalation-longitude').innerHTML = dadosInstalacao.longitude;
                 document.getElementById('title-instalation-longitude').style.visibility = 'visible';
@@ -1218,7 +1219,7 @@ async function get_instalation() {
         else {
             let arrayInstalacaoInexistente = document.getElementsByClassName('container-instalacao-inexistente')
 
-            for (i = 0; i < arrayInstalacaoInexistente.length; i ++) {
+            for (i = 0; i < arrayInstalacaoInexistente.length; i++) {
                 arrayInstalacaoInexistente[i].style.visibility = 'visible';
                 arrayInstalacaoInexistente[i].style.display = 'flex';
             }
@@ -1228,7 +1229,7 @@ async function get_instalation() {
     else {
         arrayCampos = document.getElementsByClassName('campo-obrigatorio-instalacoes')
 
-        for (i = 0; i < arrayCampos.length; i ++) {
+        for (i = 0; i < arrayCampos.length; i++) {
             arrayCampos[i].style.visibility = "visible";
             arrayCampos[i].style.display = "grid";
         }
@@ -1237,10 +1238,10 @@ async function get_instalation() {
 
 async function post_instalation() {
     let access_token = localStorage.getItem('access_token');
-    
+
     let divNumeroInstalacao = document.getElementById('container-form-numero-instalacao-adicionar')
     let visibilidade = window.getComputedStyle(divNumeroInstalacao).visibility
-    
+
     let numero_instalacao = document.getElementById('número-instalação-adicionar').value
     let numero_cliente = document.getElementById('número-cliente-adicionar').value
     let logradouro = document.getElementById('logradouro-adicionar').value.toUpperCase()
@@ -1269,17 +1270,17 @@ async function post_instalation() {
         'coordenadas_decimais': coordenadas_decimais
     }
 
-    if (numero_instalacao != ''){
+    if (numero_instalacao != '') {
         dicionario['numero_instalacao'] = numero_instalacao
     }
 
     let config = {
         headers: {
-          'Authorization': 'Bearer ' + access_token
+            'Authorization': 'Bearer ' + access_token
         }
     }
     if (visibilidade == 'hidden') {
-        if (numero_cliente != '' & logradouro != '' & numero_predial != '' & complemento != '' & bairro != '' & cidade != '' & cep != '' & classificacao != '' & latitude != '' & cep != '' & coordenadas_decimais != ''){
+        if (numero_cliente != '' & logradouro != '' & numero_predial != '' & complemento != '' & bairro != '' & cidade != '' & cep != '' & classificacao != '' & latitude != '' & cep != '' & coordenadas_decimais != '') {
             resposta = await axios.post(
                 'https://entrada-dados.onrender.com/instalations', dicionario, config
             ).then(
@@ -1297,7 +1298,7 @@ async function post_instalation() {
             if (!resposta.message) {
                 document.getElementById('container-instalacao-adicionada').style.visibility = 'visible';
                 document.getElementById('container-instalacao-adicionada').style.display = 'grid';
-                
+
                 document.getElementById('container-add-instalations').style.visibility = 'hidden';
                 document.getElementById('container-add-instalations').style.display = 'none';
             }
@@ -1317,15 +1318,15 @@ async function post_instalation() {
         else {
             arrayCampos = document.getElementsByClassName('campo-obrigatorio-instalacoes')
 
-            for (i = 0; i < arrayCampos.length; i ++) {
+            for (i = 0; i < arrayCampos.length; i++) {
                 arrayCampos[i].style.visibility = "visible";
                 arrayCampos[i].style.display = "grid";
             }
         }
     }
 
-    else if(visibilidade == 'visible') {
-        if (numero_instalacao != '' & numero_cliente != '' & logradouro != '' & numero_predial != '' & complemento != '' & bairro != '' & cidade != '' & cep != '' & classificacao != '' & latitude != '' & cep != '' & coordenadas_decimais != ''){
+    else if (visibilidade == 'visible') {
+        if (numero_instalacao != '' & numero_cliente != '' & logradouro != '' & numero_predial != '' & complemento != '' & bairro != '' & cidade != '' & cep != '' & classificacao != '' & latitude != '' & cep != '' & coordenadas_decimais != '') {
             resposta = await axios.post(
                 'https://entrada-dados.onrender.com/instalations', dicionario, config
             ).then(
@@ -1343,7 +1344,7 @@ async function post_instalation() {
             if (!resposta.message) {
                 document.getElementById('container-instalacao-adicionada').style.visibility = 'visible';
                 document.getElementById('container-instalacao-adicionada').style.display = 'grid';
-                
+
                 document.getElementById('container-add-instalations').style.visibility = 'hidden';
                 document.getElementById('container-add-instalations').style.display = 'none';
             }
@@ -1363,7 +1364,7 @@ async function post_instalation() {
         else {
             arrayCampos = document.getElementsByClassName('campo-obrigatorio-instalacoes')
 
-            for (i = 0; i < arrayCampos.length; i ++) {
+            for (i = 0; i < arrayCampos.length; i++) {
                 arrayCampos[i].style.visibility = "visible";
                 arrayCampos[i].style.display = "grid";
             }
@@ -1397,7 +1398,7 @@ async function patch_instalation() {
 
     let config = {
         headers: {
-        'Authorization': 'Bearer ' + access_token
+            'Authorization': 'Bearer ' + access_token
         }
     }
 
@@ -1415,47 +1416,47 @@ async function patch_instalation() {
         }
     )
 
-    if (numero_instalacao != dadosOriginais.numero_instalacao.toString()){
+    if (numero_instalacao != dadosOriginais.numero_instalacao.toString()) {
         dicionario['numero_instalacao'] = numero_instalacao;
     }
 
-    if (numero_cliente != dadosOriginais.numero_cliente.toString()){
+    if (numero_cliente != dadosOriginais.numero_cliente.toString()) {
         dicionario['numero_cliente'] = numero_cliente;
     }
 
-    if (logradouro != dadosOriginais.logradouro.toString()){
+    if (logradouro != dadosOriginais.logradouro.toString()) {
         dicionario['logradouro'] = logradouro;
     }
 
-    if (numero_predial != dadosOriginais.numero_predial.toString()){
+    if (numero_predial != dadosOriginais.numero_predial.toString()) {
         dicionario['numero_predial'] = numero_predial;
     }
 
-    if (complemento != dadosOriginais.complemento.toString()){
+    if (complemento != dadosOriginais.complemento.toString()) {
         dicionario['complemento'] = complemento;
     }
 
-    if (cep != dadosOriginais.cep.toString()){
+    if (cep != dadosOriginais.cep.toString()) {
         dicionario['cep'] = cep;
     }
 
-    if (classificacao != dadosOriginais.classificacao.toString()){
+    if (classificacao != dadosOriginais.classificacao.toString()) {
         dicionario['classificacao'] = classificacao;
     }
-    
-    if (latitude != dadosOriginais.latitude.toString()){
+
+    if (latitude != dadosOriginais.latitude.toString()) {
         dicionario['latitude'] = latitude;
     }
-    
-    if (longitude != dadosOriginais.longitude.toString()){
+
+    if (longitude != dadosOriginais.longitude.toString()) {
         dicionario['longitude'] = longitude;
     }
 
-    if (coordenadas_decimais != dadosOriginais.coordenadas_decimais.toString()){
+    if (coordenadas_decimais != dadosOriginais.coordenadas_decimais.toString()) {
         dicionario['coordenadas_decimais'] = coordenadas_decimais;
     }
 
-    if (Object.keys(dicionario).length == 0){
+    if (Object.keys(dicionario).length == 0) {
         containerCamposNaoPreenchidos = document.getElementsByClassName('container-campos-nao-preenchidos');
         containerCamposNaoPreenchidos[0].style.visibility = "visible";
         containerCamposNaoPreenchidos[0].style.display = "flex";
@@ -1463,7 +1464,7 @@ async function patch_instalation() {
 
     else {
         url = 'https://entrada-dados.onrender.com/instalations/' + numero_instalacao_buscar;
-        
+
         resposta = await axios.patch(
             url, dicionario, config
         ).then(
@@ -1477,11 +1478,11 @@ async function patch_instalation() {
                 return error;
             }
         )
-        
+
         if (!resposta.message) {
             document.getElementById('container-instalacao-atualizada').style.visibility = 'visible';
             document.getElementById('container-instalacao-atualizada').style.display = 'grid';
-                
+
             document.getElementById('container-update-instalations').style.visibility = 'hidden';
             document.getElementById('container-update-instalations').style.display = 'none';
         }
@@ -1494,7 +1495,7 @@ async function patch_instalation() {
         else {
             let arrayInstalacaoInexistente = document.getElementsByClassName('container-instalacao-inexistente')
 
-            for (i = 0; i < arrayInstalacaoInexistente.length; i ++) {
+            for (i = 0; i < arrayInstalacaoInexistente.length; i++) {
                 arrayInstalacaoInexistente[i].style.visibility = 'visible';
                 arrayInstalacaoInexistente[i].style.display = 'flex';
             }
@@ -1510,7 +1511,7 @@ async function delete_instalation() {
 
         let config = {
             headers: {
-              'Authorization': 'Bearer ' + access_token
+                'Authorization': 'Bearer ' + access_token
             }
         }
 
@@ -1527,7 +1528,7 @@ async function delete_instalation() {
                 return error;
             }
         )
-        
+
         if (resposta == '') {
             document.getElementById('container-instalacao-deletada').style.visibility = 'visible';
             document.getElementById('container-instalacao-deletada').style.display = 'grid';
@@ -1544,17 +1545,17 @@ async function delete_instalation() {
         else if (resposta.message.includes('Request failed with status code 404')) {
             let arrayInstalacaoInexistente = document.getElementsByClassName('container-instalacao-inexistente');
 
-            for (i = 0; i < arrayInstalacaoInexistente.length; i ++) {
+            for (i = 0; i < arrayInstalacaoInexistente.length; i++) {
                 arrayInstalacaoInexistente[i].style.visibility = 'visible';
                 arrayInstalacaoInexistente[i].style.display = 'flex';
             }
         }
     }
-    
+
     else {
         let arrayCampos = document.getElementsByClassName('campo-obrigatorio-instalacoes');
 
-        for (i = 0; i < arrayCampos.length; i ++) {
+        for (i = 0; i < arrayCampos.length; i++) {
             arrayCampos[i].style.visibility = "visible";
             arrayCampos[i].style.display = "grid";
         }
@@ -1570,7 +1571,7 @@ async function get_all_modules() {
 
         let config = {
             headers: {
-              'Authorization': 'Bearer ' + access_token
+                'Authorization': 'Bearer ' + access_token
             }
         }
 
@@ -1587,10 +1588,10 @@ async function get_all_modules() {
                 return error;
             }
         )
-        
+
         if (!dadosTodosModulos.message) {
             let arrayTD = document.getElementsByTagName('td')
-            
+
             for (i = 0; i < 10; i++) {
                 if (i < dadosTodosModulos.length) {
                     arrayTD[12 * i].innerHTML = dadosTodosModulos[i].modelo
@@ -1629,7 +1630,7 @@ async function get_all_modules() {
                     arrayTD[12 * i + 11].innerHTML = dadosTodosModulos[i].tipo
                     arrayTD[12 * i + 11].style.visibility = 'visible'
                     arrayTD[12 * i + 11].style.display = 'table-cell'
-                    
+
                     if (i == (dadosTodosModulos.length - 1)) {
                         arrayTD[12 * i].style.borderBottom = 0;
                         arrayTD[12 * i + 1].style.borderBottom = 0;
@@ -1686,7 +1687,7 @@ async function get_all_modules_skip(alterar) {
     let access_token = localStorage.getItem('access_token');
 
     if (!access_token.includes('Request failed with status code 401') & !access_token.includes('Request failed with status code 403') & !access_token.includes('Request failed with status code 422') & !access_token.includes('Network Error')) {
-        
+
         let pagina = parseInt(localStorage.getItem('paginaAtualModulos')) + parseInt(alterar);
 
         if (pagina < 0) {
@@ -1695,7 +1696,7 @@ async function get_all_modules_skip(alterar) {
 
         let config = {
             headers: {
-              'Authorization': 'Bearer ' + access_token
+                'Authorization': 'Bearer ' + access_token
             }
         }
 
@@ -1712,16 +1713,16 @@ async function get_all_modules_skip(alterar) {
                 return error;
             }
         )
-        
+
         if (!dadosTodosModulos.message) {
             let arrayTD = document.getElementsByTagName('td')
-            
+
             if (pagina > dadosTodosModulos.length) {
                 pagina = parseInt(dadosTodosModulos.length - dadosTodosModulos.length % 10)
             }
-            
+
             localStorage.setItem('paginaAtualModulos', pagina);
-            
+
             for (i = 0; i < 10; i++) {
                 if (i < dadosTodosModulos.length) {
                     arrayTD[12 * i].innerHTML = dadosTodosModulos[i].modelo
@@ -1760,7 +1761,7 @@ async function get_all_modules_skip(alterar) {
                     arrayTD[12 * i + 11].innerHTML = dadosTodosModulos[i].tipo
                     arrayTD[12 * i + 11].style.visibility = 'visible'
                     arrayTD[12 * i + 11].style.display = 'table-cell'
-                    
+
                     if (i == (dadosTodosModulos.length - 1)) {
                         arrayTD[12 * i].style.borderBottom = 0;
                         arrayTD[12 * i + 1].style.borderBottom = 0;
@@ -1776,7 +1777,7 @@ async function get_all_modules_skip(alterar) {
                         arrayTD[12 * i + 11].style.borderBottom = 0;
                     }
                 }
-                
+
                 else {
                     arrayTD[12 * i].style.visibility = 'hidden'
                     arrayTD[12 * i].style.display = 'none'
@@ -1820,10 +1821,10 @@ async function get_module() {
     let divSearchModule = document.getElementById('container-search-modules');
 
     if (modelo != '') {
-        
+
         let config = {
             headers: {
-              'Authorization': 'Bearer ' + access_token
+                'Authorization': 'Bearer ' + access_token
             }
         }
 
@@ -1840,17 +1841,17 @@ async function get_module() {
                 return error;
             }
         )
-        
+
         if (!dadosModulo.message) {
             divSearchModule.style.visibility = 'hidden';
             divSearchModule.style.display = 'none';
 
             document.getElementById('container-modulo-encontrado').style.visibility = 'visible';
             document.getElementById('container-modulo-encontrado').style.display = 'grid';
-            
+
             let hora = dadosModulo.criado_em.split('T')[1].split('.')[0];
             let data = dadosModulo.criado_em.split('-')[2].split('T')[0] + '/' + dadosModulo.criado_em.split('-')[1] + '/' + dadosModulo.criado_em.split('-')[0];
-            
+
             if (dadosModulo.modelo != '') {
                 document.getElementById('module-model').innerHTML = dadosModulo.modelo;
                 document.getElementById('title-module-model').style.visibility = 'visible';
@@ -1874,7 +1875,7 @@ async function get_module() {
                 document.getElementById('module-power').style.visibility = 'visible';
                 document.getElementById('module-power').style.display = 'grid';
             }
-            
+
             if (dadosModulo.imp != 0) {
                 document.getElementById('module-imp').innerHTML = dadosModulo.imp.toString().replace('.', ',') + " A";
                 document.getElementById('title-module-imp').style.visibility = 'visible';
@@ -1882,7 +1883,7 @@ async function get_module() {
                 document.getElementById('module-imp').style.visibility = 'visible';
                 document.getElementById('module-imp').style.display = 'grid';
             }
-            
+
             if (dadosModulo.isc != 0) {
                 document.getElementById('module-isc').innerHTML = dadosModulo.isc.toString().replace('.', ',') + " A";
                 document.getElementById('title-module-isc').style.visibility = 'visible';
@@ -1898,7 +1899,7 @@ async function get_module() {
                 document.getElementById('module-vmp').style.visibility = 'visible';
                 document.getElementById('module-vmp').style.display = 'grid';
             }
-            
+
             if (dadosModulo.voc != 0) {
                 document.getElementById('module-voc').innerHTML = dadosModulo.voc.toString().replace('.', ',') + " V";
                 document.getElementById('title-module-voc').style.visibility = 'visible';
@@ -1906,7 +1907,7 @@ async function get_module() {
                 document.getElementById('module-voc').style.visibility = 'visible';
                 document.getElementById('module-voc').style.display = 'grid';
             }
-            
+
             if (dadosModulo.comprimento != 0) {
                 document.getElementById('module-width').innerHTML = dadosModulo.comprimento.toString() + " mm";
                 document.getElementById('title-module-width').style.visibility = 'visible';
@@ -1914,7 +1915,7 @@ async function get_module() {
                 document.getElementById('module-width').style.visibility = 'visible';
                 document.getElementById('module-width').style.display = 'grid';
             }
-            
+
             if (dadosModulo.largura != 0) {
                 document.getElementById('module-length').innerHTML = dadosModulo.largura.toString() + " mm";
                 document.getElementById('title-module-length').style.visibility = 'visible';
@@ -1922,7 +1923,7 @@ async function get_module() {
                 document.getElementById('module-length').style.visibility = 'visible';
                 document.getElementById('module-length').style.display = 'grid';
             }
-            
+
             if (dadosModulo.espessura != 0) {
                 document.getElementById('module-thickness').innerHTML = dadosModulo.espessura.toString() + " mm";
                 document.getElementById('title-module-thickness').style.visibility = 'visible';
@@ -1930,7 +1931,7 @@ async function get_module() {
                 document.getElementById('module-thickness').style.visibility = 'visible';
                 document.getElementById('module-thickness').style.display = 'grid';
             }
-            
+
             if (dadosModulo.eficiencia != 0) {
                 document.getElementById('module-efficiency').innerHTML = dadosModulo.eficiencia.toString().replace('.', ',') + "%";
                 document.getElementById('title-module-efficiency').style.visibility = 'visible';
@@ -1946,7 +1947,7 @@ async function get_module() {
                 document.getElementById('module-temperature').style.visibility = 'visible';
                 document.getElementById('module-temperature').style.display = 'grid';
             }
-            
+
             if (dadosModulo.tipo != '') {
                 document.getElementById('module-type').innerHTML = dadosModulo.tipo;
                 document.getElementById('title-module-type').style.visibility = 'visible';
@@ -1954,7 +1955,7 @@ async function get_module() {
                 document.getElementById('module-type').style.visibility = 'visible';
                 document.getElementById('module-type').style.display = 'grid';
             }
-            
+
             if (dadosModulo.coeficiente_temperatura != 0) {
                 document.getElementById('module-coefficient').innerHTML = dadosModulo.coeficiente_temperatura.toString().replace('.', ',') + "%/°C";
                 document.getElementById('title-module-coefficient').style.visibility = 'visible';
@@ -1962,7 +1963,7 @@ async function get_module() {
                 document.getElementById('module-coefficient').style.visibility = 'visible';
                 document.getElementById('module-coefficient').style.display = 'grid';
             }
-            
+
             if (dadosModulo.criado_em != '') {
                 document.getElementById('module-added-in').innerHTML = data + ' às ' + hora;
                 document.getElementById('title-module-added-in').style.visibility = 'visible';
@@ -1980,7 +1981,7 @@ async function get_module() {
         else {
             let arrayModuloInexistente = document.getElementsByClassName('container-modulo-inexistente')
 
-            for (i = 0; i < arrayModuloInexistente.length; i ++) {
+            for (i = 0; i < arrayModuloInexistente.length; i++) {
                 arrayModuloInexistente[i].style.visibility = 'visible';
                 arrayModuloInexistente[i].style.display = 'flex';
             }
@@ -1990,7 +1991,7 @@ async function get_module() {
     else {
         arrayCampos = document.getElementsByClassName('campo-obrigatorio-modulos')
 
-        for (i = 0; i < arrayCampos.length; i ++) {
+        for (i = 0; i < arrayCampos.length; i++) {
             arrayCampos[i].style.visibility = "visible";
             arrayCampos[i].style.display = "grid";
         }
@@ -2004,7 +2005,7 @@ async function post_module() {
     let fabricante = document.getElementById('fabricante-módulo-adicionar').value.toUpperCase()
     let potencia = document.getElementById('potência-módulo-adicionar').value
     let imp = document.getElementById('imp-módulo-adicionar').value
-    
+
     if (imp.includes(',') == true) {
         imp = imp.replace(',', '.')
     }
@@ -2063,11 +2064,11 @@ async function post_module() {
 
     let config = {
         headers: {
-          'Authorization': 'Bearer ' + access_token
+            'Authorization': 'Bearer ' + access_token
         }
     }
 
-    if (modelo != '' & fabricante != '' & potencia != '' & imp != '' & isc != '' & vmp != '' & voc != '' & comprimento != '' & largura != '' & espessura != '' & eficiencia != '' & temperatura_nominal != '' & tipo != '' & coeficiente_temperatura != ''){
+    if (modelo != '' & fabricante != '' & potencia != '' & imp != '' & isc != '' & vmp != '' & voc != '' & comprimento != '' & largura != '' & espessura != '' & eficiencia != '' & temperatura_nominal != '' & tipo != '' & coeficiente_temperatura != '') {
         resposta = await axios.post(
             'https://entrada-dados.onrender.com/modules', dicionario, config
         ).then(
@@ -2085,7 +2086,7 @@ async function post_module() {
         if (!resposta.message) {
             document.getElementById('container-modulo-adicionado').style.visibility = 'visible';
             document.getElementById('container-modulo-adicionado').style.display = 'grid';
-            
+
             document.getElementById('container-add-modules-general').style.visibility = 'hidden';
             document.getElementById('container-add-modules-general').style.display = 'none';
         }
@@ -2105,7 +2106,7 @@ async function post_module() {
     else {
         arrayCampos = document.getElementsByClassName('campo-obrigatorio-modulos')
 
-        for (i = 0; i < arrayCampos.length; i ++) {
+        for (i = 0; i < arrayCampos.length; i++) {
             arrayCampos[i].style.visibility = "visible";
             arrayCampos[i].style.display = "grid";
         }
@@ -2165,7 +2166,7 @@ async function patch_module() {
 
     let config = {
         headers: {
-        'Authorization': 'Bearer ' + access_token
+            'Authorization': 'Bearer ' + access_token
         }
     }
 
@@ -2182,64 +2183,64 @@ async function patch_module() {
             return error;
         }
     )
-    
-    if (modelo != dadosOriginais.modelo.toString()){
+
+    if (modelo != dadosOriginais.modelo.toString()) {
         dicionario['modelo'] = modelo
     }
 
-    if (fabricante != dadosOriginais.fabricante.toString()){
+    if (fabricante != dadosOriginais.fabricante.toString()) {
         dicionario['fabricante'] = fabricante
     }
 
-    if (potencia != dadosOriginais.potencia.toString()){
+    if (potencia != dadosOriginais.potencia.toString()) {
         dicionario['potencia'] = potencia
     }
 
-    if (imp != dadosOriginais.imp.toString()){
+    if (imp != dadosOriginais.imp.toString()) {
         dicionario['imp'] = imp
     }
 
-    if (isc != dadosOriginais.isc.toString()){
+    if (isc != dadosOriginais.isc.toString()) {
         dicionario['isc'] = isc
     }
 
-    if (vmp != dadosOriginais.vmp.toString()){
+    if (vmp != dadosOriginais.vmp.toString()) {
         dicionario['vmp'] = vmp
     }
 
-    if (voc != dadosOriginais.voc.toString()){
+    if (voc != dadosOriginais.voc.toString()) {
         dicionario['voc'] = voc
     }
-    
-    if (comprimento != dadosOriginais.comprimento.toString()){
+
+    if (comprimento != dadosOriginais.comprimento.toString()) {
         dicionario['comprimento'] = comprimento
     }
-    
-    if (largura != dadosOriginais.largura.toString()){
+
+    if (largura != dadosOriginais.largura.toString()) {
         dicionario['largura'] = largura
     }
-    
-    if (espessura != dadosOriginais.espessura.toString()){
+
+    if (espessura != dadosOriginais.espessura.toString()) {
         dicionario['espessura'] = espessura
     }
-    
-    if (eficiencia != dadosOriginais.eficiencia.toString()){
+
+    if (eficiencia != dadosOriginais.eficiencia.toString()) {
         dicionario['eficiencia'] = eficiencia
     }
 
-    if (temperatura_nominal != dadosOriginais.temperatura_nominal.toString()){
+    if (temperatura_nominal != dadosOriginais.temperatura_nominal.toString()) {
         dicionario['temperatura_nominal'] = temperatura_nominal
     }
 
-    if (tipo != dadosOriginais.tipo.toString()){
+    if (tipo != dadosOriginais.tipo.toString()) {
         dicionario['tipo'] = tipo
     }
-    
-    if (coeficiente_temperatura != dadosOriginais.coeficiente_temperatura.toString()){
+
+    if (coeficiente_temperatura != dadosOriginais.coeficiente_temperatura.toString()) {
         dicionario['coeficiente_temperatura'] = coeficiente_temperatura
     }
 
-    if (Object.keys(dicionario).length == 0){
+    if (Object.keys(dicionario).length == 0) {
         containerCamposNaoPreenchidos = document.getElementsByClassName('container-campos-nao-preenchidos')
         containerCamposNaoPreenchidos[0].style.visibility = "visible"
         containerCamposNaoPreenchidos[0].style.display = "flex"
@@ -2247,7 +2248,7 @@ async function patch_module() {
 
     else {
         url = 'https://entrada-dados.onrender.com/modules/' + id
-        
+
         resposta = await axios.patch(
             url, dicionario, config
         ).then(
@@ -2261,11 +2262,11 @@ async function patch_module() {
                 return error;
             }
         )
-        
+
         if (!resposta.message) {
             document.getElementById('container-modulo-atualizado').style.visibility = 'visible';
             document.getElementById('container-modulo-atualizado').style.display = 'grid';
-                
+
             document.getElementById('container-update-modules-general').style.visibility = 'hidden';
             document.getElementById('container-update-modules-general').style.display = 'none';
         }
@@ -2278,7 +2279,7 @@ async function patch_module() {
         else {
             let arrayModuloInexistente = document.getElementsByClassName('container-modulo-inexistente')
 
-            for (i = 0; i < arrayModuloInexistente.length; i ++) {
+            for (i = 0; i < arrayModuloInexistente.length; i++) {
                 arrayModuloInexistente[i].style.visibility = 'visible'
                 arrayModuloInexistente[i].style.display = 'flex'
             }
@@ -2294,7 +2295,7 @@ async function delete_module() {
 
         let config = {
             headers: {
-              'Authorization': 'Bearer ' + access_token
+                'Authorization': 'Bearer ' + access_token
             }
         }
 
@@ -2311,7 +2312,7 @@ async function delete_module() {
                 return error;
             }
         )
-        
+
         if (resposta == '') {
             document.getElementById('container-modulo-deletado').style.visibility = 'visible';
             document.getElementById('container-modulo-deletado').style.display = 'grid';
@@ -2328,18 +2329,18 @@ async function delete_module() {
         else if (resposta.message.includes('Request failed with status code 404')) {
             let arrayModuloInexistente = document.getElementsByClassName('container-modulo-inexistente');
 
-            for (i = 0; i < arrayModuloInexistente.length; i ++) {
+            for (i = 0; i < arrayModuloInexistente.length; i++) {
                 arrayModuloInexistente[i].style.visibility = 'visible';
                 arrayModuloInexistente[i].style.display = 'flex';
             }
         }
 
     }
-    
+
     else {
         let arrayCampos = document.getElementsByClassName('campo-obrigatorio-modulos');
 
-        for (i = 0; i < arrayCampos.length; i ++) {
+        for (i = 0; i < arrayCampos.length; i++) {
             arrayCampos[i].style.visibility = "visible";
             arrayCampos[i].style.display = "grid";
         }
@@ -2355,7 +2356,7 @@ async function get_all_inverters() {
 
         let config = {
             headers: {
-              'Authorization': 'Bearer ' + access_token
+                'Authorization': 'Bearer ' + access_token
             }
         }
 
@@ -2372,10 +2373,10 @@ async function get_all_inverters() {
                 return error;
             }
         )
-        
+
         if (!dadosTodosInversores.message) {
             let arrayTD = document.getElementsByTagName('td')
-            
+
             for (i = 0; i < 10; i++) {
                 if (i < dadosTodosInversores.length) {
                     arrayTD[12 * i].innerHTML = dadosTodosInversores[i].modelo
@@ -2414,7 +2415,7 @@ async function get_all_inverters() {
                     arrayTD[12 * i + 11].innerHTML = dadosTodosInversores[i].v_saida + ' V'
                     arrayTD[12 * i + 11].style.visibility = 'visible'
                     arrayTD[12 * i + 11].style.display = 'table-cell'
-                    
+
                     if (i == (dadosTodosInversores.length - 1)) {
                         arrayTD[12 * i].style.borderBottom = 0;
                         arrayTD[12 * i + 1].style.borderBottom = 0;
@@ -2471,7 +2472,7 @@ async function get_all_inverters_skip(alterar) {
     let access_token = localStorage.getItem('access_token');
 
     if (!access_token.includes('Request failed with status code 401') & !access_token.includes('Request failed with status code 403') & !access_token.includes('Request failed with status code 422') & !access_token.includes('Network Error')) {
-        
+
         let pagina = parseInt(localStorage.getItem('paginaAtualInversores')) + parseInt(alterar);
 
         if (pagina < 0) {
@@ -2480,7 +2481,7 @@ async function get_all_inverters_skip(alterar) {
 
         let config = {
             headers: {
-              'Authorization': 'Bearer ' + access_token
+                'Authorization': 'Bearer ' + access_token
             }
         }
 
@@ -2497,16 +2498,16 @@ async function get_all_inverters_skip(alterar) {
                 return error;
             }
         )
-        
+
         if (!dadosTodosInversores.message) {
             let arrayTD = document.getElementsByTagName('td')
-            
+
             if (pagina > dadosTodosInversores.length) {
                 pagina = parseInt(dadosTodosInversores.length - dadosTodosInversores.length % 10)
             }
-            
+
             localStorage.setItem('paginaAtualInversores', pagina);
-            
+
             for (i = 0; i < 10; i++) {
                 if (i < dadosTodosInversores.length) {
                     arrayTD[12 * i].innerHTML = dadosTodosInversores[i].modelo
@@ -2545,7 +2546,7 @@ async function get_all_inverters_skip(alterar) {
                     arrayTD[12 * i + 11].innerHTML = dadosTodosInversores[i].v_saida + ' V'
                     arrayTD[12 * i + 11].style.visibility = 'visible'
                     arrayTD[12 * i + 11].style.display = 'table-cell'
-                    
+
                     if (i == (dadosTodosInversores.length - 1)) {
                         arrayTD[12 * i].style.borderBottom = 0;
                         arrayTD[12 * i + 1].style.borderBottom = 0;
@@ -2605,10 +2606,10 @@ async function get_inverter() {
     let divSearchInverter = document.getElementById('container-search-inverters');
 
     if (modelo != '') {
-        
+
         let config = {
             headers: {
-              'Authorization': 'Bearer ' + access_token
+                'Authorization': 'Bearer ' + access_token
             }
         }
 
@@ -2625,14 +2626,14 @@ async function get_inverter() {
                 return error;
             }
         )
-        
+
         if (!dadosInversor.message) {
             divSearchInverter.style.visibility = 'hidden';
             divSearchInverter.style.display = 'none';
 
             document.getElementById('container-inversor-encontrado').style.visibility = 'visible';
             document.getElementById('container-inversor-encontrado').style.display = 'grid';
-            
+
             let hora = dadosInversor.criado_em.split('T')[1].split('.')[0];
             let data = dadosInversor.criado_em.split('-')[2].split('T')[0] + '/' + dadosInversor.criado_em.split('-')[1] + '/' + dadosInversor.criado_em.split('-')[0];
 
@@ -2659,7 +2660,7 @@ async function get_inverter() {
                 document.getElementById('inverter-power').style.visibility = 'visible';
                 document.getElementById('inverter-power').style.display = 'grid';
             }
-            
+
             if (dadosInversor.overload != 0) {
                 document.getElementById('inverter-overload').innerHTML = (dadosInversor.overload / 1000).toString().replace('.', ',') + " kW";
                 document.getElementById('title-inverter-overload').style.visibility = 'visible';
@@ -2683,7 +2684,7 @@ async function get_inverter() {
                 document.getElementById('inverter-input').style.visibility = 'visible';
                 document.getElementById('inverter-input').style.display = 'grid';
             }
-            
+
             if (dadosInversor.imp != 0) {
                 document.getElementById('inverter-imp').innerHTML = dadosInversor.imp.toString().replace('.', ',') + " A";
                 document.getElementById('title-inverter-imp').style.visibility = 'visible';
@@ -2707,7 +2708,7 @@ async function get_inverter() {
                 document.getElementById('inverter-vmp').style.visibility = 'visible';
                 document.getElementById('inverter-vmp').style.display = 'grid';
             }
-            
+
             if (dadosInversor.v_max != 0) {
                 document.getElementById('inverter-voc').innerHTML = dadosInversor.v_max.toString() + " V";
                 document.getElementById('title-inverter-voc').style.visibility = 'visible';
@@ -2715,7 +2716,7 @@ async function get_inverter() {
                 document.getElementById('inverter-voc').style.visibility = 'visible';
                 document.getElementById('inverter-voc').style.display = 'grid';
             }
-            
+
             if (dadosInversor.i_saida != 0) {
                 document.getElementById('inverter-iout').innerHTML = dadosInversor.i_saida.toString().replace('.', ',') + " A";
                 document.getElementById('title-inverter-iout').style.visibility = 'visible';
@@ -2731,7 +2732,7 @@ async function get_inverter() {
                 document.getElementById('inverter-vout').style.visibility = 'visible';
                 document.getElementById('inverter-vout').style.display = 'grid';
             }
-            
+
             if (dadosInversor.comprimento != 0) {
                 document.getElementById('inverter-width').innerHTML = dadosInversor.comprimento.toString() + " mm";
                 document.getElementById('title-inverter-width').style.visibility = 'visible';
@@ -2755,7 +2756,7 @@ async function get_inverter() {
                 document.getElementById('inverter-thickness').style.visibility = 'visible';
                 document.getElementById('inverter-thickness').style.display = 'grid';
             }
-            
+
             if (dadosInversor.eficiencia != 0) {
                 document.getElementById('inverter-efficiency').innerHTML = dadosInversor.eficiencia.toString().replace('.', ',') + "%";
                 document.getElementById('title-inverter-efficiency').style.visibility = 'visible';
@@ -2781,7 +2782,7 @@ async function get_inverter() {
         else {
             let arrayInversorInexistente = document.getElementsByClassName('container-inversor-inexistente')
 
-            for (i = 0; i < arrayInversorInexistente.length; i ++) {
+            for (i = 0; i < arrayInversorInexistente.length; i++) {
                 arrayInversorInexistente[i].style.visibility = 'visible';
                 arrayInversorInexistente[i].style.display = 'flex';
             }
@@ -2791,7 +2792,7 @@ async function get_inverter() {
     else {
         arrayCampos = document.getElementsByClassName('campo-obrigatorio-modulos')
 
-        for (i = 0; i < arrayCampos.length; i ++) {
+        for (i = 0; i < arrayCampos.length; i++) {
             arrayCampos[i].style.visibility = "visible";
             arrayCampos[i].style.display = "grid";
         }
@@ -2806,7 +2807,7 @@ async function post_inverter() {
     let potencia = document.getElementById('potência-inversor-adicionar').value
     let overload = document.getElementById('overload-inversor-adicionar').value
     let imp = document.getElementById('imp-inversor-adicionar').value
-    
+
     if (imp.includes(',') == true) {
         imp = imp.replace(',', '.')
     }
@@ -2860,11 +2861,11 @@ async function post_inverter() {
 
     let config = {
         headers: {
-          'Authorization': 'Bearer ' + access_token
+            'Authorization': 'Bearer ' + access_token
         }
     }
 
-    if (modelo != '' & fabricante != '' & potencia != '' & overload != '' & imp != '' & isc != '' & v_min_mppt != '' & v_max_mppt != '' & v_max != '' & n_mppt != '' & n_entrada != '' & v_saida != '' & i_saida != '' & comprimento != '' & largura != '' & espessura != '' & eficiencia != ''){
+    if (modelo != '' & fabricante != '' & potencia != '' & overload != '' & imp != '' & isc != '' & v_min_mppt != '' & v_max_mppt != '' & v_max != '' & n_mppt != '' & n_entrada != '' & v_saida != '' & i_saida != '' & comprimento != '' & largura != '' & espessura != '' & eficiencia != '') {
         resposta = await axios.post(
             'https://entrada-dados.onrender.com/inverters', dicionario, config
         ).then(
@@ -2882,7 +2883,7 @@ async function post_inverter() {
         if (!resposta.message) {
             document.getElementById('container-inversor-adicionado').style.visibility = 'visible';
             document.getElementById('container-inversor-adicionado').style.display = 'grid';
-            
+
             document.getElementById('container-add-inverters-general').style.visibility = 'hidden';
             document.getElementById('container-add-inverters-general').style.display = 'none';
         }
@@ -2902,7 +2903,7 @@ async function post_inverter() {
     else {
         arrayCampos = document.getElementsByClassName('campo-obrigatorio-modulos')
 
-        for (i = 0; i < arrayCampos.length; i ++) {
+        for (i = 0; i < arrayCampos.length; i++) {
             arrayCampos[i].style.visibility = "visible";
             arrayCampos[i].style.display = "grid";
         }
@@ -2913,13 +2914,13 @@ async function patch_inverter() {
     let access_token = localStorage.getItem('access_token');
 
     let id = document.getElementById('modelo-inversor-buscar-atualizar').value;
-    
+
     let modelo = document.getElementById('modelo-inversor-atualizar').value
     let fabricante = document.getElementById('fabricante-inversor-atualizar').value.toUpperCase()
     let potencia = document.getElementById('potência-inversor-atualizar').value
     let overload = document.getElementById('overload-inversor-atualizar').value
     let imp = document.getElementById('imp-inversor-atualizar').value
-    
+
     if (imp.includes(',') == true) {
         imp = imp.replace(',', '.')
     }
@@ -2955,7 +2956,7 @@ async function patch_inverter() {
 
     let config = {
         headers: {
-        'Authorization': 'Bearer ' + access_token
+            'Authorization': 'Bearer ' + access_token
         }
     }
 
@@ -2972,76 +2973,76 @@ async function patch_inverter() {
             return error;
         }
     )
-    
-    if (modelo != dadosOriginais.modelo.toString()){
+
+    if (modelo != dadosOriginais.modelo.toString()) {
         dicionario['modelo'] = modelo
     }
 
-    if (fabricante != dadosOriginais.fabricante.toString()){
+    if (fabricante != dadosOriginais.fabricante.toString()) {
         dicionario['fabricante'] = fabricante
     }
 
-    if (potencia != dadosOriginais.potencia.toString()){
+    if (potencia != dadosOriginais.potencia.toString()) {
         dicionario['potencia'] = potencia
     }
 
-    if (overload != dadosOriginais.overload.toString()){
+    if (overload != dadosOriginais.overload.toString()) {
         dicionario['overload'] = overload
     }
 
-    if (imp != dadosOriginais.imp.toString()){
+    if (imp != dadosOriginais.imp.toString()) {
         dicionario['imp'] = imp
     }
 
-    if (isc != dadosOriginais.isc.toString()){
+    if (isc != dadosOriginais.isc.toString()) {
         dicionario['isc'] = isc
     }
 
-    if (v_min_mppt != dadosOriginais.v_min_mppt.toString()){
+    if (v_min_mppt != dadosOriginais.v_min_mppt.toString()) {
         dicionario['v_min_mppt'] = v_min_mppt
     }
 
-    if (v_max_mppt != dadosOriginais.v_max_mppt.toString()){
+    if (v_max_mppt != dadosOriginais.v_max_mppt.toString()) {
         dicionario['v_max_mppt'] = v_max_mppt
     }
 
-    if (v_max != dadosOriginais.v_max.toString()){
+    if (v_max != dadosOriginais.v_max.toString()) {
         dicionario['v_max'] = v_max
     }
 
-    if (n_mppt != dadosOriginais.n_mppt.toString()){
+    if (n_mppt != dadosOriginais.n_mppt.toString()) {
         dicionario['n_mppt'] = n_mppt
     }
-    
-    if (n_entrada != dadosOriginais.n_entrada.toString()){
+
+    if (n_entrada != dadosOriginais.n_entrada.toString()) {
         dicionario['n_entrada'] = n_entrada
     }
-    
-    if (i_saida != dadosOriginais.i_saida.toString()){
+
+    if (i_saida != dadosOriginais.i_saida.toString()) {
         dicionario['i_saida'] = i_saida
     }
 
-    if (v_saida != dadosOriginais.v_saida.toString()){
+    if (v_saida != dadosOriginais.v_saida.toString()) {
         dicionario['v_saida'] = v_saida
     }
 
-    if (comprimento != dadosOriginais.comprimento.toString()){
+    if (comprimento != dadosOriginais.comprimento.toString()) {
         dicionario['comprimento'] = comprimento
     }
-    
-    if (largura != dadosOriginais.largura.toString()){
+
+    if (largura != dadosOriginais.largura.toString()) {
         dicionario['largura'] = largura
     }
-    
-    if (espessura != dadosOriginais.espessura.toString()){
+
+    if (espessura != dadosOriginais.espessura.toString()) {
         dicionario['espessura'] = espessura
     }
-    
-    if (eficiencia != dadosOriginais.eficiencia.toString()){
+
+    if (eficiencia != dadosOriginais.eficiencia.toString()) {
         dicionario['eficiencia'] = eficiencia
     }
 
-    if (Object.keys(dicionario).length == 0){
+    if (Object.keys(dicionario).length == 0) {
         containerCamposNaoPreenchidos = document.getElementsByClassName('container-campos-nao-preenchidos')
         containerCamposNaoPreenchidos[0].style.visibility = "visible"
         containerCamposNaoPreenchidos[0].style.display = "flex"
@@ -3049,7 +3050,7 @@ async function patch_inverter() {
 
     else {
         url = 'https://entrada-dados.onrender.com/inverters/' + id
-        
+
         resposta = await axios.patch(
             url, dicionario, config
         ).then(
@@ -3063,11 +3064,11 @@ async function patch_inverter() {
                 return error;
             }
         )
-        
+
         if (!resposta.message) {
             document.getElementById('container-inversor-atualizado').style.visibility = 'visible';
             document.getElementById('container-inversor-atualizado').style.display = 'grid';
-                
+
             document.getElementById('container-update-inverters-general').style.visibility = 'hidden';
             document.getElementById('container-update-inverters-general').style.display = 'none';
         }
@@ -3080,7 +3081,7 @@ async function patch_inverter() {
         else {
             let arrayInversorInexistente = document.getElementsByClassName('container-inversor-inexistente')
 
-            for (i = 0; i < arrayInversorInexistente.length; i ++) {
+            for (i = 0; i < arrayInversorInexistente.length; i++) {
                 arrayInversorInexistente[i].style.visibility = 'visible'
                 arrayInversorInexistente[i].style.display = 'flex'
             }
@@ -3096,7 +3097,7 @@ async function delete_inverter() {
 
         let config = {
             headers: {
-              'Authorization': 'Bearer ' + access_token
+                'Authorization': 'Bearer ' + access_token
             }
         }
 
@@ -3113,7 +3114,7 @@ async function delete_inverter() {
                 return error;
             }
         )
-        
+
         if (resposta == '') {
             document.getElementById('container-inversor-deletado').style.visibility = 'visible';
             document.getElementById('container-inversor-deletado').style.display = 'grid';
@@ -3130,18 +3131,18 @@ async function delete_inverter() {
         else if (resposta.message.includes('Request failed with status code 404')) {
             let arrayInversorInexistente = document.getElementsByClassName('container-inversor-inexistente');
 
-            for (i = 0; i < arrayInversorInexistente.length; i ++) {
+            for (i = 0; i < arrayInversorInexistente.length; i++) {
                 arrayInversorInexistente[i].style.visibility = 'visible';
                 arrayInversorInexistente[i].style.display = 'flex';
             }
         }
 
     }
-    
+
     else {
         let arrayCampos = document.getElementsByClassName('campo-obrigatorio-inversores');
 
-        for (i = 0; i < arrayCampos.length; i ++) {
+        for (i = 0; i < arrayCampos.length; i++) {
             arrayCampos[i].style.visibility = "visible";
             arrayCampos[i].style.display = "grid";
         }
@@ -3157,7 +3158,7 @@ async function get_all_projects() {
 
         let config = {
             headers: {
-              'Authorization': 'Bearer ' + access_token
+                'Authorization': 'Bearer ' + access_token
             }
         }
 
@@ -3174,14 +3175,14 @@ async function get_all_projects() {
                 return error;
             }
         )
-        
+
         if (!dadosTodosProjetos.message) {
             let arrayTD = document.getElementsByTagName('td')
-            
+
             for (i = 0; i < 10; i++) {
                 if (i < dadosTodosProjetos.length) {
                     cliente = await axios.get(
-                            'https://entrada-dados.onrender.com/clients/' + dadosTodosProjetos[i].numero_cliente, config
+                        'https://entrada-dados.onrender.com/clients/' + dadosTodosProjetos[i].numero_cliente, config
                     ).then(
                         function (response) {
                             const cliente = response.data;
@@ -3197,7 +3198,7 @@ async function get_all_projects() {
                     arrayTD[9 * i].innerHTML = cliente.nome
                     arrayTD[9 * i].style.visibility = 'visible'
                     arrayTD[9 * i].style.display = 'table-cell'
-                    
+
                     if (dadosTodosProjetos[i].ligacao_nova == true) {
                         iconeCheckmark = document.createElement('i')
                         iconeCheckmark.style.fontSize = '25px'
@@ -3213,7 +3214,7 @@ async function get_all_projects() {
                         arrayTD[9 * i + 1].innerHTML = ''
                         arrayTD[9 * i + 1].appendChild(iconeCheckmark);
                     }
-                    
+
                     arrayTD[9 * i + 1].style.visibility = 'visible'
                     arrayTD[9 * i + 1].style.display = 'table-cell'
 
@@ -3254,7 +3255,7 @@ async function get_all_projects() {
 
                     arrayTD[9 * i + 3].style.visibility = 'visible'
                     arrayTD[9 * i + 3].style.display = 'table-cell'
-                    
+
                     if (dadosTodosProjetos[i].agrupamento == true) {
                         iconeCheckmark = document.createElement('i')
                         iconeCheckmark.style.fontSize = '25px'
@@ -3273,7 +3274,7 @@ async function get_all_projects() {
 
                     arrayTD[9 * i + 4].style.visibility = 'visible'
                     arrayTD[9 * i + 4].style.display = 'table-cell'
-                    
+
                     textoQuantidadeModulo = dadosTodosProjetos[i].quantidade_modulo_1
 
                     if (dadosTodosProjetos[i].quantidade_modulo_2 != '') {
@@ -3283,7 +3284,7 @@ async function get_all_projects() {
                     arrayTD[9 * i + 5].innerHTML = textoQuantidadeModulo
                     arrayTD[9 * i + 5].style.visibility = 'visible'
                     arrayTD[9 * i + 5].style.display = 'table-cell'
-                   
+
                     textoModeloModulo = dadosTodosProjetos[i].modelo_modulo_1
 
                     if (dadosTodosProjetos[i].modelo_modulo_2 != '') {
@@ -3293,7 +3294,7 @@ async function get_all_projects() {
                     arrayTD[9 * i + 6].innerHTML = textoModeloModulo
                     arrayTD[9 * i + 6].style.visibility = 'visible'
                     arrayTD[9 * i + 6].style.display = 'table-cell'
-                    
+
                     textoQuantidadeInversor = dadosTodosProjetos[i].quantidade_inversor_1
 
                     if (dadosTodosProjetos[i].quantidade_inversor_2 != '') {
@@ -3311,7 +3312,7 @@ async function get_all_projects() {
                     arrayTD[9 * i + 7].innerHTML = textoQuantidadeInversor
                     arrayTD[9 * i + 7].style.visibility = 'visible'
                     arrayTD[9 * i + 7].style.display = 'table-cell'
-                    
+
                     textoModeloInversor = dadosTodosProjetos[i].modelo_inversor_1
 
                     if (dadosTodosProjetos[i].modelo_inversor_2 != '') {
@@ -3329,7 +3330,7 @@ async function get_all_projects() {
                     arrayTD[9 * i + 8].innerHTML = textoModeloInversor
                     arrayTD[9 * i + 8].style.visibility = 'visible'
                     arrayTD[9 * i + 8].style.display = 'table-cell'
-                    
+
                     if (i == (dadosTodosProjetos.length - 1)) {
                         arrayTD[9 * i].style.borderBottom = 0;
                         arrayTD[9 * i + 1].style.borderBottom = 0;
@@ -3385,7 +3386,7 @@ async function get_all_projects_skip(alterar) {
 
         let config = {
             headers: {
-              'Authorization': 'Bearer ' + access_token
+                'Authorization': 'Bearer ' + access_token
             }
         }
 
@@ -3402,20 +3403,20 @@ async function get_all_projects_skip(alterar) {
                 return error;
             }
         )
-        
+
         if (!dadosTodosProjetos.message) {
             let arrayTD = document.getElementsByTagName('td')
-            
+
             if (pagina > dadosTodosProjetos.length) {
                 pagina = parseInt(dadosTodosProjetos.length - dadosTodosProjetos.length % 10)
             }
-            
+
             localStorage.setItem('paginaAtualProjetos', pagina);
-            
+
             for (i = 0; i < 10; i++) {
                 if (i < dadosTodosProjetos.length) {
                     cliente = await axios.get(
-                            'https://entrada-dados.onrender.com/clients/' + dadosTodosProjetos[i].numero_cliente, config
+                        'https://entrada-dados.onrender.com/clients/' + dadosTodosProjetos[i].numero_cliente, config
                     ).then(
                         function (response) {
                             const cliente = response.data;
@@ -3431,7 +3432,7 @@ async function get_all_projects_skip(alterar) {
                     arrayTD[9 * i].innerHTML = cliente.nome
                     arrayTD[9 * i].style.visibility = 'visible'
                     arrayTD[9 * i].style.display = 'table-cell'
-                    
+
                     if (dadosTodosProjetos[i].ligacao_nova == true) {
                         iconeCheckmark = document.createElement('i')
                         iconeCheckmark.style.fontSize = '25px'
@@ -3447,7 +3448,7 @@ async function get_all_projects_skip(alterar) {
                         arrayTD[9 * i + 1].innerHTML = ''
                         arrayTD[9 * i + 1].appendChild(iconeCheckmark);
                     }
-                    
+
                     arrayTD[9 * i + 1].style.visibility = 'visible'
                     arrayTD[9 * i + 1].style.display = 'table-cell'
 
@@ -3488,7 +3489,7 @@ async function get_all_projects_skip(alterar) {
 
                     arrayTD[9 * i + 3].style.visibility = 'visible'
                     arrayTD[9 * i + 3].style.display = 'table-cell'
-                    
+
                     if (dadosTodosProjetos[i].agrupamento == true) {
                         iconeCheckmark = document.createElement('i')
                         iconeCheckmark.style.fontSize = '25px'
@@ -3507,7 +3508,7 @@ async function get_all_projects_skip(alterar) {
 
                     arrayTD[9 * i + 4].style.visibility = 'visible'
                     arrayTD[9 * i + 4].style.display = 'table-cell'
-                    
+
                     textoQuantidadeModulo = dadosTodosProjetos[i].quantidade_modulo_1
 
                     if (dadosTodosProjetos[i].quantidade_modulo_2 != '') {
@@ -3517,7 +3518,7 @@ async function get_all_projects_skip(alterar) {
                     arrayTD[9 * i + 5].innerHTML = textoQuantidadeModulo
                     arrayTD[9 * i + 5].style.visibility = 'visible'
                     arrayTD[9 * i + 5].style.display = 'table-cell'
-                   
+
                     textoModeloModulo = dadosTodosProjetos[i].modelo_modulo_1
 
                     if (dadosTodosProjetos[i].quantidade_modulo_2 != '') {
@@ -3527,7 +3528,7 @@ async function get_all_projects_skip(alterar) {
                     arrayTD[9 * i + 6].innerHTML = textoModeloModulo
                     arrayTD[9 * i + 6].style.visibility = 'visible'
                     arrayTD[9 * i + 6].style.display = 'table-cell'
-                    
+
                     textoQuantidadeInversor = dadosTodosProjetos[i].quantidade_inversor_1
 
                     if (dadosTodosProjetos[i].quantidade_inversor_2 != '') {
@@ -3545,7 +3546,7 @@ async function get_all_projects_skip(alterar) {
                     arrayTD[9 * i + 7].innerHTML = textoQuantidadeInversor
                     arrayTD[9 * i + 7].style.visibility = 'visible'
                     arrayTD[9 * i + 7].style.display = 'table-cell'
-                    
+
                     textoModeloInversor = dadosTodosProjetos[i].modelo_inversor_1
 
                     if (dadosTodosProjetos[i].modelo_inversor_2 != '') {
@@ -3563,7 +3564,7 @@ async function get_all_projects_skip(alterar) {
                     arrayTD[9 * i + 8].innerHTML = textoModeloInversor
                     arrayTD[9 * i + 8].style.visibility = 'visible'
                     arrayTD[9 * i + 8].style.display = 'table-cell'
-                    
+
                     if (i == (dadosTodosProjetos.length - 1)) {
                         arrayTD[9 * i].style.borderBottom = 0;
                         arrayTD[9 * i + 1].style.borderBottom = 0;
@@ -3614,10 +3615,10 @@ async function get_project() {
     let divSearchProject = document.getElementById('container-search-projects');
 
     if (id != '') {
-        
+
         let config = {
             headers: {
-              'Authorization': 'Bearer ' + access_token
+                'Authorization': 'Bearer ' + access_token
             }
         }
 
@@ -3634,7 +3635,7 @@ async function get_project() {
                 return error;
             }
         )
-        
+
         if (!dadosProjeto.message) {
             divSearchProject.style.visibility = 'hidden';
             divSearchProject.style.display = 'none';
@@ -3668,7 +3669,7 @@ async function get_project() {
                 document.getElementById('project-client').style.visibility = 'visible';
                 document.getElementById('project-client').style.display = 'grid';
             }
-            
+
             if (dadosProjeto.ligacao_nova == true) {
                 document.getElementById('project-link').innerHTML = 'Sim';
                 document.getElementById('title-project-link').style.visibility = 'visible';
@@ -3692,7 +3693,7 @@ async function get_project() {
                 document.getElementById('project-plant').style.visibility = 'visible';
                 document.getElementById('project-plant').style.display = 'grid';
             }
-            
+
             if (dadosProjeto.agrupamento == true) {
                 document.getElementById('project-grouping').innerHTML = 'Sim';
                 document.getElementById('title-project-grouping').style.visibility = 'visible';
@@ -3764,7 +3765,7 @@ async function get_project() {
                 document.getElementById('project-q-modules-1').style.visibility = 'visible';
                 document.getElementById('project-q-modules-1').style.display = 'grid';
             }
-            
+
             if (dadosProjeto.modelo_modulo_1 != '') {
                 document.getElementById('project-m-modules-1').innerHTML = dadosProjeto.modelo_modulo_1;
                 document.getElementById('title-project-m-modules-1').style.visibility = 'visible';
@@ -3788,7 +3789,7 @@ async function get_project() {
                 document.getElementById('project-q-modules-2').style.visibility = 'visible';
                 document.getElementById('project-q-modules-2').style.display = 'grid';
             }
-            
+
             if (dadosProjeto.modelo_modulo_2 != '') {
                 document.getElementById('project-m-modules-2').innerHTML = dadosProjeto.modelo_modulo_2;
                 document.getElementById('title-project-m-modules-2').style.visibility = 'visible';
@@ -3796,7 +3797,7 @@ async function get_project() {
                 document.getElementById('project-m-modules-2').style.visibility = 'visible';
                 document.getElementById('project-m-modules-2').style.display = 'grid';
             }
-            
+
             if (dadosProjeto.inversor_anterior_1 == true) {
                 document.getElementById('project-o-inverter-1').innerHTML = 'Sim';
                 document.getElementById('title-project-o-inverter-1').style.visibility = 'visible';
@@ -3812,7 +3813,7 @@ async function get_project() {
                 document.getElementById('project-q-inverter-1').style.visibility = 'visible';
                 document.getElementById('project-q-inverter-1').style.display = 'grid';
             }
-            
+
             if (dadosProjeto.modelo_inversor_1 != '') {
                 document.getElementById('project-m-inverter-1').innerHTML = dadosProjeto.modelo_inversor_1;
                 document.getElementById('title-project-m-inverter-1').style.visibility = 'visible';
@@ -3820,7 +3821,7 @@ async function get_project() {
                 document.getElementById('project-m-inverter-1').style.visibility = 'visible';
                 document.getElementById('project-m-inverter-1').style.display = 'grid';
             }
-            
+
             if (dadosProjeto.inversor_anterior_2 == true) {
                 document.getElementById('project-o-inverter-2').innerHTML = 'Sim';
                 document.getElementById('title-project-o-inverter-2').style.visibility = 'visible';
@@ -3836,7 +3837,7 @@ async function get_project() {
                 document.getElementById('project-q-inverter-2').style.visibility = 'visible';
                 document.getElementById('project-q-inverter-2').style.display = 'grid';
             }
-            
+
             if (dadosProjeto.modelo_inversor_2 != '') {
                 document.getElementById('project-m-inverter-2').innerHTML = dadosProjeto.modelo_inversor_2;
                 document.getElementById('title-project-m-inverter-2').style.visibility = 'visible';
@@ -3844,7 +3845,7 @@ async function get_project() {
                 document.getElementById('project-m-inverter-2').style.visibility = 'visible';
                 document.getElementById('project-m-inverter-2').style.display = 'grid';
             }
-            
+
             if (dadosProjeto.inversor_anterior_3 == true) {
                 document.getElementById('project-o-inverter-3').innerHTML = 'Sim';
                 document.getElementById('title-project-o-inverter-3').style.visibility = 'visible';
@@ -3860,7 +3861,7 @@ async function get_project() {
                 document.getElementById('project-q-inverter-3').style.visibility = 'visible';
                 document.getElementById('project-q-inverter-3').style.display = 'grid';
             }
-            
+
             if (dadosProjeto.modelo_inversor_3 != '') {
                 document.getElementById('project-m-inverter-3').innerHTML = dadosProjeto.modelo_inversor_3;
                 document.getElementById('title-project-m-inverter-3').style.visibility = 'visible';
@@ -3868,7 +3869,7 @@ async function get_project() {
                 document.getElementById('project-m-inverter-3').style.visibility = 'visible';
                 document.getElementById('project-m-inverter-3').style.display = 'grid';
             }
-            
+
             if (dadosProjeto.inversor_anterior_4 == true) {
                 document.getElementById('project-o-inverter-4').innerHTML = 'Sim';
                 document.getElementById('title-project-o-inverter-4').style.visibility = 'visible';
@@ -3884,7 +3885,7 @@ async function get_project() {
                 document.getElementById('project-q-inverter-4').style.visibility = 'visible';
                 document.getElementById('project-q-inverter-4').style.display = 'grid';
             }
-            
+
             if (dadosProjeto.modelo_inversor_4 != '') {
                 document.getElementById('project-m-inverter-4').innerHTML = dadosProjeto.modelo_inversor_4;
                 document.getElementById('title-project-m-inverter-4').style.visibility = 'visible';
@@ -3910,7 +3911,7 @@ async function get_project() {
         else {
             let arrayInversorInexistente = document.getElementsByClassName('container-inversor-inexistente')
 
-            for (i = 0; i < arrayInversorInexistente.length; i ++) {
+            for (i = 0; i < arrayInversorInexistente.length; i++) {
                 arrayInversorInexistente[i].style.visibility = 'visible';
                 arrayInversorInexistente[i].style.display = 'flex';
             }
@@ -3920,7 +3921,7 @@ async function get_project() {
     else {
         arrayCampos = document.getElementsByClassName('campo-obrigatorio-modulos')
 
-        for (i = 0; i < arrayCampos.length; i ++) {
+        for (i = 0; i < arrayCampos.length; i++) {
             arrayCampos[i].style.visibility = "visible";
             arrayCampos[i].style.display = "grid";
         }
@@ -3962,7 +3963,7 @@ async function post_project() {
     let quantidade_inversor_4 = document.getElementById('quantidade-inversor-4-adicionar').value;
     let modelo_inversor_4 = document.getElementById('modelo-inversor-4-adicionar').value;
     let dicionario = {};
-    
+
     dicionario = {
         'numero_instalacao': numero_instalacao,
         'numero_cliente': numero_cliente,
@@ -3990,7 +3991,7 @@ async function post_project() {
         dicionario['n_fases_agrupamento'] = n_fases_agrupamento;
         dicionario['disjuntor_agrupamento'] = disjuntor_agrupamento;
     }
-    
+
     if (aumento_usina == 'true') {
         dicionario['modulo_anterior_2'] = modulo_anterior_2;
         dicionario['quantidade_modulo_2'] = quantidade_modulo_2;
@@ -4002,13 +4003,13 @@ async function post_project() {
         dicionario['quantidade_inversor_2'] = quantidade_inversor_2;
         dicionario['modelo_inversor_2'] = modelo_inversor_2;
     }
-    
+
     if (quantidade_inversor_3 != '' & quantidade_inversor_3 != '0') {
         dicionario['inversor_anterior_3'] = inversor_anterior_3;
         dicionario['quantidade_inversor_3'] = quantidade_inversor_3;
         dicionario['modelo_inversor_3'] = modelo_inversor_3;
     }
-    
+
     if (quantidade_inversor_4 != '' & quantidade_inversor_4 != '0') {
         dicionario['inversor_anterior_4'] = inversor_anterior_4;
         dicionario['quantidade_inversor_4'] = quantidade_inversor_4;
@@ -4017,7 +4018,7 @@ async function post_project() {
 
     let config = {
         headers: {
-          'Authorization': 'Bearer ' + access_token
+            'Authorization': 'Bearer ' + access_token
         }
     }
 
@@ -4026,9 +4027,9 @@ async function post_project() {
     let containerErro3 = window.getComputedStyle(document.getElementById('container-inversor-incompativel-3-adicionar')).visibility;
     let containerErro4 = window.getComputedStyle(document.getElementById('container-inversor-incompativel-4-adicionar')).visibility;
     let containerOverloadSuperado = window.getComputedStyle(document.getElementById('container-superou-overload-adicionar')).visibility;
-    
+
     if (containerErro1 != "visible" & containerErro2 != "visible" & containerErro3 != "visible" & containerErro4 != "visible" & containerOverloadSuperado != "visible") {
-        if (numero_instalacao != '' & numero_cliente != '' & n_fases != '' & disjuntor != '' & tensao != '' & quantidade_modulo_1 != '' & modelo_modulo_1 != '' & quantidade_inversor_1 != '' & modelo_inversor_1 != ''){
+        if (numero_instalacao != '' & numero_cliente != '' & n_fases != '' & disjuntor != '' & tensao != '' & quantidade_modulo_1 != '' & modelo_modulo_1 != '' & quantidade_inversor_1 != '' & modelo_inversor_1 != '') {
             resposta = await axios.post(
                 'https://entrada-dados.onrender.com/projects', dicionario, config
             ).then(
@@ -4046,7 +4047,7 @@ async function post_project() {
             if (!resposta.message) {
                 document.getElementById('container-projeto-adicionado').style.visibility = 'visible';
                 document.getElementById('container-projeto-adicionado').style.display = 'grid';
-                
+
                 document.getElementById('container-add-projects-general').style.visibility = 'hidden';
                 document.getElementById('container-add-projects-general').style.display = 'none';
 
@@ -4068,7 +4069,7 @@ async function post_project() {
         else {
             arrayCampos = document.getElementsByClassName('campo-obrigatorio-projetos')
 
-            for (i = 0; i < arrayCampos.length; i ++) {
+            for (i = 0; i < arrayCampos.length; i++) {
                 arrayCampos[i].style.visibility = "visible";
                 arrayCampos[i].style.display = "grid";
             }
@@ -4080,7 +4081,7 @@ async function patch_project() {
     let access_token = localStorage.getItem('access_token');
 
     let id = document.getElementById('id-projeto-buscar-atualizar').value;
-    
+
     let numero_instalacao = document.getElementById('número-instalação-atualizar').value;
     let numero_cliente = document.getElementById('número-cliente-atualizar').value;
     let ligacao_nova = document.getElementById('checkbox-ligacao-2').checked.toString();
@@ -4110,7 +4111,7 @@ async function patch_project() {
     let modelo_inversor_1 = document.getElementById('modelo-inversor-1-atualizar').value;
     let inversor_anterior_2 = document.getElementById('inversor-anterior-2-atualizar').checked.toString();
     let quantidade_inversor_2 = document.getElementById('quantidade-inversor-2-atualizar').value;
-    
+
     if (quantidade_inversor_2 == '') {
         quantidade_inversor_2 == '0'
     }
@@ -4118,7 +4119,7 @@ async function patch_project() {
     let modelo_inversor_2 = document.getElementById('modelo-inversor-2-atualizar').value;
     let inversor_anterior_3 = document.getElementById('inversor-anterior-3-atualizar').checked.toString();
     let quantidade_inversor_3 = document.getElementById('quantidade-inversor-3-atualizar').value;
-    
+
     if (quantidade_inversor_2 == '') {
         quantidade_inversor_2 == '0'
     }
@@ -4126,7 +4127,7 @@ async function patch_project() {
     let modelo_inversor_3 = document.getElementById('modelo-inversor-3-atualizar').value;
     let inversor_anterior_4 = document.getElementById('inversor-anterior-4-atualizar').checked.toString();
     let quantidade_inversor_4 = document.getElementById('quantidade-inversor-4-atualizar').value;
-    
+
     if (quantidade_inversor_2 == '') {
         quantidade_inversor_2 == '0'
     }
@@ -4137,7 +4138,7 @@ async function patch_project() {
 
     let config = {
         headers: {
-        'Authorization': 'Bearer ' + access_token
+            'Authorization': 'Bearer ' + access_token
         }
     }
 
@@ -4155,131 +4156,131 @@ async function patch_project() {
         }
     )
 
-    if (numero_instalacao != dadosOriginais.numero_instalacao.toString()){
+    if (numero_instalacao != dadosOriginais.numero_instalacao.toString()) {
         dicionario['numero_instalacao'] = numero_instalacao
     }
 
-    if (numero_cliente != dadosOriginais.numero_cliente.toString()){
+    if (numero_cliente != dadosOriginais.numero_cliente.toString()) {
         dicionario['numero_cliente'] = numero_cliente
     }
 
-    if (ligacao_nova != dadosOriginais.ligacao_nova.toString()){
+    if (ligacao_nova != dadosOriginais.ligacao_nova.toString()) {
         dicionario['ligacao_nova'] = ligacao_nova
     }
 
-    if (aumento_carga != dadosOriginais.aumento_carga.toString()){
+    if (aumento_carga != dadosOriginais.aumento_carga.toString()) {
         dicionario['aumento_carga'] = aumento_carga
     }
 
-    if (aumento_usina != dadosOriginais.aumento_usina.toString()){
+    if (aumento_usina != dadosOriginais.aumento_usina.toString()) {
         dicionario['aumento_usina'] = aumento_usina
     }
 
-    if (agrupamento != dadosOriginais.agrupamento.toString()){
+    if (agrupamento != dadosOriginais.agrupamento.toString()) {
         dicionario['agrupamento'] = agrupamento
     }
 
-    if (n_fases != dadosOriginais.n_fases.toString()){
+    if (n_fases != dadosOriginais.n_fases.toString()) {
         dicionario['n_fases'] = n_fases
     }
 
-    if (disjuntor != dadosOriginais.disjuntor.toString()){
+    if (disjuntor != dadosOriginais.disjuntor.toString()) {
         dicionario['disjuntor'] = disjuntor
     }
 
-    if (novo_n_fases != dadosOriginais.novo_n_fases.toString()){
+    if (novo_n_fases != dadosOriginais.novo_n_fases.toString()) {
         dicionario['novo_n_fases'] = novo_n_fases
     }
 
-    if (novo_disjuntor != dadosOriginais.novo_disjuntor.toString()){
+    if (novo_disjuntor != dadosOriginais.novo_disjuntor.toString()) {
         dicionario['novo_disjuntor'] = novo_disjuntor
     }
-    
-    if (n_fases_agrupamento != dadosOriginais.n_fases_agrupamento.toString()){
+
+    if (n_fases_agrupamento != dadosOriginais.n_fases_agrupamento.toString()) {
         dicionario['n_fases_agrupamento'] = n_fases_agrupamento
     }
-    
-    if (disjuntor_agrupamento != dadosOriginais.disjuntor_agrupamento.toString()){
+
+    if (disjuntor_agrupamento != dadosOriginais.disjuntor_agrupamento.toString()) {
         dicionario['disjuntor_agrupamento'] = disjuntor_agrupamento
     }
 
-    if (tensao != dadosOriginais.tensao.toString()){
+    if (tensao != dadosOriginais.tensao.toString()) {
         dicionario['tensao'] = tensao
     }
 
-    if (modulo_anterior_1 != dadosOriginais.modulo_anterior_1.toString()){
+    if (modulo_anterior_1 != dadosOriginais.modulo_anterior_1.toString()) {
         dicionario['modulo_anterior_1'] = modulo_anterior_1
     }
-    
-    if (quantidade_modulo_1 != dadosOriginais.quantidade_modulo_1.toString()){
+
+    if (quantidade_modulo_1 != dadosOriginais.quantidade_modulo_1.toString()) {
         dicionario['quantidade_modulo_1'] = quantidade_modulo_1
     }
-    
-    if (modelo_modulo_1 != dadosOriginais.modelo_modulo_1.toString()){
+
+    if (modelo_modulo_1 != dadosOriginais.modelo_modulo_1.toString()) {
         dicionario['modelo_modulo_1'] = modelo_modulo_1
     }
 
-    if (modulo_anterior_2 != dadosOriginais.modulo_anterior_2.toString()){
+    if (modulo_anterior_2 != dadosOriginais.modulo_anterior_2.toString()) {
         dicionario['modulo_anterior_2'] = modulo_anterior_2
     }
 
-    if (quantidade_modulo_2 != dadosOriginais.quantidade_modulo_2.toString()){
+    if (quantidade_modulo_2 != dadosOriginais.quantidade_modulo_2.toString()) {
         dicionario['quantidade_modulo_2'] = quantidade_modulo_2
     }
-    
-    if (modelo_modulo_2 != dadosOriginais.modelo_modulo_2.toString()){
+
+    if (modelo_modulo_2 != dadosOriginais.modelo_modulo_2.toString()) {
         dicionario['modelo_modulo_2'] = modelo_modulo_2
     }
 
-    if (inversor_anterior_1 != dadosOriginais.inversor_anterior_1.toString()){
+    if (inversor_anterior_1 != dadosOriginais.inversor_anterior_1.toString()) {
         dicionario['inversor_anterior_1'] = inversor_anterior_1
     }
 
-    if (quantidade_inversor_1 != dadosOriginais.quantidade_inversor_1.toString()){
+    if (quantidade_inversor_1 != dadosOriginais.quantidade_inversor_1.toString()) {
         dicionario['quantidade_inversor_1'] = quantidade_inversor_1
     }
 
-    if (modelo_inversor_1 != dadosOriginais.modelo_inversor_1.toString()){
+    if (modelo_inversor_1 != dadosOriginais.modelo_inversor_1.toString()) {
         dicionario['modelo_inversor_1'] = modelo_inversor_1
     }
 
-    if (inversor_anterior_2 != dadosOriginais.inversor_anterior_2.toString()){
+    if (inversor_anterior_2 != dadosOriginais.inversor_anterior_2.toString()) {
         dicionario['inversor_anterior_2'] = inversor_anterior_2
     }
 
-    if (quantidade_inversor_2 != dadosOriginais.quantidade_inversor_2.toString()){
+    if (quantidade_inversor_2 != dadosOriginais.quantidade_inversor_2.toString()) {
         dicionario['quantidade_inversor_2'] = quantidade_inversor_2
     }
 
-    if (modelo_inversor_2 != dadosOriginais.modelo_inversor_2.toString()){
+    if (modelo_inversor_2 != dadosOriginais.modelo_inversor_2.toString()) {
         dicionario['modelo_inversor_2'] = modelo_inversor_2
     }
 
-    if (inversor_anterior_3 != dadosOriginais.inversor_anterior_3.toString()){
+    if (inversor_anterior_3 != dadosOriginais.inversor_anterior_3.toString()) {
         dicionario['inversor_anterior_3'] = inversor_anterior_3
     }
 
-    if (quantidade_inversor_3 != dadosOriginais.quantidade_inversor_3.toString()){
+    if (quantidade_inversor_3 != dadosOriginais.quantidade_inversor_3.toString()) {
         dicionario['quantidade_inversor_3'] = quantidade_inversor_3
     }
 
-    if (modelo_inversor_3 != dadosOriginais.modelo_inversor_3.toString()){
+    if (modelo_inversor_3 != dadosOriginais.modelo_inversor_3.toString()) {
         dicionario['modelo_inversor_3'] = modelo_inversor_3
     }
 
-    if (inversor_anterior_4 != dadosOriginais.inversor_anterior_4.toString()){
+    if (inversor_anterior_4 != dadosOriginais.inversor_anterior_4.toString()) {
         dicionario['inversor_anterior_4'] = inversor_anterior_4
     }
 
-    if (quantidade_inversor_4 != dadosOriginais.quantidade_inversor_4.toString()){
+    if (quantidade_inversor_4 != dadosOriginais.quantidade_inversor_4.toString()) {
         dicionario['quantidade_inversor_4'] = quantidade_inversor_4
     }
 
-    if (modelo_inversor_4 != dadosOriginais.modelo_inversor_4.toString()){
+    if (modelo_inversor_4 != dadosOriginais.modelo_inversor_4.toString()) {
         dicionario['modelo_inversor_4'] = modelo_inversor_4
     }
 
-    if (Object.keys(dicionario).length == 0){
+    if (Object.keys(dicionario).length == 0) {
         containerCamposNaoPreenchidos = document.getElementsByClassName('container-campos-nao-preenchidos')
         containerCamposNaoPreenchidos[0].style.visibility = "visible"
         containerCamposNaoPreenchidos[0].style.display = "flex"
@@ -4301,11 +4302,11 @@ async function patch_project() {
                 return error;
             }
         )
-        
+
         if (!resposta.message) {
             document.getElementById('container-projeto-atualizado').style.visibility = 'visible';
             document.getElementById('container-projeto-atualizado').style.display = 'grid';
-                
+
             document.getElementById('container-update-projects-general').style.visibility = 'hidden';
             document.getElementById('container-update-projects-general').style.display = 'none';
 
@@ -4320,7 +4321,7 @@ async function patch_project() {
         else {
             let arrayInversorInexistente = document.getElementsByClassName('container-inversor-inexistente')
 
-            for (i = 0; i < arrayInversorInexistente.length; i ++) {
+            for (i = 0; i < arrayInversorInexistente.length; i++) {
                 arrayInversorInexistente[i].style.visibility = 'visible'
                 arrayInversorInexistente[i].style.display = 'flex'
             }
@@ -4336,7 +4337,7 @@ async function delete_project() {
 
         let config = {
             headers: {
-              'Authorization': 'Bearer ' + access_token
+                'Authorization': 'Bearer ' + access_token
             }
         }
 
@@ -4353,7 +4354,7 @@ async function delete_project() {
                 return error;
             }
         )
-        
+
         if (resposta == '') {
             document.getElementById('container-projeto-deletado').style.visibility = 'visible';
             document.getElementById('container-projeto-deletado').style.display = 'grid';
@@ -4370,18 +4371,18 @@ async function delete_project() {
         else if (resposta.message.includes('Request failed with status code 404')) {
             let arrayInversorInexistente = document.getElementsByClassName('container-projeto-inexistente');
 
-            for (i = 0; i < arrayInversorInexistente.length; i ++) {
+            for (i = 0; i < arrayInversorInexistente.length; i++) {
                 arrayInversorInexistente[i].style.visibility = 'visible';
                 arrayInversorInexistente[i].style.display = 'flex';
             }
         }
 
     }
-    
+
     else {
         let arrayCampos = document.getElementsByClassName('campo-obrigatorio-projetos');
 
-        for (i = 0; i < arrayCampos.length; i ++) {
+        for (i = 0; i < arrayCampos.length; i++) {
             arrayCampos[i].style.visibility = "visible";
             arrayCampos[i].style.display = "grid";
         }
@@ -4407,28 +4408,28 @@ async function print_project() {
     if (idProjeto != '') {
         let config = {
             headers: {
-            'Authorization': 'Bearer ' + access_token
+                'Authorization': 'Bearer ' + access_token
             }
         }
 
         let resposta = await axios.get(
-                'https://entrada-dados.onrender.com/projects/' + idProjeto + '/print', config
-            ).then(
-                function (response) {
-                    const resposta = response;
-                    return resposta;
-                }
-            ).catch(
-                function (error) {
-                    console.log(error);
-                    return error;
-                }
-            )
+            'https://entrada-dados.onrender.com/projects/' + idProjeto + '/print', config
+        ).then(
+            function (response) {
+                const resposta = response;
+                return resposta;
+            }
+        ).catch(
+            function (error) {
+                console.log(error);
+                return error;
+            }
+        )
 
         if (!resposta.message) {
             document.getElementById('container-projeto-impresso').style.visibility = 'visible';
             document.getElementById('container-projeto-impresso').style.display = 'grid';
-                
+
             document.getElementById('container-print-projects').style.visibility = 'hidden';
             document.getElementById('container-print-projects').style.display = 'none';
         }
@@ -4441,20 +4442,20 @@ async function print_project() {
         else {
             let arrayProjetoInexistente = document.getElementsByClassName('container-projeto-inexistente')
 
-            for (i = 0; i < arrayProjetoInexistente.length; i ++) {
+            for (i = 0; i < arrayProjetoInexistente.length; i++) {
                 arrayProjetoInexistente[i].style.visibility = 'visible'
                 arrayProjetoInexistente[i].style.display = 'flex'
             }
         }
     }
-    
+
     else {
         let arrayCampos = document.getElementsByClassName('campo-obrigatorio-projetos');
 
-        for (i = 0; i < arrayCampos.length; i ++) {
+        for (i = 0; i < arrayCampos.length; i++) {
             arrayCampos[i].style.visibility = "visible";
             arrayCampos[i].style.display = "grid";
         }
     }
-        
+
 }
