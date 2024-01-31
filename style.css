@@ -173,6 +173,10 @@ input {
     background-color: rgb(255, 255, 255, .40);
 }
 
+input[type=text] {
+    font-family: 'Roboto', sans-serif;
+}
+
 label {
     font-family: 'Roboto', sans-serif;
     position: absolute;
@@ -215,6 +219,7 @@ input:hover {
 input::placeholder{
     color: transparent;
     transition: .3s ease-in-out;
+    text-align: left;
 }
 
 input:focus::placeholder{

@@ -9,7 +9,7 @@ async function login() {
         dicionario.append('password', senha);
 
         token_acesso = await axios.post(
-            'http://localhost:8000/login', dicionario
+            'https://entrada-dados.onrender.com/login', dicionario
         ).then(
             function (response) {
                 const token_acesso = response.data.access_token;
@@ -63,7 +63,7 @@ async function logout() {
     dicionario.append('password', senha);
 
     token_acesso = await axios.post(
-        'http://localhost:8000/login', dicionario
+        'https://entrada-dados.onrender.com/login', dicionario
     ).then(
         function (response) {
             const token_acesso = response.data.access_token;
@@ -115,7 +115,7 @@ async function get_user() {
         }
 
         let dadosUsuario = await axios.get(
-            'http://localhost:8000/users/' + username, config
+            'https://entrada-dados.onrender.com/users/' + username, config
         ).then(
             function (response) {
                 const dadosUsuario = response.data;
@@ -150,7 +150,7 @@ async function get_user_role() {
         }
 
         let dadosUsuario = await axios.get(
-            'http://localhost:8000/users/' + username, config
+            'https://entrada-dados.onrender.com/users/' + username, config
         ).then(
             function (response) {
                 const dadosUsuario = response.data;
@@ -194,7 +194,7 @@ async function post_user() {
     if (nome != '' & senha != '' & confirmar_senha != '') {
         if(senha == confirmar_senha) {
             resposta = await axios.post(
-                'http://localhost:8000/users', dicionario, config
+                'https://entrada-dados.onrender.com/users', dicionario, config
             ).then(
                 function (response) {
                     const resposta = response.data;
@@ -278,7 +278,7 @@ async function patch_user() {
                 }
             }
             
-            url = 'http://localhost:8000/users/' + nome_buscar
+            url = 'https://entrada-dados.onrender.com/users/' + nome_buscar
             
             resposta = await axios.patch(
                 url, dicionario, config
@@ -339,7 +339,7 @@ async function get_all_clients() {
         }
 
         let dadosTodosClientes = await axios.get(
-            'http://localhost:8000/clients/', config
+            'https://entrada-dados.onrender.com/clients/', config
         ).then(
             function (response) {
                 const dadosTodosClientes = response.data;
@@ -429,7 +429,7 @@ async function get_all_clients_skip(alterar) {
         }
 
         let dadosTodosClientes = await axios.get(
-            'http://localhost:8000/clients/?pular=' + pagina, config
+            'https://entrada-dados.onrender.com/clients/?pular=' + pagina, config
         ).then(
             function (response) {
                 const dadosTodosClientes = response.data;
@@ -527,7 +527,7 @@ async function get_client() {
         }
 
         let dadosCliente = await axios.get(
-            'http://localhost:8000/clients/' + numero_cliente, config
+            'https://entrada-dados.onrender.com/clients/' + numero_cliente, config
         ).then(
             function (response) {
                 const dadosCliente = response.data;
@@ -659,7 +659,7 @@ async function post_client() {
 
     if (numero_cliente != '' & nome != '' & cpf != ''){
         resposta = await axios.post(
-            'http://localhost:8000/clients', dicionario, config
+            'https://entrada-dados.onrender.com/clients', dicionario, config
         ).then(
             function (response) {
                 const resposta = response.data;
@@ -751,7 +751,7 @@ async function patch_client() {
             }
         }
         
-        url = 'http://localhost:8000/clients/' + numero_cliente_buscar
+        url = 'https://entrada-dados.onrender.com/clients/' + numero_cliente_buscar
         
         resposta = await axios.patch(
             url, dicionario, config
@@ -804,7 +804,7 @@ async function delete_client() {
         }
 
         let resposta = await axios.delete(
-            'http://localhost:8000/clients/' + numero_cliente, config
+            'https://entrada-dados.onrender.com/clients/' + numero_cliente, config
         ).then(
             function (response) {
                 const resposta = response.data;
@@ -867,7 +867,7 @@ async function get_instalation() {
         }
 
         let dadosInstalacao = await axios.get(
-            'http://localhost:8000/instalations/' + numero_instalacao, config
+            'https://entrada-dados.onrender.com/instalations/' + numero_instalacao, config
         ).then(
             function (response) {
                 const dadosInstalacao = response.data;
@@ -1058,7 +1058,7 @@ async function post_instalation() {
     if (visibilidade == 'hidden') {
         if (numero_cliente != '' & logradouro != '' & numero_predial != '' & complemento != '' & bairro != '' & cidade != '' & cep != '' & classificacao != '' & latitude != '' & cep != '' & coordenadas_decimais != ''){
             resposta = await axios.post(
-                'http://localhost:8000/instalations', dicionario, config
+                'https://entrada-dados.onrender.com/instalations', dicionario, config
             ).then(
                 function (response) {
                     const resposta = response.data;
@@ -1104,7 +1104,7 @@ async function post_instalation() {
     else if(visibilidade == 'visible') {
         if (numero_instalacao != '' & numero_cliente != '' & logradouro != '' & numero_predial != '' & complemento != '' & bairro != '' & cidade != '' & cep != '' & classificacao != '' & latitude != '' & cep != '' & coordenadas_decimais != ''){
             resposta = await axios.post(
-                'http://localhost:8000/instalations', dicionario, config
+                'https://entrada-dados.onrender.com/instalations', dicionario, config
             ).then(
                 function (response) {
                     const resposta = response.data;
@@ -1226,7 +1226,7 @@ async function patch_instalation() {
         }
         
         
-        url = 'http://localhost:8000/instalations/' + numero_instalacao_buscar;
+        url = 'https://entrada-dados.onrender.com/instalations/' + numero_instalacao_buscar;
         
         resposta = await axios.patch(
             url, dicionario, config
@@ -1279,7 +1279,7 @@ async function delete_instalation() {
         }
 
         let resposta = await axios.delete(
-            'http://localhost:8000/instalations/' + numero_instalacao, config
+            'https://entrada-dados.onrender.com/instalations/' + numero_instalacao, config
         ).then(
             function (response) {
                 const resposta = response.data;
@@ -1339,7 +1339,7 @@ async function get_all_modules() {
         }
 
         let dadosTodosModulos = await axios.get(
-            'http://localhost:8000/modules/', config
+            'https://entrada-dados.onrender.com/modules/', config
         ).then(
             function (response) {
                 const dadosTodosClientes = response.data;
@@ -1464,7 +1464,7 @@ async function get_all_modules_skip(alterar) {
         }
 
         let dadosTodosModulos = await axios.get(
-            'http://localhost:8000/modules/?pular=' + pagina, config
+            'https://entrada-dados.onrender.com/modules/?pular=' + pagina, config
         ).then(
             function (response) {
                 const dadosTodosModulos = response.data;
@@ -1479,7 +1479,7 @@ async function get_all_modules_skip(alterar) {
         
         if (dadosTodosModulos != 'Error: Request failed with status code 401' & dadosTodosModulos != 'Error: Request failed with status code 404') {
             let arrayTD = document.getElementsByTagName('td')
-            
+            console.log(dadosTodosModulos.length)
             if (pagina > dadosTodosModulos.length) {
                 pagina = parseInt(dadosTodosModulos.length - dadosTodosModulos.length % 10)
             }
@@ -1592,7 +1592,7 @@ async function get_module() {
         }
 
         let dadosModulo = await axios.get(
-            'http://localhost:8000/modules/' + modelo, config
+            'https://entrada-dados.onrender.com/modules/' + modelo, config
         ).then(
             function (response) {
                 const dadosModulo = response.data;
@@ -1833,7 +1833,7 @@ async function post_module() {
 
     if (modelo != '' & fabricante != '' & potencia != '' & imp != '' & isc != '' & vmp != '' & voc != '' & comprimento != '' & largura != '' & espessura != '' & eficiencia != '' & temperatura_nominal != '' & tipo != '' & coeficiente_temperatura != ''){
         resposta = await axios.post(
-            'http://localhost:8000/modules', dicionario, config
+            'https://entrada-dados.onrender.com/modules', dicionario, config
         ).then(
             function (response) {
                 const resposta = response.data;
@@ -1995,7 +1995,7 @@ async function patch_module() {
             }
         }
         
-        url = 'http://localhost:8000/modules/' + id
+        url = 'https://entrada-dados.onrender.com/modules/' + id
         
         resposta = await axios.patch(
             url, dicionario, config
@@ -2048,7 +2048,7 @@ async function delete_module() {
         }
 
         let resposta = await axios.delete(
-            'http://localhost:8000/modules/' + id, config
+            'https://entrada-dados.onrender.com/modules/' + id, config
         ).then(
             function (response) {
                 const resposta = response.data;
@@ -2109,7 +2109,7 @@ async function get_all_inverters() {
         }
 
         let dadosTodosInversores = await axios.get(
-            'http://localhost:8000/inverters/', config
+            'https://entrada-dados.onrender.com/inverters/', config
         ).then(
             function (response) {
                 const dadosTodosInversores = response.data;
@@ -2234,7 +2234,7 @@ async function get_all_inverters_skip(alterar) {
         }
 
         let dadosTodosInversores = await axios.get(
-            'http://localhost:8000/inverters/?pular=' + pagina, config
+            'https://entrada-dados.onrender.com/inverters/?pular=' + pagina, config
         ).then(
             function (response) {
                 const dadosTodosInversores = response.data;
@@ -2362,7 +2362,7 @@ async function get_inverter() {
         }
 
         let dadosInversor = await axios.get(
-            'http://localhost:8000/inverters/' + modelo, config
+            'https://entrada-dados.onrender.com/inverters/' + modelo, config
         ).then(
             function (response) {
                 const dadosInversor = response.data;
@@ -2615,7 +2615,7 @@ async function post_inverter() {
 
     if (modelo != '' & fabricante != '' & potencia != '' & overload != '' & imp != '' & isc != '' & v_min_mppt != '' & v_max_mppt != '' & v_max != '' & n_mppt != '' & n_entrada != '' & v_saida != '' & i_saida != '' & comprimento != '' & largura != '' & espessura != '' & eficiencia != ''){
         resposta = await axios.post(
-            'http://localhost:8000/inverters', dicionario, config
+            'https://entrada-dados.onrender.com/inverters', dicionario, config
         ).then(
             function (response) {
                 const resposta = response.data;
@@ -2783,7 +2783,7 @@ async function patch_inverter() {
             }
         }
         
-        url = 'http://localhost:8000/inverters/' + id
+        url = 'https://entrada-dados.onrender.com/inverters/' + id
         
         resposta = await axios.patch(
             url, dicionario, config
@@ -2836,7 +2836,7 @@ async function delete_inverter() {
         }
 
         let resposta = await axios.delete(
-            'http://localhost:8000/inverters/' + id, config
+            'https://entrada-dados.onrender.com/inverters/' + id, config
         ).then(
             function (response) {
                 const resposta = response.data;
@@ -2897,7 +2897,7 @@ async function get_all_projects() {
         }
 
         let dadosTodosProjetos = await axios.get(
-            'http://localhost:8000/projects/', config
+            'https://entrada-dados.onrender.com/projects/', config
         ).then(
             function (response) {
                 const dadosTodosProjetos = response.data;
@@ -2916,7 +2916,7 @@ async function get_all_projects() {
             for (i = 0; i < 10; i++) {
                 if (i < dadosTodosProjetos.length) {
                     cliente = await axios.get(
-                            'http://localhost:8000/clients/' + dadosTodosProjetos[i].numero_cliente, config
+                            'https://entrada-dados.onrender.com/clients/' + dadosTodosProjetos[i].numero_cliente, config
                     ).then(
                         function (response) {
                             const cliente = response.data;
@@ -3094,7 +3094,7 @@ async function get_all_projects_skip(alterar) {
         }
 
         let dadosTodosProjetos = await axios.get(
-            'http://localhost:8000/projects/?pular=' + pagina, config
+            'https://entrada-dados.onrender.com/projects/?pular=' + pagina, config
         ).then(
             function (response) {
                 const dadosTodosProjetos = response.data;
@@ -3119,7 +3119,7 @@ async function get_all_projects_skip(alterar) {
             for (i = 0; i < 10; i++) {
                 if (i < dadosTodosProjetos.length) {
                     cliente = await axios.get(
-                            'http://localhost:8000/clients/' + dadosTodosProjetos[i].numero_cliente, config
+                            'https://entrada-dados.onrender.com/clients/' + dadosTodosProjetos[i].numero_cliente, config
                     ).then(
                         function (response) {
                             const cliente = response.data;
@@ -3294,7 +3294,7 @@ async function get_project() {
         }
 
         let dadosProjeto = await axios.get(
-            'http://localhost:8000/projects/' + id.toString(), config
+            'https://entrada-dados.onrender.com/projects/' + id.toString(), config
         ).then(
             function (response) {
                 const dadosProjeto = response.data;
@@ -3613,6 +3613,11 @@ async function post_project() {
     let novo_n_fases = document.getElementById('novo-n-fases-adicionar').value;
     let novo_disjuntor = document.getElementById('novo-disjuntor-adicionar').value;
     let n_fases_agrupamento = document.getElementById('n-fases-agrupamento-adicionar').value;
+
+    if(n_fases_agrupamento == "Sem disjuntor geral") {
+        n_fases_agrupamento = "Sem Disj. Geral"
+    }
+    
     let disjuntor_agrupamento = document.getElementById('disjuntor-agrupamento-adicionar').value;
     let tensao = document.getElementById('tensão-adicionar').value;
     let modulo_anterior_1 = document.getElementById('modulo-anterior-1-adicionar').checked.toString();
@@ -3660,7 +3665,10 @@ async function post_project() {
 
     if (agrupamento == 'true') {
         dicionario['n_fases_agrupamento'] = n_fases_agrupamento;
-        dicionario['disjuntor_agrupamento'] = disjuntor_agrupamento;
+
+        if (disjuntor_agrupamento != "") {
+            dicionario['disjuntor_agrupamento'] = disjuntor_agrupamento;
+        }
     }
     
     if (aumento_usina == 'true') {
@@ -3686,7 +3694,7 @@ async function post_project() {
         dicionario['quantidade_inversor_4'] = quantidade_inversor_4;
         dicionario['modelo_inversor_4'] = modelo_inversor_4;
     }
-
+    
     let config = {
         headers: {
           'Authorization': 'Bearer ' + access_token
@@ -3695,7 +3703,7 @@ async function post_project() {
 
     if (numero_instalacao != '' & numero_cliente != '' & n_fases != '' & disjuntor != '' & tensao != '' & quantidade_modulo_1 != '' & modelo_modulo_1 != '' & quantidade_inversor_1 != '' & modelo_inversor_1 != ''){
         resposta = await axios.post(
-            'http://localhost:8000/projects', dicionario, config
+            'https://entrada-dados.onrender.com/projects', dicionario, config
         ).then(
             function (response) {
                 const resposta = response.data;
@@ -3756,6 +3764,11 @@ async function patch_project() {
     let novo_n_fases = document.getElementById('novo-n-fases-atualizar').value;
     let novo_disjuntor = document.getElementById('novo-disjuntor-atualizar').value;
     let n_fases_agrupamento = document.getElementById('n-fases-agrupamento-atualizar').value;
+
+    if(n_fases_agrupamento == "Sem disjuntor geral") {
+        n_fases_agrupamento = "Sem Disj. Geral"
+    }
+
     let disjuntor_agrupamento = document.getElementById('disjuntor-agrupamento-atualizar').value;
     let tensao = document.getElementById('tensão-atualizar').value;
     let modulo_anterior_1 = document.getElementById('modulo-anterior-1-atualizar').checked.toString();
@@ -3806,7 +3819,7 @@ async function patch_project() {
     }
 
     let dadosOriginais = await axios.get(
-        'http://localhost:8000/projects/' + id.toString(), config
+        'https://entrada-dados.onrender.com/projects/' + id.toString(), config
     ).then(
         function (response) {
             const dadosProjeto = response.data;
@@ -3851,7 +3864,7 @@ async function patch_project() {
         dicionario['disjuntor'] = disjuntor
     }
 
-    if (novo_n_fases != dadosOriginais.novo_n_fases.toString()){
+    if (novo_n_fases != dadosOriginais.novo_n_fases){
         dicionario['novo_n_fases'] = novo_n_fases
     }
 
@@ -3859,7 +3872,7 @@ async function patch_project() {
         dicionario['novo_disjuntor'] = novo_disjuntor
     }
     
-    if (n_fases_agrupamento != dadosOriginais.n_fases_agrupamento.toString()){
+    if (n_fases_agrupamento != dadosOriginais.n_fases_agrupamento){
         dicionario['n_fases_agrupamento'] = n_fases_agrupamento
     }
     
@@ -3950,7 +3963,7 @@ async function patch_project() {
     }
 
     else {
-        url = 'http://localhost:8000/projects/' + id.toString()
+        url = 'https://entrada-dados.onrender.com/projects/' + id.toString()
         console.log(dicionario)
         resposta = await axios.patch(
             url, dicionario, config
@@ -4005,7 +4018,7 @@ async function delete_project() {
         }
 
         let resposta = await axios.delete(
-            'http://localhost:8000/projects/' + id, config
+            'https://entrada-dados.onrender.com/projects/' + id, config
         ).then(
             function (response) {
                 const resposta = response.data;
@@ -4076,7 +4089,7 @@ async function print_project() {
         }
 
         let resposta = await axios.get(
-                'http://localhost:8000/projects/' + idProjeto + '/print', config
+                'https://entrada-dados.onrender.com/projects/' + idProjeto + '/print', config
             ).then(
                 function (response) {
                     const resposta = response;

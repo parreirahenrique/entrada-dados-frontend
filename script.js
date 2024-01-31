@@ -203,7 +203,7 @@ async function checar_autorizacao() {
     }
 
     let dadosUsuario = await axios.get(
-        'http://localhost:8000/users/' + username, config
+        'https://entrada-dados.onrender.com/users/' + username, config
     ).then(
         function (response) {
             const dadosUsuario = response.data;
@@ -419,7 +419,7 @@ async function mostrar_usuarios(nomeFuncao) {
         }
 
         let dadosTodosUsuarios = await axios.get(
-            'http://localhost:8000/users', config
+            'https://entrada-dados.onrender.com/users/', config
         ).then(
             function (response) {
                 const dadosTodosUsuarios = response.data;
@@ -486,6 +486,13 @@ function filtrar_usuarios(nomeFuncao) {
     for (i = nOpcoes; i >= 0; i--) {
         if (lista.options[i].value.includes(nomeUsuario) == false) {
             lista.children[i].remove()
+        }
+    }
+
+    for (let opcao of lista.options) {
+        opcao.onclick = function () {
+            input.value = opcao.value.split(' - ')[1];
+            lista.style.display = 'none';
         }
     }
 }
@@ -794,7 +801,7 @@ async function mostrar_clientes(nomeFuncao) {
         }
 
         let dadosTodosClientes = await axios.get(
-            'http://localhost:8000/all-clients', config
+            'https://entrada-dados.onrender.com/all-clients', config
         ).then(
             function (response) {
                 const dadosTodosClientes = response.data;
@@ -864,6 +871,13 @@ function filtrar_clientes(nomeFuncao) {
     for (i = nOpcoes; i >= 0; i--) {
         if (lista.options[i].value.includes(numeroCliente) == false) {
             lista.children[i].remove()
+        }
+    }
+
+    for (let opcao of lista.options) {
+        opcao.onclick = function () {
+            input.value = opcao.value.split(' - ')[0];
+            lista.style.display = 'none';
         }
     }
 }
@@ -1233,7 +1247,7 @@ async function mostrar_instalacoes(nomeFuncao) {
         }
 
         let dadosTodasInstalacoes = await axios.get(
-            'http://localhost:8000/all-instalations', config
+            'https://entrada-dados.onrender.com/all-instalations', config
         ).then(
             function (response) {
                 const dadosTodasInstalacoes = response.data;
@@ -1303,6 +1317,13 @@ function filtrar_instalacoes(nomeFuncao) {
     for (i = nOpcoes; i >= 0; i--) {
         if (lista.options[i].value.includes(numeroInstalacao) == false) {
             lista.children[i].remove()
+        }
+    }
+
+    for (let opcao of lista.options) {
+        opcao.onclick = function () {
+            input.value = opcao.value.split(' - ')[0];
+            lista.style.display = 'none';
         }
     }
 }
@@ -1664,7 +1685,7 @@ async function mostrar_modulos(nomeFuncao) {
         }
 
         let dadosTodosModulos = await axios.get(
-            'http://localhost:8000/all-modules', config
+            'https://entrada-dados.onrender.com/all-modules', config
         ).then(
             function (response) {
                 const dadosTodosModulos = response.data;
@@ -1741,6 +1762,13 @@ function filtrar_modulos(nomeFuncao) {
     for (i = nOpcoes; i >= 0; i--) {
         if (lista.options[i].value.includes(idModulo) == false) {
             lista.children[i].remove()
+        }
+    }
+
+    for (let opcao of lista.options) {
+        opcao.onclick = function () {
+            input.value = opcao.value.split('ID #')[1].split(' - ')[0];
+            lista.style.display = 'none';
         }
     }
 }
@@ -2072,7 +2100,7 @@ async function mostrar_inversores(nomeFuncao) {
         }
 
         let dadosTodosInversores = await axios.get(
-            'http://localhost:8000/all-inverters', config
+            'https://entrada-dados.onrender.com/all-inverters', config
         ).then(
             function (response) {
                 const dadosTodosInversores = response.data;
@@ -2149,6 +2177,13 @@ function filtrar_inversores(nomeFuncao) {
     for (i = nOpcoes; i >= 0; i--) {
         if (lista.options[i].value.includes(idInversor) == false) {
             lista.children[i].remove()
+        }
+    }
+
+    for (let opcao of lista.options) {
+        opcao.onclick = function () {
+            input.value = opcao.value.split('ID #')[1].split(' - ')[0];
+            lista.style.display = 'none';
         }
     }
 }
@@ -2603,7 +2638,7 @@ async function mostrar_campos_atualizar_projetos() {
         }
 
         let dadosOriginais = await axios.get(
-            'http://localhost:8000/projects/' + idProjeto.toString(), config
+            'https://entrada-dados.onrender.com/projects/' + idProjeto.toString(), config
         ).then(
             function (response) {
                 const dadosOriginais = response.data;
@@ -2626,7 +2661,7 @@ async function mostrar_campos_atualizar_projetos() {
 
             if (dadosOriginais.modelo_modulo_1 != '') {
                 let dadosModulo1 = await axios.get(
-                    'http://localhost:8000/modules?buscar=' + dadosOriginais.modelo_modulo_1, config
+                    'https://entrada-dados.onrender.com/modules?buscar=' + dadosOriginais.modelo_modulo_1, config
                 ).then(
                     function (response) {
                         const dadosModulo1 = response.data;
@@ -2644,7 +2679,7 @@ async function mostrar_campos_atualizar_projetos() {
 
             if (dadosOriginais.modelo_modulo_2 != '') {
                 let dadosModulo2 = await axios.get(
-                    'http://localhost:8000/modules?buscar=' + dadosOriginais.modelo_modulo_2, config
+                    'https://entrada-dados.onrender.com/modules?buscar=' + dadosOriginais.modelo_modulo_2, config
                 ).then(
                     function (response) {
                         const dadosModulo2 = response.data;
@@ -2662,7 +2697,7 @@ async function mostrar_campos_atualizar_projetos() {
 
             if (dadosOriginais.modelo_inversor_1 != '') {
                 let dadosInversor1 = await axios.get(
-                    'http://localhost:8000/inverters?buscar=' + dadosOriginais.modelo_inversor_1, config
+                    'https://entrada-dados.onrender.com/inverters?buscar=' + dadosOriginais.modelo_inversor_1, config
                 ).then(
                     function (response) {
                         const dadosInversor1 = response.data;
@@ -2680,7 +2715,7 @@ async function mostrar_campos_atualizar_projetos() {
 
             if (dadosOriginais.modelo_inversor_2 != '') {
                 let dadosInversor2 = await axios.get(
-                    'http://localhost:8000/inverters?buscar=' + dadosOriginais.modelo_inversor_2, config
+                    'https://entrada-dados.onrender.com/inverters?buscar=' + dadosOriginais.modelo_inversor_2, config
                 ).then(
                     function (response) {
                         const dadosInversor2 = response.data;
@@ -2701,7 +2736,7 @@ async function mostrar_campos_atualizar_projetos() {
 
             if (dadosOriginais.modelo_inversor_3 != '') {
                 let dadosInversor3 = await axios.get(
-                    'http://localhost:8000/inverters?buscar=' + dadosOriginais.modelo_inversor_3, config
+                    'https://entrada-dados.onrender.com/inverters?buscar=' + dadosOriginais.modelo_inversor_3, config
                 ).then(
                     function (response) {
                         const dadosInversor3 = response.data;
@@ -2722,7 +2757,7 @@ async function mostrar_campos_atualizar_projetos() {
 
             if (dadosOriginais.modelo_inversor_4 != '') {
                 let dadosInversor4 = await axios.get(
-                    'http://localhost:8000/inverters?buscar=' + dadosOriginais.modelo_inversor_4, config
+                    'https://entrada-dados.onrender.com/inverters?buscar=' + dadosOriginais.modelo_inversor_4, config
                 ).then(
                     function (response) {
                         const dadosInversor4 = response.data;
@@ -3423,7 +3458,7 @@ async function mostrar_projetos(nomeFuncao) {
         }
 
         let dadosTodosProjetos = await axios.get(
-            'http://localhost:8000/all-projects', config
+            'https://entrada-dados.onrender.com/all-projects', config
         ).then(
             function (response) {
                 const dadosTodosProjetos = response.data;
@@ -3440,7 +3475,7 @@ async function mostrar_projetos(nomeFuncao) {
             for (i = 0; i < dadosTodosProjetos.length; i++) {
                 id[i] = String(dadosTodosProjetos[i].id);
                 cliente[i] = await axios.get(
-                    'http://localhost:8000/clients/' + dadosTodosProjetos[i].numero_cliente, config
+                    'https://entrada-dados.onrender.com/clients/' + dadosTodosProjetos[i].numero_cliente, config
                 ).then(
                     function (response) {
                         const dadosTodosProjetos = response.data.nome;
@@ -3454,7 +3489,7 @@ async function mostrar_projetos(nomeFuncao) {
                 )
 
                 endereco[i] = await axios.get(
-                    'http://localhost:8000/instalations/' + dadosTodosProjetos[i].numero_instalacao, config
+                    'https://entrada-dados.onrender.com/instalations/' + dadosTodosProjetos[i].numero_instalacao, config
                 ).then(
                     function (response) {
                         const dadosTodosProjetos = response.data.logradouro + ', ' + response.data.numero_predial + ' ' + response.data.complemento + ', ' + response.data.bairro + ', ' + response.data.cidade + ' - MG ';
@@ -3525,6 +3560,13 @@ function filtrar_projetos(nomeFuncao) {
             lista.children[i].remove()
         }
     }
+
+    for (let opcao of lista.options) {
+        opcao.onclick = function () {
+            input.value = opcao.value.split(' ')[1].split('#')[1];
+            lista.style.display = 'none';
+        }
+    }
 }
 
 function mostrar_fases(nomeInput) {
@@ -3564,7 +3606,7 @@ async function mostrar_fabricantes_modulos(nomeFuncao) {
         }
 
         fabricante = await axios.get(
-            'http://localhost:8000/all-modules', config
+            'https://entrada-dados.onrender.com/all-modules', config
         ).then(
             function (response) {
                 const fabricante = response.data;
@@ -3653,6 +3695,13 @@ function filtrar_fabricantes_modulos(nomeFuncao) {
             lista.children[i].remove()
         }
     }
+
+    for (let opcao of lista.options) {
+        opcao.onclick = function () {
+            input.value = opcao.value;
+            lista.style.display = 'none';
+        }
+    }
 }
 
 
@@ -3677,7 +3726,7 @@ async function mostrar_modelos_modulos(nomeFuncao) {
         }
 
         dadosTodosModulos = await axios.get(
-            'http://localhost:8000/modules-' + fabricante, config
+            'https://entrada-dados.onrender.com/modules-' + fabricante, config
         ).then(
             function (response) {
                 const dadosTodosModulos = response.data;
@@ -3747,6 +3796,13 @@ function filtrar_modelos_modulos(nomeFuncao) {
             lista.children[i].remove()
         }
     }
+
+    for (let opcao of lista.options) {
+        opcao.onclick = function () {
+            input.value = opcao.value;
+            lista.style.display = 'none';
+        }
+    }
 }
 
 async function mostrar_fabricantes_inversores(nomeFuncao) {
@@ -3772,7 +3828,7 @@ async function mostrar_fabricantes_inversores(nomeFuncao) {
         }
 
         fabricante = await axios.get(
-            'http://localhost:8000/all-inverters', config
+            'https://entrada-dados.onrender.com/all-inverters', config
         ).then(
             function (response) {
                 const fabricante = response.data;
@@ -3861,6 +3917,13 @@ function filtrar_fabricantes_inversores(nomeFuncao) {
             lista.children[i].remove()
         }
     }
+
+    for (let opcao of lista.options) {
+        opcao.onclick = function () {
+            input.value = opcao.value;
+            lista.style.display = 'none';
+        }
+    }
 }
 
 
@@ -3885,7 +3948,7 @@ async function mostrar_modelos_inversores(nomeFuncao) {
         }
 
         dadosTodosInversores = await axios.get(
-            'http://localhost:8000/inverters-' + fabricante, config
+            'https://entrada-dados.onrender.com/inverters-' + fabricante, config
         ).then(
             function (response) {
                 const dadosTodosInversores = response.data;
@@ -3953,6 +4016,13 @@ function filtrar_modelos_inversores(nomeFuncao) {
     for (i = nOpcoes; i >= 0; i--) {
         if (lista.options[i].value.includes(modeloEscolhido) == false) {
             lista.children[i].remove()
+        }
+    }
+
+    for (let opcao of lista.options) {
+        opcao.onclick = function () {
+            input.value = opcao.value;
+            lista.style.display = 'none';
         }
     }
 }
