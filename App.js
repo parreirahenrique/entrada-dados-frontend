@@ -714,36 +714,49 @@ async function patch_client() {
     let nome_pais = document.getElementById('nome-pais-atualizar').value.toUpperCase();
     let dicionario = {}; // Create an empty array
 
-    if (numero_cliente == '' & nome == '' & cpf == '' & rg == '' & nascimento == '' & nome_pais == '') {
-        containerCamposNaoPreenchidos = document.getElementsByClassName('container-campos-nao-preenchidos')
-        containerCamposNaoPreenchidos[0].style.visibility = "visible"
-        containerCamposNaoPreenchidos[0].style.display = "flex"
+    let config = {
+        headers: {
+        'Authorization': 'Bearer ' + access_token
+        }
     }
 
-    else {
-        if (numero_cliente != ''){
-            dicionario['numero_cliente'] = numero_cliente
+    let dadosOriginais = await axios.get(
+        'http://localhost:8000/clients/' + numero_cliente_buscar.toString(), config
+    ).then(
+        function (response) {
+            const dadosProjeto = response.data;
+            return dadosProjeto;
         }
+    ).catch(
+        function (error) {
+            console.log(error);
+            return error;
+        }
+    )
+    
+    if (numero_cliente != dadosOriginais.numero_cliente.toString()){
+        dicionario['numero_cliente'] = numero_cliente
+    }
 
-        if (nome != ''){
-            dicionario['nome'] = nome
-        }
+    if (nome != dadosOriginais.nome.toString()){
+        dicionario['nome'] = nome
+    }
 
-        if (cpf != ''){
-            dicionario['cpf'] = cpf
-        }
+    if (cpf != dadosOriginais.cpf.toString()){
+        dicionario['cpf'] = cpf
+    }
 
-        if (rg != ''){
-            dicionario['rg'] = rg
-        }
+    if (rg != dadosOriginais.rg.toString()){
+        dicionario['rg'] = rg
+    }
 
-        if (nascimento != ''){
-            dicionario['nascimento'] = nascimento
-        }
+    if (nascimento != dadosOriginais.nascimento.toString()){
+        dicionario['nascimento'] = nascimento.value.split('-').reverse().join('/')
+    }
 
-        if (nome_pais != ''){
-            dicionario['nome_pais'] = nome_pais
-        }
+    if (nome_pais != dadosOriginais.nome_pais.toString()){
+        dicionario['nome_pais'] = nome_pais
+    }
 
         let config = {
             headers: {
@@ -751,7 +764,7 @@ async function patch_client() {
             }
         }
         
-        url = 'https://entrada-dados.onrender.com/clients/' + numero_cliente_buscar
+        url = 'http://localhost:8000/clients/' + numero_cliente_buscar
         
         resposta = await axios.patch(
             url, dicionario, config
@@ -852,6 +865,214 @@ async function delete_client() {
 }
 
 // FUNÇÕES PARA A PÁGINA DE INSTALAÇÕES
+async function get_all_instalations() {
+    let access_token = localStorage.getItem('access_token');
+
+    if (access_token != 'Error: Request failed with status code 401' & access_token != 'Error: Request failed with status code 403' & access_token != 'Error: Request failed with status code 422' & access_token != 'Error: Network Error' & access_token != null) {
+        localStorage.setItem('paginaAtualInstalacoes', 0);
+
+        let config = {
+            headers: {
+              'Authorization': 'Bearer ' + access_token
+            }
+        }
+
+        let dadosTodasInstalacoes = await axios.get(
+            'http://localhost:8000/all-instalations', config
+        ).then(
+            function (response) {
+                const dadosTodasInstalacoes = response.data;
+                return dadosTodasInstalacoes;
+            }
+        ).catch(
+            function (error) {
+                console.log(error);
+                return error;
+            }
+        )
+        
+        if (dadosTodasInstalacoes != 'Error: Request failed with status code 401' & dadosTodasInstalacoes != 'Error: Request failed with status code 404') {
+            let arrayTD = document.getElementsByTagName('td')
+            
+            for (i = 0; i < 10; i++) {
+                if (i < dadosTodasInstalacoes.length) {
+                    arrayTD[6 * i].innerHTML = dadosTodasInstalacoes[i].numero_cliente
+                    arrayTD[6 * i].style.visibility = 'visible'
+                    arrayTD[6 * i].style.display = 'table-cell'
+
+                    cliente = await axios.get(
+                            'http://localhost:8000/clients/' + dadosTodasInstalacoes[i].numero_cliente, config
+                    ).then(
+                        function (response) {
+                            const cliente = response.data;
+                            return cliente;
+                        }
+                    ).catch(
+                        function (error) {
+                            console.log(error);
+                            return error;
+                        }
+                    )
+
+                    arrayTD[6 * i + 1].innerHTML = cliente.nome
+                    arrayTD[6 * i + 1].style.visibility = 'visible'
+                    arrayTD[6 * i + 1].style.display = 'table-cell'
+                    arrayTD[6 * i + 2].innerHTML = dadosTodasInstalacoes[i].numero_instalacao
+                    arrayTD[6 * i + 2].style.visibility = 'visible'
+                    arrayTD[6 * i + 2].style.display = 'table-cell'
+                    arrayTD[6 * i + 3].innerHTML = dadosTodasInstalacoes[i].logradouro + ', ' + dadosTodasInstalacoes[i].numero_predial + ' ' + dadosTodasInstalacoes[i].complemento + ', ' + dadosTodasInstalacoes[i].bairro + ', ' + dadosTodasInstalacoes[i].cidade + ' - MG'
+                    arrayTD[6 * i + 3].style.visibility = 'visible'
+                    arrayTD[6 * i + 3].style.display = 'table-cell'
+                    arrayTD[6 * i + 4].innerHTML = dadosTodasInstalacoes[i].latitude
+                    arrayTD[6 * i + 4].style.visibility = 'visible'
+                    arrayTD[6 * i + 4].style.display = 'table-cell'
+                    arrayTD[6 * i + 5].innerHTML = dadosTodasInstalacoes[i].longitude
+                    arrayTD[6 * i + 5].style.visibility = 'visible'
+                    arrayTD[6 * i + 5].style.display = 'table-cell'
+                    
+                    if (i == (dadosTodasInstalacoes.length - 1)) {
+                        arrayTD[6 * i].style.borderBottom = 0;
+                        arrayTD[6 * i + 1].style.borderBottom = 0;
+                        arrayTD[6 * i + 2].style.borderBottom = 0;
+                        arrayTD[6 * i + 3].style.borderBottom = 0;
+                        arrayTD[6 * i + 4].style.borderBottom = 0;
+                        arrayTD[6 * i + 5].style.borderBottom = 0;
+                    }
+                }
+
+                else {
+                    arrayTD[6 * i].style.visibility = 'hidden'
+                    arrayTD[6 * i].style.display = 'none'
+                    arrayTD[6 * i + 1].style.visibility = 'hidden'
+                    arrayTD[6 * i + 1].style.display = 'none'
+                    arrayTD[6 * i + 2].style.visibility = 'hidden'
+                    arrayTD[6 * i + 2].style.display = 'none'
+                    arrayTD[6 * i + 3].style.visibility = 'hidden'
+                    arrayTD[6 * i + 3].style.display = 'none'
+                    arrayTD[6 * i + 4].style.visibility = 'hidden'
+                    arrayTD[6 * i + 4].style.display = 'none'
+                    arrayTD[6 * i + 5].style.visibility = 'hidden'
+                    arrayTD[6 * i + 5].style.display = 'none'
+                }
+            }
+        }
+
+        else if (dadosTodasInstalacoes == 'Error: Request failed with status code 401') {
+            localStorage.setItem('access_token', dadosTodasInstalacoes);
+            checar_autorizacao();
+        }
+    }
+}
+
+async function get_all_instalations_skip(alterar) {
+    let access_token = localStorage.getItem('access_token');
+
+    if (access_token != 'Error: Request failed with status code 401' & access_token != 'Error: Request failed with status code 403' & access_token != 'Error: Request failed with status code 422' & access_token != 'Error: Network Error' & access_token != null) {
+        let pagina = parseInt(localStorage.getItem('paginaAtualInstalacoes')) + parseInt(alterar);
+
+        if (pagina < 0) {
+            pagina = 0
+        }
+
+        let config = {
+            headers: {
+              'Authorization': 'Bearer ' + access_token
+            }
+        }
+
+        let dadosTodasInstalacoes = await axios.get(
+            'http://localhost:8000/instalations/?pular=' + pagina, config
+        ).then(
+            function (response) {
+                const dadosTodasInstalacoes = response.data;
+                return dadosTodasInstalacoes;
+            }
+        ).catch(
+            function (error) {
+                console.log(error);
+                return error;
+            }
+        )
+        
+        if (dadosTodasInstalacoes != 'Error: Request failed with status code 401' & dadosTodasInstalacoes != 'Error: Request failed with status code 404') {
+            let arrayTD = document.getElementsByTagName('td')
+            
+            if (pagina > dadosTodasInstalacoes.length) {
+                pagina = parseInt(dadosTodasInstalacoes.length - dadosTodasInstalacoes.length % 10)
+            }
+            
+            localStorage.setItem('paginaAtualInstalacoes', pagina);
+            
+            for (i = 0; i < 10; i++) {
+                if (i < dadosTodasInstalacoes.length) {
+                    arrayTD[6 * i].innerHTML = dadosTodasInstalacoes[i].numero_cliente
+                    arrayTD[6 * i].style.visibility = 'visible'
+                    arrayTD[6 * i].style.display = 'table-cell'
+
+                    cliente = await axios.get(
+                            'http://localhost:8000/clients/' + dadosTodasInstalacoes[i].numero_cliente, config
+                    ).then(
+                        function (response) {
+                            const cliente = response.data;
+                            return cliente;
+                        }
+                    ).catch(
+                        function (error) {
+                            console.log(error);
+                            return error;
+                        }
+                    )
+
+                    arrayTD[6 * i + 1].innerHTML = cliente.nome
+                    arrayTD[6 * i + 1].style.visibility = 'visible'
+                    arrayTD[6 * i + 1].style.display = 'table-cell'
+                    arrayTD[6 * i + 2].innerHTML = dadosTodasInstalacoes[i].numero_instalacao
+                    arrayTD[6 * i + 2].style.visibility = 'visible'
+                    arrayTD[6 * i + 2].style.display = 'table-cell'
+                    arrayTD[6 * i + 3].innerHTML = dadosTodasInstalacoes[i].logradouro + ', ' + dadosTodasInstalacoes[i].numero_predial + ' ' + dadosTodasInstalacoes[i].complemento + ', ' + dadosTodasInstalacoes[i].bairro + ', ' + dadosTodasInstalacoes[i].cidade + ' - MG'
+                    arrayTD[6 * i + 3].style.visibility = 'visible'
+                    arrayTD[6 * i + 3].style.display = 'table-cell'
+                    arrayTD[6 * i + 4].innerHTML = dadosTodasInstalacoes[i].latitude
+                    arrayTD[6 * i + 4].style.visibility = 'visible'
+                    arrayTD[6 * i + 4].style.display = 'table-cell'
+                    arrayTD[6 * i + 5].innerHTML = dadosTodasInstalacoes[i].longitude
+                    arrayTD[6 * i + 5].style.visibility = 'visible'
+                    arrayTD[6 * i + 5].style.display = 'table-cell'
+                    
+                    if (i == (dadosTodasInstalacoes.length - 1)) {
+                        arrayTD[6 * i].style.borderBottom = 0;
+                        arrayTD[6 * i + 1].style.borderBottom = 0;
+                        arrayTD[6 * i + 2].style.borderBottom = 0;
+                        arrayTD[6 * i + 3].style.borderBottom = 0;
+                        arrayTD[6 * i + 4].style.borderBottom = 0;
+                        arrayTD[6 * i + 5].style.borderBottom = 0;
+                    }
+                }
+
+                else {
+                    arrayTD[6 * i].style.visibility = 'hidden'
+                    arrayTD[6 * i].style.display = 'none'
+                    arrayTD[6 * i + 1].style.visibility = 'hidden'
+                    arrayTD[6 * i + 1].style.display = 'none'
+                    arrayTD[6 * i + 2].style.visibility = 'hidden'
+                    arrayTD[6 * i + 2].style.display = 'none'
+                    arrayTD[6 * i + 3].style.visibility = 'hidden'
+                    arrayTD[6 * i + 3].style.display = 'none'
+                    arrayTD[6 * i + 4].style.visibility = 'hidden'
+                    arrayTD[6 * i + 4].style.display = 'none'
+                    arrayTD[6 * i + 5].style.visibility = 'hidden'
+                    arrayTD[6 * i + 5].style.display = 'none'
+                }
+            }
+        }
+
+        else if (dadosTodasInstalacoes == 'Error: Request failed with status code 401') {
+            localStorage.setItem('access_token', dadosTodasInstalacoes);
+            checar_autorizacao();
+        }
+    }
+}
+
 async function get_instalation() {
     let access_token = localStorage.getItem('access_token');
 
@@ -1171,53 +1392,66 @@ async function patch_instalation() {
     if (checkboxLigacao == true) {
         numero_instalacao = '0';
     }
-    
-    if (numero_instalacao == '' & numero_cliente == '' & logradouro == '' & numero_predial == '' & complemento == '' & bairro == '' & cidade == '' & cep == '' & classificacao == '' & latitude == '' & cep == '' & coordenadas_decimais == ''){
-        containerCamposNaoPreenchidos = document.getElementsByClassName('container-campos-nao-preenchidos');
-        containerCamposNaoPreenchidos[0].style.visibility = "visible";
-        containerCamposNaoPreenchidos[0].style.display = "flex";
+
+    let config = {
+        headers: {
+        'Authorization': 'Bearer ' + access_token
+        }
     }
 
-    else {
-        if (numero_instalacao != ''){
-            dicionario['numero_instalacao'] = numero_instalacao;
+    let dadosOriginais = await axios.get(
+        'http://localhost:8000/instalations/' + numero_instalacao_buscar.toString(), config
+    ).then(
+        function (response) {
+            const dadosProjeto = response.data;
+            return dadosProjeto;
         }
+    ).catch(
+        function (error) {
+            console.log(error);
+            return error;
+        }
+    )
 
-        if (numero_cliente != ''){
-            dicionario['numero_cliente'] = numero_cliente;
-        }
+    if (numero_instalacao != dadosOriginais.numero_instalacao.toString()){
+        dicionario['numero_instalacao'] = numero_instalacao;
+    }
 
-        if (logradouro != ''){
-            dicionario['logradouro'] = logradouro;
-        }
+    if (numero_cliente != dadosOriginais.numero_cliente.toString()){
+        dicionario['numero_cliente'] = numero_cliente;
+    }
 
-        if (numero_predial != ''){
-            dicionario['numero_predial'] = numero_predial;
-        }
+    if (logradouro != dadosOriginais.logradouro.toString()){
+        dicionario['logradouro'] = logradouro;
+    }
 
-        if (complemento != ''){
-            dicionario['complemento'] = complemento;
-        }
+    if (numero_predial != dadosOriginais.numero_predial.toString()){
+        dicionario['numero_predial'] = numero_predial;
+    }
 
-        if (cep != ''){
-            dicionario['cep'] = cep;
-        }
+    if (complemento != dadosOriginais.complemento.toString()){
+        dicionario['complemento'] = complemento;
+    }
 
-        if (classificacao != ''){
-            dicionario['classificacao'] = classificacao;
-        }
-        
-        if (latitude != ''){
-            dicionario['latitude'] = latitude;
-        }
-        
-        if (longitude != ''){
-            dicionario['longitude'] = longitude;
-        }
+    if (cep != dadosOriginais.cep.toString()){
+        dicionario['cep'] = cep;
+    }
 
-        if (coordenadas_decimais != ''){
-            dicionario['coordenadas_decimais'] = coordenadas_decimais;
-        }
+    if (classificacao != dadosOriginais.classificacao.toString()){
+        dicionario['classificacao'] = classificacao;
+    }
+    
+    if (latitude != dadosOriginais.latitude.toString()){
+        dicionario['latitude'] = latitude;
+    }
+    
+    if (longitude != dadosOriginais.longitude.toString()){
+        dicionario['longitude'] = longitude;
+    }
+
+    if (coordenadas_decimais != dadosOriginais.coordenadas_decimais.toString()){
+        dicionario['coordenadas_decimais'] = coordenadas_decimais;
+    }
 
         let config = {
             headers: {
@@ -1226,7 +1460,7 @@ async function patch_instalation() {
         }
         
         
-        url = 'https://entrada-dados.onrender.com/instalations/' + numero_instalacao_buscar;
+        url = 'http://localhost:8000/instalations/' + numero_instalacao_buscar;
         
         resposta = await axios.patch(
             url, dicionario, config
@@ -1880,6 +2114,7 @@ async function patch_module() {
     let access_token = localStorage.getItem('access_token');
 
     let id = document.getElementById('modelo-módulo-buscar-atualizar').value;
+
     let modelo = document.getElementById('modelo-módulo-atualizar').value
     let fabricante = document.getElementById('fabricante-módulo-atualizar').value.toUpperCase()
     let potencia = document.getElementById('potência-módulo-atualizar').value
@@ -1926,60 +2161,73 @@ async function patch_module() {
 
     let dicionario = {}; // Create an empty array
 
-    if (modelo == '' & fabricante == '' & potencia == '' & imp == '' & isc == '' & vmp == '' & voc == '' & comprimento == '' & largura == '' & espessura == '' & eficiencia == '' & temperatura_nominal == '' & tipo != '' & coeficiente_temperatura == ''){
-        containerCamposNaoPreenchidos = document.getElementsByClassName('container-campos-nao-preenchidos')
-        containerCamposNaoPreenchidos[0].style.visibility = "visible"
-        containerCamposNaoPreenchidos[0].style.display = "flex"
+    let config = {
+        headers: {
+        'Authorization': 'Bearer ' + access_token
+        }
     }
 
-    else {
-        if (modelo != ''){
-            dicionario['modelo'] = modelo
+    let dadosOriginais = await axios.get(
+        'http://localhost:8000/modules/' + id.toString(), config
+    ).then(
+        function (response) {
+            const dadosProjeto = response.data;
+            return dadosProjeto;
         }
+    ).catch(
+        function (error) {
+            console.log(error);
+            return error;
+        }
+    )
+    
+    if (modelo != dadosOriginais.modelo.toString()){
+        dicionario['modelo'] = modelo
+    }
 
-        if (fabricante != ''){
-            dicionario['fabricante'] = fabricante
-        }
+    if (fabricante != dadosOriginais.fabricante.toString()){
+        dicionario['fabricante'] = fabricante
+    }
 
-        if (potencia != ''){
-            dicionario['potencia'] = potencia
-        }
+    if (potencia != dadosOriginais.potencia.toString()){
+        dicionario['potencia'] = potencia
+    }
 
-        if (imp != ''){
-            dicionario['imp'] = imp
-        }
+    if (imp != dadosOriginais.imp.toString()){
+        dicionario['imp'] = imp
+    }
 
-        if (isc != ''){
-            dicionario['isc'] = isc
-        }
+    if (isc != dadosOriginais.isc.toString()){
+        dicionario['isc'] = isc
+    }
 
-        if (vmp != ''){
-            dicionario['vmp'] = vmp
-        }
+    if (vmp != dadosOriginais.vmp.toString()){
+        dicionario['vmp'] = vmp
+    }
 
-        if (voc != ''){
-            dicionario['voc'] = voc
-        }
-        
-        if (comprimento != ''){
-            dicionario['comprimento'] = comprimento
-        }
-        
-        if (largura != ''){
-            dicionario['largura'] = largura
-        }
-        
-        if (espessura != ''){
-            dicionario['espessura'] = espessura
-        }
-        
-        if (eficiencia != ''){
-            dicionario['eficiencia'] = eficiencia
-        }
+    if (voc != dadosOriginais.voc.toString()){
+        dicionario['voc'] = voc
+    }
+    
+    if (comprimento != dadosOriginais.comprimento.toString()){
+        dicionario['comprimento'] = comprimento
+    }
+    
+    if (largura != dadosOriginais.largura.toString()){
+        dicionario['largura'] = largura
+    }
+    
+    if (espessura != dadosOriginais.espessura.toString()){
+        dicionario['espessura'] = espessura
+    }
+    
+    if (eficiencia != dadosOriginais.eficiencia.toString()){
+        dicionario['eficiencia'] = eficiencia
+    }
 
-        if (temperatura_nominal != ''){
-            dicionario['temperatura_nominal'] = temperatura_nominal
-        }
+    if (temperatura_nominal != dadosOriginais.temperatura_nominal.toString()){
+        dicionario['temperatura_nominal'] = temperatura_nominal
+    }
 
         if (tipo != ''){
             dicionario['tipo'] = tipo
@@ -1995,7 +2243,7 @@ async function patch_module() {
             }
         }
         
-        url = 'https://entrada-dados.onrender.com/modules/' + id
+        url = 'http://localhost:8000/modules/' + id
         
         resposta = await axios.patch(
             url, dicionario, config
@@ -2702,80 +2950,93 @@ async function patch_inverter() {
 
     let dicionario = {}; // Create an empty array
 
-    if (modelo == '' & fabricante == '' & potencia == '' & overload == '' & imp == '' & isc == '' & v_min_mppt == '' & v_max_mppt == '' & v_max == '' & n_mppt == '' & n_entrada == '' & v_saida == '' & i_saida == '' & comprimento == '' & largura == '' & espessura == '' & eficiencia == ''){
-        containerCamposNaoPreenchidos = document.getElementsByClassName('container-campos-nao-preenchidos')
-        containerCamposNaoPreenchidos[0].style.visibility = "visible"
-        containerCamposNaoPreenchidos[0].style.display = "flex"
+    let config = {
+        headers: {
+        'Authorization': 'Bearer ' + access_token
+        }
     }
 
-    else {
-        if (modelo != ''){
-            dicionario['modelo'] = modelo
+    let dadosOriginais = await axios.get(
+        'http://localhost:8000/inverters/' + id.toString(), config
+    ).then(
+        function (response) {
+            const dadosProjeto = response.data;
+            return dadosProjeto;
         }
+    ).catch(
+        function (error) {
+            console.log(error);
+            return error;
+        }
+    )
+    
+    if (modelo != dadosOriginais.modelo.toString()){
+        dicionario['modelo'] = modelo
+    }
 
-        if (fabricante != ''){
-            dicionario['fabricante'] = fabricante
-        }
+    if (fabricante != dadosOriginais.fabricante.toString()){
+        dicionario['fabricante'] = fabricante
+    }
 
-        if (potencia != ''){
-            dicionario['potencia'] = potencia
-        }
+    if (potencia != dadosOriginais.potencia.toString()){
+        dicionario['potencia'] = potencia
+    }
 
-        if (overload != ''){
-            dicionario['overload'] = overload
-        }
+    if (overload != dadosOriginais.overload.toString()){
+        dicionario['overload'] = overload
+    }
 
-        if (imp != ''){
-            dicionario['imp'] = imp
-        }
+    if (imp != dadosOriginais.imp.toString()){
+        dicionario['imp'] = imp
+    }
 
-        if (isc != ''){
-            dicionario['isc'] = isc
-        }
+    if (isc != dadosOriginais.isc.toString()){
+        dicionario['isc'] = isc
+    }
 
-        if (v_min_mppt != ''){
-            dicionario['v_min_mppt'] = v_min_mppt
-        }
+    if (v_min_mppt != dadosOriginais.v_min_mppt.toString()){
+        dicionario['v_min_mppt'] = v_min_mppt
+    }
 
-        if (v_max_mppt != ''){
-            dicionario['v_max_mppt'] = v_max_mppt
-        }
+    if (v_max_mppt != dadosOriginais.v_max_mppt.toString()){
+        dicionario['v_max_mppt'] = v_max_mppt
+    }
 
-        if (v_max != ''){
-            dicionario['v_max'] = v_max
-        }
+    if (v_max != dadosOriginais.v_max.toString()){
+        dicionario['v_max'] = v_max
+    }
 
-        if (n_mppt != ''){
-            dicionario['n_mppt'] = n_mppt
-        }
-        
-        if (n_entrada != ''){
-            dicionario['n_entrada'] = n_entrada
-        }
-        
-        if (i_saida != ''){
-            dicionario['i_saida'] = i_saida
-        }
+    if (n_mppt != dadosOriginais.n_mppt.toString()){
+        dicionario['n_mppt'] = n_mppt
+    }
+    
+    if (n_entrada != dadosOriginais.n_entrada.toString()){
+        dicionario['n_entrada'] = n_entrada
+    }
+    
+    if (i_saida != dadosOriginais.i_saida.toString()){
+        dicionario['i_saida'] = i_saida
+    }
 
-        if (v_saida != ''){
-            dicionario['v_saida'] = v_saida
-        }
+    if (v_saida != dadosOriginais.v_saida.toString()){
+        dicionario['v_saida'] = v_saida
+    }
 
-        if (comprimento != ''){
-            dicionario['comprimento'] = comprimento
-        }
-        
-        if (largura != ''){
-            dicionario['largura'] = largura
-        }
-        
-        if (espessura != ''){
-            dicionario['espessura'] = espessura
-        }
-        
-        if (eficiencia != ''){
-            dicionario['eficiencia'] = eficiencia
-        }
+    if (comprimento != dadosOriginais.comprimento.toString()){
+        dicionario['comprimento'] = comprimento
+    }
+    
+    if (largura != dadosOriginais.largura.toString()){
+        dicionario['largura'] = largura
+    }
+    
+    if (espessura != dadosOriginais.espessura.toString()){
+        dicionario['espessura'] = espessura
+    }
+    
+    if (eficiencia != dadosOriginais.eficiencia.toString()){
+        dicionario['eficiencia'] = eficiencia
+    }
 
         let config = {
             headers: {
@@ -2783,7 +3044,7 @@ async function patch_inverter() {
             }
         }
         
-        url = 'https://entrada-dados.onrender.com/inverters/' + id
+        url = 'http://localhost:8000/inverters/' + id
         
         resposta = await axios.patch(
             url, dicionario, config
@@ -2936,7 +3197,15 @@ async function get_all_projects() {
                     if (dadosTodosProjetos[i].ligacao_nova == true) {
                         iconeCheckmark = document.createElement('i')
                         iconeCheckmark.style.fontSize = '25px'
-                        iconeCheckmark.setAttribute('class', 'uil uil-check')
+                        iconeCheckmark.setAttribute('class', 'uil uil-check-square')
+                        arrayTD[9 * i + 1].innerHTML = ''
+                        arrayTD[9 * i + 1].appendChild(iconeCheckmark);
+                    }
+
+                    else {
+                        iconeCheckmark = document.createElement('i')
+                        iconeCheckmark.style.fontSize = '25px'
+                        iconeCheckmark.setAttribute('class', 'uil uil-square')
                         arrayTD[9 * i + 1].innerHTML = ''
                         arrayTD[9 * i + 1].appendChild(iconeCheckmark);
                     }
@@ -2947,7 +3216,15 @@ async function get_all_projects() {
                     if (dadosTodosProjetos[i].aumento_carga == true) {
                         iconeCheckmark = document.createElement('i')
                         iconeCheckmark.style.fontSize = '25px'
-                        iconeCheckmark.setAttribute('class', 'uil uil-check')
+                        iconeCheckmark.setAttribute('class', 'uil uil-check-square')
+                        arrayTD[9 * i + 2].innerHTML = ''
+                        arrayTD[9 * i + 2].appendChild(iconeCheckmark);
+                    }
+
+                    else {
+                        iconeCheckmark = document.createElement('i')
+                        iconeCheckmark.style.fontSize = '25px'
+                        iconeCheckmark.setAttribute('class', 'uil uil-square')
                         arrayTD[9 * i + 2].innerHTML = ''
                         arrayTD[9 * i + 2].appendChild(iconeCheckmark);
                     }
@@ -2958,7 +3235,15 @@ async function get_all_projects() {
                     if (dadosTodosProjetos[i].aumento_usina == true) {
                         iconeCheckmark = document.createElement('i')
                         iconeCheckmark.style.fontSize = '25px'
-                        iconeCheckmark.setAttribute('class', 'uil uil-check')
+                        iconeCheckmark.setAttribute('class', 'uil uil-check-square')
+                        arrayTD[9 * i + 3].innerHTML = ''
+                        arrayTD[9 * i + 3].appendChild(iconeCheckmark);
+                    }
+
+                    else {
+                        iconeCheckmark = document.createElement('i')
+                        iconeCheckmark.style.fontSize = '25px'
+                        iconeCheckmark.setAttribute('class', 'uil uil-square')
                         arrayTD[9 * i + 3].innerHTML = ''
                         arrayTD[9 * i + 3].appendChild(iconeCheckmark);
                     }
@@ -2969,7 +3254,15 @@ async function get_all_projects() {
                     if (dadosTodosProjetos[i].agrupamento == true) {
                         iconeCheckmark = document.createElement('i')
                         iconeCheckmark.style.fontSize = '25px'
-                        iconeCheckmark.setAttribute('class', 'uil uil-check')
+                        iconeCheckmark.setAttribute('class', 'uil uil-check-square')
+                        arrayTD[9 * i + 4].innerHTML = ''
+                        arrayTD[9 * i + 4].appendChild(iconeCheckmark);
+                    }
+
+                    else {
+                        iconeCheckmark = document.createElement('i')
+                        iconeCheckmark.style.fontSize = '25px'
+                        iconeCheckmark.setAttribute('class', 'uil uil-square')
                         arrayTD[9 * i + 4].innerHTML = ''
                         arrayTD[9 * i + 4].appendChild(iconeCheckmark);
                     }
@@ -3080,7 +3373,6 @@ async function get_all_projects_skip(alterar) {
     let access_token = localStorage.getItem('access_token');
 
     if (access_token != 'Error: Request failed with status code 401' & access_token != 'Error: Request failed with status code 403' & access_token != 'Error: Request failed with status code 422' & access_token != 'Error: Network Error' & access_token != null) {
-        
         let pagina = parseInt(localStorage.getItem('paginaAtualProjetos')) + parseInt(alterar);
 
         if (pagina < 0) {
@@ -3139,7 +3431,15 @@ async function get_all_projects_skip(alterar) {
                     if (dadosTodosProjetos[i].ligacao_nova == true) {
                         iconeCheckmark = document.createElement('i')
                         iconeCheckmark.style.fontSize = '25px'
-                        iconeCheckmark.setAttribute('class', 'uil uil-check')
+                        iconeCheckmark.setAttribute('class', 'uil uil-check-square')
+                        arrayTD[9 * i + 1].innerHTML = ''
+                        arrayTD[9 * i + 1].appendChild(iconeCheckmark);
+                    }
+
+                    else {
+                        iconeCheckmark = document.createElement('i')
+                        iconeCheckmark.style.fontSize = '25px'
+                        iconeCheckmark.setAttribute('class', 'uil uil-square')
                         arrayTD[9 * i + 1].innerHTML = ''
                         arrayTD[9 * i + 1].appendChild(iconeCheckmark);
                     }
@@ -3150,7 +3450,15 @@ async function get_all_projects_skip(alterar) {
                     if (dadosTodosProjetos[i].aumento_carga == true) {
                         iconeCheckmark = document.createElement('i')
                         iconeCheckmark.style.fontSize = '25px'
-                        iconeCheckmark.setAttribute('class', 'uil uil-check')
+                        iconeCheckmark.setAttribute('class', 'uil uil-check-square')
+                        arrayTD[9 * i + 2].innerHTML = ''
+                        arrayTD[9 * i + 2].appendChild(iconeCheckmark);
+                    }
+
+                    else {
+                        iconeCheckmark = document.createElement('i')
+                        iconeCheckmark.style.fontSize = '25px'
+                        iconeCheckmark.setAttribute('class', 'uil uil-square')
                         arrayTD[9 * i + 2].innerHTML = ''
                         arrayTD[9 * i + 2].appendChild(iconeCheckmark);
                     }
@@ -3161,7 +3469,15 @@ async function get_all_projects_skip(alterar) {
                     if (dadosTodosProjetos[i].aumento_usina == true) {
                         iconeCheckmark = document.createElement('i')
                         iconeCheckmark.style.fontSize = '25px'
-                        iconeCheckmark.setAttribute('class', 'uil uil-check')
+                        iconeCheckmark.setAttribute('class', 'uil uil-check-square')
+                        arrayTD[9 * i + 3].innerHTML = ''
+                        arrayTD[9 * i + 3].appendChild(iconeCheckmark);
+                    }
+
+                    else {
+                        iconeCheckmark = document.createElement('i')
+                        iconeCheckmark.style.fontSize = '25px'
+                        iconeCheckmark.setAttribute('class', 'uil uil-square')
                         arrayTD[9 * i + 3].innerHTML = ''
                         arrayTD[9 * i + 3].appendChild(iconeCheckmark);
                     }
@@ -3172,7 +3488,15 @@ async function get_all_projects_skip(alterar) {
                     if (dadosTodosProjetos[i].agrupamento == true) {
                         iconeCheckmark = document.createElement('i')
                         iconeCheckmark.style.fontSize = '25px'
-                        iconeCheckmark.setAttribute('class', 'uil uil-check')
+                        iconeCheckmark.setAttribute('class', 'uil uil-check-square')
+                        arrayTD[9 * i + 4].innerHTML = ''
+                        arrayTD[9 * i + 4].appendChild(iconeCheckmark);
+                    }
+
+                    else {
+                        iconeCheckmark = document.createElement('i')
+                        iconeCheckmark.style.fontSize = '25px'
+                        iconeCheckmark.setAttribute('class', 'uil uil-square')
                         arrayTD[9 * i + 4].innerHTML = ''
                         arrayTD[9 * i + 4].appendChild(iconeCheckmark);
                     }
@@ -3703,7 +4027,7 @@ async function post_project() {
 
     if (numero_instalacao != '' & numero_cliente != '' & n_fases != '' & disjuntor != '' & tensao != '' & quantidade_modulo_1 != '' & modelo_modulo_1 != '' & quantidade_inversor_1 != '' & modelo_inversor_1 != ''){
         resposta = await axios.post(
-            'https://entrada-dados.onrender.com/projects', dicionario, config
+            'http://localhost:8000/projects', dicionario, config
         ).then(
             function (response) {
                 const resposta = response.data;
@@ -3716,34 +4040,35 @@ async function post_project() {
             }
         )
 
-        if (resposta != 'Error: Network Error' & resposta != 'Error: Request failed with status code 401') {
-            document.getElementById('container-projeto-adicionado').style.visibility = 'visible';
-            document.getElementById('container-projeto-adicionado').style.display = 'grid';
-            
-            document.getElementById('container-add-projects-general').style.visibility = 'hidden';
-            document.getElementById('container-add-projects-general').style.display = 'none';
+            if (resposta != 'Error: Network Error' & resposta != 'Error: Request failed with status code 401') {
+                document.getElementById('container-projeto-adicionado').style.visibility = 'visible';
+                document.getElementById('container-projeto-adicionado').style.display = 'grid';
+                
+                document.getElementById('container-add-projects-general').style.visibility = 'hidden';
+                document.getElementById('container-add-projects-general').style.display = 'none';
 
-            localStorage.setItem('projeto_atual', resposta.id)
-        }
+                localStorage.setItem('projeto_atual', resposta.id)
+            }
 
-        else if (resposta == 'Error: Request failed with status code 401') {
-            localStorage.setItem('access_token', resposta);
-            checar_autorizacao();
+            else if (resposta == 'Error: Request failed with status code 401') {
+                localStorage.setItem('access_token', resposta);
+                checar_autorizacao();
+            }
+
+            else {
+                divExistentProject = document.getElementsByClassName('container-projeto-existente')
+                divExistentProject[0].style.visibility = 'visible';
+                divExistentProject[0].style.display = 'flex';
+            }
         }
 
         else {
-            divExistentProject = document.getElementsByClassName('container-projeto-existente')
-            divExistentProject[0].style.visibility = 'visible';
-            divExistentProject[0].style.display = 'flex';
-        }
-    }
+            arrayCampos = document.getElementsByClassName('campo-obrigatorio-projetos')
 
-    else {
-        arrayCampos = document.getElementsByClassName('campo-obrigatorio-projetos')
-
-        for (i = 0; i < arrayCampos.length; i ++) {
-            arrayCampos[i].style.visibility = "visible";
-            arrayCampos[i].style.display = "grid";
+            for (i = 0; i < arrayCampos.length; i ++) {
+                arrayCampos[i].style.visibility = "visible";
+                arrayCampos[i].style.display = "grid";
+            }
         }
     }
 }

@@ -39,7 +39,7 @@
         <div class="container" id="container-options">
             <button onclick="buscar_modulo()"><i class="uil uil-search"></i> Buscar por módulo</button>
             <button onclick="adicionar_modulo()"><i class="uil uil-plus"></i> Adicionar novo módulo</button>
-            <button onclick="atualizar_modulo()"><i class="uil uil-refresh"></i> Atualizar um módulo</button>
+            <button onclick="atualizar_modulo()"><i class="uil uil-redo"></i> Atualizar um módulo</button>
             <button onclick="deletar_modulo()"><i class="uil uil-trash"></i> Deletar um módulo</button>
         </div>
         <div class="container" id="container-geral">
@@ -387,6 +387,10 @@
             </div>
         </div>
         <div class="container" id="container-search-to-update-modules">
+            <div class="container-modulo-inexistente">
+                <img src="../img/falha.png" class="falha-modulo">
+                <span class="campo-modulo-inexistente">Módulo inexistente.</span>
+            </div>
             <div class="container-form">
                 <form>
                     <input type="text" id="modelo-módulo-buscar-atualizar" list="" autocomplete="off" onclick="mostrar_modulos('buscar-atualizar')" oninput="filtrar_modulos('buscar-atualizar')" required>
@@ -403,12 +407,8 @@
         <div class="container" id="container-update-modules-general">
             <div class="container-campos-nao-preenchidos">
                 <img src="../img/falha.png" class="falha-modulo">
-                <span class="campo-nao-preenchido">Preencha pelo menos um dos campos.</span>
-            </div>
-            <div class="container-modulo-inexistente">
-                <img src="../img/falha.png" class="falha-modulo">
-                <span class="campo-modulo-inexistente">Módulo inexistente.</span>
-            </div>
+                <span class="campo-nao-preenchido">Não há nenhuma alteração dos dados originais.</span>
+            </div>            
             <div id="container-update-modules">
                 <div class="container-form" id="container-form-modelo-modulo">
                     <form>

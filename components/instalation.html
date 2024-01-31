@@ -22,7 +22,7 @@
     <script defer src="../script.js"></script>
     <script defer src="../App.js"></script>
 </head>
-<body onload="checar_autorizacao(); get_username();">
+<body onload="checar_autorizacao(); get_all_instalations(); get_username();">
     <div class="container-usuario-autorizado">
         <header>
             <nav class="flexbox">
@@ -40,8 +40,107 @@
         <div class="container" id="container-options">
             <button onclick="buscar_instalacao()"><i class="uil uil-search"></i> Buscar por instalação</button>
             <button onclick="adicionar_instalacao()"><i class="uil uil-plus"></i> Adicionar nova instalação</button>
-            <button onclick="atualizar_instalacao()"><i class="uil uil-refresh"></i> Atualizar uma instalação</button>
+            <button onclick="atualizar_instalacao()"><i class="uil uil-redo"></i> Atualizar uma instalação</button>
             <button onclick="deletar_instalacao()"><i class="uil uil-trash"></i> Deletar uma instalação</button>
+        </div>
+        <div class="container" id="container-geral">
+            <div class="container-buttons-next-previous">
+                <button onclick="get_all_instalations_skip(-10)"><i class="uil uil-backward"></i>Página anterior</button> <button onclick="get_all_instalations_skip(10)">Próxima página <i class="uil uil-forward"></i></button>
+            </div>
+            <table id="tabela-instalacoes" style="width: 1450px;">
+                <thead>
+                    <tr>
+                        <th style="width: 10%;">Número do<br>Cliente</th>
+                        <th style="width: 30%;">Nome do Cliente</th>
+                        <th style="width: 10%;">Número de<br>Instalação</th>
+                        <th style="width: 35%;">Endereço</th>
+                        <th style="width: 7.5%;">Latitude</th>
+                        <th style="width: 7.5%;">Longitude</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
         <div class="container" id="container-search-instalations">
             <div class="container-instalacao-inexistente">
@@ -212,6 +311,10 @@
             </div>
         </div>
         <div class="container" id="container-search-to-update-instalations">
+            <div class="container-instalacao-inexistente">
+                <img src="../img/falha.png" class="falha-instalacao">
+                <span class="campo-cliente-inexistente">Instalação inexistente.</span>
+            </div>
             <div class="container-form">
                 <form>
                     <input type="text" id="número-instalação-buscar-atualizar" list="" autocomplete="off" onclick="mostrar_instalacoes('buscar-atualizar')" oninput="filtrar_instalacoes('buscar-atualizar')" placeholder="Ex.: 3000000000" required>
@@ -232,11 +335,7 @@
         <div class="container" id="container-update-instalations">
             <div class="container-campos-nao-preenchidos">
                 <img src="../img/falha.png" class="falha-instalacao">
-                <span class="campo-nao-preenchido">Preencha pelo menos um dos campos.</span>
-            </div>
-            <div class="container-instalacao-inexistente">
-                <img src="../img/falha.png" class="falha-instalacao">
-                <span class="campo-cliente-inexistente">Instalação inexistente.</span>
+                <span class="campo-nao-preenchido">Não há nenhuma alteração dos dados originais.</span>
             </div>
             <form class="form-checkbox" id="form-checkbox-ligacao-atualizar">
                 <input type="checkbox" class="checkbox" id="checkbox-ligacao-atualizar" required onchange="ligacao_nova('atualizar')">

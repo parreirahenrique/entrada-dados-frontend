@@ -488,7 +488,7 @@ function filtrar_usuarios(nomeFuncao) {
             lista.children[i].remove()
         }
     }
-
+    
     for (let opcao of lista.options) {
         opcao.onclick = function () {
             input.value = opcao.value.split(' - ')[1];
@@ -666,7 +666,7 @@ function atualizar_cliente() {
     }
 }
 
-function mostrar_campos_atualizar_clientes() {
+async function mostrar_campos_atualizar_clientes() {
     let divSearchUpdateClient = document.getElementById('container-search-to-update-clients');
     let divUpdateClient = document.getElementById('container-update-clients');
     let dropDownListSearchClient = document.getElementById('numerocliente-buscar');
@@ -682,40 +682,76 @@ function mostrar_campos_atualizar_clientes() {
 
     let numeroCliente = document.getElementById('número-cliente-buscar-atualizar').value;
     
-    document.getElementById('número-cliente-atualizar').value = ''
-    document.getElementById('nome-cliente-atualizar').value = ''
-    document.getElementById('cpf-atualizar').value = ''
-    document.getElementById('rg-atualizar').value = ''
-    document.getElementById('data-nascimento-atualizar').value = ''
-    document.getElementById('nome-pais-atualizar').value = ''
+    
 
     if (numeroCliente != '') {
-        divSearchUpdateClient.style.visibility = "hidden"
-        divSearchUpdateClient.style.display = "none"
-        dropDownListSearchClient.style.display = "none";
-        dropDownListUpdateClient.style.display = "none";
-        dropDownListDeleteClient.style.display = "none";
-        divUpdateClient.style.visibility = "visible"
-        divUpdateClient.style.display = "grid"
+        let config = {
+            headers: {
+            'Authorization': 'Bearer ' + access_token
+            }
+        }
 
-        if (checkboxNumeroCliente.checked == true) {
-            divNumeroCliente.style.visibility = "visible"
-            divNumeroCliente.style.display = "grid"
+        let dadosOriginais = await axios.get(
+            'http://localhost:8000/clients/' + numeroCliente.toString(), config
+        ).then(
+            function (response) {
+                const dadosOriginais = response.data;
+                return dadosOriginais;
+            }
+        ).catch(
+            function (error) {
+                console.log(error);
+                return error;
+            }
+        )
+        
+        if (dadosOriginais != 'Error: Request failed with status code 404' & dadosOriginais != 'Error: Request failed with status code 401') {
+            divSearchUpdateClient.style.visibility = "hidden"
+            divSearchUpdateClient.style.display = "none"
+            dropDownListSearchClient.style.display = "none";
+            dropDownListUpdateClient.style.display = "none";
+            dropDownListDeleteClient.style.display = "none";
+            divUpdateClient.style.visibility = "visible"
+            divUpdateClient.style.display = "grid"
+            
+            document.getElementById('número-cliente-atualizar').value = dadosOriginais.numero_cliente;
+            document.getElementById('nome-cliente-atualizar').value = dadosOriginais.nome;
+            document.getElementById('cpf-atualizar').value = dadosOriginais.cpf;
+            document.getElementById('rg-atualizar').value = dadosOriginais.rg;
+            document.getElementById('data-nascimento-atualizar').value = dadosOriginais.nascimento.split('/').reverse().join('-');
+            document.getElementById('nome-pais-atualizar').value = dadosOriginais.nome_pais;
+
+            if (checkboxNumeroCliente.checked == true) {
+                divNumeroCliente.style.visibility = "visible"
+                divNumeroCliente.style.display = "grid"
+            }
+
+            else {
+                divNumeroCliente.style.visibility = "hidden"
+                divNumeroCliente.style.display = "none"
+            }
+
+            for(i = 0; i < arrayCamposObrigatorios.length; i++) {
+                arrayCamposObrigatorios[i].style.visibility = "hidden"
+                arrayCamposObrigatorios[i].style.display = "none"
+            }
+
+            for(i = 0; i < arrayClienteInexistente.length; i++) {
+                arrayClienteInexistente[i].style.visibility = "hidden"
+                arrayClienteInexistente[i].style.display = "none"
+            }
+        }
+
+        else if (dadosOriginais == 'Error: Request failed with status code 404') {
+            for(i = 0; i < arrayClienteInexistente.length; i++) {
+                arrayClienteInexistente[i].style.visibility = "visible"
+                arrayClienteInexistente[i].style.display = "flex"
+            }
         }
 
         else {
-            divNumeroCliente.style.visibility = "hidden"
-            divNumeroCliente.style.display = "none"
-        }
-
-        for(i = 0; i < arrayCamposObrigatorios.length; i++) {
-            arrayCamposObrigatorios[i].style.visibility = "hidden"
-            arrayCamposObrigatorios[i].style.display = "none"
-        }
-
-        for(i = 0; i < arrayClienteInexistente.length; i++) {
-            arrayClienteInexistente[i].style.visibility = "hidden"
-            arrayClienteInexistente[i].style.display = "none"
+            localStorage.setItem('access_token', dadosOriginais);
+            checar_autorizacao();
         }
     }
 
@@ -880,10 +916,18 @@ function filtrar_clientes(nomeFuncao) {
             lista.style.display = 'none';
         }
     }
+    
+    for (let opcao of lista.options) {
+        opcao.onclick = function () {
+            input.value = opcao.value.split(' - ')[0];
+            lista.style.display = 'none';
+        }
+    }
 }
 
 // FUNÇÕES PARA MOSTRAR CONTEÚDO DA PÁGINA DE INSTALAÇÕES
 function buscar_instalacao() {
+    let divGeral = document.getElementById('container-geral');
     let divSearchInstalation = document.getElementById('container-search-instalations');
     let divAddInstalation = document.getElementById('container-add-instalations');
     let divSearchUpdateInstalation = document.getElementById('container-search-to-update-instalations');
@@ -905,6 +949,8 @@ function buscar_instalacao() {
     
     document.getElementById('número-instalação-buscar').value = ''
 
+    divGeral.style.visibility = "hidden"
+    divGeral.style.display = "none";
     divSearchInstalation.style.visibility = "visible";
     divSearchInstalation.style.display = "grid";
     divAddInstalation.style.visibility = "hidden";
@@ -943,6 +989,7 @@ function buscar_instalacao() {
 }
 
 function adicionar_instalacao() {
+    let divGeral = document.getElementById('container-geral');
     let divSearchInstalation = document.getElementById('container-search-instalations');
     let divAddInstalation = document.getElementById('container-add-instalations');
     let divSearchUpdateInstalation = document.getElementById('container-search-to-update-instalations');
@@ -975,6 +1022,8 @@ function adicionar_instalacao() {
     document.getElementById('longitude-adicionar').value = ''
     document.getElementById('coordenadas-decimais-adicionar').value = ''
     
+    divGeral.style.visibility = "hidden"
+    divGeral.style.display = "none";
     divSearchInstalation.style.visibility = "hidden";
     divSearchInstalation.style.display = "none";
     divAddInstalation.style.visibility = "visible";
@@ -1012,7 +1061,7 @@ function adicionar_instalacao() {
     }
 }
 
-function mostrar_campos_atualizar_instalacoes() {
+async function mostrar_campos_atualizar_instalacoes() {
     let divSearchUpdateInstalation = document.getElementById('container-search-to-update-instalations');
     let divUpdateInstalation = document.getElementById('container-update-instalations');
     let dropDownListSearchInstalation = document.getElementById('numeroinstalacao-buscar');
@@ -1029,59 +1078,93 @@ function mostrar_campos_atualizar_instalacoes() {
     let divNumeroInstalacao = document.getElementById('container-form-numero-instalacao-atualizar');
 
     let arrayCamposObrigatorios = document.getElementsByClassName('campo-obrigatorio-instalacoes');
-    let arrayClienteInexistente = document.getElementsByClassName('container-instalacao-inexistente');
+    let arrayInstalacaoInexistente = document.getElementsByClassName('container-instalacao-inexistente');
 
     let numeroInstalacao = document.getElementById('número-instalação-buscar-atualizar').value;
     
-    document.getElementById('número-instalação-atualizar').value = ''
-    document.getElementById('número-cliente-atualizar').value = ''
-    document.getElementById('logradouro-atualizar').value = ''
-    document.getElementById('numero-predial-atualizar').value = ''
-    document.getElementById('complemento-atualizar').value = ''
-    document.getElementById('bairro-atualizar').value = ''
-    document.getElementById('cidade-atualizar').value = ''
-    document.getElementById('cep-atualizar').value = ''
-    document.getElementById('classificacao-atualizar').value = ''
-    document.getElementById('latitude-atualizar').value = ''
-    document.getElementById('longitude-atualizar').value = ''
-    document.getElementById('coordenadas-decimais-atualizar').value = ''
-
     if (numeroInstalacao != '') {
-        divSearchUpdateInstalation.style.visibility = "hidden"
-        divSearchUpdateInstalation.style.display = "none"
-        dropDownListSearchInstalation.style.display = "none";
-        dropDownListUpdateInstalation.style.display = "none";
-        dropDownListDeleteInstalation.style.display = "none";
-        dropDownListAddClient.style.display = "none";
-        dropDownListUpdateClient.style.display = "none";
-        dropDownListAddClassification.style.display = "none";
-        dropDownListUpdateClassification.style.display = "none";
-        divUpdateInstalation.style.visibility = "visible"
-        divUpdateInstalation.style.display = "grid"
+        let config = {
+            headers: {
+            'Authorization': 'Bearer ' + access_token
+            }
+        }
 
-        if (checkboxNumeroInstalacao.checked == true) {
-            checkboxLigacao.style.visibility = "visible"
-            checkboxLigacao.style.display = "block"
-            divNumeroInstalacao.style.visibility = "visible"
-            divNumeroInstalacao.style.display = "grid"
+        let dadosOriginais = await axios.get(
+            'http://localhost:8000/instalations/' + numeroInstalacao.toString(), config
+        ).then(
+            function (response) {
+                const dadosOriginais = response.data;
+                return dadosOriginais;
+            }
+        ).catch(
+            function (error) {
+                console.log(error);
+                return error;
+            }
+        )
+
+        if (dadosOriginais != 'Error: Request failed with status code 404' & dadosOriginais != 'Error: Request failed with status code 401') {
+            divSearchUpdateInstalation.style.visibility = "hidden"
+            divSearchUpdateInstalation.style.display = "none"
+            dropDownListSearchInstalation.style.display = "none";
+            dropDownListUpdateInstalation.style.display = "none";
+            dropDownListDeleteInstalation.style.display = "none";
+            dropDownListAddClient.style.display = "none";
+            dropDownListUpdateClient.style.display = "none";
+            dropDownListAddClassification.style.display = "none";
+            dropDownListUpdateClassification.style.display = "none";
+            divUpdateInstalation.style.visibility = "visible"
+            divUpdateInstalation.style.display = "grid"
+
+            document.getElementById('número-instalação-atualizar').value = dadosOriginais.numero_instalacao
+            document.getElementById('número-cliente-atualizar').value = dadosOriginais.numero_cliente
+            document.getElementById('logradouro-atualizar').value = dadosOriginais.logradouro
+            document.getElementById('numero-predial-atualizar').value = dadosOriginais.numero_predial
+            document.getElementById('complemento-atualizar').value = dadosOriginais.complemento
+            document.getElementById('bairro-atualizar').value = dadosOriginais.bairro
+            document.getElementById('cidade-atualizar').value = dadosOriginais.cidade
+            document.getElementById('cep-atualizar').value = dadosOriginais.cep
+            document.getElementById('classificacao-atualizar').value = dadosOriginais.classificacao
+            document.getElementById('latitude-atualizar').value = dadosOriginais.latitude
+            document.getElementById('longitude-atualizar').value = dadosOriginais.longitude
+            document.getElementById('coordenadas-decimais-atualizar').value = dadosOriginais.coordenadas_decimais
             
+            if (checkboxNumeroInstalacao.checked == true) {
+                checkboxLigacao.style.visibility = "visible"
+                checkboxLigacao.style.display = "block"
+                divNumeroInstalacao.style.visibility = "visible"
+                divNumeroInstalacao.style.display = "grid"
+                
+            }
+
+            else {
+                checkboxLigacao.style.visibility = "hidden"
+                checkboxLigacao.style.display = "none"
+                divNumeroInstalacao.style.visibility = "hidden"
+                divNumeroInstalacao.style.display = "none"
+            }
+
+            for(i = 0; i < arrayCamposObrigatorios.length; i++) {
+                arrayCamposObrigatorios[i].style.visibility = "hidden"
+                arrayCamposObrigatorios[i].style.display = "none"
+            }
+
+            for(i = 0; i < arrayInstalacaoInexistente.length; i++) {
+                arrayInstalacaoInexistente[i].style.visibility = "hidden"
+                arrayInstalacaoInexistente[i].style.display = "none"
+            }
+        }
+
+        else if (dadosOriginais == 'Error: Request failed with status code 404') {
+            for(i = 0; i < arrayInstalacaoInexistente.length; i++) {
+                arrayInstalacaoInexistente[i].style.visibility = "visible"
+                arrayInstalacaoInexistente[i].style.display = "flex"
+            }
         }
 
         else {
-            checkboxLigacao.style.visibility = "hidden"
-            checkboxLigacao.style.display = "none"
-            divNumeroInstalacao.style.visibility = "hidden"
-            divNumeroInstalacao.style.display = "none"
-        }
-
-        for(i = 0; i < arrayCamposObrigatorios.length; i++) {
-            arrayCamposObrigatorios[i].style.visibility = "hidden"
-            arrayCamposObrigatorios[i].style.display = "none"
-        }
-
-        for(i = 0; i < arrayClienteInexistente.length; i++) {
-            arrayClienteInexistente[i].style.visibility = "hidden"
-            arrayClienteInexistente[i].style.display = "none"
+            localStorage.setItem('access_token', dadosOriginais);
+            checar_autorizacao();
         }
     }
 
@@ -1094,6 +1177,7 @@ function mostrar_campos_atualizar_instalacoes() {
 }
 
 function atualizar_instalacao() {
+    let divGeral = document.getElementById('container-geral');
     let divSearchInstalation = document.getElementById('container-search-instalations');
     let divAddInstalation = document.getElementById('container-add-instalations');
     let divSearchUpdateInstalation = document.getElementById('container-search-to-update-instalations');
@@ -1115,6 +1199,8 @@ function atualizar_instalacao() {
 
     document.getElementById('número-instalação-buscar-atualizar').value = ''
 
+    divGeral.style.visibility = "hidden"
+    divGeral.style.display = "none";
     divSearchInstalation.style.visibility = "hidden";
     divSearchInstalation.style.display = "none";
     divAddInstalation.style.visibility = "hidden";
@@ -1153,6 +1239,7 @@ function atualizar_instalacao() {
 }
 
 function deletar_instalacao() {
+    let divGeral = document.getElementById('container-geral');
     let divSearchInstalation = document.getElementById('container-search-instalations');
     let divAddInstalation = document.getElementById('container-add-instalations');
     let divSearchUpdateInstalation = document.getElementById('container-search-to-update-instalations');
@@ -1174,6 +1261,8 @@ function deletar_instalacao() {
 
     document.getElementById('número-instalação-deletar').value = ''
 
+    divGeral.style.visibility = "hidden"
+    divGeral.style.display = "none";
     divSearchInstalation.style.visibility = "hidden";
     divSearchInstalation.style.display = "none";
     divAddInstalation.style.visibility = "hidden";
@@ -1319,7 +1408,7 @@ function filtrar_instalacoes(nomeFuncao) {
             lista.children[i].remove()
         }
     }
-
+    
     for (let opcao of lista.options) {
         opcao.onclick = function () {
             input.value = opcao.value.split(' - ')[0];
@@ -1546,7 +1635,7 @@ function atualizar_modulo() {
     }
 }
 
-function mostrar_campos_atualizar_modulos() {
+async function mostrar_campos_atualizar_modulos() {
     let divSearchUpdateModule = document.getElementById('container-search-to-update-modules');
     let divUpdateModule = document.getElementById('container-update-modules-general');
     let dropDownListSearchModule = document.getElementById('modelomodulo-buscar');
@@ -1560,40 +1649,74 @@ function mostrar_campos_atualizar_modulos() {
 
     let modelo = document.getElementById('modelo-módulo-buscar-atualizar').value;
     
-    document.getElementById('modelo-módulo-atualizar').value = ''
-    document.getElementById('fabricante-módulo-atualizar').value = ''
-    document.getElementById('potência-módulo-atualizar').value = ''
-    document.getElementById('imp-módulo-atualizar').value = ''
-    document.getElementById('isc-módulo-atualizar').value = ''
-    document.getElementById('vmp-módulo-atualizar').value = ''
-    document.getElementById('voc-módulo-atualizar').value = ''
-    document.getElementById('comprimento-módulo-atualizar').value = ''
-    document.getElementById('largura-módulo-atualizar').value = ''
-    document.getElementById('espessura-módulo-atualizar').value = ''
-    document.getElementById('eficiência-módulo-atualizar').value = ''
-    document.getElementById('temperatura-módulo-atualizar').value = ''
-    document.getElementById('tipo-módulo-atualizar').value = ''
-    document.getElementById('coeficiente-módulo-atualizar').value = ''
-    
     if (modelo != '') {
-        divSearchUpdateModule.style.visibility = "hidden"
-        divSearchUpdateModule.style.display = "none"
-        dropDownListSearchModule.style.display = "none";
-        dropDownListUpdateModule.style.display = "none";
-        dropDownListDeleteModule.style.display = "none";
-        dropDownListAddType.style.display = "none";
-        dropDownListUpdateType.style.display = "none";
-        divUpdateModule.style.visibility = "visible"
-        divUpdateModule.style.display = "grid"
-
-        for(i = 0; i < arrayCamposObrigatorios.length; i++) {
-            arrayCamposObrigatorios[i].style.visibility = "hidden"
-            arrayCamposObrigatorios[i].style.display = "none"
+        let config = {
+            headers: {
+            'Authorization': 'Bearer ' + access_token
+            }
         }
 
-        for(i = 0; i < arrayModuloInexistente.length; i++) {
-            arrayModuloInexistente[i].style.visibility = "hidden"
-            arrayModuloInexistente[i].style.display = "none"
+        let dadosOriginais = await axios.get(
+            'http://localhost:8000/modules/' + modelo.toString(), config
+        ).then(
+            function (response) {
+                const dadosOriginais = response.data;
+                return dadosOriginais;
+            }
+        ).catch(
+            function (error) {
+                console.log(error);
+                return error;
+            }
+        )
+        
+        if (dadosOriginais != 'Error: Request failed with status code 404' & dadosOriginais != 'Error: Request failed with status code 401') {
+            divSearchUpdateModule.style.visibility = "hidden"
+            divSearchUpdateModule.style.display = "none"
+            dropDownListSearchModule.style.display = "none";
+            dropDownListUpdateModule.style.display = "none";
+            dropDownListDeleteModule.style.display = "none";
+            dropDownListAddType.style.display = "none";
+            dropDownListUpdateType.style.display = "none";
+            divUpdateModule.style.visibility = "visible"
+            divUpdateModule.style.display = "grid"
+
+            document.getElementById('modelo-módulo-atualizar').value = dadosOriginais.modelo
+            document.getElementById('fabricante-módulo-atualizar').value = dadosOriginais.fabricante
+            document.getElementById('potência-módulo-atualizar').value = dadosOriginais.potencia
+            document.getElementById('imp-módulo-atualizar').value = dadosOriginais.imp.toString().replace('.', ',')
+            document.getElementById('isc-módulo-atualizar').value = dadosOriginais.isc.toString().replace('.', ',')
+            document.getElementById('vmp-módulo-atualizar').value = dadosOriginais.vmp.toString().replace('.', ',')
+            document.getElementById('voc-módulo-atualizar').value = dadosOriginais.voc.toString().replace('.', ',')
+            document.getElementById('comprimento-módulo-atualizar').value = dadosOriginais.comprimento
+            document.getElementById('largura-módulo-atualizar').value = dadosOriginais.largura
+            document.getElementById('espessura-módulo-atualizar').value = dadosOriginais.espessura
+            document.getElementById('eficiência-módulo-atualizar').value = dadosOriginais.eficiencia.toString().replace('.', ',')
+            document.getElementById('temperatura-módulo-atualizar').value = dadosOriginais.temperatura_nominal
+            document.getElementById('tipo-módulo-atualizar').value = dadosOriginais.tipo
+            document.getElementById('coeficiente-módulo-atualizar').value = dadosOriginais.coeficiente_temperatura.toString().replace('.', ',')
+
+            for(i = 0; i < arrayCamposObrigatorios.length; i++) {
+                arrayCamposObrigatorios[i].style.visibility = "hidden"
+                arrayCamposObrigatorios[i].style.display = "none"
+            }
+
+            for(i = 0; i < arrayModuloInexistente.length; i++) {
+                arrayModuloInexistente[i].style.visibility = "hidden"
+                arrayModuloInexistente[i].style.display = "none"
+            }
+        }
+
+        else if (dadosOriginais == 'Error: Request failed with status code 404') {
+            for(i = 0; i < arrayModuloInexistente.length; i++) {
+                arrayModuloInexistente[i].style.visibility = "visible"
+                arrayModuloInexistente[i].style.display = "flex"
+            }
+        }
+
+        else {
+            localStorage.setItem('access_token', dadosOriginais);
+            checar_autorizacao();
         }
     }
 
@@ -1764,7 +1887,7 @@ function filtrar_modulos(nomeFuncao) {
             lista.children[i].remove()
         }
     }
-
+    
     for (let opcao of lista.options) {
         opcao.onclick = function () {
             input.value = opcao.value.split('ID #')[1].split(' - ')[0];
@@ -1912,7 +2035,7 @@ function adicionar_inversor() {
     }
 }
 
-function mostrar_campos_atualizar_inversores() {
+async function mostrar_campos_atualizar_inversores() {
     let divSearchUpdateInverter = document.getElementById('container-search-to-update-inverters');
     let divUpdateInverter = document.getElementById('container-update-inverters-general');
     let dropDownListSearchInverter = document.getElementById('modeloinversor-buscar');
@@ -1924,41 +2047,75 @@ function mostrar_campos_atualizar_inversores() {
 
     let modelo = document.getElementById('modelo-inversor-buscar-atualizar').value;
     
-    document.getElementById('modelo-inversor-atualizar').value = ''
-    document.getElementById('fabricante-inversor-atualizar').value = ''
-    document.getElementById('potência-inversor-atualizar').value = ''
-    document.getElementById('overload-inversor-atualizar').value = ''
-    document.getElementById('imp-inversor-atualizar').value = ''
-    document.getElementById('isc-inversor-atualizar').value = ''
-    document.getElementById('vmin-mppt-inversor-atualizar').value = ''
-    document.getElementById('vmax-mppt-inversor-atualizar').value = ''
-    document.getElementById('voc-inversor-atualizar').value = ''
-    document.getElementById('n-mppt-inversor-atualizar').value = ''
-    document.getElementById('n-entrada-inversor-atualizar').value = ''
-    document.getElementById('v-saída-inversor-atualizar').value = ''
-    document.getElementById('i-saída-inversor-atualizar').value = ''
-    document.getElementById('comprimento-inversor-atualizar').value = ''
-    document.getElementById('largura-inversor-atualizar').value = ''
-    document.getElementById('espessura-inversor-atualizar').value = ''
-    document.getElementById('eficiência-inversor-atualizar').value = ''
-    
     if (modelo != '') {
-        divSearchUpdateInverter.style.visibility = "hidden"
-        divSearchUpdateInverter.style.display = "none"
-        dropDownListSearchInverter.style.display = "none";
-        dropDownListUpdateInverter.style.display = "none";
-        dropDownListDeleteInverter.style.display = "none";
-        divUpdateInverter.style.visibility = "visible"
-        divUpdateInverter.style.display = "grid"
-
-        for(i = 0; i < arrayCamposObrigatorios.length; i++) {
-            arrayCamposObrigatorios[i].style.visibility = "hidden"
-            arrayCamposObrigatorios[i].style.display = "none"
+        let config = {
+            headers: {
+            'Authorization': 'Bearer ' + access_token
+            }
         }
 
-        for(i = 0; i < arrayInversorInexistente.length; i++) {
-            arrayInversorInexistente[i].style.visibility = "hidden"
-            arrayInversorInexistente[i].style.display = "none"
+        let dadosOriginais = await axios.get(
+            'http://localhost:8000/inverters/' + modelo.toString(), config
+        ).then(
+            function (response) {
+                const dadosOriginais = response.data;
+                return dadosOriginais;
+            }
+        ).catch(
+            function (error) {
+                console.log(error);
+                return error;
+            }
+        )
+        
+        if (dadosOriginais != 'Error: Request failed with status code 404' & dadosOriginais != 'Error: Request failed with status code 401') {
+            divSearchUpdateInverter.style.visibility = "hidden"
+            divSearchUpdateInverter.style.display = "none"
+            dropDownListSearchInverter.style.display = "none";
+            dropDownListUpdateInverter.style.display = "none";
+            dropDownListDeleteInverter.style.display = "none";
+            divUpdateInverter.style.visibility = "visible"
+            divUpdateInverter.style.display = "grid"
+
+            document.getElementById('modelo-inversor-atualizar').value = dadosOriginais.modelo
+            document.getElementById('fabricante-inversor-atualizar').value = dadosOriginais.fabricante
+            document.getElementById('potência-inversor-atualizar').value = dadosOriginais.potencia
+            document.getElementById('overload-inversor-atualizar').value = dadosOriginais.overload
+            document.getElementById('imp-inversor-atualizar').value = dadosOriginais.imp.toString().replace('.', ',')
+            document.getElementById('isc-inversor-atualizar').value = dadosOriginais.isc.toString().replace('.', ',')
+            document.getElementById('vmin-mppt-inversor-atualizar').value = dadosOriginais.v_min_mppt
+            document.getElementById('vmax-mppt-inversor-atualizar').value = dadosOriginais.v_max_mppt
+            document.getElementById('voc-inversor-atualizar').value = dadosOriginais.v_max
+            document.getElementById('n-mppt-inversor-atualizar').value = dadosOriginais.n_mppt
+            document.getElementById('n-entrada-inversor-atualizar').value = dadosOriginais.n_entrada
+            document.getElementById('v-saída-inversor-atualizar').value = dadosOriginais.v_saida
+            document.getElementById('i-saída-inversor-atualizar').value = dadosOriginais.i_saida.toString().replace('.', ',')
+            document.getElementById('comprimento-inversor-atualizar').value = dadosOriginais.comprimento
+            document.getElementById('largura-inversor-atualizar').value = dadosOriginais.largura
+            document.getElementById('espessura-inversor-atualizar').value = dadosOriginais.espessura
+            document.getElementById('eficiência-inversor-atualizar').value = dadosOriginais.eficiencia.toString().replace('.', ',')
+
+            for(i = 0; i < arrayCamposObrigatorios.length; i++) {
+                arrayCamposObrigatorios[i].style.visibility = "hidden"
+                arrayCamposObrigatorios[i].style.display = "none"
+            }
+
+            for(i = 0; i < arrayInversorInexistente.length; i++) {
+                arrayInversorInexistente[i].style.visibility = "hidden"
+                arrayInversorInexistente[i].style.display = "none"
+            }
+        }
+
+        else if (dadosOriginais == 'Error: Request failed with status code 404') {
+            for(i = 0; i < arrayInversorInexistente.length; i++) {
+                arrayInversorInexistente[i].style.visibility = "visible"
+                arrayInversorInexistente[i].style.display = "flex"
+            }
+        }
+
+        else {
+            localStorage.setItem('access_token', dadosOriginais);
+            checar_autorizacao();
         }
     }
 
@@ -2179,7 +2336,7 @@ function filtrar_inversores(nomeFuncao) {
             lista.children[i].remove()
         }
     }
-
+    
     for (let opcao of lista.options) {
         opcao.onclick = function () {
             input.value = opcao.value.split('ID #')[1].split(' - ')[0];
@@ -2850,7 +3007,6 @@ async function mostrar_campos_atualizar_projetos() {
         }  
 
         else if (dadosOriginais == 'Error: Request failed with status code 404') {
-            console.log(dadosOriginais)
             for(i = 0; i < arrayProjectInexistente.length; i++) {
                 arrayProjectInexistente[i].style.visibility = "visible"
                 arrayProjectInexistente[i].style.display = "flex"
@@ -3238,12 +3394,24 @@ function aumento_usina1() {
     let estadoAumentoUsina1 = document.getElementById('checkbox-aumento-usina-1').checked;
     let arrayCheckbox = document.getElementsByClassName('form-checkbox-aumento-usina');
     let arrayContainer = document.getElementsByClassName('container-modulo-2');
+    let checkboxModulo1 = document.getElementById('modulo-anterior-1-adicionar');
+    let checkboxModulo2 = document.getElementById('modulo-anterior-2-adicionar');
+    let checkboxInversor1 = document.getElementById('inversor-anterior-1-adicionar');
+    let checkboxInversor2 = document.getElementById('inversor-anterior-2-adicionar');
+    let checkboxInversor3 = document.getElementById('inversor-anterior-3-adicionar');
+    let checkboxInversor4 = document.getElementById('inversor-anterior-4-adicionar');
+    let containerInversor2 = document.getElementById('container-inversor-21');
 
     if (estadoAumentoUsina1 == true) {
         document.getElementById('checkbox-ligacao-1').checked = false;
 
         document.getElementById('container-numero-instalacao-1').style.visibility = "visible";
         document.getElementById('container-numero-instalacao-1').style.display = "grid";
+
+        checkboxModulo1.checked = true;
+        checkboxInversor1.checked = true;
+        containerInversor2.style.visibility = "visible";
+        containerInversor2.style.display = "grid";
         
         for (let i = 0; i < arrayCheckbox.length; i++) {
             arrayCheckbox[i].style.visibility = "visible";
@@ -3256,10 +3424,19 @@ function aumento_usina1() {
     }
 
     else if(estadoAumentoUsina1 == false) {
-        document.getElementById('quantidade-módulo-2-adicionar').value = ''
-        document.getElementById('fabricante-módulo-2-adicionar').value = ''
-        document.getElementById('modelo-módulo-2-adicionar').value = ''
+        document.getElementById('quantidade-módulo-2-adicionar').value = '';
+        document.getElementById('fabricante-módulo-2-adicionar').value = '';
+        document.getElementById('modelo-módulo-2-adicionar').value = '';
         
+        checkboxModulo1.checked = false;
+        checkboxModulo2.checked = false;
+        checkboxInversor1.checked = false;
+        checkboxInversor2.checked = false;
+        checkboxInversor3.checked = false;
+        checkboxInversor4.checked = false;
+        containerInversor2.style.visibility = "hidden";
+        containerInversor2.style.display = "none";
+
         for (let i = 0; i < arrayCheckbox.length; i++) {
             arrayCheckbox[i].style.visibility = "hidden";
         }
@@ -3275,6 +3452,13 @@ function aumento_usina2() {
     let estadoAumentoUsina2 = document.getElementById('checkbox-aumento-usina-2').checked;
     let arrayCheckbox = document.getElementsByClassName('form-checkbox-aumento-usina');
     let arrayContainer = document.getElementsByClassName('container-modulo-2');
+    let checkboxModulo1 = document.getElementById('modulo-anterior-1-atualizar');
+    let checkboxModulo2 = document.getElementById('modulo-anterior-2-atualizar');
+    let checkboxInversor1 = document.getElementById('inversor-anterior-1-atualizar');
+    let checkboxInversor2 = document.getElementById('inversor-anterior-2-atualizar');
+    let checkboxInversor3 = document.getElementById('inversor-anterior-3-atualizar');
+    let checkboxInversor4 = document.getElementById('inversor-anterior-4-atualizar');
+    let containerInversor2 = document.getElementById('container-inversor-22');
 
     if (estadoAumentoUsina2 == true) {
         document.getElementById('checkbox-ligacao-2').checked = false;
@@ -3282,6 +3466,11 @@ function aumento_usina2() {
         document.getElementById('container-numero-instalacao-2').style.visibility = "visible";
         document.getElementById('container-numero-instalacao-2').style.display = "grid";
         
+        checkboxModulo1.checked = true;
+        checkboxInversor1.checked = true;
+        containerInversor2.style.visibility = "visible";
+        containerInversor2.style.display = "grid";
+
         for (let i = 0; i < arrayCheckbox.length; i++) {
             arrayCheckbox[i].style.visibility = "visible";
         }
@@ -3296,7 +3485,16 @@ function aumento_usina2() {
         document.getElementById('quantidade-módulo-2-atualizar').value = ''
         document.getElementById('fabricante-módulo-2-atualizar').value = ''
         document.getElementById('modelo-módulo-2-atualizar').value = ''
-                
+        
+        checkboxModulo1.checked = false;
+        checkboxModulo2.checked = false;
+        checkboxInversor1.checked = false;
+        checkboxInversor2.checked = false;
+        checkboxInversor3.checked = false;
+        checkboxInversor4.checked = false;
+        containerInversor2.style.visibility = "hidden";
+        containerInversor2.style.display = "none";
+
         for (let i = 0; i < arrayCheckbox.length; i++) {
             arrayCheckbox[i].style.visibility = "hidden";
         }
@@ -3333,6 +3531,24 @@ function agrupamento2() {
     else if (estadoAgrupamento2 == false) {
         document.getElementById('container-agrupamento-2').style.visibility = "hidden";
         document.getElementById('container-agrupamento-2').style.display = "none";
+    }
+}
+
+function modulo_antigo(descricao) {
+    let checkboxModuloAntigo = document.getElementById('modulo-anterior-' + descricao);
+
+    let arrayDescricao = descricao.split('-');
+
+    if (arrayDescricao[0] == '1') {
+        checkboxModuloAtual = document.getElementById('modulo-anterior-2-' + arrayDescricao[1])
+    }
+
+    else {
+        checkboxModuloAtual = document.getElementById('modulo-anterior-1-' + arrayDescricao[1])
+    }
+
+    if (checkboxModuloAntigo.checked == true) {
+        checkboxModuloAtual.checked = false
     }
 }
 
@@ -3560,7 +3776,7 @@ function filtrar_projetos(nomeFuncao) {
             lista.children[i].remove()
         }
     }
-
+    
     for (let opcao of lista.options) {
         opcao.onclick = function () {
             input.value = opcao.value.split(' ')[1].split('#')[1];
@@ -3695,7 +3911,7 @@ function filtrar_fabricantes_modulos(nomeFuncao) {
             lista.children[i].remove()
         }
     }
-
+    
     for (let opcao of lista.options) {
         opcao.onclick = function () {
             input.value = opcao.value;
@@ -3703,7 +3919,6 @@ function filtrar_fabricantes_modulos(nomeFuncao) {
         }
     }
 }
-
 
 async function mostrar_modelos_modulos(nomeFuncao) {
     let fabricante = document.getElementById('fabricante-módulo-' + nomeFuncao).value
@@ -3796,7 +4011,7 @@ function filtrar_modelos_modulos(nomeFuncao) {
             lista.children[i].remove()
         }
     }
-
+    
     for (let opcao of lista.options) {
         opcao.onclick = function () {
             input.value = opcao.value;
@@ -3917,7 +4132,7 @@ function filtrar_fabricantes_inversores(nomeFuncao) {
             lista.children[i].remove()
         }
     }
-
+    
     for (let opcao of lista.options) {
         opcao.onclick = function () {
             input.value = opcao.value;
@@ -3925,7 +4140,6 @@ function filtrar_fabricantes_inversores(nomeFuncao) {
         }
     }
 }
-
 
 async function mostrar_modelos_inversores(nomeFuncao) {
     let fabricante = document.getElementById('fabricante-inversor-' + nomeFuncao).value
@@ -4018,11 +4232,192 @@ function filtrar_modelos_inversores(nomeFuncao) {
             lista.children[i].remove()
         }
     }
-
+    
     for (let opcao of lista.options) {
         opcao.onclick = function () {
             input.value = opcao.value;
             lista.style.display = 'none';
         }
+    }
+}
+
+async function modulos_por_inversor(descricao) {
+    let checkboxModulo1 = document.getElementById('modulo-anterior-1-' + descricao);
+    let modeloModulo = '';
+
+    if (checkboxModulo1.checked == false) {
+        modeloModulo = document.getElementById('modelo-módulo-1-' + descricao).value;
+        numeroEntrada = document.getElementById('quantidade-módulo-1-' + descricao).value;
+    }
+
+    else {
+        modeloModulo = document.getElementById('modelo-módulo-2-' + descricao).value;
+        numeroEntrada = document.getElementById('quantidade-módulo-2-' + descricao).value;
+    }
+
+    let access_token = localStorage.getItem('access_token')
+
+    let totalModulosCalculado = 0;
+
+    for (i = 0; i < 4; i++) {
+        let modeloInversor = document.getElementById('modelo-inversor-' + String(i + 1) + '-' + descricao).value;
+        let quantidadeInversor = document.getElementById('quantidade-inversor-' + String(i + 1) + '-' + descricao).value;
+        
+        let numeroCalculado = 0;
+
+        if (modeloInversor != '' & modeloModulo != '' & access_token != 'Error: Request failed with status code 403' & access_token != 'Error: Request failed with status code 422' & access_token != null ) {
+            let config = {
+                headers: {
+                'Authorization': 'Bearer ' + access_token
+                }
+            }
+            
+            let dadosInversor = await axios.get(
+                'http://localhost:8000/inverters?buscar=' + modeloInversor, config
+            ).then(
+                function (response) {
+                    const dadosInversor = response.data;
+                    return dadosInversor;
+                }
+            ).catch(
+                function (error) {
+                    console.log(error);
+                    return error;
+                }
+            )
+
+            let dadosModulo = await axios.get(
+                'http://localhost:8000/modules?buscar=' + modeloModulo, config
+            ).then(
+                function (response) {
+                    const dadosModulo = response.data;
+                    return dadosModulo;
+                }
+            ).catch(
+                function (error) {
+                    console.log(error);
+                    return error;
+                }
+            )
+            if (dadosInversor != 'Error: Request failed with status code 404' & dadosInversor != 'Error: Request failed with status code 401' & dadosModulo != 'Error: Request failed with status code 404' & dadosModulo != 'Error: Request failed with status code 401') {
+                let imp_i = parseFloat(dadosInversor[0].imp)
+                let isc_i = parseFloat(dadosInversor[0].isc)
+                let vmp_i = parseFloat(dadosInversor[0].v_max_mppt)
+                let voc_i = parseFloat(dadosInversor[0].v_max)
+                let overload = parseFloat(dadosInversor[0].overload)
+                let n_entrada = parseFloat(dadosInversor[0].n_entrada)
+                let n_mppt = parseFloat(dadosInversor[0].n_mppt)
+                
+                let arrayEntradas = []
+                
+                let restoEntradas = n_entrada % n_mppt
+                let entradaPorMPPT = 0
+
+                if (restoEntradas == 0) {
+                    entradaPorMPPT = (n_entrada - restoEntradas) / n_mppt
+                }
+
+                else {
+                    entradaPorMPPT = (n_entrada - restoEntradas) / n_mppt + 1
+                }
+                
+                let imp_m = parseFloat(dadosModulo[0].imp)
+                let isc_m = parseFloat(dadosModulo[0].isc)
+                let vmp_m = parseFloat(dadosModulo[0].vmp)
+                let voc_m = parseFloat(dadosModulo[0].voc)
+                let potencia_m = parseFloat(dadosModulo[0].potencia)
+
+                let entradasUsaveis = 0;
+                
+                if (((imp_i / entradaPorMPPT) / imp_m) >= 0.95) {
+                    entradasUsaveis = entradaPorMPPT
+                }
+
+                else { 
+                    if ((imp_i / imp_m) < (isc_i / isc_m)) {
+                        entradasUsaveis = Math.floor(imp_i / imp_m)
+                    }
+
+                    else {
+                        entradasUsaveis = Math.floor(isc_i / isc_m)
+                    }
+                }
+
+                let modulosSerie = 0;
+                
+                if ((vmp_i / vmp_m) < (voc_i / voc_m)) {
+                    modulosSerie = Math.floor(vmp_i / vmp_m)
+                }
+
+                else {
+                    modulosSerie = Math.floor(voc_i / voc_m)
+                }
+
+                let totalEntradas = 0;
+
+                if (entradasUsaveis < entradaPorMPPT) {
+                    for (i = 0; i < n_mppt; i++) {
+                        arrayEntradas[i] = entradasUsaveis
+
+                        if(i >= restoEntradas & restoEntradas != 0) {
+                            arrayEntradas[i] -= 1
+                        }
+
+                        totalEntradas += arrayEntradas[i]
+                    }                
+                }
+
+                else {
+                    for (i = 0; i < n_mppt; i++) {
+                        arrayEntradas[i] = entradaPorMPPT
+
+                        if(i >= restoEntradas & restoEntradas != 0) {
+                            arrayEntradas[i] -= 1
+                        }
+
+                        totalEntradas += arrayEntradas[i]
+                    }
+                }
+
+                numeroModVI = totalEntradas * modulosSerie
+                numeroModP = Math.floor(overload / potencia_m)
+                    
+                
+                if (numeroModVI < numeroModP) {
+                    numeroCalculado = quantidadeInversor * numeroModVI
+                }
+
+                else {
+                    numeroCalculado = quantidadeInversor * numeroModP
+                }
+            }
+
+            let containerErro1 = document.getElementById('container-inversor-incompativel-' + String(i + 1) + '-' + descricao)
+            
+            if (numeroModVI == 0) {
+                containerErro1.style.visibility = "visible"
+                containerErro1.style.display = "flex"
+            }
+
+            else {
+                containerErro1.style.visibility = "hidden"
+                containerErro1.style.display = "none"
+            }
+        }
+
+        totalModulosCalculado += numeroCalculado
+        
+    }
+
+    let containerErro2 = document.getElementById('container-superou-overload-' + descricao)
+    
+    if (numeroEntrada > totalModulosCalculado) {
+        containerErro2.style.visibility = "visible"
+        containerErro2.style.display = "flex"
+    }
+
+    else {
+        containerErro2.style.visibility = "hidden"
+        containerErro2.style.display = "none"
     }
 }
