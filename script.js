@@ -246,7 +246,7 @@ async function checar_autorizacao() {
 
     else {
         let nomePagina = String(location.pathname.split("/").slice(-1));
-        console.log(nomePagina)
+        console.log(nomePagina === '')
         if (nomePagina != 'index.html' & nomePagina != '') {
             iconeHome = document.getElementsByClassName('uil uil-home');
             iconeHome[0].style.visibility = 'hidden';
