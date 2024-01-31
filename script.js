@@ -226,9 +226,9 @@ async function checar_autorizacao() {
         let nomePagina = String(location.pathname.split("/").slice(-1));
 
         if (nomePagina != 'index.html') {
-            iconeHome = document.getElementsByClassName('uil uil-home');
-            iconeHome[0].style.visibility = 'visible';
-            iconeHome[0].style.display = 'grid';
+            // iconeHome = document.getElementsByClassName('uil uil-home');
+            // iconeHome[0].style.visibility = 'visible';
+            // iconeHome[0].style.display = 'grid';
         }
 
         containerUsuario = document.getElementsByClassName('container-user');
