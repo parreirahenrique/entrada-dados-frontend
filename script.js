@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 // FUNÇÕES GERAIS PARA TODAS AS PÁGINAS
 function nome_usuario(input) {
     let valor = input.value.normalize("NFD").replace(/[\u0300-\u036f]/g, '');

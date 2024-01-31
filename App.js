@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 // FUNÇÕES DE LOGIN E LOGOUT DE USUÁRIOS
 async function login() {
     let usuario = document.getElementById('usuário').value;
