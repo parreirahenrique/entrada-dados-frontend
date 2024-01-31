@@ -1,4 +1,4 @@
-import axios from 'axios';
+// import axios from "axios";
 
 // FUNÇÕES DE LOGIN E LOGOUT DE USUÁRIOS
 async function login() {

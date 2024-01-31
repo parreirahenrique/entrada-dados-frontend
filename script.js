@@ -1,4 +1,4 @@
-import axios from 'axios';
+// import axios from "axios";
 
 // FUNÇÕES GERAIS PARA TODAS AS PÁGINAS
 function nome_usuario(input) {
