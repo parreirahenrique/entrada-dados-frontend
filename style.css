@@ -10,15 +10,15 @@ body {
 }
 
 html {
-    background-image: linear-gradient(rgba(0,0,0,.05),rgba(0,0,0,.40)100%), url('./img/background.jpg');
+    background-image: linear-gradient(rgba(0, 0, 0, .05), rgba(0, 0, 0, .40)100%), url('./img/background.jpg');
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
     background-attachment: fixed;
     scroll-behavior: smooth;
-    position:absolute; 
-    height:100%; 
-    width:100%;
+    position: absolute;
+    height: 100%;
+    width: 100%;
 }
 
 nav {
@@ -35,7 +35,7 @@ nav {
     height: 100px;
     background-color: black;
     z-index: 1;
-    
+
 }
 
 .container-usuario-autorizado {
@@ -68,8 +68,8 @@ p {
     text-align: center;
     margin-right: auto;
     margin-left: auto;
-    font-family: 'Zilla Slab', serif;
-    font-style: italic;
+    font-family: 'Crete Round', serif;
+    /* font-style: italic; */
     font-size: 60px;
     font-weight: bolder;
     text-align: center;
@@ -106,6 +106,7 @@ p {
     vertical-align: center;
     margin-left: auto;
     margin-right: auto;
+    padding-right: 10px;
 }
 
 
@@ -144,14 +145,14 @@ button {
     border-radius: 7.5px;
     width: 200px;
     height: 50px;
-    background: rgba(0,0,0,.75);
+    background: rgba(0, 0, 0, .75);
     border: 0;
-    list-style: none;    
+    list-style: none;
 }
 
 button:hover {
     color: white;
-    background: rgba(0,0,0,.6);
+    background: rgba(0, 0, 0, .6);
 }
 
 a {
@@ -167,7 +168,7 @@ input {
     color: transparent;
     margin-top: 20px;
     border: 0;
-    border-bottom: 3px solid rgba(0,0,0,.50);
+    border-bottom: 3px solid rgba(0, 0, 0, .50);
     border-radius: 3px;
     outline: none;
     background-color: rgb(255, 255, 255, .40);
@@ -190,15 +191,16 @@ label {
     pointer-events: none;
 }
 
-input, label {
+input,
+label {
     font-family: 'Roboto', sans-serif;
     font-size: medium;
     width: 100%;
     height: 40px;
 }
 
-input:focus + label, 
-input:valid + label {
+input:focus+label,
+input:valid+label {
     color: #424242;
     top: -15px;
     pointer-events: none;
@@ -216,13 +218,13 @@ input:hover {
     background-color: rgb(255, 255, 255, .60);
 }
 
-input::placeholder{
+input::placeholder {
     color: transparent;
     transition: .3s ease-in-out;
     text-align: left;
 }
 
-input:focus::placeholder{
+input:focus::placeholder {
     color: gray;
 }
 
@@ -236,7 +238,7 @@ datalist {
     border-radius: 0 0 5px 5px;
     z-index: 1;
 }
-  
+
 option {
     padding-top: 5px;
     padding-bottom: 5px;
@@ -249,7 +251,8 @@ option {
     width: 100%;
 }
 
-option:hover, .active{
+option:hover,
+.active {
     background-color: rgb(255, 255, 255, .9);
 }
 
@@ -304,7 +307,7 @@ td {
     justify-content: center;
     text-align: center;
     background-color: rgb(0, 0, 0, .30);
-    
+
 }
 
 .sucesso {
@@ -397,6 +400,8 @@ td {
 }
 
 .container-usuario-administrador {
+    display: flex;
+    flex-direction: row;
     margin-left: auto;
     margin-right: auto;
     margin-top: 20px;
@@ -1235,4 +1240,84 @@ span {
 
 .container-add-inverter {
     margin-top: 50px;
+}
+
+@media only screen and (max-width: 800px) {
+    nav {
+        /* margin-left: -10px; */
+        height: 75px;
+        width: 100%;
+    }
+
+    p {
+        font-size: 45px;
+    }
+
+    .container-usuario-autorizado {
+        padding: 0;
+        margin-right: 10px;
+        margin-left: 10px;
+        width: auto;
+    }
+
+    .container-usuario-autorizado .flexbox {
+        margin-left: -10px;
+    }
+    .container {
+        margin-right: auto;
+        margin-left: auto;
+        width: calc(100% - 20px);
+    }
+
+    ul {
+        -webkit-column-count: 1;
+        -moz-column-count: 1;
+        column-count: 1;
+        list-style: none;
+        box-sizing: border-box;
+    }
+
+    .container-usuario-nao-autorizado {
+        padding: 0;
+        margin-right: 10px;
+        margin-left: 10px;
+        width: auto;
+    }
+
+    .container-usuario-administrador {
+        display: flex;
+        flex-direction: column !important;
+    }
+
+    .sucesso {
+        height: 150px;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+
+    #container-geral {
+        visibility: none;
+        display: none;
+    }
+
+    #container-options {
+        display: flex;
+        flex-direction: column;
+        margin-right: auto;
+        margin-left: auto;
+        width: calc(100% - 20px);
+    }
+
+    button {
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+@media only screen and (max-width: 550px) {
+    p {
+        font-size: 25px;
+    }
 }
